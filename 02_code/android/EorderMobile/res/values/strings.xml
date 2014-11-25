@@ -5,4 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Tab -->
+	<string name="tab_name_goodsshop">菜单浏览</string>
+	<string name="tab_name_userorder">我的订单</string>
+	<string name="tab_name_settings">系统设置</string>
+	
+    
+	
 </resources>
