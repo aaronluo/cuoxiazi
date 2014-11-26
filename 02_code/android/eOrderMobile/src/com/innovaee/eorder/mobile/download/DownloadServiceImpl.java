@@ -13,34 +13,41 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+	
+import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
+import com.innovaee.eorder.mobile.utils.Env;
 	
+				
+public class DownloadServiceImpl implements GoodService, ClassifyService {  
+		
+	private final String SERVER = Env.Server.SERVER_TEST; 
 	
-public class GoodServiceImpl implements GoodService {  
-  
-    // 获取最新的商品信息  
-    /* (non-Javadoc) 
-     * @see cn.redarmy.service.Impl.GoodService#findAll() 
-     */  
+	/**
+	 * 获取最新的商品信息
+	 */
     @Override  
-    public List<GoodsDataBean> findAll() {  
+    public List<GoodsDataBean> getAllGoods() {  
         // 创建请求HttpClient客户端  
         HttpClient httpClient = new DefaultHttpClient();  
+        	
         // 创建请求的url  
-        String url = "http://192.168.4.32:8080/shop/csdn/listNewsGoods.action";  
+        String url = SERVER;  
+        
         try {  
             // 创建请求的对象  
             HttpGet get = new HttpGet(new URI(url));  
+            
             // 发送get请求  
             HttpResponse httpResponse = httpClient.execute(get);  
+            
             // 如果服务成功返回响应  
             if (httpResponse.getStatusLine().getStatusCode() == 200) {  
                 HttpEntity entity = httpResponse.getEntity();  
                 if (entity != null) {  
                     // 获取服务器响应的json字符串  
                     String json = EntityUtils.toString(entity);  
-                    return parseArrayJosn(json);  
+                    return parseGoodsDataJson(json);  
                 }  
             }  
         } catch (Exception e) {  
@@ -48,12 +55,17 @@ public class GoodServiceImpl implements GoodService {
         }  
         return null;  
     }  
-  
-    //解析json数组对象  
-    private List<GoodsDataBean> parseArrayJosn(String json) {  
+      
+    /**
+     * 解析json数组对象
+     * @param json
+     * @return
+     */
+    private List<GoodsDataBean> parseGoodsDataJson(String json) {  
         List<GoodsDataBean> goods = new ArrayList<GoodsDataBean>();  
         try {  
             JSONArray array = new JSONObject(json).getJSONArray("goods");  
+            
             for (int i = 0; i < array.length(); i++) {  
                 JSONObject obj = array.getJSONObject(i);  
                 GoodsDataBean good = new GoodsDataBean(obj.getInt("id"), obj.getString("name"),  
@@ -66,28 +78,31 @@ public class GoodServiceImpl implements GoodService {
         return goods;  
     }  
   
-    // 获取最新的单个商品的详细信息  
-    /* (non-Javadoc) 
-     * @see cn.redarmy.service.Impl.GoodService#findById() 
-     */  
+    /**
+     * 获取最新的单个商品的详细信息
+     */
     @Override  
-    public GoodsDataBean findById() {  
+    public GoodsDataBean findGoodsById() {  
         // 创建请求HttpClient客户端  
-        HttpClient httpClient = new DefaultHttpClient();  
+        HttpClient httpClient = new DefaultHttpClient(); 
+        			
         // 创建请求的url  
-        String url = "http://192.168.4.32:8080/shop/csdn/findGood.action";  
+        String url = SERVER; 
+        		
         try {  
             // 创建请求的对象  
             HttpGet get = new HttpGet(new URI(url));  
+            
             // 发送get请求  
             HttpResponse httpResponse = httpClient.execute(get);  
+            
             // 如果服务成功返回响应  
             if (httpResponse.getStatusLine().getStatusCode() == 200) {  
                 HttpEntity entity = httpResponse.getEntity();  
                 if (entity != null) {  
                     // 获取服务器响应的json字符串  
                     String json = EntityUtils.toString(entity);  
-                    return parseObjJosn(json);  
+                    return parseGoodsDetailJson(json);  
                 }  
             }  
         } catch (Exception e) {  
@@ -95,12 +110,17 @@ public class GoodServiceImpl implements GoodService {
         }  
         return null;  
     }  
-    
-    //解析json的单个对象  
-    private GoodsDataBean parseObjJosn(String json) {  
+    							  
+    /**
+     * 解析json的单个对象
+     * @param json
+     * @return
+     */
+    private GoodsDataBean parseGoodsDetailJson(String json) {  
         JSONObject obj = null;  
         try {  
             obj = new JSONObject(json).getJSONObject("good");  
+            
             GoodsDataBean good = new GoodsDataBean(obj.getInt("id"), obj.getString("name"),  
                     (float) obj.getDouble("price"));  
             return good;  
@@ -108,5 +128,61 @@ public class GoodServiceImpl implements GoodService {
             e.printStackTrace();  
         }  
         return null;  
-    }  
+    }
+
+    /**
+     * 获取最新的商品分类表
+     */
+	@Override	
+	public List<ClassifyDataBean> getAllClassify() {
+		// TODO Auto-generated method stub
+		// 创建请求HttpClient客户端  
+        HttpClient httpClient = new DefaultHttpClient();  
+        	
+        // 创建请求的url  
+        String url = SERVER;  
+        
+        try {  
+            // 创建请求的对象  
+            HttpGet get = new HttpGet(new URI(url));  
+            
+            // 发送get请求  
+            HttpResponse httpResponse = httpClient.execute(get);  
+            
+            // 如果服务成功返回响应  
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {  
+                HttpEntity entity = httpResponse.getEntity();  
+                if (entity != null) {  
+                    // 获取服务器响应的json字符串  
+                    String json = EntityUtils.toString(entity);  
+                    return parseClassifyDataJson(json);  
+                }  
+            }  	
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+        
+		return null;
+	}
+		  
+	/**
+	 * 解析json数组对象
+	 * @param json
+	 * @return
+	 */
+    private List<ClassifyDataBean> parseClassifyDataJson(String json) {  
+        List<ClassifyDataBean> classifyList = new ArrayList<ClassifyDataBean>();  
+        try {  
+            JSONArray array = new JSONObject(json).getJSONArray("classify");  
+            
+            for (int i = 0; i < array.length(); i++) {  
+                JSONObject obj = array.getJSONObject(i);  
+                ClassifyDataBean classify = new ClassifyDataBean(obj.getInt("id"), obj.getString("name"));  
+                classifyList.add(classify);  						
+            }  		
+        } catch (JSONException e) {  
+            e.printStackTrace();  
+        }  
+        return classifyList;  
+    }  		
 }  
