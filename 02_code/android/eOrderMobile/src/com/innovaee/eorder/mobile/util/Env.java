@@ -1,4 +1,4 @@
-package com.innovaee.eorder.mobile.utils;
+package com.innovaee.eorder.mobile.util;
 
 import android.os.Environment;
 

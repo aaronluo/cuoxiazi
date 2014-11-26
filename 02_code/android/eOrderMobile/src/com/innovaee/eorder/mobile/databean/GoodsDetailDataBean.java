@@ -7,24 +7,27 @@ import java.io.Serializable;
  * @author wanglinglong
  *
  */
-public class GoodsDataBean implements Serializable{
+public class GoodsDetailDataBean implements Serializable{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-			
-	public final static String TABLE = "goods";  			 	//表单名	
-	public final static String COLUM_ID = "id"; 			 	//id
-	public final static String COLUM_NAME = "name";			 	//名字
-	public final static String COLUM_PRICE = "price";		 	//价格
-			
+		
+	public final static String TABLE = "goods";  			 	//清单名	
+	public final static String COLUM_ID = "id"; 			 	//单独每项id
+	public final static String COLUM_NAME = "name";			 	//单独每项名
+	public final static String COLUM_PRICE = "price";		 	//单独每项总金额
+					
     private int id;
     	
     private String name;
     
     private float price;
     	
-    public GoodsDataBean() {
+    public GoodsDetailDataBean() {
     }
     			
-    public GoodsDataBean(int id, String name, float price) {
+    public GoodsDetailDataBean(int id, String name, float price) {
     	this.id = id;
     	this.name = name;
         this.price = price;

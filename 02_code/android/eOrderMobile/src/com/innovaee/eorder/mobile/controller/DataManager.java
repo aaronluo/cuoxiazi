@@ -1,28 +1,166 @@
 package com.innovaee.eorder.mobile.controller;
 
+import java.util.List;
+import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.databean.GoodsDataBean;
+import com.innovaee.eorder.mobile.databean.GoodsDetailDataBean;
+import com.innovaee.eorder.mobile.download.DownloadManager;
+import com.innovaee.eorder.mobile.download.ICallback;
+						
 import android.content.Context;
 	
 	
 /**
- * 
+ * 数据管理器
  * @author wanglinglong
  *
  */
 public class DataManager {
-	private static DataManager sSelf;
-	private Context mContext;
+	private static DataManager self;
+	private Context context;
 		
 	private DataManager(Context context) {
 		//TODO
-		mContext = context.getApplicationContext();
+		context = context.getApplicationContext();
 	}
 
 	public synchronized static DataManager getInstance(Context context) {
-		if (sSelf == null) {
-			sSelf = new DataManager(context);
+		if (self == null) {
+			self = new DataManager(context);
 		}
-		return sSelf;
+		return self;
 	}	
+			
+
+	/**
+	 * 获取所有分类列表
+	 * @param listener
+	 */
+	public void getClassifyData(final IDataRequestListener<ClassifyDataBean> listener) {
+		if (listener == null) {
+			// 无回调，也就没有实际意义
+			return;
+		}		
+			
+		DownloadManager mDldMgr = DownloadManager.getInstance(context);						
+		mDldMgr.getAllClassify(new ICallback<ClassifyDataBean>() {						
+			@Override
+			public void onStarted() {
+				listener.onRequestStart();
+			}
+							
+			@Override
+			public void onSuccess(List<ClassifyDataBean> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					listener.onRequestSuccess(response);	
+				} else {					
+					listener.onRequestFailed();
+				}
+			}
+			
+			@Override
+			public void onFailed(String error) {
+				listener.onRequestFailed();
+			}
+			
+			@Override
+			public void onSuccessT(ClassifyDataBean response) {
+				// TODO Auto-generated method stub				
+			}	
+
+		});					
+	}		
+
+	
+	/**
+	 * 获取所有商品列表
+	 * @param id
+	 * @param listener
+	 */
+	public void getGoodsData(int id, final IDataRequestListener<GoodsDataBean> listener) {
+		if (listener == null) {
+			// 无回调，也就没有实际意义
+			return;				
+		}		
+			
+		DownloadManager mDldMgr = DownloadManager.getInstance(context);						
+		mDldMgr.getAllGoods(new ICallback<GoodsDataBean>() {						
+			@Override
+			public void onStarted() {
+				listener.onRequestStart();
+			}
+					
+			@Override
+			public void onSuccess(List<GoodsDataBean> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					listener.onRequestSuccess(response);	
+				} else {					
+					listener.onRequestFailed();
+				}
+			}
+				
+			@Override
+			public void onFailed(String error) {
+				listener.onRequestFailed();
+			}
+							
+			@Override
+			public void onSuccessT(GoodsDataBean response) {
+				// TODO Auto-generated method stub				
+			}	
+
+		});					
+	}		
+
+	
+	/**	
+	 * 获取商品详情数据
+	 * @param id
+	 * @param listener
+	 */
+	public void getGoodsDetailData(int id, final IDataRequestListener<GoodsDetailDataBean> listener) {
+		if (listener == null) {
+			// 无回调，也就没有实际意义
+			return;				
+		}		
+				
+		DownloadManager mDldMgr = DownloadManager.getInstance(context);						
+		mDldMgr.getAllGoods(new ICallback<GoodsDetailDataBean>() {						
+			@Override
+			public void onStarted() {
+				listener.onRequestStart();
+			}
+					
+			@Override
+			public void onSuccess(List<GoodsDetailDataBean> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					listener.onRequestSuccess(response);	
+				} else {					
+					listener.onRequestFailed();
+				}
+			}
+				
+			@Override
+			public void onFailed(String error) {
+				listener.onRequestFailed();
+			}
+							
+			@Override
+			public void onSuccessT(GoodsDetailDataBean response) {
+				// TODO Auto-generated method stub	
+				boolean success = response != null;
+				if (success) {		
+					listener.onRequestSuccess(response);	
+				} else {					
+					listener.onRequestFailed();
+				}
+			}	
+
+		});					
+	}			
 		
 	
 	/**
@@ -34,7 +172,7 @@ public class DataManager {
 	 * @date  [2014年9月24日]
 	 */
 	public static interface IDataRequestListener<T> {
-
+		
 		/**
 		 * <br>功能简述:
 		 * <br>功能详细描述:
@@ -50,6 +188,14 @@ public class DataManager {
 		 */
 		public void onRequestSuccess(T data);
 
+		/**
+		 * <br>功能简述:
+		 * <br>功能详细描述:
+		 * <br>注意:
+		 * @param data 更新后的缓存数据列表	
+		 */	
+		public void onRequestSuccess(List<T> data);
+					
 		/**
 		 * <br>功能简述:
 		 * <br>功能详细描述:

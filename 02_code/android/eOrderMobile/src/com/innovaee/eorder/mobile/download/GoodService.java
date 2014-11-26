@@ -1,9 +1,5 @@
 package com.innovaee.eorder.mobile.download;
 
-import java.util.List;
-
-import com.innovaee.eorder.mobile.databean.GoodsDataBean;
-
 /**
  * 	
  * @author wanglinglong
@@ -12,9 +8,9 @@ import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 public interface GoodService {  
   
     // 获取最新的商品信息  
-    public abstract List<GoodsDataBean> getAllGoods();  
-    
+    public abstract <T> void getAllGoods(ICallback<T> callback);  
+    	
     // 获取最新的单个商品的详细信息  
-    public abstract GoodsDataBean findGoodsById();  
-    
+    public abstract <T> void findGoodsById(ICallback<T> callback);  
+    																	
 }  	

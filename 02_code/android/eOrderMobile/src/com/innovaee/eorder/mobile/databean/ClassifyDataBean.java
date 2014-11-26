@@ -13,9 +13,9 @@ public class ClassifyDataBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 		
-	public final static String TABLE = "classify";  			//清单名	
-	public final static String COLUM_ID = "id"; 			 	//单独每项id
-	public final static String COLUM_NAME = "name";			 	//单独每项名
+	public final static String TABLE = "classify";  			//表单名	
+	public final static String COLUM_ID = "id"; 			 	//id
+	public final static String COLUM_NAME = "name";			 	//名字
 			
     private int id;
     	

@@ -13,8 +13,20 @@
         	android:layout_height="wrap_content"
         	android:textColor="#FF000000" 
         	android:textSize="24dp"
-        	android:text="菜品浏览" />			
+        	android:text="@string/tab_name_goodsshop" />			
 	</RelativeLayout>
-								
+						    			
+    <GridView 
+    	android:id="@+id/goods_gridview"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:numColumns="3"
+    	android:verticalSpacing="10dp"
+    	android:horizontalSpacing="10dp"
+    	android:stretchMode="columnWidth"
+    	android:gravity="center"			
+    	android:layout_below="@+id/title_bar"
+	/>		
+    				
 </RelativeLayout>
 		

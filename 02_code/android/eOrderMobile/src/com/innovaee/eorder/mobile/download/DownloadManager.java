@@ -14,21 +14,54 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 	
+import android.content.Context;
+
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
-import com.innovaee.eorder.mobile.utils.Env;
+import com.innovaee.eorder.mobile.util.Env;
 	
-				
-public class DownloadServiceImpl implements GoodService, ClassifyService {  
+/**
+ * 下载管理器				
+ * @author wanglinglong
+ *
+ */
+public class DownloadManager implements GoodService, ClassifyService {  
+	private static DownloadManager self;
 		
 	private final String SERVER = Env.Server.SERVER_TEST; 
+		
+	private Context context;
+	
+	/**
+	 * 	
+	 * @param context
+	 */
+	private DownloadManager(Context context) {
+		if (context == null) {
+			throw new IllegalArgumentException("context can not be null");
+		}
+		context = context.getApplicationContext();
+	}
+		
+	/**
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static synchronized DownloadManager getInstance(Context context) {
+		if (self == null) {
+			self = new DownloadManager(context);
+		}
+		return self;
+	}
 	
 	/**
 	 * 获取最新的商品信息
 	 */
-    @Override  
-    public List<GoodsDataBean> getAllGoods() {  
-        // 创建请求HttpClient客户端  
+    @SuppressWarnings("unchecked")
+	@Override  		
+    public <T> void getAllGoods(ICallback<T> callback) {  
+        // 创建请求HttpClient客户端  	
         HttpClient httpClient = new DefaultHttpClient();  
         	
         // 创建请求的url  
@@ -47,15 +80,15 @@ public class DownloadServiceImpl implements GoodService, ClassifyService {
                 if (entity != null) {  
                     // 获取服务器响应的json字符串  
                     String json = EntityUtils.toString(entity);  
-                    return parseGoodsDataJson(json);  
-                }  
-            }  
+                    List<T> beans = (List<T>) parseGoodsDataJson(json);  
+                    callback.onSuccess(beans);	
+                } 							 
+            }  	
         } catch (Exception e) {  
             e.printStackTrace();  
-        }  
-        return null;  
+        }    
     }  
-      
+      	
     /**
      * 解析json数组对象
      * @param json
@@ -81,11 +114,12 @@ public class DownloadServiceImpl implements GoodService, ClassifyService {
     /**
      * 获取最新的单个商品的详细信息
      */
-    @Override  
-    public GoodsDataBean findGoodsById() {  
+    @SuppressWarnings("unchecked")
+	@Override  
+    public  <T> void findGoodsById(ICallback<T> callback) {  
         // 创建请求HttpClient客户端  
         HttpClient httpClient = new DefaultHttpClient(); 
-        			
+        	
         // 创建请求的url  
         String url = SERVER; 
         		
@@ -101,14 +135,15 @@ public class DownloadServiceImpl implements GoodService, ClassifyService {
                 HttpEntity entity = httpResponse.getEntity();  
                 if (entity != null) {  
                     // 获取服务器响应的json字符串  
-                    String json = EntityUtils.toString(entity);  
-                    return parseGoodsDetailJson(json);  
-                }  
+                    String json = EntityUtils.toString(entity);   
+                    
+                    T bean = (T) parseGoodsDetailJson(json);  
+                    callback.onSuccessT(bean);			                    			
+                }	  
             }  
         } catch (Exception e) {  
             e.printStackTrace();  
-        }  
-        return null;  
+        } 			   
     }  
     							  
     /**
@@ -133,8 +168,9 @@ public class DownloadServiceImpl implements GoodService, ClassifyService {
     /**
      * 获取最新的商品分类表
      */
-	@Override	
-	public List<ClassifyDataBean> getAllClassify() {
+	@SuppressWarnings("unchecked")
+	@Override		
+	public  <T> void getAllClassify(ICallback<T> callback) {
 		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端  
         HttpClient httpClient = new DefaultHttpClient();  
@@ -154,17 +190,16 @@ public class DownloadServiceImpl implements GoodService, ClassifyService {
                 HttpEntity entity = httpResponse.getEntity();  
                 if (entity != null) {  
                     // 获取服务器响应的json字符串  
-                    String json = EntityUtils.toString(entity);  
-                    return parseClassifyDataJson(json);  
+                    String json = EntityUtils.toString(entity);   
+                    List<T> beans = (List<T>) parseClassifyDataJson(json);  
+                    callback.onSuccess(beans);	
                 }  
             }  	
         } catch (Exception e) {  
             e.printStackTrace();  
-        }  
-        
-		return null;
+        }  	
 	}
-		  
+		  	
 	/**
 	 * 解析json数组对象
 	 * @param json

@@ -1,4 +1,4 @@
-package com.innovaee.eorder.mobile.utils;
+package com.innovaee.eorder.mobile.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
