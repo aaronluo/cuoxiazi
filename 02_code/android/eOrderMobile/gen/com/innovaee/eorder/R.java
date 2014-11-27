@@ -35,6 +35,9 @@ public final class R {
         public static final int tab_selector_goodsshop=0x7f020007;
         public static final int tab_selector_settings=0x7f020008;
         public static final int tab_selector_userorder=0x7f020009;
+        public static final int themestore_common_default_pic=0x7f02000a;
+        public static final int themestore_common_foreground=0x7f02000b;
+        public static final int themestore_common_foreground_pressed=0x7f02000c;
     }
     public static final class id {
         public static final int classify_description=0x7f080002;

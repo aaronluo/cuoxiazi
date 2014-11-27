@@ -11,7 +11,7 @@ import android.os.Environment;
 import android.util.Log;
 
 /**
-*
+*  文件操作工具集
 * @author
 * 
 */	
