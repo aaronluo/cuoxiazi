@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+						"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="com.innovaee.eorder.web.action.admin.function" namespace="/function" extends="struts-base">
+		<action name="doFunction" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doFunction">
+			<result name="success">/pages/admin/function/function.jsp</result>
+		</action>
+
+		<action name="doList" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="list">
+			<result>/pages/admin/function/function.jsp</result>
+		</action>
+		<action name="doEdit" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="load">
+			<result>/pages/admin/function/functionEdit.jsp</result>
+		</action>
+		<action name="doStore" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doStore">
+			<result type="redirect">doFunction.action</result>
+		</action>
+		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doUpdate">
+			<result type="redirect">doFunction.action</result>
+		</action>
+		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="remove">
+			<result type="redirect">doFunction.action</result>
+		</action>
+	</package>
+
+</struts>

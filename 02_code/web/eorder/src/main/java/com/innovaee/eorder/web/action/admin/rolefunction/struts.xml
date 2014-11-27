@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+						"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="com.innovaee.eorder.web.action.admin.rolefunction" namespace="/rolefunction" extends="struts-base">
+		<action name="doRoleFunction" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="doRoleFunction">
+			<result name="success">/pages/admin/rolefunction/rolefunction.jsp</result>
+		</action>
+
+		<action name="doList" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="list">
+			<result>/pages/admin/rolefunction/rolefunction.jsp</result>
+		</action>
+		<action name="doLoad" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="load">
+			<result>/pages/admin/rolefunction/rolefunction.jsp</result>
+		</action>
+		<action name="doStore" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="doStore">
+			<result type="redirect">doRoleFunction.action</result>
+		</action>
+		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="doUpdate">
+			<result>/pages/admin/rolefunction/rolefunction.jsp</result>
+		</action>
+		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="remove">
+			<result type="redirect">doRoleFunction.action</result>
+		</action>
+
+		<action name="roleFunctionAction" class="com.innovaee.eorder.web.action.admin.rolefunction.RoleFunctionAction" method="execute">
+			<result name="input">/pages/admin/rolefunction/rolefunction.jsp</result>
+			<result name="success">/pages/admin/rolefunction/rolefunction.jsp</result>
+		</action>
+	</package>
+
+</struts>

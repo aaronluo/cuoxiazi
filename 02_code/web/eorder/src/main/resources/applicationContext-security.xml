@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<global-method-security pre-post-annotations="enabled" />
+
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="authenticationService">
+			<password-encoder hash="md5">
+				<salt-source user-property="username" />
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="myFilter"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="authorizationService" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSourceService" />
+	</beans:bean>
+
+	<!-- authentication-failure-url="/pages/global/error.jsp" -->
+	<http auto-config="true" use-expressions="true"
+		access-denied-page="/pages/global/accessDenied.jsp">
+		<form-login login-page="/login/login.action"
+			authentication-failure-url="/login/login.action?error=true"
+			default-target-url="/login/doLogin.action" />
+		<logout logout-success-url="/default.html" />
+		<remember-me />
+		<session-management invalid-session-url="/default.html">
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</session-management>
+
+		<intercept-url pattern="/resources/**" filters="none" />
+		<intercept-url pattern="/default.html" filters="none" />
+		<intercept-url pattern="/login/login.action" filters="none" />
+
+		<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+	</http>
+
+
+</beans:beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+						"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="com.innovaee.eorder.web.action.admin.role" namespace="/role" extends="struts-base">
+		<action name="doRole" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="doRole">
+			<result name="success">/pages/admin/role/role.jsp</result>
+		</action>
+
+		<action name="doList" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="list">
+			<result>/pages/admin/role/role.jsp</result>
+		</action>
+		<action name="doEdit" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="load">
+			<result>/pages/admin/role/roleEdit.jsp</result>
+		</action>
+		<action name="doStore" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="doStore">
+			<result type="redirect">doRole.action</result>
+		</action>
+		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="doUpdate">
+			<result type="redirect">doRole.action</result>
+		</action>
+		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.role.RoleAction" method="remove">
+			<result type="redirect">doRole.action</result>
+		</action>
+	</package>
+
+</struts>

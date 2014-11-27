@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+						"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="com.innovaee.eorder.web.action.admin.bankprofilesetup" namespace="/admin" extends="struts-base">
+		<action name="doBankProfileSetup" class="com.innovaee.eorder.web.action.admin.bankprofilesetup.BankProfileSetupAction" method="doBankProfileSetup">
+			<result name="success">/pages/admin/bankprofilesetup/bankprofilesetup.jsp</result>
+		</action>
+	</package>
+
+</struts>
