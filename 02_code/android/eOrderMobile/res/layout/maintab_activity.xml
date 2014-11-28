@@ -22,6 +22,7 @@
 	            	android:orientation="horizontal" 
 	            	android:id="@+id/main_tab_group" 	 
 	            	android:paddingTop="6.0dip" 
+	            	android:background="#ffdddddd"
 	            	android:layout_width="fill_parent" 
 	            	android:layout_height="wrap_content">
 	            	

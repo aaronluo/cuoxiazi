@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.util.RemoteImageView;
 
 
 import android.content.Context;
@@ -18,11 +19,11 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 				
 public class ClassifyAdapter extends BaseAdapter {
-	private List<Map<String, ClassifyDataBean>> listItemsData;
+	private List<ClassifyDataBean> listItemsData;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private ClassifyDataBean classifyItemData;
-						
+	
 	public final class ListItemView{               
         public ImageView image;    
         public TextView title;    
@@ -32,10 +33,10 @@ public class ClassifyAdapter extends BaseAdapter {
 		this.context = context;
 	}
 		
-	public ClassifyAdapter(Context context, List<Map<String, ClassifyDataBean>> list) {
-		listItemsData = list;
+	public ClassifyAdapter(Context context, List<ClassifyDataBean> list) {
+		this.listItemsData = list;
 		this.context = context;
-	}	
+	}		
 		
 	public ClassifyAdapter(Context context, ArrayList<String> list) {
 		this.context = context;
@@ -66,20 +67,20 @@ public class ClassifyAdapter extends BaseAdapter {
 		
         if (layoutInflater != null) {	        	
             view = layoutInflater.inflate(R.layout.classify_griditem, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.classify_image);
+            RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.classify_image);
             TextView name = (TextView) view.findViewById(R.id.classify_name);
-            		
+            					
             //获取自定义的类实例					
             classifyItemData = (ClassifyDataBean) listItemsData.get(position);				
-            //imageView.setImageBitmap(classifyItemData.getId());
-            name.setText(classifyItemData.getName());	      		      		
-        }				
+            imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
+            name.setText(classifyItemData.getName());	      		      							
+        }					
         return view;	
 	}
 	
 	public void setViewBinder(ViewBinder viewBinder) {
 		// TODO Auto-generated method stub
-							
+				
 	}
 
 }

@@ -212,9 +212,9 @@ public class DownloadManager implements GoodService, ClassifyService {
             
             for (int i = 0; i < array.length(); i++) {  
                 JSONObject obj = array.getJSONObject(i);  
-                ClassifyDataBean classify = new ClassifyDataBean(obj.getInt("id"), obj.getString("name"));  
-                classifyList.add(classify);  						
-            }  		
+                ClassifyDataBean classify = new ClassifyDataBean(obj.getInt("id"), obj.getString("name"), obj.getString("url"));  
+                classifyList.add(classify);  								
+            }  				
         } catch (JSONException e) {  
             e.printStackTrace();  
         }  

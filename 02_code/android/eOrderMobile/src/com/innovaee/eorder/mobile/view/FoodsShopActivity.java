@@ -39,16 +39,16 @@ public class FoodsShopActivity extends Activity {
 	
 	private List<ClassifyDataBean> classifyListData;
 					
-	
+		
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case MSG_UPDATE: {	
-					classifyDataList = (List<Map<String, ClassifyDataBean>>) msg.obj;	
-					classifyAdapter = new ClassifyAdapter(FoodsShopActivity.this, classifyDataList);										
+			case MSG_UPDATE: {		
+					classifyListData = (List<ClassifyDataBean>) msg.obj;
+					classifyAdapter = new ClassifyAdapter(FoodsShopActivity.this, classifyListData);										
 					gridView.setAdapter(classifyAdapter);															
-				}																																				
+				}																																						
 				break;					
 					
             case MSG_INITDATA:
@@ -73,6 +73,7 @@ public class FoodsShopActivity extends Activity {
         
         initData();
         
+        initTestData();
     }	
     
     /**
@@ -86,8 +87,8 @@ public class FoodsShopActivity extends Activity {
      * init data
      */
     private void initData() {
-    	classifyAdapter = new ClassifyAdapter(this, classifyDataList);
-    					
+    	classifyAdapter = new ClassifyAdapter(this, classifyListData);
+    						
     	gridView.setAdapter(classifyAdapter);  
     	  		
     	gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -96,10 +97,11 @@ public class FoodsShopActivity extends Activity {
         		
             }				
         });
-    			
-    	loadData();
+    		
+    	//先屏蔽数据获取接口
+    	//loadData();
     }
-    	
+    			
     /**
      * 加载数据
      */				
@@ -148,5 +150,23 @@ public class FoodsShopActivity extends Activity {
   	  	msg.what = MSG_UPDATE;
   	  	msg.obj = (Object)classifyListData;	
   	  	handler.sendMessage(msg);  
-    }				
+    }
+    
+    /**
+     * 初始化测试数据
+     */
+    private void initTestData() {
+    	ClassifyDataBean databean = new ClassifyDataBean();
+    	
+    	for (int i = 0; i>10; i++) {
+    		databean = new ClassifyDataBean();
+    		databean.setId(i);
+    		databean.setName("分类名" + String.valueOf(i));
+    		databean.setBitmapUrl("http://preview.quanjing.com/chineseview001/36-0416.jpg");
+    		classifyListData.add(databean);					
+    	}								 											   		
+    	
+    	updateUi();
+    }	
+    
 }	
