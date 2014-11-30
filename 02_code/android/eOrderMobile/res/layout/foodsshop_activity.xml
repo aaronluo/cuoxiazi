@@ -3,32 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout  	
-    	android:orientation="horizontal" 
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content"
-    	android:background="#ffffffff"
-    	android:id="@+id/title_bar">		
-    	<TextView android:layout_width="wrap_content" 
-        	android:layout_centerInParent="true" 
-        	android:layout_height="wrap_content"
-        	android:textColor="#FF000000" 
-        	android:textSize="24dp"
-        	android:text="@string/tab_name_goodsshop" />			
-	</RelativeLayout>
-						    			
-    <GridView 
-    	android:id="@+id/goods_gridview"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:numColumns="3"
-    	android:verticalSpacing="10dp"
-    	android:horizontalSpacing="10dp"
-    	android:stretchMode="columnWidth"
-    	android:gravity="center"		
-    	android:background="#ffffffff"	
-    	android:layout_below="@+id/title_bar"
-	/>		
-    						
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/tab_name_goodsshop"
+            android:textColor="#FF000000"
+            android:textSize="24dp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/goods_gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title_bar"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
+
 </RelativeLayout>
-		

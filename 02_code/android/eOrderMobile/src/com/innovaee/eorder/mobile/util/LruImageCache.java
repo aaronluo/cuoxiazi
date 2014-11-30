@@ -8,13 +8,15 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
+
 /**
  * 
- * <br>类描述:LRU图片缓存器
- * <br>功能详细描述:
+ * <br>
+ * 类描述:LRU图片缓存器 <br>
+ * 功能详细描述:
  * 
- * @author  wangzhuobin
- * @date  [2012-11-30]
+ * @author wangzhuobin
+ * @date [2012-11-30]
  */
 @SuppressLint("NewApi")
 public class LruImageCache implements IImageCache {
@@ -25,8 +27,7 @@ public class LruImageCache implements IImageCache {
 	public static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
 	/**
-	 * 强引用缓存，线程安全
-	 * 当缓存超过限定大小时，该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
+	 * 强引用缓存，线程安全 当缓存超过限定大小时，该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
 	 */
 	private LruCache<String, Bitmap> lruCache = null;
 
@@ -42,9 +43,9 @@ public class LruImageCache implements IImageCache {
 		lruCache = new LruCache<String, Bitmap>(maxMemorySize) {
 
 			@Override
-			protected void entryRemoved(boolean evicted, String key, Bitmap oldValue,
-					Bitmap newValue) {
-				//如果超过了大小，就把从强引用移除的图片加入到弱引用中
+			protected void entryRemoved(boolean evicted, String key,
+					Bitmap oldValue, Bitmap newValue) {
+				// 如果超过了大小，就把从强引用移除的图片加入到弱引用中
 				if (evicted) {
 					softCache.put(key, new SoftReference<Bitmap>(oldValue));
 				}
@@ -84,7 +85,7 @@ public class LruImageCache implements IImageCache {
 		if (key == null) {
 			return null;
 		}
-		//先从强引用缓存中取，如果取不到的话，再从弱引用缓存里面取
+		// 先从强引用缓存中取，如果取不到的话，再从弱引用缓存里面取
 		Bitmap bitmap = lruCache.get(key);
 		if (bitmap == null) {
 			SoftReference<Bitmap> softReference = softCache.get(key);
@@ -112,7 +113,7 @@ public class LruImageCache implements IImageCache {
 	public int getMaxMemorySize() {
 		return maxMemorySize;
 	}
-	
+
 	@Override
 	public void recycle(String key) {
 		if (TextUtils.isEmpty(key)) {

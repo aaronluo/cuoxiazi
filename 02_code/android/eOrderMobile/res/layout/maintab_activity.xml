@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost android:id="@android:id/tabhost" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout 
-        android:orientation="vertical" 
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent">        
-        <FrameLayout 
-            android:id="@android:id/tabcontent" 
-            android:layout_width="fill_parent" 
-            android:layout_height="0.0dip" 
-            android:layout_weight="1.0" />	        
-        	<TabWidget 
-            	android:id="@android:id/tabs" 
-            	android:visibility="gone" 
-            	android:layout_width="fill_parent" 
-            	android:layout_height="wrap_content" 
-            	android:layout_weight="0.0" />        
-        		<LinearLayout 
-            		android:gravity="bottom" 
-	            	android:layout_gravity="bottom" 
-	            	android:orientation="horizontal" 
-	            	android:id="@+id/main_tab_group" 	 
-	            	android:paddingTop="6.0dip" 
-	            	android:background="#ffdddddd"
-	            	android:layout_width="fill_parent" 
-	            	android:layout_height="wrap_content">
-	            	
-            		<RadioButton 
-                		android:id="@+id/tab_goodsshop" 
-	                	android:checked="true" 
-	                	android:text="@string/tab_name_goodsshop" 
-	                	android:drawableTop="@drawable/tab_selector_goodsshop" 
-	                	style="@style/MMTabButton" />
-            	
-	            	<RadioButton 
-	                	android:id="@+id/tab_userorder" 
-	                	android:text="@string/tab_name_userorder" 
-	                	android:drawableTop="@drawable/tab_selector_userorder" 
-	                	style="@style/MMTabButton" />
-	            				
-	                <RadioButton 
-		            	android:id="@+id/tab_settings" 
-		            	android:text="@string/tab_name_settings" 
-		            	android:drawableTop="@drawable/tab_selector_settings" 
-		            	style="@style/MMTabButton" />			        	    			            	            
-        		</LinearLayout>        	
-	</LinearLayout>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" />
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/main_tab_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#ffdddddd"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingTop="6.0dip" >
+
+            <RadioButton
+                android:id="@+id/tab_goodsshop"
+                style="@style/MMTabButton"
+                android:checked="true"
+                android:drawableTop="@drawable/tab_selector_goodsshop"
+                android:text="@string/tab_name_goodsshop" />
+
+            <RadioButton
+                android:id="@+id/tab_userorder"
+                style="@style/MMTabButton"
+                android:drawableTop="@drawable/tab_selector_userorder"
+                android:text="@string/tab_name_userorder" />
+
+            <RadioButton
+                android:id="@+id/tab_settings"
+                style="@style/MMTabButton"
+                android:drawableTop="@drawable/tab_selector_settings"
+                android:text="@string/tab_name_settings" />
+        </LinearLayout>
+    </LinearLayout>
+
 </TabHost>
-	

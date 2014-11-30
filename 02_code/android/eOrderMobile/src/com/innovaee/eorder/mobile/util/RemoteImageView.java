@@ -23,22 +23,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-	
 /**
  * ImageView extended class allowing easy downloading of remote images
  * 
  * @author majunwen
  */
 public class RemoteImageView extends ImageView implements IForeground {
-	
+
 	private static final int STATE_LOADING = 0x01;
 	private static final int STATE_SUCCESS = 0x02;
 	private static final int STATE_ERROR = 0x03;
-	
+
 	private int state = STATE_LOADING;
-	
+
 	// Hard cache, with a fixed maximum capacity and a life duration
-	//    private final static LinkedList<Bitmap> sHardBitmapCache = new LinkedList<Bitmap>();
+	// private final static LinkedList<Bitmap> sHardBitmapCache = new
+	// LinkedList<Bitmap>();
 	private final Map<ImageView, String> imageViews = Collections
 			.synchronizedMap(new WeakHashMap<ImageView, String>());
 
@@ -63,7 +63,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 * Image manager
 	 */
 	private ThemeImageManager themeImageManager;
-	
+
 	private ImageView.ScaleType scaleTypeDefault;
 	private ImageView.ScaleType scaleTypeContent;
 	/**
@@ -83,15 +83,14 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 */
 	private int aspectSize;
 	private AspectRef aspectRef;
-	
+
 	private ForegroundAdapter fgAdapter;
 
 	/**
 	 * 计算大小时候，高款比参照物
 	 */
 	public static enum AspectRef {
-		WIDTH,
-		HEIGHT;
+		WIDTH, HEIGHT;
 	}
 
 	public RemoteImageView(Context context, AttributeSet attrs, int defStyle) {
@@ -126,16 +125,16 @@ public class RemoteImageView extends ImageView implements IForeground {
 		aspectSize = 0;
 		aspectRef = AspectRef.HEIGHT;
 	}
-	
+
 	public void setIsApplyAspect(boolean apply) {
 		applyAspect = apply;
 	}
-	
+
 	public void setAspectSize(AspectRef ref, int size) {
 		aspectRef = ref;
 		aspectSize = size;
 	}
-	
+
 	public void setDefaultAspect(float defaultDefault) {
 		defaultAspect = defaultDefault;
 	}
@@ -143,7 +142,8 @@ public class RemoteImageView extends ImageView implements IForeground {
 	/**
 	 * Loads image from remote location
 	 * 
-	 * @param url eg. http://random.com/abz.jpg
+	 * @param url
+	 *            eg. http://random.com/abz.jpg
 	 */
 	public void setImageUrl(String url) {
 		if (TextUtils.isEmpty(url)) {
@@ -162,26 +162,28 @@ public class RemoteImageView extends ImageView implements IForeground {
 		} else {
 			loadDefaultImage();
 			try {
-				themeImageManager.downloadImage(url, hashCode(), new OnImageLoaderListener() {
-					@Override	
-					public void onImageLoader(final Bitmap bitmap, final String url) {
+				themeImageManager.downloadImage(url, hashCode(),
+						new OnImageLoaderListener() {
+							@Override
+							public void onImageLoader(final Bitmap bitmap,
+									final String url) {
 								Log.i("RemoteImageView",
 										"downloadImage "
 												+ " callback, bitmap "
 												+ (bitmap == null ? "null"
 														: bitmap.toString())
 												+ ", url:" + url);
-						if (bitmap != null) {
-							uiHandler.post(new Runnable() {
+								if (bitmap != null) {
+									uiHandler.post(new Runnable() {
 
-								@Override
-								public void run() {
-									setImageBitmap(url, bitmap);
+										@Override
+										public void run() {
+											setImageBitmap(url, bitmap);
+										}
+									});
 								}
-							});
-						}
-					}
-				});
+							}
+						});
 
 			} catch (RejectedExecutionException e) {
 				// do nothing, just don't crash
@@ -217,13 +219,17 @@ public class RemoteImageView extends ImageView implements IForeground {
 					}
 				} else if (width > 0 && height > 0
 						&& (width < bitmapW || height < bitmapH)) {
-					float scale = Math.min((float) width / bitmapW, (float) height / bitmapH);
-					int desWidth = Math.min(bitmapW, Math.round(bitmapW * scale));
-					int desHeight = Math.min(bitmapH, Math.round(bitmapH * scale));
+					float scale = Math.min((float) width / bitmapW,
+							(float) height / bitmapH);
+					int desWidth = Math.min(bitmapW,
+							Math.round(bitmapW * scale));
+					int desHeight = Math.min(bitmapH,
+							Math.round(bitmapH * scale));
 					bitmap = Bitmap.createScaledBitmap(bitmap, desWidth,
 							desHeight, false);
-					Log.i("RemoteImageView", "compreseBitmap, srcWidth:" + bitmapW
-							+ ", srcHeight:" + bitmapH + ", dstWidth:" + desWidth + ", dstHeight:"
+					Log.i("RemoteImageView", "compreseBitmap, srcWidth:"
+							+ bitmapW + ", srcHeight:" + bitmapH
+							+ ", dstWidth:" + desWidth + ", dstHeight:"
 							+ desHeight);
 				}
 				BitmapDrawable bmpDrawable = new BitmapDrawable(getResources(),
@@ -236,14 +242,12 @@ public class RemoteImageView extends ImageView implements IForeground {
 				RemoteImageView.this.setImageDrawable(bmpDrawable);
 			}
 		}
-		final float bitmapSize = bitmap == null ? .0f : (float) (bitmap.getRowBytes() * bitmap
-				.getHeight()) / 1024;
+		final float bitmapSize = bitmap == null ? .0f : (float) (bitmap
+				.getRowBytes() * bitmap.getHeight()) / 1024;
 		Log.i("RemoteImageView", "setImageBitmap "
-				+ (state == STATE_SUCCESS ? "success" : "failed") + ", size:" + bitmapSize + "KB"
-				+ ", url:"
-				+ url);
+				+ (state == STATE_SUCCESS ? "success" : "failed") + ", size:"
+				+ bitmapSize + "KB" + ", url:" + url);
 	}
-
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -261,7 +265,8 @@ public class RemoteImageView extends ImageView implements IForeground {
 		} else {
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		}
-		if (!applyAspect && getScaleType() == ScaleType.MATRIX && getDrawable() != null) {
+		if (!applyAspect && getScaleType() == ScaleType.MATRIX
+				&& getDrawable() != null) {
 			Drawable drawable = getDrawable();
 			setImageMatrix(drawable.getIntrinsicWidth(),
 					drawable.getIntrinsicHeight(), getMeasuredWidth(),
@@ -275,9 +280,10 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 * @param url
 	 * @return
 	 */
-	/*public Bitmap getImageUsingUrl(String url) {
-		return themeImageManager.getBitmap(url);
-	}*/
+	/*
+	 * public Bitmap getImageUsingUrl(String url) { return
+	 * themeImageManager.getBitmap(url); }
+	 */
 
 	/**
 	 * Sets default local image shown when remote one is unavailable
@@ -287,11 +293,11 @@ public class RemoteImageView extends ImageView implements IForeground {
 	public void setDefaultImage(Integer resid) {
 		defaultImage = resid;
 	}
-	
+
 	public void setScaleTypeDefault(ImageView.ScaleType scaleType) {
 		scaleTypeDefault = scaleType;
 	}
-	
+
 	public void setScaleTypeContent(ImageView.ScaleType scaleType) {
 		scaleTypeContent = scaleType;
 	}
@@ -314,31 +320,30 @@ public class RemoteImageView extends ImageView implements IForeground {
 	/**
 	 * Loads image from remote location in the ListView
 	 * 
-	 * @param url eg. http://random.com/abz.jpg
-	 * @param position ListView position where the image is nested
-	 * @param listView ListView to which this image belongs
+	 * @param url
+	 *            eg. http://random.com/abz.jpg
+	 * @param position
+	 *            ListView position where the image is nested
+	 * @param listView
+	 *            ListView to which this image belongs
 	 */
-	/*public void setImageUrl(String url, int position, ListView listView) {
-		position = position;
-		listView = listView;
-		setImageUrl(url);
-	}*/
+	/*
+	 * public void setImageUrl(String url, int position, ListView listView) {
+	 * position = position; listView = listView; setImageUrl(url); }
+	 */
 
-	/*private Bitmap drawableToBitmap(Drawable drawable) {
-		
-		 * Drawable杞寲涓築itmap
-		 
-		int width = drawable.getIntrinsicWidth();
-		int height = drawable.getIntrinsicHeight();
-		Bitmap bitmap = Bitmap.createBitmap(width, height,
-				drawable.getOpacity() != PixelFormat.OPAQUE
-						? Bitmap.Config.ARGB_8888
-						: Bitmap.Config.RGB_565);
-		Canvas canvas = new Canvas(bitmap);
-		drawable.setBounds(0, 0, width, height);
-		drawable.draw(canvas);
-		return bitmap;
-	}*/
+	/*
+	 * private Bitmap drawableToBitmap(Drawable drawable) {
+	 * 
+	 * Drawable杞寲涓築itmap
+	 * 
+	 * int width = drawable.getIntrinsicWidth(); int height =
+	 * drawable.getIntrinsicHeight(); Bitmap bitmap = Bitmap.createBitmap(width,
+	 * height, drawable.getOpacity() != PixelFormat.OPAQUE ?
+	 * Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565); Canvas canvas = new
+	 * Canvas(bitmap); drawable.setBounds(0, 0, width, height);
+	 * drawable.draw(canvas); return bitmap; }
+	 */
 
 	@Override
 	protected void onDetachedFromWindow() {
@@ -398,7 +403,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 			themeImageManager.removeTask(hashCode(), url);
 		}
 	}
-	
+
 	private void setImageMatrix(int dwidth, int dheight, int vwidth, int vheight) {
 		if (vwidth <= 0 || vheight <= 0) {
 			setScaleType(ScaleType.CENTER_CROP);
@@ -423,9 +428,8 @@ public class RemoteImageView extends ImageView implements IForeground {
 	/**
 	 * clear, resycle resources
 	 */
-	/*public void clearUp() {
-		themeImageManager.destory();
-		themeImageManager = null;
-		uiHandler = null;
-	}*/
+	/*
+	 * public void clearUp() { themeImageManager.destory(); themeImageManager =
+	 * null; uiHandler = null; }
+	 */
 }
