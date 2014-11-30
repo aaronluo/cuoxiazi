@@ -78,7 +78,7 @@ public class MainTabActivity extends TabActivity {
 
 		tabHost.addTab(tabHost.newTabSpec(TAB_NAME_STRING_GOODSSHOP)
 				.setIndicator(TAB_NAME_STRING_GOODSSHOP)
-				.setContent(new Intent(this, FoodsShopActivity.class)));
+				.setContent(new Intent(this, ClassifyActivity.class)));
 
 		tabHost.addTab(tabHost.newTabSpec(TAB_NAME_STRING_USERORDER)
 				.setIndicator(TAB_NAME_STRING_USERORDER)

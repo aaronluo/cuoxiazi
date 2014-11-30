@@ -26,7 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author wanglinglong
  * 
  */
-public class FoodsShopActivity extends Activity {
+public class ClassifyActivity extends Activity {
 	private final static String TAG = "FoodsShopActivity";
 
 	private final static int MSG_UPDATE = 10001;
@@ -48,7 +48,7 @@ public class FoodsShopActivity extends Activity {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
 				classifyListData = (List<ClassifyDataBean>) msg.obj;
-				classifyAdapter = new ClassifyAdapter(FoodsShopActivity.this,
+				classifyAdapter = new ClassifyAdapter(ClassifyActivity.this,
 						classifyListData);
 				gridView.setAdapter(classifyAdapter);
 
@@ -72,7 +72,7 @@ public class FoodsShopActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.foodsshop_activity);
+		setContentView(R.layout.classify_activity);
 
 		initView();
 
@@ -167,43 +167,37 @@ public class FoodsShopActivity extends Activity {
 		ClassifyDataBean databean1 = new ClassifyDataBean();
 		databean1.setId(0);
 		databean1.setName("川菜");
-		databean1
-				.setBitmapUrl("http://food.hnr.cn/rmc/rmfl/201307/W020130719651943856865.jpg");
+		databean1.setBitmapUrl("http://food.hnr.cn/rmc/rmfl/201307/W020130719651943856865.jpg");
 		classifyListData.add(databean1);
 
 		ClassifyDataBean databean2 = new ClassifyDataBean();
 		databean2.setId(0);
 		databean2.setName("湘菜");
-		databean2
-				.setBitmapUrl("http://img5.imgtn.bdimg.com/it/u=2131026967,3181874696&fm=21&gp=0.jpg");
+		databean2.setBitmapUrl("http://img5.imgtn.bdimg.com/it/u=2131026967,3181874696&fm=21&gp=0.jpg");
 		classifyListData.add(databean2);
 
 		ClassifyDataBean databean3 = new ClassifyDataBean();
 		databean3.setId(0);
 		databean3.setName("粤菜");
-		databean3
-				.setBitmapUrl("http://pic21.nipic.com/20120525/2194567_150416722000_2.jpg");
+		databean3.setBitmapUrl("http://pic21.nipic.com/20120525/2194567_150416722000_2.jpg");
 		classifyListData.add(databean3);
 
 		ClassifyDataBean databean4 = new ClassifyDataBean();
 		databean4.setId(0);
 		databean4.setName("酒水");
-		databean4
-				.setBitmapUrl("http://pic21.nipic.com/20120513/4666865_132407922000_2.jpg");
+		databean4.setBitmapUrl("http://pic21.nipic.com/20120513/4666865_132407922000_2.jpg");
 		classifyListData.add(databean4);
 
 		ClassifyDataBean databean5 = new ClassifyDataBean();
 		databean5.setId(0);
 		databean5.setName("小菜");
-		databean5
-				.setBitmapUrl("http://p1.ftuan.com/2012/1129/11/20121129112313883.jpg");
+		databean5.setBitmapUrl("http://p1.ftuan.com/2012/1129/11/20121129112313883.jpg");
 		classifyListData.add(databean5);
 
 		ClassifyDataBean databean6 = new ClassifyDataBean();
 		databean6.setId(0);
 		databean6.setName("主食");
-		databean6
-				.setBitmapUrl("http://www.photophoto.cn/m77/161/002/1610020750.jpg");
+		databean6.setBitmapUrl("http://www.photophoto.cn/m77/161/002/1610020750.jpg");
 		classifyListData.add(databean6);
 
 		Log.d(TAG, "classifyListData.size =" + classifyListData.size());
