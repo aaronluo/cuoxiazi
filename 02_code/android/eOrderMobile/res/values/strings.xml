@@ -10,4 +10,10 @@
     <string name="tab_name_userorder">我的订单</string>
     <string name="tab_name_settings">系统设置</string>
 
+    <!-- optionmenu -->
+    <string name="optionmenu_item1">设置</string>
+    <string name="optionmenu_item2">关于</string>
+    <string name="optionmenu_item3">升级</string>
+    
+    
 </resources>
