@@ -4,8 +4,8 @@ import java.util.List;
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDetailDataBean;
-import com.innovaee.eorder.mobile.download.DownloadManager;
-import com.innovaee.eorder.mobile.download.ICallback;
+import com.innovaee.eorder.mobile.service.DownloadService;
+import com.innovaee.eorder.mobile.service.ICallback;
 
 import android.content.Context;
 
@@ -43,7 +43,7 @@ public class DataManager {
 			return;
 		}
 
-		DownloadManager mDldMgr = DownloadManager.getInstance(context);
+		DownloadService mDldMgr = DownloadService.getInstance(context);
 		mDldMgr.getAllClassify(new ICallback<ClassifyDataBean>() {
 			@Override
 			public void onStarted() {
@@ -86,7 +86,7 @@ public class DataManager {
 			return;
 		}
 
-		DownloadManager mDldMgr = DownloadManager.getInstance(context);
+		DownloadService mDldMgr = DownloadService.getInstance(context);
 		mDldMgr.getAllGoods(new ICallback<GoodsDataBean>() {
 			@Override
 			public void onStarted() {
@@ -129,7 +129,7 @@ public class DataManager {
 			return;
 		}
 
-		DownloadManager mDldMgr = DownloadManager.getInstance(context);
+		DownloadService mDldMgr = DownloadService.getInstance(context);
 		mDldMgr.getAllGoods(new ICallback<GoodsDetailDataBean>() {
 			@Override
 			public void onStarted() {
