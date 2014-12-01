@@ -33,7 +33,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 
-
 /**
  * theme image manager, contain restore to cash, sdcard, etc
  * 
@@ -41,22 +40,25 @@ import android.util.SparseArray;
  * 
  */
 public class ThemeImageManager {
-	
+
 	private static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
 	/**
 	 * SDcard storage path
 	 */
 	private final static String STORAGE_PATH = Environment
-			.getExternalStorageDirectory().getPath() + "/GOLauncherEX_ThemeStore";
+			.getExternalStorageDirectory().getPath()
+			+ "/GOLauncherEX_ThemeStore";
 
 	/**
 	 * Soft cache for bitmaps kicked out of hard cache
 	 */
-	//	private static LruCache<String, SoftReference<Bitmap>> softBitmapCache = new LruCache<String, SoftReference<Bitmap>>(
-	//			5);
-	
-	private static LruImageCache softBitmapCache = new LruImageCache(DEFAULT_SIZE);
+	// private static LruCache<String, SoftReference<Bitmap>> softBitmapCache =
+	// new LruCache<String, SoftReference<Bitmap>>(
+	// 5);
+
+	private static LruImageCache softBitmapCache = new LruImageCache(
+			DEFAULT_SIZE);
 
 	private static ThemeImageManager instance = null;
 
@@ -89,9 +91,10 @@ public class ThemeImageManager {
 		waitTasksQueue = new ConcurrentLinkedQueue<Runnable>();
 		if (scheduledRunnable == null) {
 			scheduledRunnable = new ScheduledRunnable();
-			scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-			scheduledExecutorService.scheduleAtFixedRate(scheduledRunnable, 0, 150,
-					TimeUnit.MILLISECONDS);
+			scheduledExecutorService = Executors
+					.newSingleThreadScheduledExecutor();
+			scheduledExecutorService.scheduleAtFixedRate(scheduledRunnable, 0,
+					150, TimeUnit.MILLISECONDS);
 		}
 		initRejectedExecutionHandler();
 	}
@@ -126,13 +129,11 @@ public class ThemeImageManager {
 	 * @param url
 	 * @return
 	 */
-	/*public Bitmap getBitmap(String url) {
-		Bitmap bitmap = getBitmapFromCache(url);
-		if (null == bitmap) {
-			bitmap = getBitmapFromNet(url);
-		}
-		return bitmap;
-	}*/
+	/*
+	 * public Bitmap getBitmap(String url) { Bitmap bitmap =
+	 * getBitmapFromCache(url); if (null == bitmap) { bitmap =
+	 * getBitmapFromNet(url); } return bitmap; }
+	 */
 
 	/**
 	 * 先从内存缓存中获取Bitmap,如果没有就从SD卡或者手机缓存中获取，SD卡或者手机缓存 没有就去下载
@@ -141,13 +142,15 @@ public class ThemeImageManager {
 	 * @param listener
 	 * @return
 	 */
-	public void downloadImage(String url, int hashCode, OnImageLoaderListener listener) {
+	public void downloadImage(String url, int hashCode,
+			OnImageLoaderListener listener) {
 		synchronized (lock) {
 			ImageDownloadTask task = activeQueue.get(url);
 			if (task != null) {
 				task.addListener(hashCode, listener);
 				Log.i("RemoteImage", "downloadImage "
-						+ " return, duplex task, url:" + url + ", add new listener to task");
+						+ " return, duplex task, url:" + url
+						+ ", add new listener to task");
 				return;
 			}
 			task = new ImageDownloadTask(url);
@@ -163,46 +166,24 @@ public class ThemeImageManager {
 	 * @param url
 	 * @return
 	 */
-	/*private Bitmap getBitmapFromNet(String url) {
-		if (TextUtils.isEmpty(url)) {
-			return null;
-		}
-		Bitmap bitmap = null;
-		InputStream stream = null;
-		HttpURLConnection conn = null;
-		try {
-			conn = (HttpURLConnection) new URL(url).openConnection();
-			conn.setConnectTimeout(15 * 1000);
-			conn.setReadTimeout(15 * 1000);
-			int code = conn.getResponseCode();
-			if (code == 200) {
-				stream = conn.getInputStream();
-				bitmap = ThemeStoreDisplayUtil.decodeBitmap(stream);
-			}
-			try {
-				if (bitmap != null) {
-					addBitmapToCache(url, bitmap);
-					saveBmpToSd(url, bitmap);
-					Log.d("RemoteImage", "Image cached " + url);
-				} else {
-					Log.w("RemoteImage", "Failed to cache " + url);
-				}
-			} catch (NullPointerException e) {
-				Log.w("RemoteImage", "Failed to cache " + url);
-			}
-		} catch (Exception e) {
-			Log.w("RemoteImage", "Couldn't load bitmap from url: " + url);
-		} finally {
-			try {
-				if (stream != null) {
-					stream.close();
-				}
-			} catch (IOException e) {
-
-			}
-		}
-		return bitmap;
-	}*/
+	/*
+	 * private Bitmap getBitmapFromNet(String url) { if (TextUtils.isEmpty(url))
+	 * { return null; } Bitmap bitmap = null; InputStream stream = null;
+	 * HttpURLConnection conn = null; try { conn = (HttpURLConnection) new
+	 * URL(url).openConnection(); conn.setConnectTimeout(15 * 1000);
+	 * conn.setReadTimeout(15 * 1000); int code = conn.getResponseCode(); if
+	 * (code == 200) { stream = conn.getInputStream(); bitmap =
+	 * ThemeStoreDisplayUtil.decodeBitmap(stream); } try { if (bitmap != null) {
+	 * addBitmapToCache(url, bitmap); saveBmpToSd(url, bitmap);
+	 * Log.d("RemoteImage", "Image cached " + url); } else {
+	 * Log.w("RemoteImage", "Failed to cache " + url); } } catch
+	 * (NullPointerException e) { Log.w("RemoteImage", "Failed to cache " +
+	 * url); } } catch (Exception e) { Log.w("RemoteImage",
+	 * "Couldn't load bitmap from url: " + url); } finally { try { if (stream !=
+	 * null) { stream.close(); } } catch (IOException e) {
+	 * 
+	 * } } return bitmap; }
+	 */
 
 	/**
 	 * 取消正在下载的任务
@@ -307,7 +288,7 @@ public class ThemeImageManager {
 			return;
 		}
 		softBitmapCache.remove(url);
-		//		softBitmapCache.put(url, new SoftReference<Bitmap>(bitmap));
+		// softBitmapCache.put(url, new SoftReference<Bitmap>(bitmap));
 		softBitmapCache.set(url, bitmap);
 	}
 
@@ -473,22 +454,22 @@ public class ThemeImageManager {
 			if (hasMoreWaitTask()) {
 				Runnable runnable = waitTasksQueue.poll();
 				if (runnable != null) {
-					Log.i("RemoteImage",
-							"downloadImage, executeWaitTask "
-									+ runnable.toString());
+					Log.i("RemoteImage", "downloadImage, executeWaitTask "
+							+ runnable.toString());
 					getThreadPool().execute(runnable);
 				}
-			}	
+			}
 		}
 	}
-	
+
 	/**
 	 * 初始化任务被拒绝执行的处理器的方法
 	 */
 	private void initRejectedExecutionHandler() {
 		rejectedExecutionHandler = new RejectedExecutionHandler() {
 			@Override
-			public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+			public void rejectedExecution(Runnable r,
+					ThreadPoolExecutor executor) {
 				// 把被拒绝的任务重新放入到等待队列中
 				synchronized (lock) {
 					Log.i("RemoteImage",
@@ -539,10 +520,10 @@ public class ThemeImageManager {
 		instance = null;
 		if (scheduledRunnable != null) {
 			scheduledRunnable = null;
-		}	
+		}
 		rejectedExecutionHandler = null;
 	}
-	
+
 	/**
 	 * 初始化调度Runable
 	 */
@@ -552,18 +533,18 @@ public class ThemeImageManager {
 			executeWaitTask();
 		}
 	}
-	
+
 	/**
 	 * 
-	 * <br>类描述:
-	 * <br>功能详细描述:
+	 * <br>
+	 * 类描述: <br>
+	 * 功能详细描述:
 	 * 
-	 * @author  lichong
-	 * @date  [2014年11月19日]
+	 * @author lichong
+	 * @date [2014年11月19日]
 	 */
 	private enum DownloadTaskType {
-		TASKTYPE_URL,
-		TASKTYPE_FILE
+		TASKTYPE_URL, TASKTYPE_FILE
 	}
 
 	/**
@@ -630,17 +611,23 @@ public class ThemeImageManager {
 					long readCount = 0;
 					try {
 						HttpClient httpClient = new DefaultHttpClient();
-						HttpConnectionParams
-								.setConnectionTimeout(httpClient.getParams(), 10 * 1000);
-						HttpConnectionParams.setSoTimeout(httpClient.getParams(), 15 * 1000);
+						HttpConnectionParams.setConnectionTimeout(
+								httpClient.getParams(), 10 * 1000);
+						HttpConnectionParams.setSoTimeout(
+								httpClient.getParams(), 15 * 1000);
 						HttpGet httpGet = new HttpGet(mUrl);
 						HttpResponse response = httpClient.execute(httpGet);
-						Header headerContentLength = response.getFirstHeader("Content-Length");
+						Header headerContentLength = response
+								.getFirstHeader("Content-Length");
 						if (headerContentLength != null) {
-							contentLength = Long.parseLong(TextUtils.isEmpty(headerContentLength
-									.getValue()) ? "0" : headerContentLength.getValue());
+							contentLength = Long
+									.parseLong(TextUtils
+											.isEmpty(headerContentLength
+													.getValue()) ? "0"
+											: headerContentLength.getValue());
 						}
-						int statusCode = response.getStatusLine().getStatusCode();
+						int statusCode = response.getStatusLine()
+								.getStatusCode();
 						stream = response.getEntity().getContent();
 						if (statusCode == 200 || statusCode == 206) {
 							byte[] buffer = new byte[2 * 1024];
@@ -659,10 +646,12 @@ public class ThemeImageManager {
 					} finally {
 						if (contentLength > 0 && readCount != contentLength) {
 							Log.d("RemoteImage",
-									"Content-Length error, contentLength:" + contentLength
-											+ ", readLength:" + readCount);
+									"Content-Length error, contentLength:"
+											+ contentLength + ", readLength:"
+											+ readCount);
 						} else {
-							bitmap = DisplayUtil.decodeBitmap(bos.toByteArray());
+							bitmap = DisplayUtil
+									.decodeBitmap(bos.toByteArray());
 						}
 						if (bitmap != null) {
 							addBitmapToCache(mUrl, bitmap);

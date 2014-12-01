@@ -44,7 +44,7 @@
         </activity>
         	
         
-    	<activity android:name="com.innovaee.eorder.mobile.view.FoodsShopActivity" android:label="@string/app_name"
+    	<activity android:name="com.innovaee.eorder.mobile.view.ClassifyActivity" android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
         
     	<activity android:name="com.innovaee.eorder.mobile.view.UserOrderActivity" android:label="@string/app_name"
@@ -53,7 +53,13 @@
    		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
     				
-    	    		
+    	<activity android:name="com.innovaee.eorder.mobile.view.GoodsListActivity" android:label="@string/app_name"
+                    android:screenOrientation="portrait"/>
+        
+        <activity android:name="com.innovaee.eorder.mobile.view.GoodsDetailActivity" android:label="@string/app_name"
+                    android:screenOrientation="portrait"/>
+                    
+   				
     </application>
 
 </manifest>

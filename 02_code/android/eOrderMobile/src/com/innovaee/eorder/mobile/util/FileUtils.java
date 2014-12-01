@@ -5,57 +5,59 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
 /**
-*  文件操作工具集
-* @author
-* 
-*/	
+ * 文件操作工具集
+ * 
+ * @author
+ * 
+ */
 public final class FileUtils {
-	
-    /**
-     * 检查是否存在SDCard
-     * @return
-    */
-    public static boolean hasSdcard(){
-    	String state = Environment.getExternalStorageState();
-        if(state.equals(Environment.MEDIA_MOUNTED)){
-        	return true;
-        } else {
-        	return false;
-        }
-    }
-    				
-    /**
-     * 保存Bitmap到缓存文件夹中	
-     * @param mBitmap
-     * @param mName
-     */
-    public static void saveBitmap(Bitmap mBitmap, String mName) {
-    	File f = new File(Env.Path.PHOTO_PATH, mName);
-    	  			
-    	if (f.exists()) {
-    		f.delete();
-    	}
-    	try {
-    		FileOutputStream out = new FileOutputStream(f);
-    		mBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-    		out.flush();
-    		out.close();
-    	} catch (FileNotFoundException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    }
-    	
-    /**
+
+	/**
+	 * 检查是否存在SDCard
+	 * 
+	 * @return
+	 */
+	public static boolean hasSdcard() {
+		String state = Environment.getExternalStorageState();
+		if (state.equals(Environment.MEDIA_MOUNTED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 保存Bitmap到缓存文件夹中
+	 * 
+	 * @param mBitmap
+	 * @param mName
+	 */
+	public static void saveBitmap(Bitmap mBitmap, String mName) {
+		File f = new File(Env.Path.PHOTO_PATH, mName);
+
+		if (f.exists()) {
+			f.delete();
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(f);
+			mBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * 创建文件夹（如果不存在）
 	 * 
 	 * @param dir
@@ -71,15 +73,18 @@ public final class FileUtils {
 		}
 		file = null;
 	}
-	
+
 	/**
-	 * <br>功能简述:创建文件
-	 * <br>功能详细描述:
-	 * <br>注意:1：如果不存在父文件夹，则新建文件夹；2：如果文件已存在，则直接返回
+	 * <br>
+	 * 功能简述:创建文件 <br>
+	 * 功能详细描述: <br>
+	 * 注意:1：如果不存在父文件夹，则新建文件夹；2：如果文件已存在，则直接返回
+	 * 
 	 * @param destFileName
-	 * @param replace 是否删除旧文件，生成新文件
+	 * @param replace
+	 *            是否删除旧文件，生成新文件
 	 * @return
-	 */		
+	 */
 	public static boolean createFile(String destFileName, boolean replace) {
 		File file = new File(destFileName);
 		if (file.exists()) {
@@ -120,17 +125,18 @@ public final class FileUtils {
 	/**
 	 * sd卡是否可读写
 	 * 
-	 * @author 
+	 * @author
 	 * @return
 	 */
 	public static boolean isSDCardAvaiable() {
-		return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+		return Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState());
 	}
-	
+
 	/**
 	 * 指定路径文件是否存在
 	 * 
-	 * @author 
+	 * @author
 	 * @param filePath
 	 * @return
 	 */
@@ -145,6 +151,5 @@ public final class FileUtils {
 		}
 		return result;
 	}
-	
-    
+
 }

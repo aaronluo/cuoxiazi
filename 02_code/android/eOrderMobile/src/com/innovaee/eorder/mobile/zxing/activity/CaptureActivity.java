@@ -28,8 +28,10 @@ import com.innovaee.eorder.mobile.zxing.camera.CameraManager;
 import com.innovaee.eorder.mobile.zxing.decoding.CaptureActivityHandler;
 import com.innovaee.eorder.mobile.zxing.decoding.InactivityTimer;
 import com.innovaee.eorder.mobile.zxing.view.ViewfinderView;
+
 /**
  * Initial the camera
+ * 
  * @author Ryan.Tang
  */
 public class CaptureActivity extends Activity implements Callback {
@@ -51,7 +53,8 @@ public class CaptureActivity extends Activity implements Callback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.capture);
-		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
+		// ViewUtil.addTopView(getApplicationContext(), this,
+		// R.string.scan_card);
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
@@ -80,10 +83,10 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 		initBeepSound();
 		vibrate = true;
-		
-		//quit the scan view
+
+		// quit the scan view
 		cancelScanButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				CaptureActivity.this.finish();
@@ -106,9 +109,10 @@ public class CaptureActivity extends Activity implements Callback {
 		inactivityTimer.shutdown();
 		super.onDestroy();
 	}
-	
+
 	/**
 	 * Handler scan result
+	 * 
 	 * @param result
 	 * @param barcode
 	 */
@@ -116,11 +120,12 @@ public class CaptureActivity extends Activity implements Callback {
 		inactivityTimer.onActivity();
 		playBeepSoundAndVibrate();
 		String resultString = result.getText();
-		//FIXME
+		// FIXME
 		if (resultString.equals("")) {
-			Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-		}else {
-//			System.out.println("Result:"+resultString);
+			Toast.makeText(CaptureActivity.this, "Scan failed!",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			// System.out.println("Result:"+resultString);
 			Intent resultIntent = new Intent();
 			Bundle bundle = new Bundle();
 			bundle.putString("result", resultString);
@@ -129,7 +134,7 @@ public class CaptureActivity extends Activity implements Callback {
 		}
 		CaptureActivity.this.finish();
 	}
-	
+
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {
 			CameraManager.get().openDriver(surfaceHolder);

@@ -7,15 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
-
-
 /**
  * 
- * <br>类描述: 蒙版显示控制器
- * <br>功能详细描述: 根据触屏状态下的调整蒙版显示效果
+ * <br>
+ * 类描述: 蒙版显示控制器 <br>
+ * 功能详细描述: 根据触屏状态下的调整蒙版显示效果
  * 
- * @author  lichong
- * @date  [2014年10月21日]
+ * @author lichong
+ * @date [2014年10月21日]
  */
 public class ForegroundAdapter {
 
@@ -27,11 +26,11 @@ public class ForegroundAdapter {
 		if (ifCoverState == null) {
 			throw new RuntimeException("iCoverState must not null!");
 		}
-		coverDrawable = context.getResources()
-				.getDrawable(R.drawable.themestore_common_foreground);
+		coverDrawable = context.getResources().getDrawable(
+				R.drawable.themestore_common_foreground);
 		ifCoverState.setDuplicateParentStateEnabled(false);
 	}
-	
+
 	public void setForegroundDrawable(Drawable drawable) {
 		if (coverDrawable != drawable) {
 			coverDrawable = drawable;
@@ -40,9 +39,11 @@ public class ForegroundAdapter {
 	}
 
 	/**
-	 * <br>功能简述:
-	 * <br>功能详细描述:
-	 * <br>注意: 必须由宿主调用
+	 * <br>
+	 * 功能简述: <br>
+	 * 功能详细描述: <br>
+	 * 注意: 必须由宿主调用
+	 * 
 	 * @param canvas
 	 */
 	public void dispatchDraw(Canvas canvas) {
@@ -52,9 +53,10 @@ public class ForegroundAdapter {
 	}
 
 	/**
-	 * <br>功能简述: 
-	 * <br>功能详细描述:
-	 * <br>注意: 必须由宿主调用
+	 * <br>
+	 * 功能简述: <br>
+	 * 功能详细描述: <br>
+	 * 注意: 必须由宿主调用
 	 */
 	public void drawableStateChanged() {
 		Drawable d = coverDrawable;
@@ -65,5 +67,5 @@ public class ForegroundAdapter {
 			d.setBounds(0, 0, rect.width(), rect.height());
 			ifCoverState.invalidate();
 		}
-	}	
+	}
 }

@@ -71,42 +71,47 @@ public final class R {
         /**  Messages IDs 
          */
         public static final int auto_focus=0x7f070000;
-        public static final int btn_add_qrcode=0x7f07001a;
+        public static final int btn_add_qrcode=0x7f07001c;
         public static final int btn_cancel_scan=0x7f07000e;
-        public static final int btn_scan_barcode=0x7f070017;
-        public static final int classify_image=0x7f07000f;
-        public static final int classify_name=0x7f070010;
+        public static final int btn_scan_barcode=0x7f070019;
+        public static final int classify_image=0x7f070011;
+        public static final int classify_name=0x7f070012;
         public static final int decode=0x7f070001;
         public static final int decode_failed=0x7f070002;
         public static final int decode_succeeded=0x7f070003;
         public static final int encode_failed=0x7f070004;
         public static final int encode_succeeded=0x7f070005;
-        public static final int et_qr_string=0x7f070019;
-        public static final int goods_gridview=0x7f070012;
-        public static final int iv_qr_image=0x7f07001b;
+        public static final int et_qr_string=0x7f07001b;
+        public static final int goods_gridview=0x7f070010;
+        public static final int goods_image=0x7f070013;
+        public static final int goods_name=0x7f070014;
+        public static final int iv_qr_image=0x7f07001d;
         public static final int launch_product_query=0x7f070006;
-        public static final int main_tab_group=0x7f070013;
+        public static final int main_tab_group=0x7f070015;
         public static final int preview_view=0x7f07000c;
         public static final int quit=0x7f070007;
         public static final int restart_preview=0x7f070008;
         public static final int return_scan_result=0x7f070009;
         public static final int search_book_contents_failed=0x7f07000a;
         public static final int search_book_contents_succeeded=0x7f07000b;
-        public static final int tab_goodsshop=0x7f070014;
-        public static final int tab_settings=0x7f070016;
-        public static final int tab_userorder=0x7f070015;
-        public static final int title_bar=0x7f070011;
-        public static final int tv_scan_result=0x7f070018;
+        public static final int tab_goodsshop=0x7f070016;
+        public static final int tab_settings=0x7f070018;
+        public static final int tab_userorder=0x7f070017;
+        public static final int title_bar=0x7f07000f;
+        public static final int tv_scan_result=0x7f07001a;
         public static final int viewfinder_view=0x7f07000d;
     }
     public static final class layout {
         public static final int capture=0x7f030000;
-        public static final int classify_griditem=0x7f030001;
-        public static final int foodsshop_activity=0x7f030002;
-        public static final int maintab_activity=0x7f030003;
-        public static final int qrtest=0x7f030004;
-        public static final int settings_activity=0x7f030005;
-        public static final int userorder_activity=0x7f030006;
+        public static final int classify_activity=0x7f030001;
+        public static final int classify_griditem=0x7f030002;
+        public static final int goods_griditem=0x7f030003;
+        public static final int goodsdetail_activity=0x7f030004;
+        public static final int goodslist_activity=0x7f030005;
+        public static final int maintab_activity=0x7f030006;
+        public static final int qrtest=0x7f030007;
+        public static final int settings_activity=0x7f030008;
+        public static final int userorder_activity=0x7f030009;
     }
     public static final class raw {
         public static final int beep=0x7f040000;

@@ -3,18 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout  	
-    	android:orientation="horizontal" 
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content"
-    	android:id="@+id/title_bar">		
-    	<TextView android:layout_width="wrap_content" 
-        	android:layout_centerInParent="true" 
-        	android:layout_height="wrap_content"
-        	android:textColor="#FF000000" 
-        	android:textSize="24dp"
-        	android:text="我的订单" />			
-	</RelativeLayout>
-								
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的订单"
+            android:textColor="#FF000000"
+            android:textSize="24dp" />
+    </RelativeLayout>
+
 </RelativeLayout>
-		

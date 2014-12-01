@@ -5,18 +5,18 @@ package com.innovaee.eorder.mobile.view;
  * @author wanglinglong
  * 
  */
-class ClassifyItem {
+class GoodsItem {
 	private String name;
 
 	private String imageUrl;
 
 	private String time;
 
-	public ClassifyItem() {
+	public GoodsItem() {
 		super();
 	}
 
-	public ClassifyItem(String name, String imageUrl, String time) {
+	public GoodsItem(String name, String imageUrl, String time) {
 		super();
 
 		this.name = name;

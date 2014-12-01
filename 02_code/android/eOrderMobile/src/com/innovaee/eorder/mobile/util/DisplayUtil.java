@@ -1,10 +1,8 @@
 package com.innovaee.eorder.mobile.util;
-	
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
-	
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -12,28 +10,27 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
-	
-	
 /**
- * 显示工具集	
+ * 显示工具集
+ * 
  * @author wanglinglong
- *
+ * 
  */
-public class DisplayUtil {		
+public class DisplayUtil {
 	/**
 	 * @param res
 	 * @param resId
 	 * @return
 	 */
 	public static Bitmap decodeBitmap(Resources res, int resId) {
-		//TODO
+		// TODO
 		Bitmap retval = null;
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
-			opts.inDither = false; 			// Disable Dithering mode
-			opts.inPurgeable = true; 		// Tell to gc that whether it needs free
-										// memory, the Bitmap can be cleared
-			opts.inInputShareable = true; 	// Which kind of reference will be
+			opts.inDither = false; // Disable Dithering mode
+			opts.inPurgeable = true; // Tell to gc that whether it needs free
+			// memory, the Bitmap can be cleared
+			opts.inInputShareable = true; // Which kind of reference will be
 											// used to recover the Bitmap data
 											// after being clear, when it will
 											// be used in the future
@@ -50,7 +47,7 @@ public class DisplayUtil {
 		}
 		return retval;
 	}
-	
+
 	/**
 	 * 
 	 * @param pathName
@@ -59,16 +56,16 @@ public class DisplayUtil {
 	public static Bitmap decodeBitmap(String pathName) {
 		Bitmap retval = null;
 		InputStream stream = null;
-        try {
-            stream = new FileInputStream(pathName);
+		try {
+			stream = new FileInputStream(pathName);
 			retval = decodeBitmap(stream);
-        } catch (Exception e) {
+		} catch (Exception e) {
 		} catch (OutOfMemoryError e) {
 			System.gc();
 		}
 		return retval;
-	}	
-		
+	}
+
 	/**
 	 * 
 	 * @param is
@@ -80,10 +77,10 @@ public class DisplayUtil {
 		}
 		Bitmap retval = null;
 		BitmapFactory.Options opts = new BitmapFactory.Options();
-		opts.inDither = false; 			// Disable Dithering mode
-		opts.inPurgeable = true; 		// Tell to gc that whether it needs free
-										// memory, the Bitmap can be cleared
-		opts.inInputShareable = true; 	// Which kind of reference will be
+		opts.inDither = false; // Disable Dithering mode
+		opts.inPurgeable = true; // Tell to gc that whether it needs free
+									// memory, the Bitmap can be cleared
+		opts.inInputShareable = true; // Which kind of reference will be
 										// used to recover the Bitmap data
 										// after being clear, when it will
 										// be used in the future
@@ -100,7 +97,7 @@ public class DisplayUtil {
 		}
 		return retval;
 	}
-	
+
 	/**
 	 * @param bytes
 	 * @return
@@ -116,5 +113,5 @@ public class DisplayUtil {
 			System.gc();
 		}
 		return retval;
-	}	
-}	
+	}
+}
