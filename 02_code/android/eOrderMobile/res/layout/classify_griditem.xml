@@ -7,12 +7,13 @@
 
     <com.innovaee.eorder.mobile.util.RemoteImageView
         android:id="@+id/classify_image"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:scaleType="center" 		
         android:background="@drawable/test_001" >
     </com.innovaee.eorder.mobile.util.RemoteImageView>
-
+							
     <TextView
         android:id="@+id/classify_name"
         android:layout_width="fill_parent"

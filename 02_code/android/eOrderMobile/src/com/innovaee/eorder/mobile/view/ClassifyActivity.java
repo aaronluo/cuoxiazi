@@ -3,13 +3,14 @@ package com.innovaee.eorder.mobile.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+	
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -99,10 +100,19 @@ public class ClassifyActivity extends Activity {
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-
+				Log.d(TAG, "gridView.setOnItemClickListener!");
+				Bundle bundle = new Bundle();
+    			
+        		bundle.putInt("selectItme", position);			
+        		Intent intent = new Intent();
+        									
+        		intent.putExtras(bundle);
+        					
+        		intent.setClass(ClassifyActivity.this, GoodsListActivity.class);	             						
+                startActivity(intent);	
 			}
-		});
-
+		});	
+		
 		// 先屏蔽数据获取接口
 		// loadData();
 	}
@@ -157,7 +167,7 @@ public class ClassifyActivity extends Activity {
 		msg.obj = (Object) classifyListData;
 		handler.sendMessage(msg);
 	}
-
+	
 	/**
 	 * 初始化测试数据
 	 */

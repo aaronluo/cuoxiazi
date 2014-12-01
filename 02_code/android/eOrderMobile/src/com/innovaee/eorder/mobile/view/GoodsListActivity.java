@@ -10,6 +10,7 @@ import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,6 +42,8 @@ public class GoodsListActivity extends Activity {
 
 	private List<GoodsDataBean> goodsListData;
 	
+	private int selectItem;
+		
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
@@ -74,6 +77,10 @@ public class GoodsListActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.goodslist_activity);
 
+		Intent i = this.getIntent();
+        Bundle b = i.getExtras();
+        selectItem = b.getInt("selectItme", 0);
+        							
 		initView();
 
 		initData();
@@ -111,8 +118,8 @@ public class GoodsListActivity extends Activity {
 	 * 加载数据
 	 */
 	private void loadData() {
-				
-		DataManager.getInstance(getApplicationContext()).getGoodsData(0, 
+							
+		DataManager.getInstance(getApplicationContext()).getGoodsData(selectItem, 
 				new IDataRequestListener<GoodsDataBean>() {
 					@Override
 					public void onRequestSuccess(
@@ -147,7 +154,7 @@ public class GoodsListActivity extends Activity {
 				});
 
 	}
-
+		
 	/**
 	 * 更新ui
 	 */
