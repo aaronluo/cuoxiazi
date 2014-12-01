@@ -11,47 +11,48 @@ import com.innovaee.eorder.web.action.BaseAction;
 
 public class FileUploadTransactionAction extends BaseAction {
 
-	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(FileUploadTransactionAction.class);
+    private static final long serialVersionUID = 1L;
+    private static final Logger logger = Logger
+            .getLogger(FileUploadTransactionAction.class);
 
-	private ResetPasswordVo resetPasswordVo;
+    private ResetPasswordVo resetPasswordVo;
 
-	private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
+    private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
 
-	private String contextPath;
+    private String contextPath;
 
-	public String login() {
-		logger.debug("enter login() method");
+    public String login() {
+        logger.debug("enter login() method");
 
-		return SUCCESS;
-	}
+        return SUCCESS;
+    }
 
-	public String doFileUploadTransaction() {
-		logger.debug("enter doResetPassword() method");
-		return SUCCESS;
-	}
+    public String doFileUploadTransaction() {
+        logger.debug("enter doResetPassword() method");
+        return SUCCESS;
+    }
 
-	public ResetPasswordVo getResetPasswordVo() {
-		return resetPasswordVo;
-	}
+    public ResetPasswordVo getResetPasswordVo() {
+        return resetPasswordVo;
+    }
 
-	public void setResetPasswordVo(ResetPasswordVo resetPasswordVo) {
-		this.resetPasswordVo = resetPasswordVo;
-	}
+    public void setResetPasswordVo(ResetPasswordVo resetPasswordVo) {
+        this.resetPasswordVo = resetPasswordVo;
+    }
 
-	public List<RoleLinkVo> getList() {
-		return list;
-	}
+    public List<RoleLinkVo> getList() {
+        return list;
+    }
 
-	public void setList(List<RoleLinkVo> list) {
-		this.list = list;
-	}
+    public void setList(List<RoleLinkVo> list) {
+        this.list = list;
+    }
 
-	public String getContextPath() {
-		return contextPath;
-	}
+    public String getContextPath() {
+        return contextPath;
+    }
 
-	public void setContextPath(String contextPath) {
-		this.contextPath = contextPath;
-	}
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
 }

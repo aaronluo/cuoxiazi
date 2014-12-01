@@ -7,49 +7,50 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.log4j.Logger;
 
 public class Md5Util {
-	private static final Logger logger = Logger.getLogger(Md5Util.class);
+    private static final Logger logger = Logger.getLogger(Md5Util.class);
 
-	public static String getMD5Str(String str) {
-		MessageDigest messageDigest = null;
+    public static String getMD5Str(String str) {
+        MessageDigest messageDigest = null;
 
-		try {
-			messageDigest = MessageDigest.getInstance("MD5");
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
 
-			messageDigest.reset();
+            messageDigest.reset();
 
-			messageDigest.update(str.getBytes("UTF-8"));
-		} catch (NoSuchAlgorithmException e) {
-			logger.error("NoSuchAlgorithmException caught!");
-			System.exit(-1);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+            messageDigest.update(str.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            logger.error("NoSuchAlgorithmException caught!");
+            System.exit(-1);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-		byte[] byteArray = messageDigest.digest();
+        byte[] byteArray = messageDigest.digest();
 
-		StringBuffer md5StrBuff = new StringBuffer();
+        StringBuffer md5StrBuff = new StringBuffer();
 
-		for (int i = 0; i < byteArray.length; i++) {
-			if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
-				md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
-			else
-				md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
-		}
+        for (int i = 0; i < byteArray.length; i++) {
+            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+                md5StrBuff.append("0").append(
+                        Integer.toHexString(0xFF & byteArray[i]));
+            else
+                md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+        }
 
-		return md5StrBuff.toString();
-	}
+        return md5StrBuff.toString();
+    }
 
-	public static void main(String[] args) {
-		// Md5Util util = new Md5Util();
-		String src = "admin{admin}";
-		// String src = "12345{admin}";
-		// ceb4f32325eda6142bd65215f4c0f371
-		// ceb4f32325eda6142bd65215f4c0f371
-		// ceb4f32325eda6142bd65215f4c0f371
-		// a3a7302d124d78d471902bf168259beb
-		// String src = "test{test}";
-		logger.debug(Md5Util.getMD5Str(src));
-		System.out.println(Md5Util.getMD5Str(src));
-	}
+    public static void main(String[] args) {
+        // Md5Util util = new Md5Util();
+        String src = "admin{admin}";
+        // String src = "12345{admin}";
+        // ceb4f32325eda6142bd65215f4c0f371
+        // ceb4f32325eda6142bd65215f4c0f371
+        // ceb4f32325eda6142bd65215f4c0f371
+        // a3a7302d124d78d471902bf168259beb
+        // String src = "test{test}";
+        logger.debug(Md5Util.getMD5Str(src));
+        System.out.println(Md5Util.getMD5Str(src));
+    }
 
 }

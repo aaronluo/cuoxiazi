@@ -10,56 +10,56 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROLE")
 public class Role extends BaseEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public Serializable getPK() {
-		return roleName;
-	}
+    @Override
+    public Serializable getPK() {
+        return roleName;
+    }
 
-	@Id
-	@Column(name = "ROLE_NAME")
-	private String roleName;
-	@Column(name = "ROLE_DESC")
-	private String roleDesc;
-	@Column(name = "ROLE_ENABLE")
-	private Boolean roleEnable;
+    @Id
+    @Column(name = "ROLE_NAME")
+    private String roleName;
+    @Column(name = "ROLE_DESC")
+    private String roleDesc;
+    @Column(name = "ROLE_ENABLE")
+    private Boolean roleEnable;
 
-	public Role() {
-	}
+    public Role() {
+    }
 
-	public Role(String roleName) {
-		this.roleName = roleName;
-	}
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 
-	public Role(String roleName, String roleDesc, Boolean roleEnable) {
-		super();
-		this.roleName = roleName;
-		this.roleDesc = roleDesc;
-		this.roleEnable = roleEnable;
-	}
+    public Role(String roleName, String roleDesc, Boolean roleEnable) {
+        super();
+        this.roleName = roleName;
+        this.roleDesc = roleDesc;
+        this.roleEnable = roleEnable;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
-	public String getRoleDesc() {
-		return roleDesc;
-	}
+    public String getRoleDesc() {
+        return roleDesc;
+    }
 
-	public void setRoleDesc(String roleDesc) {
-		this.roleDesc = roleDesc;
-	}
+    public void setRoleDesc(String roleDesc) {
+        this.roleDesc = roleDesc;
+    }
 
-	public Boolean getRoleEnable() {
-		return roleEnable;
-	}
+    public Boolean getRoleEnable() {
+        return roleEnable;
+    }
 
-	public void setRoleEnable(Boolean roleEnable) {
-		this.roleEnable = roleEnable;
-	}
+    public void setRoleEnable(Boolean roleEnable) {
+        this.roleEnable = roleEnable;
+    }
 }

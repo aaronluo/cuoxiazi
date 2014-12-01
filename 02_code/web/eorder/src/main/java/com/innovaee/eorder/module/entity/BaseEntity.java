@@ -11,29 +11,33 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public abstract class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public abstract Serializable getPK();
+    public abstract Serializable getPK();
 
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
-	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
+    }
 
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	public void copy(Object orig) {
-		try {
-			BeanUtils.copyProperties(this, orig);
-		} catch (InvocationTargetException e) {
-			System.out.println(e.getMessage());
-		} catch (IllegalAccessException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    public void copy(Object orig) {
+        try {
+            BeanUtils.copyProperties(this, orig);
+        } catch (InvocationTargetException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalAccessException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

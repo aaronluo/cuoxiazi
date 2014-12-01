@@ -11,62 +11,63 @@ import javax.persistence.Table;
 @Table(name = "USER_ROLE")
 public class UserRole extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public Serializable getPK() {
-		return userRoleName;
-	}
+    @Override
+    public Serializable getPK() {
+        return userRoleName;
+    }
 
-	@Id
-	@Column(name = "user_role_name")
-	private String userRoleName;
-	@Column(name = "user_name")
-	private String userName;
-	@Column(name = "role_name")
-	private String roleName;
+    @Id
+    @Column(name = "user_role_name")
+    private String userRoleName;
+    @Column(name = "user_name")
+    private String userName;
+    @Column(name = "role_name")
+    private String roleName;
 
-	public UserRole() {
-	}
+    public UserRole() {
+    }
 
-	public UserRole(String userRoleName) {
-		this.userRoleName = userRoleName;
-	}
+    public UserRole(String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
 
-	public UserRole(String userRoleName, String userName, String roleName) {
-		super();
-		this.userRoleName = userRoleName;
-		this.userName = userName;
-		this.roleName = roleName;
-	}
+    public UserRole(String userRoleName, String userName, String roleName) {
+        super();
+        this.userRoleName = userRoleName;
+        this.userName = userName;
+        this.roleName = roleName;
+    }
 
-	public String getUserRoleName() {
-		return userRoleName;
-	}
+    public String getUserRoleName() {
+        return userRoleName;
+    }
 
-	public void setUserRoleName(String userRoleName) {
-		this.userRoleName = userRoleName;
-	}
+    public void setUserRoleName(String userRoleName) {
+        this.userRoleName = userRoleName;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
-	@Override
-	public String toString() {
-		return "UserRole [userRoleName=" + userRoleName + ", userName=" + userName + ", roleName=" + roleName + "]";
-	}
+    @Override
+    public String toString() {
+        return "UserRole [userRoleName=" + userRoleName + ", userName="
+                + userName + ", roleName=" + roleName + "]";
+    }
 
 }

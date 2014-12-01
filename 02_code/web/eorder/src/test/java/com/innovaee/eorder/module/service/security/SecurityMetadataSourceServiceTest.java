@@ -14,29 +14,31 @@ import com.innovaee.eorder.test.BaseSpringTestCase;
 
 public class SecurityMetadataSourceServiceTest extends BaseSpringTestCase {
 
-	@Autowired
-	private SecurityMetadataSourceService securityMetadataSourceService;
+    @Autowired
+    private SecurityMetadataSourceService securityMetadataSourceService;
 
-	@Test
-	public void getAllFunctions() {
-		List<Function> allFunctions = securityMetadataSourceService.getAllFunctions();
-		Assert.assertNotNull(allFunctions);
-		for (Function function : allFunctions) {
-			System.out.println(function);
-		}
-	}
+    @Test
+    public void getAllFunctions() {
+        List<Function> allFunctions = securityMetadataSourceService
+                .getAllFunctions();
+        Assert.assertNotNull(allFunctions);
+        for (Function function : allFunctions) {
+            System.out.println(function);
+        }
+    }
 
-	@Test
-	public void getAllConfigAttributes() {
-		
-		Collection<ConfigAttribute> c = securityMetadataSourceService.getAllConfigAttributes();
-		Iterator<ConfigAttribute> iterator = c.iterator();
-		while (iterator.hasNext()) {
-			ConfigAttribute configAttribute = iterator.next();
-			String attribute = configAttribute.getAttribute();
-			System.out.println(attribute);
-		}
+    @Test
+    public void getAllConfigAttributes() {
 
-	}
+        Collection<ConfigAttribute> c = securityMetadataSourceService
+                .getAllConfigAttributes();
+        Iterator<ConfigAttribute> iterator = c.iterator();
+        while (iterator.hasNext()) {
+            ConfigAttribute configAttribute = iterator.next();
+            String attribute = configAttribute.getAttribute();
+            System.out.println(attribute);
+        }
+
+    }
 
 }
