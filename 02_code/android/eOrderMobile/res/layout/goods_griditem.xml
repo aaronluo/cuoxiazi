@@ -25,5 +25,5 @@
         android:text="分类名１"
         android:textSize="20dp" >
     </TextView>
-    
+
 </RelativeLayout>

@@ -29,4 +29,8 @@
     <color name="header">#58567D</color>
     <color name="grgray">#686868</color>
 
+    <color name="action_bar_title">#ff282d32</color>
+    <color name="action_bar_sub_title">#ff8c9196</color>
+    <color name="divider">#ffe6e6e6</color>
+          
 </resources>

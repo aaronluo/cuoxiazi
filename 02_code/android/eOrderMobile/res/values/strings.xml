@@ -3,8 +3,11 @@
 
     <string name="app_name">eorder</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="action_title">订餐系统</string>
+    <string name="action_settings">设置</string>
+    <string name="action_fresh">刷新</string>
+    <string name="action_about">关于</string>
+    
     <!-- Tab -->
     <string name="tab_name_goodsshop">菜单浏览</string>
     <string name="tab_name_userorder">我的订单</string>
@@ -13,7 +16,26 @@
     <!-- optionmenu -->
     <string name="optionmenu_item1">设置</string>
     <string name="optionmenu_item2">关于</string>
-    <string name="optionmenu_item3">升级</string>
+    <string name="optionmenu_item3">刷新</string>
+    <string name="optionmenu_item100">我的</string>
+    
+    <string name="action_new_secret">发秘密</string>
+    <string name="action_notification">查看提醒</string>
+    <string name="action_chat">聊天</string>
+    <string name="action_more">更多</string>
     
     
+    <string name="feed_type_new">最新</string>
+    <string name="feed_type_hot">最热</string>
+    <string name="feed_type_1">川菜</string>
+    <string name="feed_type_2">湘菜</string>
+    <string name="feed_type_3">粤菜</string>
+    <string name="feed_type_4">点心</string>
+    <string name="feed_type_5">小吃</string>
+    <string name="feed_type_6">酒水</string>
+    <string name="feed_type_7">海鲜</string>
+    <string name="feed_type_8">小炒</string>
+    <string name="feed_type_9">饮料</string>
+        
+
 </resources>

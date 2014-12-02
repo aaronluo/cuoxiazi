@@ -11,13 +11,13 @@ import android.view.Window;
  * @author wanglinglong
  * 
  */
-public class UserOrderActivity extends Activity {
+public class MyOrderActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		//requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.userorder_activity);
+		setContentView(R.layout.myorder_activity);
 	}
 }

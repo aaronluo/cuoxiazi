@@ -18,6 +18,6 @@ public class OrderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.userorder_activity);
+		setContentView(R.layout.order_activity);
 	}
 }

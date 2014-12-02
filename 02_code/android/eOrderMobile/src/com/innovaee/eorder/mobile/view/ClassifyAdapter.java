@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
@@ -76,6 +77,7 @@ public class ClassifyAdapter extends BaseAdapter {
 				view = layoutInflater.inflate(R.layout.classify_griditem, null);
 				RemoteImageView imageView = (RemoteImageView) view
 						.findViewById(R.id.classify_image);
+					
 				TextView name = (TextView) view
 						.findViewById(R.id.classify_name);
 

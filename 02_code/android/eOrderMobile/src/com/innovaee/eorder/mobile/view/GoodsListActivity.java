@@ -29,7 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class GoodsListActivity extends Activity {
 	private final static String TAG = "FoodsListActivity";
-
+	
 	private final static int MSG_UPDATE = 20001;
 
 	private final static int MSG_INITDATA = 20002;
@@ -73,10 +73,8 @@ public class GoodsListActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.goodslist_activity);
-
+									
 		Intent i = this.getIntent();
         Bundle b = i.getExtras();
         selectItem = b.getInt("selectItme", 0);

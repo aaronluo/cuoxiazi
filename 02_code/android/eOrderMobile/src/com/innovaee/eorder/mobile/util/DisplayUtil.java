@@ -8,7 +8,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 
 /**
  * 显示工具集
@@ -113,5 +115,10 @@ public class DisplayUtil {
 			System.gc();
 		}
 		return retval;
+	}
+	
+	public static int dipToPixels(DisplayMetrics paramDisplayMetrics, float paramFloat)
+	{
+	    return (int)TypedValue.applyDimension(1, paramFloat, paramDisplayMetrics);
 	}
 }
