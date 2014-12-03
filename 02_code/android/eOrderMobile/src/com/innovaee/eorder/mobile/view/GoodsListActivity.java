@@ -43,7 +43,7 @@ public class GoodsListActivity extends Activity {
 	private List<GoodsDataBean> goodsListData;
 	
 	private int selectItem;
-		
+			
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {

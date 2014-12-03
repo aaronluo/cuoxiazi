@@ -12,7 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop" >
     </com.innovaee.eorder.mobile.util.RemoteImageView>
-
+        
     <TextView
         android:id="@+id/classify_name"
         android:layout_width="fill_parent"

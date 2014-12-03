@@ -23,7 +23,10 @@
     <string name="action_notification">查看提醒</string>
     <string name="action_chat">聊天</string>
     <string name="action_more">更多</string>
-    
+    <string name="action_order">订单</string>
+    <string name="action_order_hestory">订单查询</string>
+    <string name="action_order_hestory_input">请输入会员号</string>
+            
     
     <string name="feed_type_new">最新</string>
     <string name="feed_type_hot">最热</string>

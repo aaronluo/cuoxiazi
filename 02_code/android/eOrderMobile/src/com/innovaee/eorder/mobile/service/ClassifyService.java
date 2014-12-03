@@ -6,8 +6,8 @@ package com.innovaee.eorder.mobile.service;
  * 
  */
 public interface ClassifyService {
-
-	// 获取最新的商品信息
+		
+	// 获取最新的分类信息
 	public abstract <T> void getAllClassify(ICallback<T> callback);
 
 }
