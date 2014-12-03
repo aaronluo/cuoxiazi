@@ -21,8 +21,8 @@ public class DataManager {
 
 	private DataManager(Context context) {
 		// TODO
-		context = context.getApplicationContext();
-	}
+		this.context = context.getApplicationContext();
+	}																			
 
 	public synchronized static DataManager getInstance(Context context) {
 		if (self == null) {

@@ -34,7 +34,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-					
+	
 @SuppressWarnings("deprecation")
 public class MainViewActivity extends Activity {
 	private final static String TAG = "MainViewActivity";
@@ -122,7 +122,7 @@ public class MainViewActivity extends Activity {
 			
 		initData();	
 		
-		initTestData();	
+		initTestData();				
 	}
 	
 	@Override
@@ -212,7 +212,9 @@ public class MainViewActivity extends Activity {
 			}
 		});	
 		
-		changeFeedType(lastFeedType);	
+		changeFeedType(lastFeedType);
+			
+		loadFeedTypeListData();
 	}																
 		
 	/**
@@ -246,8 +248,9 @@ public class MainViewActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	  
 				Log.d(TAG, "feedTypeName.setOnClickListener!");
-				clickOnFeedType((View)actionBar.getCustomView());
-			}							
+				//clickOnFeedType((View)actionBar.getCustomView());
+				clickOnFeedType((View)paramAnonymousView.getParent());		
+			}										
 		});
 	}	
 
@@ -303,9 +306,11 @@ public class MainViewActivity extends Activity {
 	    if (this.lastFeedType != paramFeedType)
 	    {
 	    	lastFeedType = paramFeedType;
-	    	this.feedTypeName.setText(lastFeedType.getTypeName());		    	
-	    }	    	
-	}				
+	    	this.feedTypeName.setText(lastFeedType.getTypeName());
+	    		
+	    	loadClassifyData();
+	    }		    	
+	}					
 		
 	/**
 	 * 初始化Popmenu菜单
@@ -412,18 +417,18 @@ public class MainViewActivity extends Activity {
 		msg.obj = (Object) classifyListData;
 		handler.sendMessage(msg);
 	}	
-	
-	/**
+						
+	/**	
 	 * 加载某个分类菜品列表数据
-	 */	
+	 */								
 	private void loadClassifyData() {										
-		DataManager.getInstance(getApplicationContext()).getGoodsData(lastFeedType.getClassifyId(), 
+		DataManager.getInstance(MainViewActivity.this).getGoodsData(lastFeedType.getClassifyId(), 
 				new IDataRequestListener<GoodsDataBean>() {
 					@Override
 					public void onRequestSuccess(
 							final List<GoodsDataBean> data) {
 						// TODO Auto-generated method stub
-						Log.d("FoodsShopActivity:", "onRequestSuccess!");
+						Log.d("MainViewActivity:", "onRequestSuccess!");
 						if (data == null) {
 							return;
 						}
@@ -434,19 +439,19 @@ public class MainViewActivity extends Activity {
 					@Override
 					public void onRequestStart() {
 						// TODO
-						Log.d("FoodsShopActivity:", "onRequestStart!");
+						Log.d("MainViewActivity:", "onRequestStart!");
 					}
 
 					@Override
 					public void onRequestFailed() {
 						// TODO
-						Log.d("FoodsShopActivity:", "onRequestFailed!");
+						Log.d("MainViewActivity:", "onRequestFailed!");
 					}
 
 					@Override
 					public void onRequestSuccess(GoodsDataBean data) {
 						// TODO Auto-generated method stub
-						Log.d("FoodsShopActivity:", "onRequestSuccess!");
+						Log.d("MainViewActivity:", "onRequestSuccess!");
 						updateUi();
 					}
 				});
@@ -454,15 +459,15 @@ public class MainViewActivity extends Activity {
 		
 	/**
 	 * 加载所有分类列表信息
-	 */
-	private void loadFeedTypeListData() {	
-		DataManager.getInstance(getApplicationContext()).getClassifyData(
+	 */	
+	private void loadFeedTypeListData() {					
+		DataManager.getInstance(MainViewActivity.this).getClassifyData(
 				new IDataRequestListener<ClassifyDataBean>() {
 					@Override
 					public void onRequestSuccess(
 							final List<ClassifyDataBean> data) {
 						// TODO Auto-generated method stub
-						Log.d("FoodsShopActivity:", "onRequestSuccess!");
+						Log.d("MainViewActivity:", "onRequestSuccess!");
 						if (data == null) {
 							return;
 						}
@@ -473,19 +478,19 @@ public class MainViewActivity extends Activity {
 					@Override
 					public void onRequestStart() {
 						// TODO
-						Log.d("FoodsShopActivity:", "onRequestStart!");
+						Log.d("MainViewActivity:", "onRequestStart!");
 					}
 						
 					@Override
 					public void onRequestFailed() {
 						// TODO
-						Log.d("FoodsShopActivity:", "onRequestFailed!");
+						Log.d("MainViewActivity:", "onRequestFailed!");
 					}
 
 					@Override
 					public void onRequestSuccess(ClassifyDataBean data) {
 						// TODO Auto-generated method stub
-						Log.d("FoodsShopActivity:", "onRequestSuccess!");
+						Log.d("MainViewActivity:", "onRequestSuccess!");
 						updatePopmenuUi();
 					}	
 				});
@@ -529,9 +534,9 @@ public class MainViewActivity extends Activity {
 		FeedType databean4 = new FeedType(3, "粤菜");
 		feedTypeList.add(databean4);
 
-		FeedType databean5 = new FeedType(4, "小吃");
+		FeedType databean5 = new FeedType(4, "川菜");
 		feedTypeList.add(databean5);
-		
+				
 		FeedType databean6 = new FeedType(5, "酒水");
 		feedTypeList.add(databean6);
 		
