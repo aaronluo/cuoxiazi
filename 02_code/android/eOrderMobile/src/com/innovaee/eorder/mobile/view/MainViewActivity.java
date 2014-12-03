@@ -34,15 +34,15 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 	
 @SuppressWarnings("deprecation")
 public class MainViewActivity extends Activity {
 	private final static String TAG = "MainViewActivity";
-	
+		
+	//消息定义
 	private final static int MSG_UPDATE = 20001;
-
-	private final static int MSG_INITDATA = 20002;
-	
+	private final static int MSG_INITDATA = 20002;	
 	private final static int MSG_UPDATE_POPMENU = 20003;
 			
 	//自定义ActionBar
@@ -69,20 +69,26 @@ public class MainViewActivity extends Activity {
 	//所有分类类型列表
 	private List<FeedType> feedTypeList;
 	
+	//分类弹出菜单中listview
+	private ListView popupMenuList;
+	
 	private DisplayMetrics displayMetrics;	
 	 
 	private GridView gridView;
 
 	private GoodsAdapter goodsAdapter;	
 		
+	//当前分类的菜品列表
 	private List<GoodsDataBean> goodsListData;
+		
+	//所有分类列表
+	private List<ClassifyDataBean> classifyListData;		
+		
+	//已经选择的菜品
+	private List<GoodsDataBean> selectOrderGoods;	
 	
-	private List<ClassifyDataBean> classifyListData;	
-	
-	private ListView popupMenuList;
-	
-	private int selectItem;					
-							
+	EditText orderHestoryInput;
+			
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
@@ -208,9 +214,16 @@ public class MainViewActivity extends Activity {
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-
-			}
-		});	
+				Log.d(TAG, "gridView.setOnItemClickListener!");			
+				if (selectOrderGoods != null) {
+					selectOrderGoods.add(goodsListData.get(position));
+																
+					updateMyOrderCount(goodsListData.size());
+				} else {	
+					selectOrderGoods = new ArrayList<GoodsDataBean>();
+				}												
+			}			
+		});				
 		
 		changeFeedType(lastFeedType);
 			
@@ -225,9 +238,9 @@ public class MainViewActivity extends Activity {
 		inflater = (LayoutInflater) MainViewActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				
 		View localView = inflater.inflate(R.layout.order_hestory_view, null);		
-		EditText orderHestoryInput = ((EditText)localView.findViewById(R.id.order_hestory_input));
+		orderHestoryInput = ((EditText)localView.findViewById(R.id.order_hestory_input));
 		ImageView orderHestroySearch = ((ImageView)localView.findViewById(R.id.order_hestory_search));
-					
+			
 		feedTypeName = ((TextView)localView.findViewById(R.id.feed_type_name));
 		feedTypeName.setText(R.string.feed_type_hot);
 				
@@ -270,30 +283,46 @@ public class MainViewActivity extends Activity {
 	 * 进入关于界面
 	 */	
 	private void openAbout() {
-		
-	}
+		Bundle bundle = new Bundle();					
+		Intent intent = new Intent();		
+		intent.putExtras(bundle);						
+		intent.setClass(MainViewActivity.this, AboutActivity.class);	  						
+        startActivity(intent);	
+	}	
 					
 	/**
 	 * 进入订单记录
 	 */
-	private void oepnOrderHestory() {
+	private void oepnOrderHestory(int userId) {
 		Bundle bundle = new Bundle();					
-		Intent intent = new Intent();									
+		Intent intent = new Intent();
+		
+		bundle.putInt("userid", userId);			
+							
 		intent.putExtras(bundle);						
-		intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);	             						
-        startActivity(intent);	
-	}
+		intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);	  
 			
+        startActivity(intent);	
+	}	
+		
 	/**
 	 * 进入我的订单
 	 */
 	private void openMyOrder() {
 		Bundle bundle = new Bundle();					
-		Intent intent = new Intent();									
+		Intent intent = new Intent();
+		
+		//这个list用于在budnle中传递 需要传递的ArrayList<Object>
+		ArrayList list = new ArrayList();
+
+		list.add(selectOrderGoods);
+			
+		bundle.putParcelableArrayList("list",list);
+					
 		intent.putExtras(bundle);						
 		intent.setClass(MainViewActivity.this, MyOrderActivity.class);	             						
         startActivity(intent);
-	}	
+	}
 	
 	/**
 	 * 切换当前的FeedType，并更新显示
@@ -368,16 +397,26 @@ public class MainViewActivity extends Activity {
 	    
 	    this.feedTypePopup.showAsDropDown(paramView, -DisplayUtil.dipToPixels(this.displayMetrics, 10.0F), -DisplayUtil.dipToPixels(this.displayMetrics, 5.0F));
 	}										
-				
+							
 	/**
 	 * 处理ActionBar中orderHestory自定义View点击事件
 	 * @param paramView
 	 */
 	public void clickOnOrderHestory(View paramView)
-	{
+	{	
+		if(orderHestoryInput != null) {
+			String inputString = orderHestoryInput.getText().toString();
+			
+			if(inputString.equals("")) {
+				Toast.makeText(getApplicationContext(), R.string.toast_please_input_userid, Toast.LENGTH_SHORT).show();
+			} else {	
+				int inputNumber = Integer.parseInt(inputString);
+				
+				oepnOrderHestory(inputNumber);
+			}	
+		}
+	}						
 		
-	}
-					
 	/**
 	 * 更新我的订单数目
 	 * @param count

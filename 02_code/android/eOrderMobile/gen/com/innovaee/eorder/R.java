@@ -102,22 +102,22 @@ public final class R {
          */
         public static final int auto_focus=0x7f070000;
         public static final int btn_add_qrcode=0x7f070023;
-        public static final int btn_cancel_scan=0x7f07000e;
+        public static final int btn_cancel_scan=0x7f07000f;
         public static final int btn_scan_barcode=0x7f070020;
-        public static final int chat=0x7f07000f;
-        public static final int chat_count=0x7f070010;
-        public static final int classify_image=0x7f070012;
-        public static final int classify_name=0x7f070013;
+        public static final int chat=0x7f070010;
+        public static final int chat_count=0x7f070011;
+        public static final int classify_image=0x7f070013;
+        public static final int classify_name=0x7f070014;
         public static final int decode=0x7f070001;
         public static final int decode_failed=0x7f070002;
         public static final int decode_succeeded=0x7f070003;
         public static final int encode_failed=0x7f070004;
         public static final int encode_succeeded=0x7f070005;
         public static final int et_qr_string=0x7f070022;
-        public static final int feed_type_name=0x7f070014;
-        public static final int goods_gridview=0x7f070011;
-        public static final int goods_image=0x7f070015;
-        public static final int goods_name=0x7f070016;
+        public static final int feed_type_name=0x7f070015;
+        public static final int goods_gridview=0x7f070012;
+        public static final int goods_image=0x7f070016;
+        public static final int goods_name=0x7f070017;
         public static final int item_about=0x7f07002c;
         public static final int item_myorderhestory=0x7f07002a;
         public static final int item_refresh=0x7f07002d;
@@ -133,36 +133,37 @@ public final class R {
         public static final int order_count=0x7f07001b;
         public static final int order_hestory_input=0x7f07001e;
         public static final int order_hestory_search=0x7f07001f;
-        public static final int preview_view=0x7f07000c;
+        public static final int preview_view=0x7f07000d;
         public static final int quit=0x7f070007;
         public static final int restart_preview=0x7f070008;
         public static final int return_scan_result=0x7f070009;
         public static final int search_book_contents_failed=0x7f07000a;
         public static final int search_book_contents_succeeded=0x7f07000b;
-        public static final int title_bar=0x7f070017;
+        public static final int title_bar=0x7f07000c;
         public static final int tv_scan_result=0x7f070021;
-        public static final int viewfinder_view=0x7f07000d;
+        public static final int viewfinder_view=0x7f07000e;
     }
     public static final class layout {
-        public static final int capture=0x7f030000;
-        public static final int chat_count_view=0x7f030001;
-        public static final int classify_activity=0x7f030002;
-        public static final int classify_griditem=0x7f030003;
-        public static final int drop_down_item=0x7f030004;
-        public static final int drop_down_list=0x7f030005;
-        public static final int feed_type_view=0x7f030006;
-        public static final int goods_griditem=0x7f030007;
-        public static final int goodsdetail_activity=0x7f030008;
-        public static final int goodslist_activity=0x7f030009;
-        public static final int maintab_activity=0x7f03000a;
-        public static final int myorder_activity=0x7f03000b;
-        public static final int notification_count_view=0x7f03000c;
-        public static final int order_activity=0x7f03000d;
-        public static final int order_count_view=0x7f03000e;
-        public static final int order_hestory_view=0x7f03000f;
-        public static final int orderhestory_activity=0x7f030010;
-        public static final int qrtest=0x7f030011;
-        public static final int settings_activity=0x7f030012;
+        public static final int about_activity=0x7f030000;
+        public static final int capture=0x7f030001;
+        public static final int chat_count_view=0x7f030002;
+        public static final int classify_activity=0x7f030003;
+        public static final int classify_griditem=0x7f030004;
+        public static final int drop_down_item=0x7f030005;
+        public static final int drop_down_list=0x7f030006;
+        public static final int feed_type_view=0x7f030007;
+        public static final int goods_griditem=0x7f030008;
+        public static final int goodsdetail_activity=0x7f030009;
+        public static final int goodslist_activity=0x7f03000a;
+        public static final int maintab_activity=0x7f03000b;
+        public static final int myorder_activity=0x7f03000c;
+        public static final int notification_count_view=0x7f03000d;
+        public static final int order_activity=0x7f03000e;
+        public static final int order_count_view=0x7f03000f;
+        public static final int order_hestory_view=0x7f030010;
+        public static final int orderhestory_activity=0x7f030011;
+        public static final int qrtest=0x7f030012;
+        public static final int settings_activity=0x7f030013;
     }
     public static final class menu {
         public static final int main_activity_actions=0x7f0a0000;
@@ -208,6 +209,9 @@ public final class R {
         public static final int tab_name_goodsshop=0x7f080006;
         public static final int tab_name_settings=0x7f080008;
         public static final int tab_name_userorder=0x7f080007;
+        /**  toast 
+         */
+        public static final int toast_please_input_userid=0x7f08001f;
     }
     public static final class style {
         public static final int ActionBar=0x7f090004;
