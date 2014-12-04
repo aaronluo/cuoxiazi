@@ -34,6 +34,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:name="com.innovaee.eorder.mobile.application.MyApplication"
+        android:logo="@drawable/ic_logo"    
         android:theme="@style/CustomActivityTheme">
         <activity				
             android:name="com.innovaee.eorder.mobile.view.MainViewActivity"
