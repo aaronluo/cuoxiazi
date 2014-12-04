@@ -20,14 +20,14 @@ public class GoodsDataBean implements Serializable {
 
 	private String name;
 
-	private float price;
+	private Double price;
 	
 	private String bitmapUrl;
 
 	public GoodsDataBean() {
 	}
 
-	public GoodsDataBean(int id, String name, float price, String url) {
+	public GoodsDataBean(int id, String name, Double price, String url) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -50,13 +50,13 @@ public class GoodsDataBean implements Serializable {
 		this.name = name;
 	}
 
-	public float getPrice() {
+	public Double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(float all) {
+	public void setPrice(Double all) {
 		this.price = all;
-	}
+	}	
 	
 	public String getBitmapUrl() {
 		return this.bitmapUrl;

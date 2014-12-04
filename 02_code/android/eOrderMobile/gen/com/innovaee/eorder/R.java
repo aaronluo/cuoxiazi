@@ -203,6 +203,11 @@ public final class R {
         public static final int feed_type_hot=0x7f080015;
         public static final int feed_type_new=0x7f080014;
         public static final int hello_world=0x7f080001;
+        /**  Button 
+         */
+        public static final int main_griditem_btn_order=0x7f080020;
+        public static final int main_griditem_text_name=0x7f080021;
+        public static final int main_griditem_text_price=0x7f080022;
         /**  optionmenu 
          */
         public static final int optionmenu_item1=0x7f080009;

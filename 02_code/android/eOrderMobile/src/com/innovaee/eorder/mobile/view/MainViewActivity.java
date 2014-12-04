@@ -41,10 +41,11 @@ public class MainViewActivity extends Activity {
 	private final static String TAG = "MainViewActivity";
 		
 	//消息定义
-	private final static int MSG_UPDATE = 20001;
-	private final static int MSG_INITDATA = 20002;	
-	private final static int MSG_UPDATE_POPMENU = 20003;
-			
+	public final static int MSG_UPDATE = 20001;
+	public final static int MSG_INITDATA = 20002;	
+	public final static int MSG_UPDATE_POPMENU = 20003;
+	public final static int MSG_ORDER = 20004;
+		
 	//自定义ActionBar
 	private ActionBar actionBar;
 
@@ -96,23 +97,38 @@ public class MainViewActivity extends Activity {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
 				goodsListData = (List<GoodsDataBean>) msg.obj;
-				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData);
+				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
 				gridView.setAdapter(goodsAdapter);
 				
 				Log.d(TAG, "goodsListData.size =" + goodsListData.size());
 				}
 				break;
 				
-			case MSG_INITDATA:				
+			case MSG_INITDATA:	
+				Log.d(TAG, "MSG_INITDATA!!!");
 				break;
 				
 			case MSG_UPDATE_POPMENU:
+				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");
 				classifyListData = (List<ClassifyDataBean>) msg.obj;
 				feedTypeList.clear();
 				feedTypeList = changeClassifyToFeedType(classifyListData);				
 				feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
 				break;				
 
+			case MSG_ORDER:
+				Log.d(TAG, "MSG_ORDER!!!");
+				int select = msg.arg1;		
+				if (selectOrderGoods == null) {
+					selectOrderGoods = new ArrayList<GoodsDataBean>();
+				}	
+					
+				if ((goodsListData != null) && (goodsListData.size() != 0)) {
+					selectOrderGoods.add(goodsListData.get(select));																
+					updateMyOrderCount(selectOrderGoods.size());
+				}				
+				break;		
+					
 			default:
 				break;
 			}
@@ -134,18 +150,16 @@ public class MainViewActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu paramMenu) {	
 		getMenuInflater().inflate(R.menu.main_activity_actions, paramMenu);
-		
+				
 	    //订单数量显示View
 	    final MenuItem localMenuItem2 = paramMenu.findItem(R.id.action_order);
 	    orderActionView = localMenuItem2.getActionView();
-	    orderCountView = ((TextView)this.orderActionView.findViewById(R.id.order_count));
-	    updateMyOrderCount(9);										
+	    orderCountView = ((TextView)this.orderActionView.findViewById(R.id.order_count));										
 	    orderActionView.setOnClickListener(new View.OnClickListener()
 	    {	
 	    	public void onClick(View paramAnonymousView)
 	    	{
 	    		Log.d(TAG, "orderCountView.onClick");
-	    		updateMyOrderCount(9);
 	    		openMyOrder();
 	    	}
 	    });
@@ -155,7 +169,6 @@ public class MainViewActivity extends Activity {
 	    	public boolean onLongClick(View paramAnonymousView)
 	    	{		
 	    		Log.d(TAG, "orderCountView.onLongClick");
-	    		updateMyOrderCount(33);
 	    		openMyOrder();
 	    		return true;
 	    	}	
@@ -207,22 +220,23 @@ public class MainViewActivity extends Activity {
 			 							
 		initActionBarCustomView();
 		
-		goodsAdapter = new GoodsAdapter(this, goodsListData);
-
+		goodsAdapter = new GoodsAdapter(this, goodsListData, handler);
+			
 		gridView.setAdapter(goodsAdapter);
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 				Log.d(TAG, "gridView.setOnItemClickListener!");			
-				if (selectOrderGoods != null) {
-					selectOrderGoods.add(goodsListData.get(position));
-																
-					updateMyOrderCount(goodsListData.size());
-				} else {	
+				if (selectOrderGoods == null) {
 					selectOrderGoods = new ArrayList<GoodsDataBean>();
-				}												
-			}			
+				}
+											
+				if ((goodsListData != null) && (goodsListData.size() != 0)) {
+					selectOrderGoods.add(goodsListData.get(position));																
+					updateMyOrderCount(selectOrderGoods.size());
+				}	
+			}				
 		});				
 		
 		changeFeedType(lastFeedType);
@@ -423,7 +437,7 @@ public class MainViewActivity extends Activity {
 	 */
 	private void updateMyOrderCount(int count) {
 	    String str = "";
-	    
+	    		
 	    if (count > 99) {
 	    	str = "99+";
 	    } else if (count > 0) {
@@ -432,7 +446,7 @@ public class MainViewActivity extends Activity {
 	    	orderCountView.setText(str);
 	    	orderCountView.setVisibility(View.INVISIBLE);
 	    }				
-	    			
+	    	
 		orderCountView.setText(str);	
 		orderCountView.setVisibility(View.VISIBLE);
 	}																						
@@ -598,38 +612,44 @@ public class MainViewActivity extends Activity {
 		databean1.setId(0);
 		databean1.setName("川菜");
 		databean1.setBitmapUrl("http://food.hnr.cn/rmc/rmfl/201307/W020130719651943856865.jpg");
+		databean1.setPrice(19.8);
 		goodsListData.add(databean1);
 
 		GoodsDataBean databean2 = new GoodsDataBean();
 		databean2.setId(0);
 		databean2.setName("湘菜");
+		databean2.setPrice((double) 38);	
 		databean2.setBitmapUrl("http://img5.imgtn.bdimg.com/it/u=2131026967,3181874696&fm=21&gp=0.jpg");
 		goodsListData.add(databean2);
 
 		GoodsDataBean databean3 = new GoodsDataBean();
 		databean3.setId(0);
 		databean3.setName("粤菜");
+		databean3.setPrice((double) 26.5);
 		databean3.setBitmapUrl("http://pic21.nipic.com/20120525/2194567_150416722000_2.jpg");
 		goodsListData.add(databean3);
 
 		GoodsDataBean databean4 = new GoodsDataBean();
 		databean4.setId(0);
 		databean4.setName("酒水");
+		databean4.setPrice((double) 18);
 		databean4.setBitmapUrl("http://pic21.nipic.com/20120513/4666865_132407922000_2.jpg");
 		goodsListData.add(databean4);
 		
 		GoodsDataBean databean5 = new GoodsDataBean();
 		databean5.setId(0);
 		databean5.setName("小菜");
+		databean5.setPrice((double) 28);
 		databean5.setBitmapUrl("http://p1.ftuan.com/2012/1129/11/20121129112313883.jpg");
 		goodsListData.add(databean5);
 
 		GoodsDataBean databean6 = new GoodsDataBean();
 		databean6.setId(0);
 		databean6.setName("主食");
+		databean6.setPrice((double) 48);
 		databean6.setBitmapUrl("http://www.photophoto.cn/m77/161/002/1610020750.jpg");
 		goodsListData.add(databean6);
-
+				
 		Log.d(TAG, "goodsListData.size =" + goodsListData.size());
 
 		updateUi();	

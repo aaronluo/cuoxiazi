@@ -48,9 +48,8 @@ public class GoodsDetailActivity extends Activity {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
 				goodsListData = (List<GoodsDataBean>) msg.obj;
-				goodsAdapter = new GoodsAdapter(GoodsDetailActivity.this,
-						goodsListData);
-				gridView.setAdapter(goodsAdapter);
+				goodsAdapter = new GoodsAdapter(GoodsDetailActivity.this, goodsListData, handler);
+				gridView.setAdapter(goodsAdapter);	
 
 				Log.d(TAG, "goodsListData.size =" + goodsListData.size());
 				}
@@ -92,7 +91,7 @@ public class GoodsDetailActivity extends Activity {
 	 * init data
 	 */
 	private void initData() {
-		goodsAdapter = new GoodsAdapter(this, goodsListData);
+		goodsAdapter = new GoodsAdapter(this, goodsListData, handler);
 
 		gridView.setAdapter(goodsAdapter);
 

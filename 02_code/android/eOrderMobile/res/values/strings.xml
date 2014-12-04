@@ -43,6 +43,11 @@
     <!-- toast -->
     <string name="toast_please_input_userid">请输入会员号！</string>
     
+    <!-- Button -->
+    <string name="main_griditem_btn_order">下单</string>
+    <string name="main_griditem_text_name">菜品名</string>
+    <string name="main_griditem_text_price">19.8</string>
+    
     
 
 </resources>

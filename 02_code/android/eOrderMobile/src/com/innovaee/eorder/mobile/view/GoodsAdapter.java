@@ -7,11 +7,15 @@ import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.util.RemoteImageView;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
@@ -21,7 +25,8 @@ public class GoodsAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private GoodsDataBean goodsItemData;
-
+	private Handler handler;
+		
 	public final class ListItemView {
 		public ImageView image;
 		public TextView title;
@@ -33,9 +38,10 @@ public class GoodsAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	public GoodsAdapter(Context context, List<GoodsDataBean> list) {
+	public GoodsAdapter(Context context, List<GoodsDataBean> list, Handler handler) {
 		this.listItemsData = list;
 		this.context = context;
+		this.handler = handler;	
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -74,18 +80,29 @@ public class GoodsAdapter extends BaseAdapter {
 			if (layoutInflater != null) {
 				Log.d("GoodsAdapter", "layoutInflater != null");
 				view = layoutInflater.inflate(R.layout.goods_griditem, null);
-				RemoteImageView imageView = (RemoteImageView) view
-						.findViewById(R.id.goods_image);
-				TextView name = (TextView) view
-						.findViewById(R.id.goods_name);
-
+				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
+				TextView name = (TextView) view.findViewById(R.id.goods_name);
+				TextView price = (TextView) view.findViewById(R.id.goods_price);
+				Button btn = (Button) view.findViewById(R.id.order_button);
+				final int select = position;
+						
+				btn.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+					//处理事件
+						Log.d("GoodsAdapter", "btn.setOnClickListener!");
+						Message msg = Message.obtain();
+						msg.what = MainViewActivity.MSG_ORDER;	
+						msg.arg1 = select;				
+						handler.sendMessage(msg);															
+					}										
+				});		
+				
 				// 获取自定义的类实例
-				goodsItemData = (GoodsDataBean) listItemsData
-						.get(position);
-				imageView.setImageUrl(listItemsData.get(position)
-						.getBitmapUrl());
-				name.setText(goodsItemData.getName());
-			}
+				goodsItemData = (GoodsDataBean) listItemsData.get(position);
+				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
+				name.setText(goodsItemData.getName());			
+				price.setText(String.valueOf(goodsItemData.getPrice()));
+			}			
 		} else {
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;
