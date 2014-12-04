@@ -133,7 +133,7 @@ public class MainViewActivity extends Activity {
 				break;
 			}
 		}
-
+			
 	};
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -235,10 +235,10 @@ public class MainViewActivity extends Activity {
 				if ((goodsListData != null) && (goodsListData.size() != 0)) {
 					selectOrderGoods.add(goodsListData.get(position));																
 					updateMyOrderCount(selectOrderGoods.size());
-				}	
+				}			
 			}				
 		});				
-		
+							
 		changeFeedType(lastFeedType);
 			
 		loadFeedTypeListData();
@@ -417,7 +417,8 @@ public class MainViewActivity extends Activity {
 	 * @param paramView
 	 */
 	public void clickOnOrderHestory(View paramView)
-	{	
+	{				
+		Log.d(TAG, "clickOnOrderHestory!");		
 		if(orderHestoryInput != null) {
 			String inputString = orderHestoryInput.getText().toString();
 			
@@ -430,7 +431,7 @@ public class MainViewActivity extends Activity {
 			}	
 		}
 	}						
-		
+							
 	/**
 	 * 更新我的订单数目
 	 * @param count
