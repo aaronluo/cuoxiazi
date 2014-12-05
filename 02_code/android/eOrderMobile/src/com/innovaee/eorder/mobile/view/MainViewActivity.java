@@ -160,8 +160,10 @@ public class MainViewActivity extends Activity {
 	    	public void onClick(View paramAnonymousView)
 	    	{
 	    		Log.d(TAG, "orderCountView.onClick");
-	    		openMyOrder();
-	    	}
+	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
+	    			openMyOrder();
+	    		}
+	    	}	
 	    });
 	    			
 	    orderActionView.setOnLongClickListener(new View.OnLongClickListener()
@@ -169,11 +171,13 @@ public class MainViewActivity extends Activity {
 	    	public boolean onLongClick(View paramAnonymousView)
 	    	{		
 	    		Log.d(TAG, "orderCountView.onLongClick");
-	    		openMyOrder();
+	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
+	    			openMyOrder();
+	    		}
 	    		return true;
-	    	}	
-	    });	
-	    		
+	    	}		
+	    });		
+	    	
 	    return super.onCreateOptionsMenu(paramMenu);
 	}	
 		
@@ -610,42 +614,42 @@ public class MainViewActivity extends Activity {
 		goodsListData = new ArrayList<GoodsDataBean>();
 
 		GoodsDataBean databean1 = new GoodsDataBean();
-		databean1.setId(0);
+		databean1.setId(100001);
 		databean1.setName("川菜");
 		databean1.setBitmapUrl("http://food.hnr.cn/rmc/rmfl/201307/W020130719651943856865.jpg");
 		databean1.setPrice(19.8);
 		goodsListData.add(databean1);
 
 		GoodsDataBean databean2 = new GoodsDataBean();
-		databean2.setId(0);
+		databean2.setId(100002);
 		databean2.setName("湘菜");
 		databean2.setPrice((double) 38);	
 		databean2.setBitmapUrl("http://img5.imgtn.bdimg.com/it/u=2131026967,3181874696&fm=21&gp=0.jpg");
 		goodsListData.add(databean2);
 
 		GoodsDataBean databean3 = new GoodsDataBean();
-		databean3.setId(0);
+		databean3.setId(100003);
 		databean3.setName("粤菜");
 		databean3.setPrice((double) 26.5);
 		databean3.setBitmapUrl("http://pic21.nipic.com/20120525/2194567_150416722000_2.jpg");
 		goodsListData.add(databean3);
 
 		GoodsDataBean databean4 = new GoodsDataBean();
-		databean4.setId(0);
+		databean4.setId(100004);
 		databean4.setName("酒水");
 		databean4.setPrice((double) 18);
 		databean4.setBitmapUrl("http://pic21.nipic.com/20120513/4666865_132407922000_2.jpg");
 		goodsListData.add(databean4);
 		
 		GoodsDataBean databean5 = new GoodsDataBean();
-		databean5.setId(0);
+		databean5.setId(100005);
 		databean5.setName("小菜");
 		databean5.setPrice((double) 28);
 		databean5.setBitmapUrl("http://p1.ftuan.com/2012/1129/11/20121129112313883.jpg");
 		goodsListData.add(databean5);
-
+																			
 		GoodsDataBean databean6 = new GoodsDataBean();
-		databean6.setId(0);
+		databean6.setId(100006);
 		databean6.setName("主食");
 		databean6.setPrice((double) 48);
 		databean6.setBitmapUrl("http://www.photophoto.cn/m77/161/002/1610020750.jpg");

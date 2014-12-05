@@ -46,7 +46,7 @@
     <!-- Button -->
     <string name="main_griditem_btn_order">下单</string>
     <string name="main_griditem_text_name">菜品名</string>
-    <string name="main_griditem_text_price">19.8</string>
+    <string name="main_griditem_text_price">0</string>
     
     
 

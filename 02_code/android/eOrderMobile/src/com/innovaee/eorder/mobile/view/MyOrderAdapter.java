@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,8 +66,10 @@ public class MyOrderAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		itemNumMap = getItemData(list);
-		listchangeItemsData = removeDuplicateWithOrder(list);
-		
+		listchangeItemsData = rmTwiceData(list, itemNumMap);
+													
+		//Log.d("GoodsAdapter", "listchangeItemsData.size()" + listchangeItemsData.size());
+			
 		allNum = new ArrayList<String>();  
         for(int i = 0; i < selectNum.length; i++){  
         	allNum.add(selectNum[i]);  	
@@ -104,16 +107,15 @@ public class MyOrderAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView()");
-
+		Log.d("GoodsAdapter", "getView() position=" + position);
+						
 		if (convertView == null) {
-			if (layoutInflater != null) {
-				Log.d("GoodsAdapter", "layoutInflater != null");				
+			if (layoutInflater != null) {						
 				view = layoutInflater.inflate(R.layout.order_listitem, null);
 					
 				// 获取自定义的类实例		
 				goodsItemData = (GoodsDataBean) listchangeItemsData.get(position);
-				
+																
 				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
 				TextView name = (TextView) view.findViewById(R.id.goods_name);
 				final TextView price = (TextView) view.findViewById(R.id.goods_allprice);
@@ -125,26 +127,38 @@ public class MyOrderAdapter extends BaseAdapter {
 			                    int position, long id) {
 			            // 在选中之后触发
 						Log.d("MyOrderAdapter", "numberSpinner position=" + position);
-		                Double allPrice = goodsItemData.getPrice() * position;
+		                Double allPrice = goodsItemData.getPrice() * (position + 1);
 		                price.setText(String.valueOf(allPrice));
-			        }										
-
+			        }												
+					
 			        public void onNothingSelected(AdapterView parent) {
-			        	// 这个一直没有触发，我也不知道什么时候被触发。
-			            //在官方的文档上说明，为back的时候触发，但是无效，可能需要特定的场景
 			        }				
 			    });
-								
-			
+					
 				imageView.setImageUrl(goodsItemData.getBitmapUrl());
-				name.setText(goodsItemData.getName());			
-				price.setText(String.valueOf(goodsItemData.getPrice()));
-			}			
+				name.setText(goodsItemData.getName());		
+						
+				Double allPrice = 0.0;	
+				int count = 1;
+				if(itemNumMap != null && itemNumMap.size() > 0) {
+					count = (Integer) itemNumMap.get(String.valueOf(goodsItemData.getId()));
+					allPrice = goodsItemData.getPrice() * count;							 									
+				}																								
+					
+				Log.d("GoodsAdapter", "allPrice =" + allPrice);		
+				Log.d("GoodsAdapter", "count =" + count);
+				Log.d("GoodsAdapter", "goodsItemData.getPrice() =" + goodsItemData.getPrice());
+				Log.d("GoodsAdapter", "goodsItemData.getId() =" + goodsItemData.getId());
+				Log.d("GoodsAdapter", "goodsItemData.getName() =" + goodsItemData.getName());		
+						
+				price.setText(String.valueOf(goodsItemData.getPrice()));																			
+				numberSpinner.setSelection(count-1);
+			}						
 		} else {	
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;
-		}
-		
+		}		
+				
 		return view;
 	}
 
@@ -155,31 +169,59 @@ public class MyOrderAdapter extends BaseAdapter {
 									
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map getItemData(List<GoodsDataBean> list) {
-		Map map = new HashMap();  
-						
-		for (GoodsDataBean dataBean: list) {
-			int id = dataBean.getId();	
-			String idString = String.valueOf(id);
-			
-			Integer count = (Integer) map.get(idString); 		 
-	        map.put(idString, (count == null) ? 1 : count + 1);  	          
-		}
+		//Map map = new HashMap(); 								
+		Map<String, Integer> map = new HashMap<String, Integer>();
 					
+		if(list != null) {
+			for (GoodsDataBean dataBean: list) {
+				int id = dataBean.getId();	
+				String idString = String.valueOf(id);
+			
+				Integer count = (Integer) map.get(idString); 		 
+				map.put(idString, (count == null) ? 1 : count + 1);  	          
+			}
+		}
+			
+		Log.d("GoodsAdapter", "map.size()" + map.size());
+		printMap(map);
+							
 		return map;
 	}
 		
+		    		    	
+	public static void printMap(Map map) {  
+		Log.d("GoodsAdapter", "通过Map.keySet遍历key和value：");	
+					
+		Set<Object> keySet = map.keySet();//获取map的key值的集合，set集合
+			
+		for(Object obj:keySet) {
+			//遍历key
+		    Log.d("GoodsAdapter", "key:"+ obj + ",Value:" + map.get(obj));
+		}		
+    } 
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static List<GoodsDataBean> removeDuplicateWithOrder(List<GoodsDataBean> list) {
-        Set set = new HashSet();
-        List<GoodsDataBean> newList = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            Object element = iter.next();
-            if (set.add(element))
-                newList.add((GoodsDataBean)element);
-        }			
-        			
-        return newList;
-    }		
+	public List<GoodsDataBean> rmTwiceData(List<GoodsDataBean> list, Map map) {
+		List<GoodsDataBean> newList = new ArrayList<GoodsDataBean>();
+			
+		Set<Object> keySet = map.keySet();//获取map的key值的集合，set集合
+				
+		for(Object obj:keySet) {
+			//遍历key
+		    Log.d("GoodsAdapter", "key:"+ obj + ",Value:" + map.get(obj));
+		    for (GoodsDataBean dataBean: list) {	
+				int id = dataBean.getId();	
+				String idString = String.valueOf(id);			
+				 		
+				if(obj.equals(idString)) {
+					newList.add(dataBean);
+					break;
+				}																  	          
+			}				    
+		}		
+				
+		Log.d("GoodsAdapter", "list.size()" + list.size());
+		Log.d("GoodsAdapter", "newList.size()" + newList.size());				
+		return newList;
+	}	
 	
 }
