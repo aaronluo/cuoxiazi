@@ -37,10 +37,9 @@ public class MyOrderAdapter extends BaseAdapter {
 	private List<Map<String,Object>> itemList = new ArrayList<Map<String,Object>>();
 	private Context context;			
 	private LayoutInflater layoutInflater;
-	private GoodsDataBean goodsItemData;
 	private Map itemNumMap;
 	private Handler handler;
-	  
+	  						
     private static final String[] selectNum = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};  
    
     ArrayAdapter<String> adapter;
@@ -114,8 +113,8 @@ public class MyOrderAdapter extends BaseAdapter {
 				view = layoutInflater.inflate(R.layout.order_listitem, null);
 					
 				// 获取自定义的类实例		
-				goodsItemData = (GoodsDataBean) listchangeItemsData.get(position);
-																
+				final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listchangeItemsData.get(position);
+						
 				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
 				TextView name = (TextView) view.findViewById(R.id.goods_name);
 				final TextView price = (TextView) view.findViewById(R.id.goods_allprice);
@@ -127,33 +126,27 @@ public class MyOrderAdapter extends BaseAdapter {
 			                    int position, long id) {
 			            // 在选中之后触发
 						Log.d("MyOrderAdapter", "numberSpinner position=" + position);
-		                Double allPrice = goodsItemData.getPrice() * (position + 1);
-		                price.setText(String.valueOf(allPrice));
+		                Double allPrice = goodsItemDataTemp.getPrice() * (position + 1);
+		                price.setText(String.valueOf(allPrice));	
 			        }												
-					
+						
 			        public void onNothingSelected(AdapterView parent) {
 			        }				
 			    });
 					
-				imageView.setImageUrl(goodsItemData.getBitmapUrl());
-				name.setText(goodsItemData.getName());		
+				imageView.setImageUrl(goodsItemDataTemp.getBitmapUrl());
+				name.setText(goodsItemDataTemp.getName());		
 						
 				Double allPrice = 0.0;	
 				int count = 1;
 				if(itemNumMap != null && itemNumMap.size() > 0) {
-					count = (Integer) itemNumMap.get(String.valueOf(goodsItemData.getId()));
-					allPrice = goodsItemData.getPrice() * count;							 									
+					count = (Integer) itemNumMap.get(String.valueOf(goodsItemDataTemp.getId()));
+					allPrice = goodsItemDataTemp.getPrice() * count;							 									
 				}																								
 					
-				Log.d("GoodsAdapter", "allPrice =" + allPrice);		
-				Log.d("GoodsAdapter", "count =" + count);
-				Log.d("GoodsAdapter", "goodsItemData.getPrice() =" + goodsItemData.getPrice());
-				Log.d("GoodsAdapter", "goodsItemData.getId() =" + goodsItemData.getId());
-				Log.d("GoodsAdapter", "goodsItemData.getName() =" + goodsItemData.getName());		
-						
-				price.setText(String.valueOf(goodsItemData.getPrice()));																			
+				price.setText(String.valueOf(allPrice));																					
 				numberSpinner.setSelection(count-1);
-			}						
+			}							
 		} else {	
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;
