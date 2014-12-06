@@ -104,7 +104,7 @@ public class DownloadService implements GoodService, ClassifyService {
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				GoodsDataBean good = new GoodsDataBean(obj.getInt("id"),
-						obj.getString("name"), (float) obj.getDouble("price"), obj.getString("url"));
+						obj.getString("name"), (Double) obj.getDouble("price"), obj.getString("url"));
 				goods.add(good);	
 			}
 		} catch (JSONException e) {
@@ -160,7 +160,7 @@ public class DownloadService implements GoodService, ClassifyService {
 			obj = new JSONObject(json).getJSONObject("good");
 
 			GoodsDataBean good = new GoodsDataBean(obj.getInt("id"),
-					obj.getString("name"), (float) obj.getDouble("price"), obj.getString("url"));
+					obj.getString("name"), (Double) obj.getDouble("price"), obj.getString("url"));
 			return good;	
 		} catch (JSONException e) {
 			e.printStackTrace();

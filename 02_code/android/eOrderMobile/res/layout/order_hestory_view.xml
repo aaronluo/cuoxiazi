@@ -40,18 +40,18 @@
             android:layout_height="fill_parent"
             android:drawablePadding="5.0dip"
             android:inputType="numberSigned"
-            android:maxLength="10"      
+            android:maxLength="9"                     
             android:gravity="center_vertical"
             android:hint="@string/action_order_hestory_input"
             android:textSize="18.0sp" />
-                                                                                        
+                                                                                              
         <ImageView
             android:id="@+id/order_hestory_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" 
             android:contentDescription="@null"
-            android:src="@drawable/ic_action_order" />
+            android:src="@drawable/ic_action_order_hestory" />
     </LinearLayout>
             
 </LinearLayout>    
