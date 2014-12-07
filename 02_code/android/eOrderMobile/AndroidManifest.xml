@@ -33,13 +33,13 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.innovaee.eorder.mobile.application.MyApplication"
-        android:logo="@drawable/ic_logo"    
+        android:name="com.innovaee.eorder.mobile.application.MyApplication"           
         android:theme="@style/CustomActivityTheme">
         <activity				
             android:name="com.innovaee.eorder.mobile.view.MainViewActivity"
+            android:logo="@drawable/ic_logo" 
             android:label="@string/app_name" >
-            <intent-filter>
+            <intent-filter>         
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,12 +50,14 @@
     	<activity android:name="com.innovaee.eorder.mobile.view.ClassifyActivity" android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
         
-    	<activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" android:label="@string/app_name"
-					android:screenOrientation="portrait"/>
-    	
+    	<activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" 
+                    android:logo="@drawable/tab_icon2_select" 
+                    android:label="@string/order_activity_text_label" 
+					android:screenOrientation="portrait"/> 
+    	               
    		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
-    				
+    			     	        
     	<activity android:name="com.innovaee.eorder.mobile.view.GoodsListActivity" android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
         

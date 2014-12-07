@@ -229,7 +229,8 @@ public class MainViewActivity extends Activity {
 	 */	
 	private void initData() {
 		actionBar.setDisplayShowTitleEnabled(false);
-			 							
+		actionBar.setDisplayShowHomeEnabled(true);
+			 									
 		initActionBarCustomView();
 		
 		goodsAdapter = new GoodsAdapter(this, goodsListData, handler);

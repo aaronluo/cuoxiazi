@@ -50,6 +50,8 @@
     <string name="main_griditem_text_price">0</string>
     <string name="main_griditem_text_rmb">￥</string>
     
+    <!-- Order -->
+    <string name="order_activity_text_label">已点菜品明细</string>
     
 
 </resources>
