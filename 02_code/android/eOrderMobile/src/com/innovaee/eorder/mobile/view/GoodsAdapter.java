@@ -85,13 +85,13 @@ public class GoodsAdapter extends BaseAdapter {
 				goodsItemData = (GoodsDataBean) listItemsData.get(position);
 				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
 				name.setText(goodsItemData.getName());			
-				price.setText(String.valueOf(goodsItemData.getPrice()));
-			}					
+				price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
+			}																			
 		} else {
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;
 		}
-		
+				
 		return view;
 	}
 		

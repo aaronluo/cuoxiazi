@@ -38,8 +38,9 @@ import android.widget.Toast;
 	
 @SuppressWarnings("deprecation")
 public class MainViewActivity extends Activity {
+	//Log输出Tag
 	private final static String TAG = "MainViewActivity";
-		
+			
 	//消息定义
 	public final static int MSG_UPDATE = 20001;
 	public final static int MSG_INITDATA = 20002;	
@@ -73,10 +74,13 @@ public class MainViewActivity extends Activity {
 	//分类弹出菜单中listview
 	private ListView popupMenuList;
 	
+	//显示工具类
 	private DisplayMetrics displayMetrics;	
 	 
+	//菜品显示GridView
 	private GridView gridView;
-
+	
+	//菜品显示数据绑定器
 	private GoodsAdapter goodsAdapter;	
 		
 	//当前分类的菜品列表
@@ -162,7 +166,9 @@ public class MainViewActivity extends Activity {
 	    		Log.d(TAG, "orderCountView.onClick");
 	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
 	    			openMyOrder();
-	    		}
+	    		} else {
+	    			Toast.makeText(MainViewActivity.this, R.string.toast_please_order_first, Toast.LENGTH_SHORT).show();
+	    		}	    		
 	    	}	
 	    });
 	    			
@@ -173,7 +179,9 @@ public class MainViewActivity extends Activity {
 	    		Log.d(TAG, "orderCountView.onLongClick");
 	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
 	    			openMyOrder();
-	    		}
+	    		} else {
+	    			Toast.makeText(MainViewActivity.this, R.string.toast_please_order_first, Toast.LENGTH_SHORT).show();
+	    		}		
 	    		return true;
 	    	}		
 	    });		
