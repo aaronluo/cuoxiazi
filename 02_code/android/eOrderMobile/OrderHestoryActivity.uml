@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_qb8akM37EdqwVrslYOdUDA" name="OrderHestoryActivity">
+  <packagedElement xmi:type="uml:Class" xmi:id="_5ksK4H49EeSSf9gOV1ra1g" name="Activity"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_57orQH49EeSSf9gOV1ra1g" name="OrderHestoryActivity">
+    <generalization xmi:id="__nezw349EeSSf9gOV1ra1g" general="_5ksK4H49EeSSf9gOV1ra1g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FakzwH4-EeSSf9gOV1ra1g" name="ActionBar"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HUpTyn4-EeSSf9gOV1ra1g" name="A_&lt;orderHestoryActivity>_&lt;actionBar>" memberEnd="_HUpTy34-EeSSf9gOV1ra1g _HUpTzn4-EeSSf9gOV1ra1g">
+    <ownedEnd xmi:id="_HUpTy34-EeSSf9gOV1ra1g" name="orderHestoryActivity" type="_57orQH49EeSSf9gOV1ra1g" association="_HUpTyn4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUpTzH4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUpTzX4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_HUpTzn4-EeSSf9gOV1ra1g" name="actionBar" type="_FakzwH4-EeSSf9gOV1ra1g" aggregation="composite" association="_HUpTyn4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HUpTz34-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HUpT0H4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_OHSsQH4-EeSSf9gOV1ra1g" name="OrderHestoryDataBean"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Rv6Yyn4-EeSSf9gOV1ra1g" name="A_&lt;orderHestoryActivity>_&lt;orderHestoryDataBean>" memberEnd="_Rv6Yy34-EeSSf9gOV1ra1g _Rv6Yzn4-EeSSf9gOV1ra1g" navigableOwnedEnd="_Rv6Yzn4-EeSSf9gOV1ra1g">
+    <ownedEnd xmi:id="_Rv6Yy34-EeSSf9gOV1ra1g" name="orderHestoryActivity" type="_57orQH49EeSSf9gOV1ra1g" association="_Rv6Yyn4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Rv6YzH4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Rv6YzX4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_Rv6Yzn4-EeSSf9gOV1ra1g" name="orderHestoryDataBean" type="_OHSsQH4-EeSSf9gOV1ra1g" association="_Rv6Yyn4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Rv6Yz34-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Rv6Y0H4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_U6F1wH4-EeSSf9gOV1ra1g" name="DataManager"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_XtrXun4-EeSSf9gOV1ra1g" name="A_&lt;orderHestoryActivity>_&lt;dataManager>" memberEnd="_XtrXu34-EeSSf9gOV1ra1g _XtrXvn4-EeSSf9gOV1ra1g" navigableOwnedEnd="_XtrXvn4-EeSSf9gOV1ra1g">
+    <ownedEnd xmi:id="_XtrXu34-EeSSf9gOV1ra1g" name="orderHestoryActivity" type="_57orQH49EeSSf9gOV1ra1g" association="_XtrXun4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XtrXvH4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XtrXvX4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_XtrXvn4-EeSSf9gOV1ra1g" name="dataManager" type="_U6F1wH4-EeSSf9gOV1ra1g" association="_XtrXun4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XtrXv34-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XtrXwH4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ZFCMMH4-EeSSf9gOV1ra1g" name="DataService"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_c91Cun4-EeSSf9gOV1ra1g" name="A_&lt;dataManager>_&lt;dataService>" memberEnd="_c91Cu34-EeSSf9gOV1ra1g _c91Cvn4-EeSSf9gOV1ra1g" navigableOwnedEnd="_c91Cvn4-EeSSf9gOV1ra1g">
+    <ownedEnd xmi:id="_c91Cu34-EeSSf9gOV1ra1g" name="dataManager" type="_U6F1wH4-EeSSf9gOV1ra1g" association="_c91Cun4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c91CvH4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c91CvX4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_c91Cvn4-EeSSf9gOV1ra1g" name="dataService" type="_ZFCMMH4-EeSSf9gOV1ra1g" association="_c91Cun4-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c91Cv34-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c91CwH4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_kH1LQH4-EeSSf9gOV1ra1g" name="ListView"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nFVeN34-EeSSf9gOV1ra1g" name="A_&lt;orderHestoryActivity>_&lt;listView>" memberEnd="_nFVeOH4-EeSSf9gOV1ra1g _nFVeO34-EeSSf9gOV1ra1g" navigableOwnedEnd="_nFVeO34-EeSSf9gOV1ra1g">
+    <ownedEnd xmi:id="_nFVeOH4-EeSSf9gOV1ra1g" name="orderHestoryActivity" type="_57orQH49EeSSf9gOV1ra1g" association="_nFVeN34-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nFVeOX4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nFVeOn4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_nFVeO34-EeSSf9gOV1ra1g" name="listView" type="_kH1LQH4-EeSSf9gOV1ra1g" association="_nFVeN34-EeSSf9gOV1ra1g">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nFVePH4-EeSSf9gOV1ra1g" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nFVePX4-EeSSf9gOV1ra1g" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>

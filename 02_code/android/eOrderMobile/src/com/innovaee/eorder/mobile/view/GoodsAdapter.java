@@ -86,7 +86,7 @@ public class GoodsAdapter extends BaseAdapter {
 				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
 				name.setText(goodsItemData.getName());			
 				price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
-			}																			
+			}																				
 		} else {
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;

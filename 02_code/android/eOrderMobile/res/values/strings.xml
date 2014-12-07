@@ -49,7 +49,9 @@
     <string name="main_griditem_text_name">菜品名</string>
     <string name="main_griditem_text_price">0</string>
     <string name="main_griditem_text_rmb">￥</string>
-    
+    <string name="myorder_btn_text_delall">删除所有</string>
+    <string name="myorder_btn_text_cancel">取消</string>
+        
     <!-- Order -->
     <string name="order_activity_text_label">已点菜品明细</string>
     

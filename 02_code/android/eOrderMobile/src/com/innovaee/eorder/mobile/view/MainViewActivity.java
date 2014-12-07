@@ -46,6 +46,7 @@ public class MainViewActivity extends Activity {
 	public final static int MSG_INITDATA = 20002;	
 	public final static int MSG_UPDATE_POPMENU = 20003;
 	public final static int MSG_ORDER = 20004;
+	public final static int MSG_DELALL = 20005;
 		
 	//自定义ActionBar
 	private ActionBar actionBar;
@@ -93,8 +94,8 @@ public class MainViewActivity extends Activity {
 	private List<GoodsDataBean> selectOrderGoods;	
 	
 	EditText orderHestoryInput;
-			
-	private Handler handler = new Handler(Looper.getMainLooper()) {
+		
+	public Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -133,6 +134,13 @@ public class MainViewActivity extends Activity {
 				}				
 				break;		
 					
+			case MSG_DELALL:
+				if(selectOrderGoods != null) {
+					selectOrderGoods.clear();
+					selectOrderGoods = null;
+				}	
+				break;
+				
 			default:
 				break;
 			}
@@ -580,7 +588,11 @@ public class MainViewActivity extends Activity {
 		return feedTypeList;
 	}
 		
-		
+	public Handler getMessageHandler() {
+		return handler;		
+	}
+	
+	
 	//***********************************************************************************************
 	//测试数据，调试使用
 	/**

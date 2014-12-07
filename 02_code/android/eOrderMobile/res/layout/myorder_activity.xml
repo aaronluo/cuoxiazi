@@ -20,12 +20,13 @@
         	android:minHeight="36dp"	
         	>
     	</ListView>		
-    				
+    			     	
     	<RelativeLayout
         	android:id="@+id/myorder_layout_button"
         	android:layout_width="fill_parent"
-        	android:layout_height="40dp"
+        	android:layout_height="60dp"
         	android:layout_alignParentBottom="true"
+            android:gravity="center_vertical" 
         	android:background="#ffeeeeee"
         	android:orientation="vertical" >		
 			<TextView                   
@@ -45,16 +46,18 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="40dp"
-                android:text="cancel" />    
-                																														
+                android:text="@string/myorder_btn_text_cancel" />    
+                	       																													
         	<Button
-            	android:id="@+id/ok_button"
+            	android:id="@+id/del_all_button"
             	android:layout_width="80dp"
             	android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/cancel_button"
+                android:layout_centerVertical="true"
             	android:layout_marginRight="20dp"
-            	android:text="ok" />
+            	android:text="@string/myorder_btn_text_delall" />
     		                             
     	</RelativeLayout>	    																																					
     </RelativeLayout>
