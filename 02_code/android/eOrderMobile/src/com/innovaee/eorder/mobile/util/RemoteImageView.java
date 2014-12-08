@@ -6,7 +6,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.RejectedExecutionException;
 
 import com.innovaee.eorder.R;
-import com.innovaee.eorder.mobile.util.ThemeImageManager.OnImageLoaderListener;
+import com.innovaee.eorder.mobile.util.ImageDataManager.OnImageLoaderListener;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -62,7 +62,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	/**
 	 * Image manager
 	 */
-	private ThemeImageManager themeImageManager;
+	private ImageDataManager themeImageManager;
 
 	private ImageView.ScaleType scaleTypeDefault;
 	private ImageView.ScaleType scaleTypeContent;
@@ -116,7 +116,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 		fgAdapter.setForegroundDrawable(null); // 默认禁用前景绘制
 		uiHandler = new Handler(Looper.getMainLooper());
 		defaultImage = R.drawable.themestore_common_default_pic;
-		themeImageManager = ThemeImageManager.getInstance();
+		themeImageManager = ImageDataManager.getInstance();
 		scaleTypeDefault = ScaleType.FIT_XY;
 		scaleTypeContent = ScaleType.CENTER_CROP;
 		applyAspect = false;

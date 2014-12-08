@@ -137,9 +137,9 @@ public class MyOrderActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	 	 
 				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
-				Handler handler = MainViewActivity.this.getMessageHandler();
-				handler.sendEmptyMessage(MainViewActivity.MSG_DELALL);	
-			}													
+				//Handler handler = MainViewActivity.this.getMessageHandler();
+				//handler.sendEmptyMessage(MainViewActivity.MSG_DELALL);	
+			}														
 		});	
 				
 		cancelBtn.setOnClickListener(new View.OnClickListener()

@@ -93,6 +93,7 @@ public class MainViewActivity extends Activity {
 	//已经选择的菜品
 	private List<GoodsDataBean> selectOrderGoods;	
 	
+	//订单记录查询会员号输入编辑器
 	EditText orderHestoryInput;
 		
 	public Handler handler = new Handler(Looper.getMainLooper()) {
