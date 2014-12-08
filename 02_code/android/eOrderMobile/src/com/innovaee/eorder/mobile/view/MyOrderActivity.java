@@ -33,8 +33,13 @@ import android.widget.TextView;
  * 
  */
 public class MyOrderActivity extends Activity {
+	//调试Tag
 	private final static String TAG = "MyOrderActivity";
 	
+	//删除所有已选项广播
+	public static final String ACTION_INTENT_DELALL = "com.eorder.action.delall";
+	
+	//内部消息定义
 	private final static int MSG_UPDATE = 10001;
 	private final static int MSG_INITDATA = 10002;
 	
@@ -137,9 +142,10 @@ public class MyOrderActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	 	 
 				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
-				//Handler handler = MainViewActivity.this.getMessageHandler();
-				//handler.sendEmptyMessage(MainViewActivity.MSG_DELALL);	
-			}														
+				 Intent intent = new Intent(ACTION_INTENT_DELALL);
+		         sendBroadcast(intent);
+		         finish();	
+			}																	
 		});	
 				
 		cancelBtn.setOnClickListener(new View.OnClickListener()

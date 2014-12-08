@@ -51,10 +51,10 @@
 					android:screenOrientation="portrait"/>
         
     	<activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" 
-                    android:logo="@drawable/tab_icon2_select" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
                     android:label="@string/order_activity_text_label" 
 					android:screenOrientation="portrait"/> 
-    	               
+    	                       
    		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
     			     	        

@@ -13,8 +13,10 @@ import com.innovaee.eorder.mobile.util.FeedTypeAdapter;
 	
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,8 +97,8 @@ public class MainViewActivity extends Activity {
 	
 	//订单记录查询会员号输入编辑器
 	EditText orderHestoryInput;
-		
-	public Handler handler = new Handler(Looper.getMainLooper()) {
+	
+	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -231,6 +233,21 @@ public class MainViewActivity extends Activity {
 		actionBar = getActionBar();	
 		
 		gridView = (GridView) findViewById(R.id.goods_gridview);
+		
+		BroadcastReceiver mReceiver = new BroadcastReceiver() {
+			public void onReceive(Context context, Intent intent) {
+				if (selectOrderGoods != null) {
+					selectOrderGoods.clear();
+					selectOrderGoods = null;	
+							
+					updateMyOrderCount(0);
+				}	
+			}
+		};
+				
+		IntentFilter intentFilter = new IntentFilter("com.eorder.action.delall");
+				
+		registerReceiver(mReceiver, intentFilter);  	
 	}
 
 	/**
@@ -468,8 +485,9 @@ public class MainViewActivity extends Activity {
 	    } else {	
 	    	orderCountView.setText(str);
 	    	orderCountView.setVisibility(View.INVISIBLE);
-	    }				
-	    	
+	    	return;
+	    }								
+	    						
 		orderCountView.setText(str);	
 		orderCountView.setVisibility(View.VISIBLE);
 	}																						

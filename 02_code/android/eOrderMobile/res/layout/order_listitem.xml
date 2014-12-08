@@ -7,8 +7,8 @@
                                                                               
         <com.innovaee.eorder.mobile.util.RemoteImageView
             android:id="@+id/goods_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="118dp"
+            android:layout_height="118dp"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="2dp"
@@ -22,7 +22,7 @@
             android:layout_height="120dp"   
             android:layout_toRightOf="@id/goods_image"
             android:layout_centerInParent="true">
-            
+                    
             <RelativeLayout 
                 android:id="@+id/goods_layout_name"
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:gravity="left|center_vertical"
                     android:paddingLeft="40dp"
                     android:text="@string/main_griditem_text_name"  
-                    android:textColor="#333333"
+                    android:textColor="#4d4d4d"
                     android:textSize="20dp" /> 
                <Spinner                
                     android:id="@+id/number_Spinner"
@@ -61,10 +61,10 @@
                     android:gravity="right|center_vertical" 
                     android:background="#ffeeeeee"                    
                     android:layout_marginRight="24dp" 
-                    android:text="5555"                           
-                    android:textColor="#CC0033"      
+                    android:text="@string/main_griditem_text_price"                           
+                    android:textColor="#fe3c3c"             
                     android:textSize="20dp" />                                          
-            </RelativeLayout>
+            </RelativeLayout>           
                 
       </RelativeLayout>                                                      
                                                                                                           

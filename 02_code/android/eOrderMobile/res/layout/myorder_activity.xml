@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
+    android:background="#ededed"
     android:orientation="vertical" >
-                                              
+                                                      
     <RelativeLayout  	
     	android:orientation="horizontal"       
     	android:layout_width="fill_parent" 
@@ -20,14 +20,14 @@
         	android:minHeight="36dp"	
         	>
     	</ListView>		
-    			     	
+    	       		          	
     	<RelativeLayout
         	android:id="@+id/myorder_layout_button"
         	android:layout_width="fill_parent"
         	android:layout_height="60dp"
         	android:layout_alignParentBottom="true"
             android:gravity="center_vertical" 
-        	android:background="#ffeeeeee"
+        	android:background="#ffdddddd"
         	android:orientation="vertical" >		
 			<TextView                   
                 android:id="@+id/goods_allprice"
@@ -36,29 +36,35 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="left|center_vertical" 
                 android:background="#ffeeeeee"                    
-                android:layout_marginLeft="40dp" 
+                android:layout_marginLeft="35dp" 
                 android:text="5555"                           
-                android:textColor="#CC0033"      
+                android:textColor="#fe3c3c"      
                 android:textSize="20dp" />
-            		
+            		            
             <Button
                 android:id="@+id/cancel_button"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="121dp"
+                android:layout_height="43dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="40dp"
-                android:text="@string/myorder_btn_text_cancel" />    
-                	       																													
-        	<Button
+                android:text="@string/main_griditem_btn_order" 
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:background="@drawable/myorder_btn_order_bg"/>    
+                                        	                        																													
+        	<Button    
             	android:id="@+id/del_all_button"
-            	android:layout_width="80dp"
-            	android:layout_height="wrap_content"
+            	android:layout_width="121dp"
+            	android:layout_height="43dp"
                 android:layout_toLeftOf="@id/cancel_button"
                 android:layout_centerVertical="true"
-            	android:layout_marginRight="20dp"
-            	android:text="@string/myorder_btn_text_delall" />
-    		                             
+            	android:layout_marginRight="14dp"
+            	android:text="@string/myorder_btn_text_delall"
+                android:textColor="#ffffff" 
+                android:textSize="20dp"
+                android:background="@drawable/myorder_btn_delect_all_bg"/>
+    		                                                
     	</RelativeLayout>	    																																					
     </RelativeLayout>
                             
