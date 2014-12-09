@@ -22,8 +22,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 允许访问相机 -->
 	<uses-permission android:name="android.permission.CAMERA" />  
-	
-	
+	   	
 	<!-- 允许没有相机硬件设备的手机使用 -->
 	<uses-feature android:name="android.hardware.camera" android:required="false" />
 	<!-- 允许相机没有自动对焦功能的手机使用 -->  
@@ -52,10 +51,12 @@
         
     	<activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" 
                     android:logo="@drawable/ic_publish_bottom_pan_back" 
-                    android:label="@string/order_activity_text_label" 
+                    android:label="@string/myorder_activity_text_label" 
 					android:screenOrientation="portrait"/> 
-    	                       
-   		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" android:label="@string/app_name"
+    	                               
+   		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/order_activity_text_label"
 					android:screenOrientation="portrait"/>
     			     	        
     	<activity android:name="com.innovaee.eorder.mobile.view.GoodsListActivity" android:label="@string/app_name"
@@ -64,15 +65,20 @@
         <activity android:name="com.innovaee.eorder.mobile.view.GoodsDetailActivity" android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
          
-        <activity android:name="com.innovaee.eorder.mobile.view.OrderActivity" android:label="@string/app_name"
+        <activity android:name="com.innovaee.eorder.mobile.view.OrderActivity" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/order_activity_text_label"
                     android:screenOrientation="portrait"/>
-        
+                                
         <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryActivity" android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
    										
         <activity android:name="com.innovaee.eorder.mobile.view.AboutActivity" android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
-                
+        
+        <activity android:name="com.innovaee.eorder.mobile.zxing.activity.CaptureActivity" android:label="@string/app_name"
+                    android:screenOrientation="portrait"/>
+                                    
     </application>
 
 </manifest>

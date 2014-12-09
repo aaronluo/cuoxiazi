@@ -52,8 +52,26 @@
     <string name="myorder_btn_text_delall">删除所有</string>
     <string name="myorder_btn_text_cancel">取消</string>
         
+    <!-- MyOrder -->
+    <string name="myorder_activity_text_label">已点菜品明细</string>
+    
     <!-- Order -->
-    <string name="order_activity_text_label">已点菜品明细</string>
+    <string name="order_activity_text_label">确认订单</string>
+    <string name="order_text_realprice">应收</string>
+    <string name="order_text_originalprice">原价</string>
+    <string name="order_text_discount">折扣</string>
+    
+    <string name="order_text_title_tableid">桌号</string>
+    <string name="order_text_title_userid">会员号</string>
+    <string name="order_text_title_employee">员工号</string>
+    
+    <string name="order_text_hint_tableid">请输入台号</string>
+    <string name="order_text_hint_qrcode">扫描二维码</string>
+    <string name="order_text_hint_userid">请输入会员号</string>
+    
+    <string name="order_text_btn_discount">获取折扣</string>
+    <string name="order_text_btn_ok">确定</string>
+    
     
 
 </resources>

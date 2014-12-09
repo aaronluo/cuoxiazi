@@ -33,7 +33,7 @@ public class MyOrderActivity extends Activity {
 	//删除所有已选项广播
 	public static final String ACTION_INTENT_DELALL = "com.eorder.action.delAll";
 		
-	//删除所有已选项广播
+	//改变菜品数量广播
 	public static final String ACTION_INTENT_CHANGECOUNT = "com.eorder.action.changeCount";
 					
 	//内部消息定义
@@ -211,6 +211,9 @@ public class MyOrderActivity extends Activity {
         startActivity(intent);
 	}	
 	
+	/**
+	 * 发送广播到主界面
+	 */		
 	private void sendBroadcastToMainActivity() {
 		Intent intent = new Intent(ACTION_INTENT_CHANGECOUNT);
 		Bundle bundle = new Bundle();	
