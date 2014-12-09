@@ -14,6 +14,7 @@ import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.util.RemoteImageView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -33,24 +34,10 @@ import android.widget.TextView;
 	
 public class MyOrderAdapter extends BaseAdapter {
 	private List<GoodsDataBean> listItemsData;
-	private List<GoodsDataBean> listchangeItemsData;
-	private List<Map<String,Object>> itemList = new ArrayList<Map<String,Object>>();
 	private Context context;			
 	private LayoutInflater layoutInflater;
-	private Map itemNumMap;
 	private Handler handler;
-	  						
-    private static final String[] selectNum = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};  
-   
-    ArrayAdapter<String> adapter;
-    
-    List allNum = null;  	
 		
-	public final class ListItemView {
-		public ImageView image;
-		public TextView title;
-	}
-
 	public MyOrderAdapter(Context context) {
 		this.context = context;
 		layoutInflater = (LayoutInflater) this.context
@@ -61,33 +48,13 @@ public class MyOrderAdapter extends BaseAdapter {
 		this.listItemsData = list;
 		this.context = context;
 		this.handler = handler;	
-		layoutInflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
-		itemNumMap = getItemData(list);
-		listchangeItemsData = rmTwiceData(list, itemNumMap);
-													
-		//Log.d("GoodsAdapter", "listchangeItemsData.size()" + listchangeItemsData.size());
-			
-		allNum = new ArrayList<String>();  
-        for(int i = 0; i < selectNum.length; i++){  
-        	allNum.add(selectNum[i]);  	
-        }  		
-        
-        adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, allNum);  
-        adapter.setDropDownViewResource(R.layout.myspinner_dropdown);  	
+		layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);		
 	}					
 	
-	public MyOrderAdapter(Context context, ArrayList<String> list) {
-		this.context = context;
-		layoutInflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-
 	public int getCount() {
 		// TODO Auto-generated method stub
-		if (listchangeItemsData != null) {
-			return listchangeItemsData.size();
+		if (listItemsData != null) {
+			return listItemsData.size();
 		} else {
 			return 0;
 		}
@@ -95,7 +62,7 @@ public class MyOrderAdapter extends BaseAdapter {
 
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return listchangeItemsData.get(position);
+		return listItemsData.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -113,39 +80,46 @@ public class MyOrderAdapter extends BaseAdapter {
 				view = layoutInflater.inflate(R.layout.order_listitem, null);
 					
 				// 获取自定义的类实例		
-				final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listchangeItemsData.get(position);
-						
+				final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
+								
 				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
 				TextView name = (TextView) view.findViewById(R.id.goods_name);
-				final TextView price = (TextView) view.findViewById(R.id.goods_allprice);
-				Spinner numberSpinner = (Spinner) view.findViewById(R.id.number_Spinner);		
-				
-				numberSpinner.setAdapter(adapter);   
-				numberSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-					public void onItemSelected(AdapterView parent, View view,
-			                    int position, long id) {
-			            // 在选中之后触发
-						Log.d("MyOrderAdapter", "numberSpinner position=" + position);
-		                Double allPrice = goodsItemDataTemp.getPrice() * (position + 1);
-		                price.setText(String.valueOf(allPrice));	
-			        }												
-						
-			        public void onNothingSelected(AdapterView parent) {
-			        }				
-			    });
+				final TextView priceTxtView = (TextView) view.findViewById(R.id.goods_allprice);
+				final TextView countTxtView = (TextView) view.findViewById(R.id.count_text);	
+				Button addBtn = (Button) view.findViewById(R.id.count_add_button);
+				Button cutDownBtn = (Button) view.findViewById(R.id.count_cutdown_button);
+							
+				addBtn.setOnClickListener(new View.OnClickListener()
+				{
+					public void onClick(View paramAnonymousView)
+					{	
+						addMyOrderSelectCount(goodsItemDataTemp);
+						int count = goodsItemDataTemp.getCount();	
+						countTxtView.setText(String.valueOf(count));
+						priceTxtView.setText(String.valueOf(goodsItemDataTemp.getPrice() * count));	
+						updateActivityCountUi();
+					}																							
+				});	
 					
+				cutDownBtn.setOnClickListener(new View.OnClickListener()
+				{	
+					public void onClick(View paramAnonymousView)
+					{	 	 
+						cutDownMyOrderSelectCount(goodsItemDataTemp);
+						int count = goodsItemDataTemp.getCount();		
+						countTxtView.setText(String.valueOf(count));
+						priceTxtView.setText(String.valueOf(goodsItemDataTemp.getPrice() * count));	
+						updateActivityCountUi();
+					}																				
+				});	
+				
 				imageView.setImageUrl(goodsItemDataTemp.getBitmapUrl());
 				name.setText(goodsItemDataTemp.getName());		
-						
-				Double allPrice = 0.0;	
-				int count = 1;
-				if(itemNumMap != null && itemNumMap.size() > 0) {
-					count = (Integer) itemNumMap.get(String.valueOf(goodsItemDataTemp.getId()));
-					allPrice = goodsItemDataTemp.getPrice() * count;							 									
-				}																								
-					
-				price.setText(String.valueOf(allPrice));																					
-				numberSpinner.setSelection(count-1);
+				
+				int count = goodsItemDataTemp.getCount();				
+				Double allPrice = goodsItemDataTemp.getPrice() * count;									
+				countTxtView.setText(String.valueOf(count));				
+				priceTxtView.setText(String.valueOf(allPrice));		
 			}							
 		} else {	
 			Log.d("GoodsAdapter", "layoutInflater == null");
@@ -154,67 +128,62 @@ public class MyOrderAdapter extends BaseAdapter {
 				
 		return view;
 	}
-
-	public void setViewBinder(ViewBinder viewBinder) {
-		// TODO Auto-generated method stub
-
-	}
-									
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map getItemData(List<GoodsDataBean> list) {
-		//Map map = new HashMap(); 								
-		Map<String, Integer> map = new HashMap<String, Integer>();
-					
-		if(list != null) {
-			for (GoodsDataBean dataBean: list) {
-				int id = dataBean.getId();	
-				String idString = String.valueOf(id);
+	
+	/**
+	 * 得到当前选择的所有菜品的总数
+	 * @return
+	 */	
+	private int getMyOrderSelectCount() {
+		int count = 0;
+		
+		if(listItemsData == null) {
+			return count;
+		}		
 			
-				Integer count = (Integer) map.get(idString); 		 
-				map.put(idString, (count == null) ? 1 : count + 1);  	          
+		for (GoodsDataBean dataBean: listItemsData) {
+			count = count + dataBean.getCount();
+		}	
+		
+		return count;
+	}
+	
+	/**
+	 * 增加当前选中的菜品数量+1
+	 */
+	private void addMyOrderSelectCount(GoodsDataBean dataBean) {
+		for (GoodsDataBean goodsDataBean: listItemsData) {
+			if(goodsDataBean.getId() == dataBean.getId()) {
+				int count = goodsDataBean.getCount() + 1;
+				goodsDataBean.setCount(count);
 			}
 		}
-			
-		Log.d("GoodsAdapter", "map.size()" + map.size());
-		printMap(map);
-							
-		return map;
 	}
 		
-		    		    	
-	public static void printMap(Map map) {  
-		Log.d("GoodsAdapter", "通过Map.keySet遍历key和value：");	
-					
-		Set<Object> keySet = map.keySet();//获取map的key值的集合，set集合
+	/**
+	 * 减少当前选中的菜品数量-1
+	 * 等于0则不改变
+	 * @param dataBean
+	 */
+	private void cutDownMyOrderSelectCount(GoodsDataBean dataBean) {
+		for (GoodsDataBean goodsDataBean: listItemsData) {
+			if(goodsDataBean.getId() == dataBean.getId()) {
+				int count = goodsDataBean.getCount();
+				if(count > 0) {
+					count--;
+					goodsDataBean.setCount(count);
+				}
+			}
+		}	
+	}
 			
-		for(Object obj:keySet) {
-			//遍历key
-		    Log.d("GoodsAdapter", "key:"+ obj + ",Value:" + map.get(obj));
-		}		
-    } 
-	
-	public List<GoodsDataBean> rmTwiceData(List<GoodsDataBean> list, Map map) {
-		List<GoodsDataBean> newList = new ArrayList<GoodsDataBean>();
-			
-		Set<Object> keySet = map.keySet();//获取map的key值的集合，set集合
-				
-		for(Object obj:keySet) {
-			//遍历key
-		    Log.d("GoodsAdapter", "key:"+ obj + ",Value:" + map.get(obj));
-		    for (GoodsDataBean dataBean: list) {	
-				int id = dataBean.getId();	
-				String idString = String.valueOf(id);			
-				 		
-				if(obj.equals(idString)) {
-					newList.add(dataBean);
-					break;
-				}																  	          
-			}				    
-		}		
-				
-		Log.d("GoodsAdapter", "list.size()" + list.size());
-		Log.d("GoodsAdapter", "newList.size()" + newList.size());				
-		return newList;
-	}	
-	
+	/**
+	 * 刷新主Activity的ui count显示界面
+	 */												
+	private void updateActivityCountUi() {		
+		Message msg = Message.obtain();
+		msg.what = MyOrderActivity.MSG_UPDATE_COUNT;	
+		msg.obj = (Object)listItemsData;	
+		handler.sendMessage(msg);	
+	}			
+
 }

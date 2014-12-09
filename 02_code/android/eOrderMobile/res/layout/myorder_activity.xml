@@ -15,10 +15,10 @@
         	android:id="@+id/myorder_listView"
         	android:layout_width="match_parent"
         	android:layout_height="wrap_content" 
-        	android:divider="#FF222222"
-        	android:dividerHeight="2dp"
+        	android:divider="#d9d9d9"
+        	android:dividerHeight="1dp"
         	android:minHeight="36dp"	
-        	>
+        	>      
     	</ListView>		
     	       		          	
     	<RelativeLayout
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:gravity="left|center_vertical" 
-                android:background="#ffeeeeee"                    
+                android:background="#ffdddddd"                    
                 android:layout_marginLeft="35dp" 
                 android:text="5555"                           
                 android:textColor="#fe3c3c"      

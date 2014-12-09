@@ -37,7 +37,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
-	
+			
 @SuppressWarnings("deprecation")
 public class MainViewActivity extends Activity {
 	//Log输出Tag
@@ -49,7 +49,8 @@ public class MainViewActivity extends Activity {
 	public final static int MSG_UPDATE_POPMENU = 20003;
 	public final static int MSG_ORDER = 20004;
 	public final static int MSG_DELALL = 20005;
-		
+	public final static int MSG_UPDATE_COUNT = 20006;
+					
 	//自定义ActionBar
 	private ActionBar actionBar;
 
@@ -93,10 +94,13 @@ public class MainViewActivity extends Activity {
 	private List<ClassifyDataBean> classifyListData;		
 		
 	//已经选择的菜品
-	private List<GoodsDataBean> selectOrderGoods;	
+	private List<GoodsDataBean> selectOrderGoods;		
 	
 	//订单记录查询会员号输入编辑器
 	EditText orderHestoryInput;
+	
+	//广播接收器
+	BroadcastReceiver receiver;
 	
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
@@ -107,11 +111,11 @@ public class MainViewActivity extends Activity {
 				goodsListData = (List<GoodsDataBean>) msg.obj;
 				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
 				gridView.setAdapter(goodsAdapter);
-				
+					
 				Log.d(TAG, "goodsListData.size =" + goodsListData.size());
 				}
 				break;
-				
+					
 			case MSG_INITDATA:	
 				Log.d(TAG, "MSG_INITDATA!!!");
 				break;
@@ -130,11 +134,12 @@ public class MainViewActivity extends Activity {
 				if (selectOrderGoods == null) {
 					selectOrderGoods = new ArrayList<GoodsDataBean>();
 				}	
-					
+						
 				if ((goodsListData != null) && (goodsListData.size() != 0)) {
-					selectOrderGoods.add(goodsListData.get(select));																
-					updateMyOrderCount(selectOrderGoods.size());
-				}				
+					addGoodsToSelect(goodsListData.get(select));
+					int count = getMyOrderSelectCount();
+					updateMyOrderCount(count);
+				}							
 				break;		
 					
 			case MSG_DELALL:
@@ -144,13 +149,19 @@ public class MainViewActivity extends Activity {
 				}	
 				break;
 				
+			case MSG_UPDATE_COUNT:
+				Log.d(TAG, "MSG_UPDATE_COUNT!!!");	
+				selectOrderGoods = (List<GoodsDataBean>) msg.obj;
+				int count = getMyOrderSelectCount();
+				updateMyOrderCount(count);							
+				break;
+							
 			default:
 				break;
 			}
-		}
-			
+		}			
 	};
-	
+		
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maintab_activity);		
@@ -233,23 +244,37 @@ public class MainViewActivity extends Activity {
 		actionBar = getActionBar();	
 		
 		gridView = (GridView) findViewById(R.id.goods_gridview);
-		
-		BroadcastReceiver mReceiver = new BroadcastReceiver() {
+			
+		receiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
-				if (selectOrderGoods != null) {
-					selectOrderGoods.clear();
-					selectOrderGoods = null;	
-							
-					updateMyOrderCount(0);
-				}	
+				Log.d(TAG, "BroadcastReceiver:onReceive()");	
+				if (intent.getAction().equals("com.eorder.action.delAll")) {
+					Log.d(TAG, "BroadcastReceiver:com.eorder.action.delAll");
+					if (selectOrderGoods != null) {
+						selectOrderGoods.clear();
+						selectOrderGoods = null;	
+								
+						updateMyOrderCount(0);
+					}	
+				} else if (intent.getAction().equals("com.eorder.action.changeCount")) {
+					Log.d(TAG, "BroadcastReceiver:com.eorder.action.changeCount");
+					Bundle bundle = intent.getExtras();
+					
+					ArrayList list = bundle.getParcelableArrayList("list");
+					selectOrderGoods = (List<GoodsDataBean>) list.get(0);	
+																
+					int count = getMyOrderSelectCount();
+					updateMyOrderCount(count);
+				}											
 			}
 		};
-				
-		IntentFilter intentFilter = new IntentFilter("com.eorder.action.delall");
-				
-		registerReceiver(mReceiver, intentFilter);  	
+																
+		IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.eorder.action.delAll");
+        intentFilter.addAction("com.eorder.action.changeCount");
+        registerReceiver(receiver, intentFilter);        
 	}
-
+	
 	/**
 	 * 初始化Data
 	 */	
@@ -272,9 +297,11 @@ public class MainViewActivity extends Activity {
 				}
 											
 				if ((goodsListData != null) && (goodsListData.size() != 0)) {
-					selectOrderGoods.add(goodsListData.get(position));																
-					updateMyOrderCount(selectOrderGoods.size());
-				}			
+					addGoodsToSelect(goodsListData.get(position));	
+					int count = getMyOrderSelectCount();
+					updateMyOrderCount(count);
+					Log.d(TAG, "count=" + count);
+				}						
 			}				
 		});				
 							
@@ -320,6 +347,11 @@ public class MainViewActivity extends Activity {
 		});
 	}	
 
+	@Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
+    };    	
 	
 	/**
 	 * 进去设置界面
@@ -368,8 +400,8 @@ public class MainViewActivity extends Activity {
 		//这个list用于在budnle中传递 需要传递的ArrayList<Object>
 		ArrayList list = new ArrayList();
 
-		list.add(selectOrderGoods);
-			
+		list.add(selectOrderGoods);	
+				
 		bundle.putParcelableArrayList("list",list);
 					
 		intent.putExtras(bundle);						
@@ -477,7 +509,7 @@ public class MainViewActivity extends Activity {
 	 */
 	private void updateMyOrderCount(int count) {
 	    String str = "";
-	    		
+	    				
 	    if (count > 99) {
 	    	str = "99+";
 	    } else if (count > 0) {
@@ -487,11 +519,25 @@ public class MainViewActivity extends Activity {
 	    	orderCountView.setVisibility(View.INVISIBLE);
 	    	return;
 	    }								
-	    						
+	    			
 		orderCountView.setText(str);	
 		orderCountView.setVisibility(View.VISIBLE);
 	}																						
 		
+	private int getMyOrderSelectCount() {
+		int count = 0;
+		
+		if(selectOrderGoods == null) {
+			return count;
+		}		
+		
+		for (GoodsDataBean dataBean: selectOrderGoods) {
+			count = count + dataBean.getCount();
+		}	
+		
+		return count;
+	}
+	
 	/**	
 	 * 更新GridView ui
 	 */
@@ -606,9 +652,31 @@ public class MainViewActivity extends Activity {
 			
 		return feedTypeList;
 	}
+			
+	/**
+	 * 添加菜品到选择列表
+	 * 如果该菜品已经存在则改变数量，如果没有则添加菜品到list中
+	 * @param dataBean
+	 */
+	private void addGoodsToSelect(GoodsDataBean dataBean) {
+		boolean isAddCount = false;
+		Log.d(TAG, "selectOrderGoods.size()=" + selectOrderGoods.size());
+			
+		for (GoodsDataBean goodsDataBean: selectOrderGoods) {
+			if (goodsDataBean.getId() == dataBean.getId()) {
+				int count = goodsDataBean.getCount() + 1;
+				goodsDataBean.setCount(count); 
+				isAddCount = true;
+				Log.d(TAG, "count=" + count);
+			}	
+		}
 		
-	public Handler getMessageHandler() {
-		return handler;		
+		if(!isAddCount) {
+			Log.d(TAG, "add(dataBean)");
+			//第一次添加到selectList需要设置该对象count=1
+			dataBean.setCount(1);									
+			selectOrderGoods.add(dataBean);
+		}								
 	}
 	
 	

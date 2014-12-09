@@ -4,7 +4,6 @@ import com.innovaee.eorder.R;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
 
 /**
  * 
