@@ -25,10 +25,10 @@ import com.innovaee.eorder.mobile.util.Env;
  * 
  * @author wanglinglong
  * 
- */
+ */	
 public class OrderService implements GoodService, ClassifyService {
-	private final String SERVER = Env.Server.SERVER_TEST;
-
+	private final String SERVER = Env.Server.SERVIE_GET_DISH_TEST;
+		
 	private static OrderService self;
 
 	private Context context;
@@ -225,74 +225,5 @@ public class OrderService implements GoodService, ClassifyService {
 			e.printStackTrace();
 		}
 		return classifyList;
-	}
-
-	/**
-	 * 获取最新上架的商品信息
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> void getTopNewGoods(ICallback<T> callback) {
-		// 创建请求HttpClient客户端
-		HttpClient httpClient = new DefaultHttpClient();
-
-		// 创建请求的url
-		String url = SERVER;
-
-		try {
-			// 创建请求的对象
-			HttpGet get = new HttpGet(new URI(url));
-
-			// 发送get请求
-			HttpResponse httpResponse = httpClient.execute(get);
-
-			// 如果服务成功返回响应
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				HttpEntity entity = httpResponse.getEntity();
-				if (entity != null) {
-					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
-					List<T> beans = (List<T>) parseGoodsDataJson(json);
-					callback.onSuccess(beans);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 获取最热上架的商品信息
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> void getTopHotGoods(ICallback<T> callback) {
-		// 创建请求HttpClient客户端
-		HttpClient httpClient = new DefaultHttpClient();
-
-		// 创建请求的url
-		String url = SERVER;
-
-		try {
-			// 创建请求的对象
-			HttpGet get = new HttpGet(new URI(url));
-
-			// 发送get请求
-			HttpResponse httpResponse = httpClient.execute(get);
-
-			// 如果服务成功返回响应
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				HttpEntity entity = httpResponse.getEntity();
-				if (entity != null) {
-					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
-					List<T> beans = (List<T>) parseGoodsDataJson(json);
-					callback.onSuccess(beans);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	}	
 }

@@ -6,11 +6,7 @@ import java.util.List;
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
-import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
-import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
-import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,14 +16,10 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-
+	
 /**
  * 
  * @author wanglinglong

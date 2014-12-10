@@ -29,14 +29,39 @@ public final class Env {
 	 */
 	public static final class Server {
 		/**
-		 * 测试服务器地址
-		 */
-		public static final String SERVER_TEST = "http://192.168.4.32:8080/shop/csdn/listNewsGoods.action";
-
+		 * 获取会员信息URL地址
+		 */	
+		public static final String SERVER_GET_USERINFO = "http://192.168.0.100:8080/eorder-ws/rest/users?cellphone=";
+		public static final String SERVER_GET_USERINFO_TEST = "http://localhost:8080/eorder-ws/rest/users/myuser/";
+		
 		/**
-		 * 正式服务器地址
+		 * 获取分类列表URL地址
 		 */
-		public static final String SERVER_TRUE = "http://192.168.4.32:8080/shop/csdn/listNewsGoods.action";
-	}
+		public static final String SERVIE_GET_CATEGORY = "http://192.168.0.100:8080/eorder-ws/rest/categories";
+		public static final String SERVIE_GET_CATEGORY_TEST = "http://localhost:8080/eorder-ws/rest/categories";
+		
+		/**
+		 * 获取某分类下菜品列表URL地址
+		 */
+		public static final String SERVIE_GET_DISH = "http://localhost:8080/eorder-ws/rest/dishes/mydishes/";
+		public static final String SERVIE_GET_DISH_TEST = "http://localhost:8080/eorder-ws/rest/dishes/mydishes/";
+		
+		/**
+		 * 获取某个会员的订餐记录URL地址
+		 */
+		public static final String SERVIE_GET_ORDERHESTORY = "http://192.168.0.100:8080/eorder-ws/rest/orders?cellphone=";
+		public static final String SERVIE_GET_ORDERHESTORY_TEST = "http://localhost:8080/eorder-ws/rest/orders/myorders/";
+		
+		/**
+		 * 获取某个订单的详情URL地址
+		 */
+		public static final String SERVIE_GET_ORDERINFO = "http://192.168.0.100:8080/eorder-ws/rest/ordertitems /myordertitems/";
+		public static final String SERVIE_GET_ORDERINFO_TEST = "http://localhost:8080/eorder-ws/rest/orderitems/myorderitems/";
+		
+		/**
+		 * 提交订单的URL地址
+		 */
+		public static final String SERVIE_POST_ORDER = "http://192.168.0.100:8080/eorder-ws/rest/orders/";						
+	}	
 
 }
