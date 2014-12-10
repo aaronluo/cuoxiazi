@@ -18,6 +18,7 @@ import android.content.Context;
 
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
+import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import com.innovaee.eorder.mobile.util.Env;
 
 /**
@@ -101,6 +102,62 @@ public class DownloadService implements GoodService, ClassifyService {
 		try {
 			JSONArray array = new JSONObject(json).getJSONArray("goods");
 
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject obj = array.getJSONObject(i);
+				GoodsDataBean good = new GoodsDataBean(obj.getInt("id"),
+						obj.getString("name"), (Double) obj.getDouble("price"), obj.getString("url"));
+				goods.add(good);	
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return goods;
+	}
+
+	/**
+	 * 获取会员的折扣信息
+	 * @param callback
+	 */
+	public <T> void getUserDiscountData(ICallback<T> callback) {
+		// 创建请求HttpClient客户端
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		// 创建请求的url
+		String url = SERVER;
+
+		try {
+			// 创建请求的对象
+			HttpGet get = new HttpGet(new URI(url));
+
+			// 发送get请求
+			HttpResponse httpResponse = httpClient.execute(get);
+
+			// 如果服务成功返回响应
+			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+				HttpEntity entity = httpResponse.getEntity();
+				if (entity != null) {
+					// 获取服务器响应的json字符串
+					String json = EntityUtils.toString(entity);
+					List<T> beans = (List<T>) parseUserDiscountDataJson(json);
+					callback.onSuccess(beans);
+				}	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 解析json数组对象
+	 * 
+	 * @param json
+	 * @return
+	 */		
+	private List<GoodsDataBean> parseUserDiscountDataJson(String json) {
+		List<GoodsDataBean> goods = new ArrayList<GoodsDataBean>();
+		try {	
+			JSONArray array = new JSONObject(json).getJSONArray("discount");
+			
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				GoodsDataBean good = new GoodsDataBean(obj.getInt("id"),
@@ -227,6 +284,64 @@ public class DownloadService implements GoodService, ClassifyService {
 		return classifyList;
 	}
 
+	/**
+	 * 获取某个会员号的历史订单记录
+	 * @param callback
+	 */
+	public <T> void getOrderHestory(ICallback<T> callback) {
+		// TODO Auto-generated method stub
+		// 创建请求HttpClient客户端
+		HttpClient httpClient = new DefaultHttpClient();
+
+		// 创建请求的url
+		String url = SERVER;
+
+		try {
+			// 创建请求的对象
+			HttpGet get = new HttpGet(new URI(url));
+
+			// 发送get请求
+			HttpResponse httpResponse = httpClient.execute(get);
+
+			// 如果服务成功返回响应
+			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+				HttpEntity entity = httpResponse.getEntity();
+				if (entity != null) {
+					// 获取服务器响应的json字符串
+					String json = EntityUtils.toString(entity);
+					List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
+					callback.onSuccess(beans);	
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 解析json数组对象
+	 * 
+	 * @param json
+	 * @return
+	 */
+	private List<OrderHestoryDataBean> parseOrderHestoryDataJson(String json) {
+		List<OrderHestoryDataBean> classifyList = new ArrayList<OrderHestoryDataBean>();
+		try {
+			JSONArray array = new JSONObject(json).getJSONArray("orderhestory");
+			
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject obj = array.getJSONObject(i);
+				OrderHestoryDataBean classify = new OrderHestoryDataBean(
+						obj.getInt("id"), obj.getString("time"),
+						obj.getDouble("price"));
+				classifyList.add(classify);
+			}		
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return classifyList;
+	}
+	
 	/**
 	 * 获取最新上架的商品信息
 	 */

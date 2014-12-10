@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.innovaee.eorder.R;
+import com.innovaee.eorder.mobile.controller.DataManager;
+import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.qrcode.QrCodeTestActivity;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -154,8 +157,8 @@ public class OrderActivity extends Activity {
 		
 		realPriceTxt = (TextView) findViewById(R.id.real_price);
 		
-		discountTxt = (TextView) findViewById(R.id.discount_price);
-		
+		discountTxt = (TextView) findViewById(R.id.discount_price);		
+			
 		allPriceTxt = (TextView) findViewById(R.id.goods_allprice);		
 	}					
 			
@@ -191,7 +194,9 @@ public class OrderActivity extends Activity {
 		discountBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
-			{	 	 
+			{	
+				String userId = discountTxt.getText().toString();
+				getDiscountData(userId);	
 			}								
 		});
 					
@@ -215,6 +220,18 @@ public class OrderActivity extends Activity {
 		}				
 	}
 	
+	@Override  
+	public boolean onOptionsItemSelected(MenuItem item) {  
+	    switch (item.getItemId()) {  
+	    case android.R.id.home:  
+	        finish();  
+	        return true;  
+
+	    default:	
+            return super.onOptionsItemSelected(item);    	
+	    }  
+	}  
+			
 	/**
 	 * 得到总价格
 	 * @return
@@ -245,6 +262,9 @@ public class OrderActivity extends Activity {
         sendBroadcast(intent);	
 	}
 		
+	/**
+	 * 刷新显示价格等TextView
+	 */
 	private void displayPrice() {
 		Double allPrice = getAllPrice();
 		
@@ -266,5 +286,77 @@ public class OrderActivity extends Activity {
 		//最终价格显示器	
 		allPriceTxt.setText(this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + String.valueOf(realPrice));	 			
 	}
+	
+	/**	
+	 * 加载某个分类菜品列表数据
+	 */														
+	private void getDiscountData(String userId) {										
+		DataManager.getInstance(OrderActivity.this).getUserDiscountData(userId, 
+				new IDataRequestListener<String>() {
+					@Override			
+					public void onRequestSuccess(
+							final List<String> data) {
+						// TODO Auto-generated method stub
+						Log.d("MainViewActivity:", "onRequestSuccess!");
+						if (data == null) {
+							return;
+						}
+
+					}		
+								
+					@Override
+					public void onRequestStart() {
+						// TODO
+						Log.d("MainViewActivity:", "onRequestStart!");
+					}
+
+					@Override
+					public void onRequestFailed() {
+						// TODO
+						Log.d("MainViewActivity:", "onRequestFailed!");
+					}
+
+					@Override
+					public void onRequestSuccess(String data) {
+						// TODO Auto-generated method stub
+						Log.d("MainViewActivity:", "onRequestSuccess!");
+					}
+				});
+	}	
+				
+	private void orderToService(List<GoodsDataBean> selectOrderGoods) {										
+		DataManager.getInstance(OrderActivity.this).orderToService(selectOrderGoods, 
+				new IDataRequestListener<String>() {
+					@Override				
+					public void onRequestSuccess(
+							final List<String> data) {
+						// TODO Auto-generated method stub
+						Log.d("MainViewActivity:", "onRequestSuccess!");
+						if (data == null) {
+							return;
+						}
+
+					}		
+								
+					@Override
+					public void onRequestStart() {
+						// TODO
+						Log.d("MainViewActivity:", "onRequestStart!");
+					}
+
+					@Override
+					public void onRequestFailed() {
+						// TODO
+						Log.d("MainViewActivity:", "onRequestFailed!");
+					}
+
+					@Override
+					public void onRequestSuccess(String data) {
+						// TODO Auto-generated method stub
+						Log.d("MainViewActivity:", "onRequestSuccess!");
+					}
+				});
+	}	
+		
 			
 }

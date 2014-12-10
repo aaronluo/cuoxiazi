@@ -73,5 +73,10 @@
     <string name="order_text_btn_ok">确定</string>
     
     
+    <!-- OrderHestory -->
+    <string name="orderhestory_item_text_order">订单:</string>
+    <string name="orderhestory_item_text_time">时间:</string>
+    <string name="orderhestory_item_text_totalprice">金额:</string>
+    
 
 </resources>

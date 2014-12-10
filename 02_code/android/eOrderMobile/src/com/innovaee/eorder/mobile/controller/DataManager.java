@@ -4,6 +4,7 @@ import java.util.List;
 import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDetailDataBean;
+import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import com.innovaee.eorder.mobile.service.DownloadService;
 import com.innovaee.eorder.mobile.service.ICallback;
 
@@ -153,6 +154,140 @@ public class DataManager {
 
 			@Override
 			public void onSuccessT(GoodsDetailDataBean response) {
+				// TODO Auto-generated method stub
+				boolean success = response != null;
+				if (success) {
+					listener.onRequestSuccess(response);
+				} else {
+					listener.onRequestFailed();
+				}
+			}
+
+		});
+	}
+	
+	/**
+	 * 得到会员的折扣信息
+	 * @param id
+	 * @param iDataRequestListener
+	 */
+	public void getUserDiscountData(String id,
+			final IDataRequestListener<String> iDataRequestListener) {
+		if (iDataRequestListener == null) {
+			// 无回调，也就没有实际意义
+			return;
+		}
+			
+		DownloadService mDldMgr = DownloadService.getInstance(context);
+		mDldMgr.getUserDiscountData(new ICallback<String>() {
+			@Override	
+			public void onStarted() {
+				iDataRequestListener.onRequestStart();
+			}
+			
+			@Override
+			public void onSuccess(List<String> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					iDataRequestListener.onRequestSuccess(response);
+				} else {
+					iDataRequestListener.onRequestFailed();
+				}
+			}
+			
+			@Override
+			public void onFailed(String error) {
+				iDataRequestListener.onRequestFailed();
+			}
+			
+			@Override
+			public void onSuccessT(String response) {
+				// TODO Auto-generated method stub
+				boolean success = response != null;
+				if (success) {
+					iDataRequestListener.onRequestSuccess(response);
+				} else {
+					iDataRequestListener.onRequestFailed();
+				}
+			}
+
+		});
+	}
+		
+	public void orderToService(List<GoodsDataBean> selectOrderGoods,
+			final IDataRequestListener<String> iDataRequestListener) {
+		if (iDataRequestListener == null) {
+			// 无回调，也就没有实际意义
+			return;
+		}
+					
+		DownloadService mDldMgr = DownloadService.getInstance(context);
+		mDldMgr.getUserDiscountData(new ICallback<String>() {
+			@Override	
+			public void onStarted() {
+				iDataRequestListener.onRequestStart();
+			}
+			
+			@Override
+			public void onSuccess(List<String> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					iDataRequestListener.onRequestSuccess(response);
+				} else {
+					iDataRequestListener.onRequestFailed();
+				}
+			}
+			
+			@Override
+			public void onFailed(String error) {
+				iDataRequestListener.onRequestFailed();
+			}
+			
+			@Override
+			public void onSuccessT(String response) {
+				// TODO Auto-generated method stub
+				boolean success = response != null;
+				if (success) {
+					iDataRequestListener.onRequestSuccess(response);
+				} else {
+					iDataRequestListener.onRequestFailed();
+				}
+			}
+
+		});
+	}
+	
+	public void getOrderHestoryData(int id,
+			final IDataRequestListener<OrderHestoryDataBean> listener) {
+		if (listener == null) {
+			// 无回调，也就没有实际意义
+			return;
+		}
+		
+		DownloadService mDldMgr = DownloadService.getInstance(context);
+		mDldMgr.getOrderHestory(new ICallback<OrderHestoryDataBean>() {
+			@Override
+			public void onStarted() {
+				listener.onRequestStart();
+			}
+			
+			@Override
+			public void onSuccess(List<OrderHestoryDataBean> response) {
+				boolean success = response != null && response.size() > 0;
+				if (success) {
+					listener.onRequestSuccess(response);
+				} else {
+					listener.onRequestFailed();
+				}
+			}
+
+			@Override
+			public void onFailed(String error) {
+				listener.onRequestFailed();
+			}
+			
+			@Override
+			public void onSuccessT(OrderHestoryDataBean response) {
 				// TODO Auto-generated method stub
 				boolean success = response != null;
 				if (success) {

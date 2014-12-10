@@ -332,8 +332,14 @@ public class MainViewActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	 	 
 				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
-				clickOnOrderHestory((View)actionBar.getCustomView());
-			}								
+				String inputString = orderHestoryInput.getText().toString();
+						
+				if(inputString != null && !inputString.equals("")) {
+					oepnOrderHestory(Integer.parseInt(inputString));
+				} else {
+					Toast.makeText(getApplicationContext(), R.string.toast_please_input_userid, Toast.LENGTH_SHORT).show();
+				}		
+			}														
 		});
 							
 		feedTypeName.setOnClickListener(new View.OnClickListener()
@@ -341,9 +347,12 @@ public class MainViewActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	  
 				Log.d(TAG, "feedTypeName.setOnClickListener!");
-				//clickOnFeedType((View)actionBar.getCustomView());
-				clickOnFeedType((View)paramAnonymousView.getParent());		
-			}										
+				String inputString = orderHestoryInput.getText().toString();
+				
+				if(inputString != null && !inputString.equals("")) {
+					oepnOrderHestory(Integer.parseInt(inputString));
+				}		
+			}											
 		});
 	}	
 
@@ -388,7 +397,7 @@ public class MainViewActivity extends Activity {
 		intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);	  
 			
         startActivity(intent);	
-	}	
+	}			
 		
 	/**
 	 * 进入我的订单
