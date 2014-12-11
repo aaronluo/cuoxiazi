@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 	
 /**
  * 
@@ -205,14 +206,20 @@ public class OrderActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	
 				String userId = discountTxt.getText().toString();
-				getDiscountData(userId);	
+				
+				if (userId != null && !userId.equals("")) {
+					getDiscountData(userId);
+				} else {
+					Toast.makeText(OrderActivity.this, R.string.order_toast_please_input_userid, Toast.LENGTH_SHORT).show();
+				}	
 			}								
 		});
 					
 		okBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
-			{	 	 
+			{	 
+				
 			}								
 		});
 		

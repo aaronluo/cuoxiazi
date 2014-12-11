@@ -72,6 +72,8 @@
     <string name="order_text_btn_discount">获取折扣</string>
     <string name="order_text_btn_ok">确定</string>
     
+    <string name="order_toast_please_input_userid">请输入会员号</string>
+    
     
     <!-- OrderHestory -->
     <string name="orderhestory_item_text_order">订单:</string>

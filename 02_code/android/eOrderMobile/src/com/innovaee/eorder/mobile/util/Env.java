@@ -31,9 +31,9 @@ public final class Env {
 		/**
 		 * 获取会员信息URL地址
 		 */	
-		public static final String SERVER_GET_USERINFO = "http://192.168.1.11:8080/eorder-ws/rest/users?cellphone=";
+		public static final String SERVER_GET_USERINFO = "http://192.168.1.11:8080/eorder-ws/rest/users/myuser/";
 		public static final String SERVER_GET_USERINFO_TEST = "http://localhost:8080/eorder-ws/rest/users/myuser/";
-		
+				
 		/**
 		 * 获取分类列表URL地址
 		 */
