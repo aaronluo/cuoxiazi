@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,14 +69,14 @@ public class DownloadService implements GoodService, ClassifyService {
 	 * 获取某分类下面商品列表信息
 	 */			
 	@SuppressWarnings("unchecked")
-	@Override
-	public <T> void getAllGoods(ICallback<T> callback) {
+	@Override	
+	public <T> void getAllGoods(int id, ICallback<T> callback) {
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url				
-		String url = Env.Server.SERVIE_GET_DISH;	
-
+		String url = Env.Server.SERVIE_GET_DISH + String.valueOf(id);	
+		
 		try {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
@@ -88,7 +89,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseGoodsDataJson(json);
 					callback.onSuccess(beans);
@@ -113,9 +114,9 @@ public class DownloadService implements GoodService, ClassifyService {
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				GoodsDataBean good = new GoodsDataBean(obj.getInt("dishId"),
-						obj.getString("dishName"), (Double) obj.getDouble("price"), obj.getString("dishPicture"));
+						obj.getString("dishName"), (Double) obj.getDouble("dishPrice"), obj.getString("dishPicture"));
 				goods.add(good);	
-			}	
+			}				
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -126,8 +127,8 @@ public class DownloadService implements GoodService, ClassifyService {
 	 * 获取会员的折扣信息
 	 * @param callback
 	 */
-	public <T> void getUserDiscountData(ICallback<T> callback) {
-		// 创建请求HttpClient客户端
+	public <T> void getUserDiscountData(String userId, ICallback<T> callback) {
+		// 创建请求HttpClient客户端	
 		HttpClient httpClient = new DefaultHttpClient();
 		
 		// 创建请求的url
@@ -145,7 +146,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseUserDiscountDataJson(json);
 					callback.onSuccess(beans);
@@ -203,7 +204,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					T bean = (T) parseGoodsDetailJson(json);
 					callback.onSuccessT(bean);
@@ -242,6 +243,7 @@ public class DownloadService implements GoodService, ClassifyService {
 	public <T> void getAllClassify(ICallback<T> callback) {
 		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
+		Log.d(TAG, "getAllClassify");	
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
@@ -255,15 +257,15 @@ public class DownloadService implements GoodService, ClassifyService {
 			HttpResponse httpResponse = httpClient.execute(get);
 
 			// 如果服务成功返回响应
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+			if (httpResponse.getStatusLine().getStatusCode() == 200) { 
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
-					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					// 获取服务器响应的json字符串			
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseClassifyDataJson(json);
 					callback.onSuccess(beans);
-				}
+				}				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -297,15 +299,15 @@ public class DownloadService implements GoodService, ClassifyService {
 	/**
 	 * 获取某个会员号的历史订单记录
 	 * @param callback
-	 */
-	public <T> void getOrderHestory(ICallback<T> callback) {
+	 */	
+	public <T> void getOrderHestory(String userId, ICallback<T> callback) {
 		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
-		String url = Env.Server.SERVIE_GET_ORDERHESTORY;
-
+		String url = Env.Server.SERVIE_GET_ORDERHESTORY + userId;
+		
 		try {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
@@ -318,7 +320,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
 					callback.onSuccess(beans);	
@@ -346,7 +348,7 @@ public class DownloadService implements GoodService, ClassifyService {
 						obj.getInt("orderId"), obj.getString("createAt"),
 						obj.getDouble("totalPrice"));
 				classifyList.add(classify);	
-			}			
+			}				
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -378,7 +380,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
@@ -444,7 +446,7 @@ public class DownloadService implements GoodService, ClassifyService {
 				HttpEntity entity = httpResponse.getEntity();
 				if (entity != null) {	
 					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity);
+					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
@@ -485,6 +487,6 @@ public class DownloadService implements GoodService, ClassifyService {
         	
         Log.d("DownloadService:", "object=" + object.toString());	
         return object;
-	}
+	}	
 
 }

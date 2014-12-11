@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-	
+		
 /**
  * 
  * @author wanglinglong
@@ -45,7 +45,7 @@ public class OrderHestoryActivity extends Activity {
 	//ActionBar
 	private ActionBar actionBar;
 				
-	private int userId;
+	private String userId;
 		
 	//消息handler
 	private Handler handler = new Handler(Looper.getMainLooper()) {
@@ -53,13 +53,11 @@ public class OrderHestoryActivity extends Activity {
 			switch (msg.what) {
 				case MSG_UPDATE:	
 					Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");	
-					orderHestoryDataList = (List<OrderHestoryDataBean>) msg.obj;	
-					orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);
-						
-					listView.setAdapter(orderHestoryAdapter);	
-					
+					//orderHestoryDataList = (List<OrderHestoryDataBean>) msg.obj;	
+					orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);								
+					listView.setAdapter(orderHestoryAdapter);							
 					break;					
-									
+											
 	            case MSG_INITDATA:
 					break;
 										
@@ -77,13 +75,15 @@ public class OrderHestoryActivity extends Activity {
 		
 		Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        userId = bundle.getInt("userid", 0);
-        
+        userId = bundle.getString("userid");
+        				
         initView();
 		
-		initData();		        		
-	}
-	
+		initData();		
+		
+		loadOrderHestoryListData(userId);
+	}	
+		
 	/**
 	 * 初始化控件
 	 */
@@ -110,7 +110,7 @@ public class OrderHestoryActivity extends Activity {
 								
 		listView.setAdapter(orderHestoryAdapter);	
 		
-		initTestData();
+		//initTestData();
 	}
 	
 	/**	
@@ -127,41 +127,48 @@ public class OrderHestoryActivity extends Activity {
 	 * 获取会员的历史订单
 	 * @param userId
 	 */
-	private void loadOrderHestoryListData(int userId) {						
-		DataManager.getInstance(OrderHestoryActivity.this).getOrderHestoryData(userId, 
-				new IDataRequestListener<OrderHestoryDataBean>() {
-					@Override		
-					public void onRequestSuccess(
-							final List<OrderHestoryDataBean> data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						if (data == null) {
-							return;
+	private void loadOrderHestoryListData(final String userId) {	
+		new Thread() {
+			@Override	
+			public void run(){			
+			DataManager.getInstance(OrderHestoryActivity.this).getOrderHestoryData(userId, 
+					new IDataRequestListener<OrderHestoryDataBean>() {
+						@Override			
+						public void onRequestSuccess(
+								final List<OrderHestoryDataBean> data) {
+							// TODO Auto-generated method stub
+							Log.d("MainViewActivity:", "onRequestSuccess!");
+							if (data == null) {
+								return;
+							}
+							
+							orderHestoryDataList = data;
+							updateUi();		
+						}			
+									
+						@Override
+						public void onRequestStart() {
+							// TODO
+							Log.d("MainViewActivity:", "onRequestStart!");
 						}
-						
-						orderHestoryDataList = data;
-					}			
-								
-					@Override
-					public void onRequestStart() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestStart!");
-					}
-						
-					@Override
-					public void onRequestFailed() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestFailed!");
-					}
-
-					@Override
-					public void onRequestSuccess(OrderHestoryDataBean data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-					}			
-				});
-	}
+							
+						@Override
+						public void onRequestFailed() {
+							// TODO
+							Log.d("MainViewActivity:", "onRequestFailed!");
+						}
 	
+						@Override
+						public void onRequestSuccess(OrderHestoryDataBean data) {
+							// TODO Auto-generated method stub
+							Log.d("MainViewActivity:", "onRequestSuccess!");
+						}			
+					});				
+				handler.sendEmptyMessage(0);
+			}
+		}.start();		
+	}
+		
 	/**
 	 * 初始化测试数据
 	 */

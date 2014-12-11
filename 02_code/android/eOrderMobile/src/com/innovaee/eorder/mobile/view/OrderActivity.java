@@ -7,6 +7,7 @@ import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
+import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.qrcode.QrCodeTestActivity;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
 
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +44,8 @@ public class OrderActivity extends Activity {
 	public final static int MSG_UPDATE = 10001;
 	public final static int MSG_INITDATA = 10002;
 	public final static int MSG_UPDATE_COUNT = 10003;
-			
+	public final static int MSG_UPDATE_DISCOUNT = 10004;
+				
 	//已经选择菜品list
 	private List<GoodsDataBean> selectOrderGoods;	
 	
@@ -86,10 +89,10 @@ public class OrderActivity extends Activity {
 	private TextView allPriceTxt;	
 		
 	//折扣
-	private int discount;
-			
+	private Double discount;
+				
 	//消息handler
-	private Handler mHandler = new Handler(Looper.getMainLooper()) {
+	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MSG_UPDATE:	
@@ -107,7 +110,13 @@ public class OrderActivity extends Activity {
             	//通知MainViewActivity刷新
             	sendBroadcastToMainActivity();
 				break;	
-					
+				
+            case MSG_UPDATE_DISCOUNT:
+            	String discountStr = String.valueOf(discount); 
+            	discountTxt.setText(discountStr);	
+            	displayPrice();			
+            	break;
+            	
 			default:
 				break;
 			}
@@ -167,8 +176,8 @@ public class OrderActivity extends Activity {
 	 */	
 	private void initData() {
 		//默认折扣为10
-		discount = 10;
-					
+		discount = 10.0;
+						
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -178,7 +187,7 @@ public class OrderActivity extends Activity {
 				
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		myOrderAdapter = new MyOrderAdapter(OrderActivity.this, selectOrderGoods, mHandler);//对应R中的id 
+		myOrderAdapter = new MyOrderAdapter(OrderActivity.this, selectOrderGoods, handler);//对应R中的id 
 		
 		listView.setAdapter(myOrderAdapter);
 		
@@ -287,75 +296,100 @@ public class OrderActivity extends Activity {
 		allPriceTxt.setText(this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + String.valueOf(realPrice));	 			
 	}
 	
+	/**
+	 * 更新折扣等ui
+	 */
+	private void updateDiscountUi() {
+		Message msg = Message.obtain();
+		msg.what = MSG_UPDATE_DISCOUNT;	
+		handler.sendMessage(msg);
+	}			
+	
 	/**	
-	 * 加载某个分类菜品列表数据
-	 */														
-	private void getDiscountData(String userId) {										
-		DataManager.getInstance(OrderActivity.this).getUserDiscountData(userId, 
-				new IDataRequestListener<String>() {
-					@Override			
-					public void onRequestSuccess(
-							final List<String> data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						if (data == null) {
-							return;
-						}
-
-					}		
-								
-					@Override
-					public void onRequestStart() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestStart!");
-					}
-
-					@Override
-					public void onRequestFailed() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestFailed!");
-					}
-
-					@Override
-					public void onRequestSuccess(String data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-					}
-				});
-	}	
+	 * 获取某个会员号的信息
+	 */															
+	private void getDiscountData(final String userId) {
+		Log.d(TAG, "getDiscountData");
+					
+		new Thread() {
+			@Override				
+			public void run(){					
+				DataManager.getInstance(OrderActivity.this).getUserDiscountData(userId, 
+						new IDataRequestListener<UserInfoDataBean>() {
+							@Override			
+							public void onRequestSuccess(
+									final List<UserInfoDataBean> data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+								if (data == null) {
+									return;
+								}
+								UserInfoDataBean userInfoDataBean = data.get(0);	
+								discount = userInfoDataBean.getDiscount();
+								updateDiscountUi();
+							}				
+										
+							@Override
+							public void onRequestStart() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestStart!");
+							}
+		
+							@Override
+							public void onRequestFailed() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestFailed!");
+							}
+		
+							@Override
+							public void onRequestSuccess(UserInfoDataBean data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+							}
+						});
+				handler.sendEmptyMessage(0);
+			}	
+		}.start();	
+	}		
 				
-	private void orderToService(List<GoodsDataBean> selectOrderGoods) {										
-		DataManager.getInstance(OrderActivity.this).orderToService(selectOrderGoods, 
-				new IDataRequestListener<String>() {
-					@Override				
-					public void onRequestSuccess(
-							final List<String> data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						if (data == null) {
-							return;
-						}
-
-					}		
-								
-					@Override
-					public void onRequestStart() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestStart!");
-					}
-
-					@Override
-					public void onRequestFailed() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestFailed!");
-					}
-
-					@Override
-					public void onRequestSuccess(String data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-					}
-				});
+	private void orderToService(final List<GoodsDataBean> selectOrderGoods) {	
+		new Thread() {
+			@Override			
+			public void run(){		
+				DataManager.getInstance(OrderActivity.this).orderToService(selectOrderGoods, 
+						new IDataRequestListener<String>() {
+							@Override				
+							public void onRequestSuccess(
+									final List<String> data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+								if (data == null) {	
+									return;				
+								}			
+							}			
+										
+							@Override
+							public void onRequestStart() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestStart!");
+							}
+		
+							@Override
+							public void onRequestFailed() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestFailed!");
+							}
+		
+							@Override
+							public void onRequestSuccess(String data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+							}
+						});
+				
+				handler.sendEmptyMessage(0);
+			}
+		}.start();	
 	}	
 		
 			

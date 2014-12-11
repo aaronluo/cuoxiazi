@@ -60,8 +60,8 @@ public class OrderService implements GoodService, ClassifyService {
 	 * 获取最新的商品信息
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
-	public <T> void getAllGoods(ICallback<T> callback) {
+	@Override	
+	public <T> void getAllGoods(int id, ICallback<T> callback) {
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 

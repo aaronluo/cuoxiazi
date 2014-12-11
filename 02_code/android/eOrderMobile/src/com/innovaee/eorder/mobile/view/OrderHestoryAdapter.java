@@ -1,10 +1,13 @@
 package com.innovaee.eorder.mobile.view;
 
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +52,7 @@ public class OrderHestoryAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View view = null;
@@ -64,9 +68,13 @@ public class OrderHestoryAdapter extends BaseAdapter {
 				TextView orderIdTxtView = (TextView) view.findViewById(R.id.order_id);
 				TextView timeTxtView = (TextView) view.findViewById(R.id.order_time);
 				TextView totalPriceTxtView = (TextView) view.findViewById(R.id.order_totalprice);	
-														
+							
+				long longTime = Long.valueOf(orderHestoryDataBean.getTime()).longValue();
+				Date d = new Date(longTime);	
+				String time = DateFormat.getDateInstance().format(d);			
+					
 				orderIdTxtView.setText(context.getString(R.string.orderhestory_item_text_order) + String.valueOf(orderHestoryDataBean.getId()));				
-				timeTxtView.setText(context.getString(R.string.orderhestory_item_text_time) + String.valueOf(orderHestoryDataBean.getTime()));
+				timeTxtView.setText(context.getString(R.string.orderhestory_item_text_time) + time);		
 				totalPriceTxtView.setText(context.getString(R.string.orderhestory_item_text_totalprice) + String.valueOf(orderHestoryDataBean.getTotalPrice()));
 			}									
 		} else {		

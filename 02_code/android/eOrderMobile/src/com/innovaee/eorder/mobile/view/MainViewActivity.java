@@ -34,6 +34,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
@@ -102,12 +103,17 @@ public class MainViewActivity extends Activity {
 	//广播接收器
 	BroadcastReceiver receiver;
 	
+	//load数据progressBar	
+	ProgressBar progressBar;
+	
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
+				progressBar.setVisibility(View.GONE);
+				gridView.setVisibility(View.VISIBLE);			
 				goodsListData = (List<GoodsDataBean>) msg.obj;
 				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
 				gridView.setAdapter(goodsAdapter);
@@ -121,13 +127,13 @@ public class MainViewActivity extends Activity {
 				break;
 				
 			case MSG_UPDATE_POPMENU:
-				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");
-				classifyListData = (List<ClassifyDataBean>) msg.obj;
-				feedTypeList.clear();
+				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");			
 				feedTypeList = changeClassifyToFeedType(classifyListData);				
 				feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
-				break;				
-
+				popupMenuList.setAdapter(feedTypeAdapter);
+				changeFeedType(feedTypeList.get(2));				
+				break;																	
+					
 			case MSG_ORDER:
 				Log.d(TAG, "MSG_ORDER!!!");
 				int select = msg.arg1;		
@@ -169,8 +175,8 @@ public class MainViewActivity extends Activity {
 		initView();
 			
 		initData();	
-		
-		initTestData();				
+			
+		//initTestData();				
 	}
 	
 	@Override
@@ -245,6 +251,8 @@ public class MainViewActivity extends Activity {
 		
 		gridView = (GridView) findViewById(R.id.goods_gridview);
 			
+		progressBar = (ProgressBar)findViewById(R.id.loading_data_progressbar);
+			
 		receiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
 				Log.d(TAG, "BroadcastReceiver:onReceive()");	
@@ -304,8 +312,10 @@ public class MainViewActivity extends Activity {
 				}						
 			}				
 		});				
-							
-		changeFeedType(lastFeedType);
+					
+		initFeedTypePopup();
+			
+		//changeFeedType(lastFeedType);
 			
 		loadFeedTypeListData();
 	}																
@@ -335,8 +345,8 @@ public class MainViewActivity extends Activity {
 				String inputString = orderHestoryInput.getText().toString();
 						
 				if(inputString != null && !inputString.equals("")) {
-					oepnOrderHestory(Integer.parseInt(inputString));
-				} else {
+					oepnOrderHestory(inputString);
+				} else {	
 					Toast.makeText(getApplicationContext(), R.string.toast_please_input_userid, Toast.LENGTH_SHORT).show();
 				}		
 			}														
@@ -347,12 +357,8 @@ public class MainViewActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	  
 				Log.d(TAG, "feedTypeName.setOnClickListener!");
-				String inputString = orderHestoryInput.getText().toString();
-				
-				if(inputString != null && !inputString.equals("")) {
-					oepnOrderHestory(Integer.parseInt(inputString));
-				}		
-			}											
+				clickOnFeedType(paramAnonymousView);		
+			}												
 		});
 	}	
 
@@ -387,12 +393,12 @@ public class MainViewActivity extends Activity {
 	/**
 	 * 进入订单记录
 	 */
-	private void oepnOrderHestory(int userId) {
+	private void oepnOrderHestory(String userId) {
 		Bundle bundle = new Bundle();					
 		Intent intent = new Intent();
 		
-		bundle.putInt("userid", userId);			
-							
+		bundle.putString("userid", userId);			
+			
 		intent.putExtras(bundle);						
 		intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);	  
 			
@@ -423,33 +429,31 @@ public class MainViewActivity extends Activity {
 	 * @param paramFeedType
 	 */
 	private void changeFeedType(FeedType paramFeedType)
-	{
-	    int i;	
-	   
+	{	
 	    if (this.lastFeedType != paramFeedType)
 	    {
 	    	lastFeedType = paramFeedType;
 	    	this.feedTypeName.setText(lastFeedType.getTypeName());
-	    		
-	    	loadClassifyData();
-	    }		    	
-	}					
+	    				
+	    	loadClassifyData(lastFeedType.getClassifyId());
+	    }				    		
+	}										
 		
 	/**
 	 * 初始化Popmenu菜单
 	 */
 	private void initFeedTypePopup()
-	{	
+	{			
 		//初始化PipMenu测试数据
-		initPopMenuData();		
+		//initPopMenuData();
+		feedTypeList = new ArrayList<FeedType>();
 		feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
-		
-		
+																
+			
 		LayoutInflater inflater;	
 		inflater = (LayoutInflater) MainViewActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			
-		popupMenuList = (ListView)inflater.inflate(R.layout.drop_down_list, null);	
-	    //Utils.disableOverScroll(localListView);	
+		popupMenuList = (ListView)inflater.inflate(R.layout.drop_down_list, null);		
 		popupMenuList.setAdapter(this.feedTypeAdapter);			
 	    		
 		popupMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -504,10 +508,8 @@ public class MainViewActivity extends Activity {
 			
 			if(inputString.equals("")) {
 				Toast.makeText(getApplicationContext(), R.string.toast_please_input_userid, Toast.LENGTH_SHORT).show();
-			} else {	
-				int inputNumber = Integer.parseInt(inputString);
-				
-				oepnOrderHestory(inputNumber);
+			} else {						
+				oepnOrderHestory(inputString);
 			}	
 		}
 	}						
@@ -570,80 +572,98 @@ public class MainViewActivity extends Activity {
 	/**	
 	 * 加载某个分类菜品列表数据
 	 */								
-	private void loadClassifyData() {										
-		DataManager.getInstance(MainViewActivity.this).getGoodsData(lastFeedType.getClassifyId(), 
-				new IDataRequestListener<GoodsDataBean>() {
-					@Override
-					public void onRequestSuccess(
+	private void loadClassifyData(final int id) {
+		Log.d(TAG, "loadClassifyData()");			
+		new Thread(){
+			@Override
+			public void run(){
+				DataManager.getInstance(MainViewActivity.this).getGoodsData(id, 
+					new IDataRequestListener<GoodsDataBean>() {
+						@Override
+						public void onRequestSuccess(
 							final List<GoodsDataBean> data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						if (data == null) {
-							return;
+							// TODO Auto-generated method stub
+							Log.d("MainViewActivity:", "onRequestSuccess!");
+							if (data == null) {
+								return;
+							}
+							goodsListData = data;
+							updateUi();	
+						}		
+										
+						@Override
+						public void onRequestStart() {
+							// TODO
+							Log.d("MainViewActivity:", "onRequestStart!");
 						}
 
-						goodsListData = data;
-					}		
-								
-					@Override
-					public void onRequestStart() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestStart!");
-					}
+						@Override
+						public void onRequestFailed() {
+							// TODO
+							Log.d("MainViewActivity:", "onRequestFailed!");
+						}
 
-					@Override
-					public void onRequestFailed() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestFailed!");
-					}
-
-					@Override
-					public void onRequestSuccess(GoodsDataBean data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						updateUi();
-					}
+						@Override
+						public void onRequestSuccess(GoodsDataBean data) {
+							// TODO Auto-generated method stub
+							Log.d("MainViewActivity:", "onRequestSuccess!");
+							updateUi();
+						}
 				});
+						
+				handler.sendEmptyMessage(0);
+			}
+		}.start();						
 	}	
 		
 	/**
 	 * 加载所有分类列表信息
 	 */	
-	private void loadFeedTypeListData() {					
-		DataManager.getInstance(MainViewActivity.this).getClassifyData(
-				new IDataRequestListener<ClassifyDataBean>() {
-					@Override
-					public void onRequestSuccess(
-							final List<ClassifyDataBean> data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						if (data == null) {
-							return;
-						}
-						
-						classifyListData = data;
-					}
+	private void loadFeedTypeListData() {		
+		Log.d(TAG, "loadFeedTypeListData()");
+		progressBar.setVisibility(View.VISIBLE);
+					
+		new Thread() {
+			@Override
+			public void run(){
+				DataManager.getInstance(MainViewActivity.this).getClassifyData(
+						new IDataRequestListener<ClassifyDataBean>() {
+							@Override
+							public void onRequestSuccess(
+									final List<ClassifyDataBean> data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+								if (data == null) {
+									return;
+								}
+									
+								Log.d(TAG, "data.szie=" + data.size());	
+								classifyListData = data;	
+								updatePopmenuUi();
+							}
+							
+							@Override
+							public void onRequestStart() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestStart!");
+							}
+								
+							@Override
+							public void onRequestFailed() {
+								// TODO
+								Log.d("MainViewActivity:", "onRequestFailed!");
+							}
 
-					@Override
-					public void onRequestStart() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestStart!");
-					}
-						
-					@Override
-					public void onRequestFailed() {
-						// TODO
-						Log.d("MainViewActivity:", "onRequestFailed!");
-					}
-
-					@Override
-					public void onRequestSuccess(ClassifyDataBean data) {
-						// TODO Auto-generated method stub
-						Log.d("MainViewActivity:", "onRequestSuccess!");
-						updatePopmenuUi();
-					}	
-				});
-
+							@Override
+							public void onRequestSuccess(ClassifyDataBean data) {
+								// TODO Auto-generated method stub
+								Log.d("MainViewActivity:", "onRequestSuccess!");
+							}		
+						});
+				
+				handler.sendEmptyMessage(0);
+			}
+		}.start();	
 	}
 	
 	/**	
@@ -657,8 +677,11 @@ public class MainViewActivity extends Activity {
 		for(ClassifyDataBean databean: classifyListData) {
 			FeedType feedType = new FeedType(databean.getId(), databean.getName());
 			feedTypeList.add(feedType);	
-		}
-			
+			Log.d(TAG, "id=" + databean.getId());
+			Log.d(TAG, "id=" + databean.getName());
+		}	
+					
+		Log.d(TAG, "feedTypeList.size()=" + feedTypeList.size());
 		return feedTypeList;
 	}
 			

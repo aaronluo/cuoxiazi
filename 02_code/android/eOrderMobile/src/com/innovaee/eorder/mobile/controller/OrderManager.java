@@ -87,7 +87,7 @@ public class OrderManager {
 		}
 
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getAllGoods(new ICallback<GoodsDataBean>() {
+		mDldMgr.getAllGoods(id, new ICallback<GoodsDataBean>() {
 			@Override
 			public void onStarted() {
 				listener.onRequestStart();
@@ -130,7 +130,7 @@ public class OrderManager {
 		}
 
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getAllGoods(new ICallback<GoodsDetailDataBean>() {
+		mDldMgr.getAllGoods(id, new ICallback<GoodsDetailDataBean>() {
 			@Override
 			public void onStarted() {
 				listener.onRequestStart();

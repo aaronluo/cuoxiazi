@@ -5,10 +5,12 @@ import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDetailDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
+import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.service.DownloadService;
 import com.innovaee.eorder.mobile.service.ICallback;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * 数据管理器
@@ -39,6 +41,8 @@ public class DataManager {
 	 */
 	public void getClassifyData(
 			final IDataRequestListener<ClassifyDataBean> listener) {
+		Log.d("DataManager:", "getClassifyData");
+			
 		if (listener == null) {
 			// 无回调，也就没有实际意义
 			return;
@@ -88,8 +92,8 @@ public class DataManager {
 		}
 
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getAllGoods(new ICallback<GoodsDataBean>() {
-			@Override
+		mDldMgr.getAllGoods(id, new ICallback<GoodsDataBean>() {
+			@Override	
 			public void onStarted() {
 				listener.onRequestStart();
 			}
@@ -131,8 +135,8 @@ public class DataManager {
 		}
 
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getAllGoods(new ICallback<GoodsDetailDataBean>() {
-			@Override
+		mDldMgr.getAllGoods(id, new ICallback<GoodsDetailDataBean>() {
+			@Override	
 			public void onStarted() {
 				listener.onRequestStart();
 			}
@@ -172,21 +176,21 @@ public class DataManager {
 	 * @param iDataRequestListener
 	 */
 	public void getUserDiscountData(String id,
-			final IDataRequestListener<String> iDataRequestListener) {
+			final IDataRequestListener<UserInfoDataBean> iDataRequestListener) {
 		if (iDataRequestListener == null) {
 			// 无回调，也就没有实际意义
 			return;
 		}
-			
+						
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getUserDiscountData(new ICallback<String>() {
+		mDldMgr.getUserDiscountData(id, new ICallback<UserInfoDataBean>() {
 			@Override	
 			public void onStarted() {
 				iDataRequestListener.onRequestStart();
 			}
 			
 			@Override
-			public void onSuccess(List<String> response) {
+			public void onSuccess(List<UserInfoDataBean> response) {
 				boolean success = response != null && response.size() > 0;
 				if (success) {
 					iDataRequestListener.onRequestSuccess(response);
@@ -201,7 +205,7 @@ public class DataManager {
 			}
 			
 			@Override
-			public void onSuccessT(String response) {
+			public void onSuccessT(UserInfoDataBean response) {
 				// TODO Auto-generated method stub
 				boolean success = response != null;
 				if (success) {
@@ -221,8 +225,9 @@ public class DataManager {
 			return;
 		}
 					
+		String id = "";			
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getUserDiscountData(new ICallback<String>() {
+		mDldMgr.getUserDiscountData(id, new ICallback<String>() {
 			@Override	
 			public void onStarted() {
 				iDataRequestListener.onRequestStart();
@@ -257,15 +262,15 @@ public class DataManager {
 		});
 	}
 	
-	public void getOrderHestoryData(int id,
+	public void getOrderHestoryData(String id,
 			final IDataRequestListener<OrderHestoryDataBean> listener) {
 		if (listener == null) {
 			// 无回调，也就没有实际意义
 			return;
 		}
-		
+					
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getOrderHestory(new ICallback<OrderHestoryDataBean>() {
+		mDldMgr.getOrderHestory(id, new ICallback<OrderHestoryDataBean>() {
 			@Override
 			public void onStarted() {
 				listener.onRequestStart();
