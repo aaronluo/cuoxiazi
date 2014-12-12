@@ -20,14 +20,16 @@ import android.util.Log;
  */
 public class DataManager {
 	private static DataManager self;
-	private Context context;
-
+	private static Context context;
+		
 	private DataManager(Context context) {
 		// TODO
 		this.context = context.getApplicationContext();
 	}																			
-
-	public synchronized static DataManager getInstance(Context context) {
+	
+	public synchronized static DataManager getInstance(Context contextTemp) {
+		context = contextTemp.getApplicationContext();
+							
 		if (self == null) {
 			self = new DataManager(context);
 		}

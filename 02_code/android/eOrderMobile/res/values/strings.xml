@@ -73,12 +73,21 @@
     <string name="order_text_btn_ok">确定</string>
     
     <string name="order_toast_please_input_userid">请输入会员号</string>
-    
-    
+    <string name="order_toast_please_input_tableId">请输入桌号</string>
+    <string name="order_toast_please_input_employeeId">请输入员工号</string>
+    	
     <!-- OrderHestory -->
     <string name="orderhestory_item_text_order">订单:</string>
     <string name="orderhestory_item_text_time">时间:</string>
     <string name="orderhestory_item_text_totalprice">金额:</string>
     
-
+	<!-- Setting -->
+    <string name="setting_activity_text_label">设置</string>
+    <string name="setting_activity_text_service">服务器地址</string>
+    <string name="setting_activity_text_input">请输入服务器地址</string>
+															
+    <!-- About -->	
+    <string name="about_activity_text_label">关于</string>
+    								
+    
 </resources>

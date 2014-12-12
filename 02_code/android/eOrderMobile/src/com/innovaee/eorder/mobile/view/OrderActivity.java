@@ -8,7 +8,6 @@ import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
-import com.innovaee.eorder.mobile.qrcode.QrCodeTestActivity;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
 
 import android.app.ActionBar;
@@ -30,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 	
 /**
- * 
+ * 	
  * @author wanglinglong
  * 
  */		
@@ -46,7 +45,8 @@ public class OrderActivity extends Activity {
 	public final static int MSG_INITDATA = 10002;
 	public final static int MSG_UPDATE_COUNT = 10003;
 	public final static int MSG_UPDATE_DISCOUNT = 10004;
-				
+	public final static int MSG_ORDER_SUCCESS = 10005;
+						
 	//已经选择菜品list
 	private List<GoodsDataBean> selectOrderGoods;	
 	
@@ -61,7 +61,7 @@ public class OrderActivity extends Activity {
 		
 	//输入桌号文本编辑器
 	private EditText inputTableId;
-	
+		
 	//输入会员号文本编辑器
 	private EditText inputUserId;
 	
@@ -118,6 +118,17 @@ public class OrderActivity extends Activity {
             	displayPrice();			
             	break;
             	
+            case MSG_ORDER_SUCCESS:
+            	Toast.makeText(OrderActivity.this, R.string.action_about, Toast.LENGTH_SHORT).show();
+            	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+            	finish();	
+            	break;		
+            		
 			default:
 				break;
 			}
@@ -200,27 +211,49 @@ public class OrderActivity extends Activity {
 				startActivityForResult(openCameraIntent, 0);	
 			}									
 		});
-				
+			
 		discountBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
-			{	
-				String userId = discountTxt.getText().toString();
-				
+			{				
+				Log.d(TAG, "discountBtn.onClick");
+				String userId = inputUserId.getText().toString();
+											
+				Log.d(TAG, "userId=" + userId);	
 				if (userId != null && !userId.equals("")) {
 					getDiscountData(userId);
-				} else {
+				} else {		
+					Log.d(TAG, "userId == null");
 					Toast.makeText(OrderActivity.this, R.string.order_toast_please_input_userid, Toast.LENGTH_SHORT).show();
-				}	
+				}					
 			}								
 		});
-					
+			
 		okBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
 			{	 
+				String tableId = inputTableId.getText().toString();
+				String employeeId = inputEmployeeId.getText().toString();
+				String userId = inputUserId.getText().toString();
+					
+				if(tableId.equals("")) {
+					Toast.makeText(getApplicationContext(), R.string.order_toast_please_input_tableId, Toast.LENGTH_SHORT).show();
+					return;
+				}	
 				
-			}								
+				if(employeeId.equals("")) {		
+					Toast.makeText(getApplicationContext(), R.string.order_toast_please_input_employeeId, Toast.LENGTH_SHORT).show();
+					return;
+				}									
+							
+				if(userId.equals("")) {		
+					Toast.makeText(getApplicationContext(), R.string.order_toast_please_input_userid, Toast.LENGTH_SHORT).show();
+					return;
+				}		
+					
+				orderToService(selectOrderGoods);
+			}											
 		});
 		
 		displayPrice();
@@ -311,13 +344,21 @@ public class OrderActivity extends Activity {
 		msg.what = MSG_UPDATE_DISCOUNT;	
 		handler.sendMessage(msg);
 	}			
-	
+
+	/**
+	 * 下单成功更新ui
+	 */	
+	private void orderSuccessful() {
+		Message msg = Message.obtain();
+		msg.what = MSG_ORDER_SUCCESS;	
+		handler.sendMessage(msg);
+	}						
+
 	/**	
 	 * 获取某个会员号的信息
 	 */															
 	private void getDiscountData(final String userId) {
-		Log.d(TAG, "getDiscountData");
-					
+		Log.d(TAG, "getDiscountData");					
 		new Thread() {
 			@Override				
 			public void run(){					
@@ -359,7 +400,14 @@ public class OrderActivity extends Activity {
 		}.start();	
 	}		
 				
+	/**
+	 * 下单到服务器
+	 * @param selectOrderGoods
+	 */
 	private void orderToService(final List<GoodsDataBean> selectOrderGoods) {	
+		orderSuccessful();
+		
+		/*
 		new Thread() {
 			@Override			
 			public void run(){		
@@ -372,7 +420,9 @@ public class OrderActivity extends Activity {
 								Log.d("MainViewActivity:", "onRequestSuccess!");
 								if (data == null) {	
 									return;				
-								}			
+								}
+								
+								orderSuccessful();	
 							}			
 										
 							@Override
@@ -397,7 +447,8 @@ public class OrderActivity extends Activity {
 				handler.sendEmptyMessage(0);
 			}
 		}.start();	
-	}	
-		
+		*/
+	}			
+	
 			
 }

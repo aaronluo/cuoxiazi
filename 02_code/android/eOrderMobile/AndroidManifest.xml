@@ -46,7 +46,8 @@
         </activity>
         	
         
-    	<activity android:name="com.innovaee.eorder.mobile.view.ClassifyActivity" android:label="@string/app_name"
+    	<activity android:name="com.innovaee.eorder.mobile.view.ClassifyActivity" 
+    	    		android:label="@string/app_name"
 					android:screenOrientation="portrait"/>
         
     	<activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" 
@@ -56,13 +57,15 @@
     	                               
    		<activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" 
                     android:logo="@drawable/ic_publish_bottom_pan_back" 
-                    android:label="@string/order_activity_text_label"
+                    android:label="@string/setting_activity_text_label"
 					android:screenOrientation="portrait"/>
-    			     	        
-    	<activity android:name="com.innovaee.eorder.mobile.view.GoodsListActivity" android:label="@string/app_name"
+    			     	        	
+    	<activity android:name="com.innovaee.eorder.mobile.view.GoodsListActivity" 
+    	    		android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
         
-        <activity android:name="com.innovaee.eorder.mobile.view.GoodsDetailActivity" android:label="@string/app_name"
+        <activity android:name="com.innovaee.eorder.mobile.view.GoodsDetailActivity" 
+            		android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
          
         <activity android:name="com.innovaee.eorder.mobile.view.OrderActivity" 
@@ -70,13 +73,17 @@
                     android:label="@string/order_activity_text_label"
                     android:screenOrientation="portrait"/>
                                 
-        <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryActivity" android:label="@string/app_name"
+        <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryActivity" 
+            		android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
    										
-        <activity android:name="com.innovaee.eorder.mobile.view.AboutActivity" android:label="@string/app_name"
+        <activity android:name="com.innovaee.eorder.mobile.view.AboutActivity" 
+            		android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/about_activity_text_label"	
                     android:screenOrientation="portrait"/>
-        
-        <activity android:name="com.innovaee.eorder.mobile.zxing.activity.CaptureActivity" android:label="@string/app_name"
+        		
+        <activity android:name="com.innovaee.eorder.mobile.zxing.activity.CaptureActivity" 
+            		android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
                                     
     </application>

@@ -51,9 +51,8 @@ public class OrderHestoryActivity extends Activity {
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-				case MSG_UPDATE:	
-					Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");	
-					//orderHestoryDataList = (List<OrderHestoryDataBean>) msg.obj;	
+				case MSG_UPDATE:		
+					Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");		
 					orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);								
 					listView.setAdapter(orderHestoryAdapter);							
 					break;					
