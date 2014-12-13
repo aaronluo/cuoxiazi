@@ -1,11 +1,11 @@
 package com.innovaee.eorder.mobile.view;
-
+	
 import java.util.ArrayList;
 import java.util.List;
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
-import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.util.DisplayUtil;
 import com.innovaee.eorder.mobile.util.FeedType;
@@ -92,7 +92,7 @@ public class MainViewActivity extends Activity {
 	private List<GoodsDataBean> goodsListData;
 		
 	//所有分类列表
-	private List<ClassifyDataBean> classifyListData;		
+	private List<CategoryDataBean> categoryListData;		
 		
 	//已经选择的菜品
 	private List<GoodsDataBean> selectOrderGoods;		
@@ -128,7 +128,7 @@ public class MainViewActivity extends Activity {
 				
 			case MSG_UPDATE_POPMENU:
 				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");			
-				feedTypeList = changeClassifyToFeedType(classifyListData);				
+				feedTypeList = changeCategoryToFeedType(categoryListData);				
 				feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
 				popupMenuList.setAdapter(feedTypeAdapter);
 				changeFeedType(feedTypeList.get(0));				
@@ -230,6 +230,10 @@ public class MainViewActivity extends Activity {
 	            openAbout();
 	            return true;
 	            	
+	        case R.id.action_menu_refresh:
+	        	refreshActivity();
+	        	return true;
+	            	
 	        default:	
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -309,8 +313,6 @@ public class MainViewActivity extends Activity {
 		});				
 					
 		initFeedTypePopup();
-			
-		//changeFeedType(lastFeedType);
 			
 		loadFeedTypeListData();
 	}																
@@ -430,17 +432,16 @@ public class MainViewActivity extends Activity {
 	    	lastFeedType = paramFeedType;
 	    	this.feedTypeName.setText(lastFeedType.getTypeName());
 	    				
-	    	loadClassifyData(lastFeedType.getClassifyId());
+	    	loadCategoryData(lastFeedType.getCategoryId());
 	    }				    		
-	}										
+	}												
 		
 	/**
 	 * 初始化Popmenu菜单
 	 */
 	private void initFeedTypePopup()
-	{			
+	{					
 		//初始化PipMenu测试数据
-		//initPopMenuData();
 		feedTypeList = new ArrayList<FeedType>();
 		feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
 																
@@ -529,7 +530,11 @@ public class MainViewActivity extends Activity {
 		orderCountView.setText(str);	
 		orderCountView.setVisibility(View.VISIBLE);
 	}																						
-		
+				
+	/**
+	 * 得到当前下单菜品的总数量
+	 * @return
+	 */
 	private int getMyOrderSelectCount() {
 		int count = 0;
 		
@@ -560,15 +565,15 @@ public class MainViewActivity extends Activity {
 	private void updatePopmenuUi() {
 		Message msg = Message.obtain();
 		msg.what = MSG_UPDATE_POPMENU;	
-		msg.obj = (Object) classifyListData;
+		msg.obj = (Object) categoryListData;
 		handler.sendMessage(msg);
 	}	
 						
 	/**	
 	 * 加载某个分类菜品列表数据
 	 */								
-	private void loadClassifyData(final int id) {
-		Log.d(TAG, "loadClassifyData()");			
+	private void loadCategoryData(final int id) {
+		Log.d(TAG, "loadCategoryData()");			
 		new Thread(){
 			@Override
 			public void run(){
@@ -621,11 +626,11 @@ public class MainViewActivity extends Activity {
 		new Thread() {
 			@Override
 			public void run(){
-				DataManager.getInstance(MainViewActivity.this).getClassifyData(
-						new IDataRequestListener<ClassifyDataBean>() {
+				DataManager.getInstance(MainViewActivity.this).getCategoryData(
+						new IDataRequestListener<CategoryDataBean>() {
 							@Override
 							public void onRequestSuccess(
-									final List<ClassifyDataBean> data) {
+									final List<CategoryDataBean> data) {
 								// TODO Auto-generated method stub
 								Log.d("MainViewActivity:", "onRequestSuccess!");
 								if (data == null) {
@@ -633,7 +638,7 @@ public class MainViewActivity extends Activity {
 								}
 									
 								Log.d(TAG, "data.szie=" + data.size());	
-								classifyListData = data;	
+								categoryListData = data;	
 								updatePopmenuUi();
 							}
 							
@@ -650,7 +655,7 @@ public class MainViewActivity extends Activity {
 							}
 
 							@Override
-							public void onRequestSuccess(ClassifyDataBean data) {
+							public void onRequestSuccess(CategoryDataBean data) {
 								// TODO Auto-generated method stub
 								Log.d("MainViewActivity:", "onRequestSuccess!");
 							}		
@@ -663,13 +668,13 @@ public class MainViewActivity extends Activity {
 	
 	/**	
 	 * 转换分类数据为切换分类所需的数据类型
-	 * @param classifyListData
+	 * @param categoryListData
 	 * @return
 	 */
-	private List<FeedType> changeClassifyToFeedType(List<ClassifyDataBean> classifyListData) {
+	private List<FeedType> changeCategoryToFeedType(List<CategoryDataBean> categoryListData) {
 		List<FeedType> feedTypeList = new ArrayList<FeedType>();
 						
-		for(ClassifyDataBean databean: classifyListData) {
+		for(CategoryDataBean databean: categoryListData) {
 			FeedType feedType = new FeedType(databean.getId(), databean.getName());
 			feedTypeList.add(feedType);	
 			Log.d(TAG, "id=" + databean.getId());
@@ -706,6 +711,12 @@ public class MainViewActivity extends Activity {
 		}								
 	}
 	
+	/**
+	 * 重新刷新界面
+	 */		
+	private void refreshActivity() {
+		loadFeedTypeListData();
+	}	
 	
 	//***********************************************************************************************
 	//测试数据，调试使用

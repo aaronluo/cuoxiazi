@@ -57,9 +57,17 @@ public class SettingsActivity extends Activity {
 			public void onClick(View paramAnonymousView)
 			{	 
 				String url = serviceUrl.getText().toString();
-				
-				if(url != null && url.equals("")) {
+							
+				if(url != null && !url.equals("")) {
 					saveServiceUrl(url); 
+					Toast.makeText(SettingsActivity.this, R.string.setting_activity_text_successful, Toast.LENGTH_SHORT).show();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+					finish();
 				} else {	
 					Toast.makeText(SettingsActivity.this, R.string.setting_activity_text_input, Toast.LENGTH_SHORT).show();
 				}		

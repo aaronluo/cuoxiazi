@@ -1,7 +1,7 @@
 package com.innovaee.eorder.mobile.controller;
 
 import java.util.List;
-import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDetailDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
@@ -41,9 +41,9 @@ public class DataManager {
 	 * 
 	 * @param listener
 	 */
-	public void getClassifyData(
-			final IDataRequestListener<ClassifyDataBean> listener) {
-		Log.d("DataManager:", "getClassifyData");
+	public void getCategoryData(
+			final IDataRequestListener<CategoryDataBean> listener) {
+		Log.d("DataManager:", "getCategoryData");
 			
 		if (listener == null) {
 			// 无回调，也就没有实际意义
@@ -51,14 +51,14 @@ public class DataManager {
 		}
 
 		DownloadService mDldMgr = DownloadService.getInstance(context);
-		mDldMgr.getAllClassify(new ICallback<ClassifyDataBean>() {
+		mDldMgr.getAllCategory(new ICallback<CategoryDataBean>() {
 			@Override
 			public void onStarted() {
 				listener.onRequestStart();
 			}
 
 			@Override
-			public void onSuccess(List<ClassifyDataBean> response) {
+			public void onSuccess(List<CategoryDataBean> response) {
 				boolean success = response != null && response.size() > 0;
 				if (success) {
 					listener.onRequestSuccess(response);
@@ -73,7 +73,7 @@ public class DataManager {
 			}
 
 			@Override
-			public void onSuccessT(ClassifyDataBean response) {
+			public void onSuccessT(CategoryDataBean response) {
 				// TODO Auto-generated method stub
 			}
 

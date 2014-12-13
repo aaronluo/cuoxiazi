@@ -21,7 +21,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
@@ -35,7 +35,7 @@ import com.innovaee.eorder.mobile.util.Env;
  * @author wanglinglong
  * 
  */
-public class DownloadService implements GoodService, ClassifyService {
+public class DownloadService implements GoodService, CategoryService {
 	//调试Tag	
 	private final static String TAG = "DownloadService";
 			
@@ -266,10 +266,10 @@ public class DownloadService implements GoodService, ClassifyService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> void getAllClassify(ICallback<T> callback) {
+	public <T> void getAllCategory(ICallback<T> callback) {
 		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
-		Log.d(TAG, "getAllClassify");	
+		Log.d(TAG, "getAllCategory");	
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
@@ -290,7 +290,7 @@ public class DownloadService implements GoodService, ClassifyService {
 					// 获取服务器响应的json字符串			
 					String json = EntityUtils.toString(entity, "UTF-8");
 					Log.d(TAG, "json=" + json.toString());
-					List<T> beans = (List<T>) parseClassifyDataJson(json);
+					List<T> beans = (List<T>) parseCategoryDataJson(json);
 					callback.onSuccess(beans);
 				}				
 			}
@@ -305,22 +305,22 @@ public class DownloadService implements GoodService, ClassifyService {
 	 * @param json
 	 * @return
 	 */
-	private List<ClassifyDataBean> parseClassifyDataJson(String json) {
-		List<ClassifyDataBean> classifyList = new ArrayList<ClassifyDataBean>();
+	private List<CategoryDataBean> parseCategoryDataJson(String json) {
+		List<CategoryDataBean> categoryList = new ArrayList<CategoryDataBean>();
 		try {
 			JSONArray array = new JSONObject(json).getJSONArray("categories");
 
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				ClassifyDataBean classify = new ClassifyDataBean(
+				CategoryDataBean category = new CategoryDataBean(
 						obj.getInt("categoryId"), obj.getString("categoryName"),
 						getBitmapUrl(obj.getString("categoryPicture")));
-				classifyList.add(classify);	
+				categoryList.add(category);	
 			}	
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return classifyList;
+		return categoryList;
 	}
 
 	/**
@@ -366,21 +366,21 @@ public class DownloadService implements GoodService, ClassifyService {
 	 * @return
 	 */
 	private List<OrderHestoryDataBean> parseOrderHestoryDataJson(String json) {
-		List<OrderHestoryDataBean> classifyList = new ArrayList<OrderHestoryDataBean>();
+		List<OrderHestoryDataBean> categoryList = new ArrayList<OrderHestoryDataBean>();
 		try {
 			JSONArray array = new JSONObject(json).getJSONArray("orders");
 			
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				OrderHestoryDataBean classify = new OrderHestoryDataBean(
+				OrderHestoryDataBean category = new OrderHestoryDataBean(
 						obj.getInt("orderId"), obj.getString("createAt"),
 						obj.getDouble("totalPrice"));
-				classifyList.add(classify);	
+				categoryList.add(category);	
 			}				
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return classifyList;
+		return categoryList;
 	}
 
 	

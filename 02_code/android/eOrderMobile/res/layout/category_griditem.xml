@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <com.innovaee.eorder.mobile.util.RemoteImageView
-        android:id="@+id/classify_image"
+        android:id="@+id/category_image"
         android:layout_width="232dp"
         android:layout_height="232dp"
         android:layout_gravity="center_horizontal"
@@ -14,7 +14,7 @@
     </com.innovaee.eorder.mobile.util.RemoteImageView>
         
     <TextView
-        android:id="@+id/classify_name"
+        android:id="@+id/category_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

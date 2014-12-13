@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.innovaee.eorder.mobile.databean.ClassifyDataBean;
+import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.util.Env;
 
@@ -26,7 +26,7 @@ import com.innovaee.eorder.mobile.util.Env;
  * @author wanglinglong
  * 
  */	
-public class OrderService implements GoodService, ClassifyService {
+public class OrderService implements GoodService, CategoryService {
 	private final String SERVER = Env.Server.SERVIE_GET_DISH_TEST;
 		
 	private static OrderService self;
@@ -173,7 +173,7 @@ public class OrderService implements GoodService, ClassifyService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> void getAllClassify(ICallback<T> callback) {
+	public <T> void getAllCategory(ICallback<T> callback) {
 		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
@@ -194,7 +194,7 @@ public class OrderService implements GoodService, ClassifyService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity);
-					List<T> beans = (List<T>) parseClassifyDataJson(json);
+					List<T> beans = (List<T>) parseCategoryDataJson(json);
 					callback.onSuccess(beans);
 				}
 			}
@@ -209,21 +209,21 @@ public class OrderService implements GoodService, ClassifyService {
 	 * @param json
 	 * @return
 	 */
-	private List<ClassifyDataBean> parseClassifyDataJson(String json) {
-		List<ClassifyDataBean> classifyList = new ArrayList<ClassifyDataBean>();
+	private List<CategoryDataBean> parseCategoryDataJson(String json) {
+		List<CategoryDataBean> categoryList = new ArrayList<CategoryDataBean>();
 		try {
-			JSONArray array = new JSONObject(json).getJSONArray("classify");
+			JSONArray array = new JSONObject(json).getJSONArray("category");
 
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				ClassifyDataBean classify = new ClassifyDataBean(
+				CategoryDataBean category = new CategoryDataBean(
 						obj.getInt("id"), obj.getString("name"),
 						obj.getString("url"));
-				classifyList.add(classify);
+				categoryList.add(category);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return classifyList;
+		return categoryList;
 	}	
 }
