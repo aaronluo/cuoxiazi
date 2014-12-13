@@ -13,9 +13,6 @@
         android:showAsAction="always"
         android:title="@string/action_more">
         <menu>
-            <item
-                android:id="@+id/action_menu_fresh"
-                android:title="@string/action_fresh"/>
             <item   
                 android:id="@+id/action_menu_settings"
                 android:title="@string/action_settings"/>

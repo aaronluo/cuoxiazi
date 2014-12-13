@@ -85,9 +85,11 @@
     <string name="setting_activity_text_label">设置</string>
     <string name="setting_activity_text_service">服务器地址</string>
     <string name="setting_activity_text_input">请输入服务器地址</string>
-															
-    <!-- About -->	
+																				
+    <!-- About -->								
     <string name="about_activity_text_label">关于</string>
-    								
+    <string name="about_activity_text_version">版本号:V0.1</string>
+    <string name="about_activity_text_copyright">Copyright eOrderMobile.</string>	
+    										
     
 </resources>

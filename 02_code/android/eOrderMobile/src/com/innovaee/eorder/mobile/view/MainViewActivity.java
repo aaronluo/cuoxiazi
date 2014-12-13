@@ -131,8 +131,8 @@ public class MainViewActivity extends Activity {
 				feedTypeList = changeClassifyToFeedType(classifyListData);				
 				feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
 				popupMenuList.setAdapter(feedTypeAdapter);
-				changeFeedType(feedTypeList.get(2));				
-				break;																	
+				changeFeedType(feedTypeList.get(0));				
+				break;																		
 					
 			case MSG_ORDER:
 				Log.d(TAG, "MSG_ORDER!!!");
@@ -174,9 +174,7 @@ public class MainViewActivity extends Activity {
 					
 		initView();
 			
-		initData();	
-			
-		//initTestData();				
+		initData();					
 	}
 	
 	@Override
@@ -231,10 +229,7 @@ public class MainViewActivity extends Activity {
 	        case R.id.action_menu_about:
 	            openAbout();
 	            return true;
-	            		
-	        case R.id.action_menu_fresh:
-	        	return true;
-	        			        				
+	            	
 	        default:	
 	            return super.onOptionsItemSelected(item);
 	    }

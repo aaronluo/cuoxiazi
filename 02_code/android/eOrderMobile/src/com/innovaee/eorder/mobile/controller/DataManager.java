@@ -220,13 +220,18 @@ public class DataManager {
 		});
 	}
 		
+	/**
+	 * 下单到服务器
+	 * @param selectOrderGoods
+	 * @param iDataRequestListener
+	 */
 	public void orderToService(List<GoodsDataBean> selectOrderGoods,
 			final IDataRequestListener<String> iDataRequestListener) {
 		if (iDataRequestListener == null) {
 			// 无回调，也就没有实际意义
 			return;
 		}
-					
+						
 		String id = "";			
 		DownloadService mDldMgr = DownloadService.getInstance(context);
 		mDldMgr.getUserDiscountData(id, new ICallback<String>() {
@@ -264,6 +269,11 @@ public class DataManager {
 		});
 	}
 	
+	/**
+	 * 得到某个会员的历史订单记录
+	 * @param id
+	 * @param listener
+	 */
 	public void getOrderHestoryData(String id,
 			final IDataRequestListener<OrderHestoryDataBean> listener) {
 		if (listener == null) {
