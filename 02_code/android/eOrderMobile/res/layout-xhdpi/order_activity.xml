@@ -13,7 +13,7 @@
         <ListView   
             android:id="@+id/myorder_listView"
             android:layout_width="match_parent"
-            android:layout_height="236dp" 
+            android:layout_height="160dp" 
             android:divider="#d9d9d9"
             android:dividerHeight="1dp"
             android:minHeight="36dp"    
@@ -49,6 +49,7 @@
             android:layout_centerVertical="true"
             android:maxLength="20"
             android:singleLine="true"
+            android:inputType="number"
             android:hint="@string/order_text_hint_tableid"  
             android:textSize="18dp"/>                                  
     </RelativeLayout>
@@ -80,6 +81,7 @@
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:maxLength="20"
+            android:inputType="number"
             android:hint="@string/order_text_hint_qrcode"  
             android:textSize="18dp"/>   
         <Button          
@@ -119,6 +121,7 @@
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:maxLength="20"
+            android:inputType="number"
             android:hint="@string/order_text_hint_userid"  
             android:textSize="18dp"/>  
         <Button                 

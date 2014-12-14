@@ -60,6 +60,7 @@
     <string name="order_text_realprice">应收</string>
     <string name="order_text_originalprice">原价</string>
     <string name="order_text_discount">折扣</string>
+    <string name="order_text_no_discount">无折扣</string>
     
     <string name="order_text_title_tableid">桌号</string>
     <string name="order_text_title_userid">会员号</string>
@@ -76,6 +77,13 @@
     <string name="order_toast_please_input_tableId">请输入桌号</string>
     <string name="order_toast_please_input_employeeId">请输入员工号</string>
     <string name="order_toast_order_successful">下单成功！</string>
+    <string name="order_toast_scanresult_fail">员工号为非法字符！</string>
+    						
+    <string name="order_item_text_order">菜品:</string>
+    <string name="order_item_text_count">数量:</string>
+    <string name="order_item_text_totalprice">金额:</string>
+    
+    	
     				
     <!-- OrderHestory -->
     <string name="orderhestory_item_text_order">订单:</string>

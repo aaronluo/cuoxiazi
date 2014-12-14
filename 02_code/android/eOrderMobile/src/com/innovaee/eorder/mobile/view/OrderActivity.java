@@ -2,6 +2,8 @@ package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
@@ -57,8 +59,8 @@ public class OrderActivity extends Activity {
 	private ListView listView;
 	
 	//我的订单数据绑定器
-	private MyOrderAdapter myOrderAdapter;
-		
+	private OrderAdapter orderAdapter;
+				
 	//ActionBar
 	private ActionBar actionBar;
 		
@@ -116,7 +118,13 @@ public class OrderActivity extends Activity {
 				break;	
 				
             case MSG_UPDATE_DISCOUNT:
-            	String discountStr = String.valueOf(discount); 
+            	String discountStr = String.valueOf(discount);
+            		
+            	//如果折扣为10则显示无折扣
+            	if (discount != 10.0) {
+            		discountStr = OrderActivity.this.getString(R.string.order_text_no_discount);
+            	}	
+            					
             	discountTxt.setText(discountStr);	
             	displayPrice();			
             	break;
@@ -130,6 +138,9 @@ public class OrderActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}		
+            					
+            	selectOrderGoods.clear();
+            	sendBroadcastToMainActivity();
             	finish();	
             	break;		
             		
@@ -204,9 +215,9 @@ public class OrderActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setHomeButtonEnabled(true);	
 					
-		myOrderAdapter = new MyOrderAdapter(OrderActivity.this, selectOrderGoods, handler);//对应R中的id 
-		
-		listView.setAdapter(myOrderAdapter);
+		orderAdapter = new OrderAdapter(OrderActivity.this, selectOrderGoods, handler);//对应R中的id 
+			
+		listView.setAdapter(orderAdapter);
 		
 		qrcodeBtn.setOnClickListener(new View.OnClickListener()
 		{
@@ -270,10 +281,15 @@ public class OrderActivity extends Activity {
 		if (resultCode == RESULT_OK) {		
 			Bundle bundle = data.getExtras();
 			String scanResult = bundle.getString("result");
-			inputEmployeeId.setText(scanResult);
-		}				
-	}
-	
+			
+			if(isNumeric(scanResult)) {
+				inputEmployeeId.setText(scanResult);
+			} else {
+				Toast.makeText(OrderActivity.this, R.string.order_toast_scanresult_fail, Toast.LENGTH_SHORT).show();
+			}		
+		}					
+	}	
+		
 	@Override  
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  
@@ -404,7 +420,22 @@ public class OrderActivity extends Activity {
 			}	
 		}.start();	
 	}		
-				
+		
+	/**
+	 * 判断字符串是否为数字
+	 * @param str
+	 * @return
+	 */
+	private boolean isNumeric(String str) { 
+		Pattern pattern = Pattern.compile("[0-9]*"); 
+		Matcher isNum = pattern.matcher(str);
+		
+		if(!isNum.matches()) {
+			return false; 
+		} 
+		return true; 
+	}
+	
 	/**
 	 * 下单到服务器
 	 * @param selectOrderGoods

@@ -74,10 +74,10 @@ public class MyOrderAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
-						
+										
 		if (convertView == null) {
 			if (layoutInflater != null) {						
-				view = layoutInflater.inflate(R.layout.order_listitem, null);
+				view = layoutInflater.inflate(R.layout.myorder_listitem, null);
 					
 				// 获取自定义的类实例		
 				final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);

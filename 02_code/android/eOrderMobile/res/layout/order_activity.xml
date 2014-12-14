@@ -47,6 +47,9 @@
             android:layout_height="43dp"       
             android:layout_toRightOf="@id/table_id"
             android:layout_centerVertical="true"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:inputType="number"
             android:hint="@string/order_text_hint_tableid"  
             android:textSize="20dp"/>                                  
     </RelativeLayout>
@@ -76,6 +79,9 @@
             android:layout_height="43dp"       
             android:layout_toRightOf="@id/employee_id"
             android:layout_centerVertical="true"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:inputType="number"
             android:hint="@string/order_text_hint_qrcode"  
             android:textSize="20dp"/>   
         <Button          
@@ -113,6 +119,9 @@
             android:layout_height="43dp"       
             android:layout_toRightOf="@id/user_id"
             android:layout_centerVertical="true"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:inputType="number"
             android:hint="@string/order_text_hint_userid"  
             android:textSize="20dp"/>  
         <Button                 
@@ -200,7 +209,7 @@
                 android:text="@string/order_text_realprice"                           
                 android:textColor="#fe3c3c"      
                 android:textSize="20dp" />
-                                            
+                			                            
             <Button
                 android:id="@+id/ok_button"
                 android:layout_width="121dp"
