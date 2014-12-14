@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-
+		
 /**
  * 
  * @author wanglinglong
@@ -43,7 +43,8 @@ public class MyOrderActivity extends Activity {
 	public final static int MSG_UPDATE = 10001;
 	public final static int MSG_INITDATA = 10002;
 	public final static int MSG_UPDATE_COUNT = 10003;
-		
+	public final static int MSG_RESET_ADAPTER = 10004;	
+			
 	//已选择菜品
 	private List<GoodsDataBean> selectOrderGoods;	
 		
@@ -85,7 +86,23 @@ public class MyOrderActivity extends Activity {
             	//通知MainViewActivity刷新
             	sendBroadcastToMainActivity();
 				break;	
-									
+										
+            case MSG_RESET_ADAPTER:
+            	selectOrderGoods = (List<GoodsDataBean>) msg.obj;
+            	
+            	if(selectOrderGoods != null && selectOrderGoods.size() > 0) {
+	            	Double price1 = getAllPrice();			
+	            	allPirce.setText(MyOrderActivity.this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + price1);
+	            	myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, mHandler);//对应R中的id         			
+	        		listView.setAdapter(myOrderAdapter);	
+            	} else {
+            		finish();
+            	}		
+            			
+        		//通知MainViewActivity刷新			
+            	sendBroadcastToMainActivity();
+            	break;
+            		
 			default:
 				break;
 			}

@@ -6,6 +6,7 @@ import java.util.List;
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
+import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -47,6 +48,9 @@ public class OrderHestoryActivity extends Activity {
 	//我的订单数据绑定器
 	private OrderHestoryAdapter orderHestoryAdapter;
 		
+	//历史记录查询订单菜品，仅供测试
+	private List<GoodsDataBean> orderHestoryGoods;
+				
 	//ActionBar
 	private ActionBar actionBar;
 				
@@ -80,7 +84,10 @@ public class OrderHestoryActivity extends Activity {
 		Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         userId = bundle.getString("userid");
-        				
+        
+        ArrayList list = bundle.getParcelableArrayList("list");
+        orderHestoryGoods = (List<GoodsDataBean>) list.get(0);			
+        					
         initView();
 		
 		initData();		
@@ -116,8 +123,9 @@ public class OrderHestoryActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub	
-			}												
+				// TODO Auto-generated method stub
+				openMyOrder();
+			}													
         });	
 				
 			
@@ -143,6 +151,24 @@ public class OrderHestoryActivity extends Activity {
 		handler.sendMessage(msg);
 	}
 		
+	/**
+	 * 进入我的订单
+	 */
+	private void openMyOrder() {
+		Bundle bundle = new Bundle();					
+		Intent intent = new Intent();
+		
+		//这个list用于在budnle中传递 需要传递的ArrayList<Object>
+		ArrayList list = new ArrayList();
+			
+		list.add(orderHestoryGoods);	
+				
+		bundle.putParcelableArrayList("list",list);
+				
+		intent.putExtras(bundle);						
+		intent.setClass(OrderHestoryActivity.this, MyOrderActivity.class);	             						
+        startActivity(intent);		
+	}
 	/**
 	 * 获取会员的历史订单
 	 * @param userId

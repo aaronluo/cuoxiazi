@@ -105,14 +105,19 @@ public class MyOrderAdapter extends BaseAdapter {
 				{	
 					public void onClick(View paramAnonymousView)
 					{	 	 
-						cutDownMyOrderSelectCount(goodsItemDataTemp);
-						int count = goodsItemDataTemp.getCount();		
-						countTxtView.setText(String.valueOf(count));
-						priceTxtView.setText(String.valueOf(goodsItemDataTemp.getPrice() * count));	
-						updateActivityCountUi();
+						boolean isReset = cutDownMyOrderSelectCount(goodsItemDataTemp);
+						
+						if (isReset) {
+							resetActivityAdapterUi(); 
+						} else {
+							int count = goodsItemDataTemp.getCount();		
+							countTxtView.setText(String.valueOf(count));
+							priceTxtView.setText(String.valueOf(goodsItemDataTemp.getPrice() * count));	
+							updateActivityCountUi();
+						}		
 					}																				
 				});	
-				
+					
 				imageView.setImageUrl(goodsItemDataTemp.getBitmapUrl());
 				name.setText(goodsItemDataTemp.getName());		
 				
@@ -158,26 +163,36 @@ public class MyOrderAdapter extends BaseAdapter {
 			}
 		}
 	}
-		
+	
 	/**
 	 * 减少当前选中的菜品数量-1
-	 * 等于0则不改变
+	 * 等于0则删除该项
 	 * @param dataBean
+	 * @return 是否需要重新设置Adapter
 	 */
-	private void cutDownMyOrderSelectCount(GoodsDataBean dataBean) {
+	private boolean cutDownMyOrderSelectCount(GoodsDataBean dataBean) {
 		for (GoodsDataBean goodsDataBean: listItemsData) {
 			if(goodsDataBean.getId() == dataBean.getId()) {
 				int count = goodsDataBean.getCount();
 				if(count > 0) {
 					count--;
-					goodsDataBean.setCount(count);
-				}
+							
+					if(count > 0) {
+						goodsDataBean.setCount(count);
+						return false;
+					} else {
+						listItemsData.remove(goodsDataBean);
+						return true;
+					}
+				} 		
 			}
 		}	
-	}
 			
+		return false;
+	}
+				
 	/**
-	 * 刷新主Activity的ui count显示界面
+	 * 刷新主MyOrderActivity的ui count显示界面
 	 */												
 	private void updateActivityCountUi() {		
 		Message msg = Message.obtain();
@@ -186,4 +201,13 @@ public class MyOrderAdapter extends BaseAdapter {
 		handler.sendMessage(msg);	
 	}			
 
+	/**	
+	 * 重新设置MyOrderActivity的ui显示界面
+	 */													
+	private void resetActivityAdapterUi() {		
+		Message msg = Message.obtain();
+		msg.what = MyOrderActivity.MSG_RESET_ADAPTER;	
+		msg.obj = (Object)listItemsData;	
+		handler.sendMessage(msg);		
+	}
 }
