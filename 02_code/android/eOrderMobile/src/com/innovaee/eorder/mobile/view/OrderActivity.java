@@ -351,8 +351,13 @@ public class OrderActivity extends Activity {
 				+ String.valueOf(realPrice));
 		
 		//折扣文本显示器
-		discountTxt.setText(this.getApplicationContext().getString(R.string.order_text_discount) + String.valueOf(discount));
-								
+		//如果折扣为10则显示无折扣
+    	if (discount != 10.0) {
+    		discountTxt.setText(this.getApplicationContext().getString(R.string.order_text_discount) + String.valueOf(discount));
+    	} else {	
+    		discountTxt.setText(this.getApplicationContext().getString(R.string.order_text_no_discount));
+    	}	
+    			
 		//最终价格显示器	
 		allPriceTxt.setText(this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + String.valueOf(realPrice));	 			
 	}
