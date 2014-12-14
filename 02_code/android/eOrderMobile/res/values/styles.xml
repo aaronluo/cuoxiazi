@@ -39,11 +39,11 @@
     </style>
 
     <style name="ActionButton" parent="@android:style/Widget.Holo.Light.ActionButton">
-        <item name="android:paddingLeft">8.0dip</item>
-        <item name="android:paddingRight">8.0dip</item>
-        <item name="android:minWidth">45.0dip</item>
-    </style>
-
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:minWidth">40.0dip</item>
+    </style>	
+			
     <style name="ActionBarProgress" parent="@android:style/Widget.Holo.Light.ProgressBar">
         <item name="android:maxWidth">40.0dip</item>
         <item name="android:maxHeight">30.0dip</item>

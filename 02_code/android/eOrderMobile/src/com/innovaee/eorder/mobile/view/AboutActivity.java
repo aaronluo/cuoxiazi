@@ -2,8 +2,10 @@ package com.innovaee.eorder.mobile.view;
 
 import com.innovaee.eorder.R;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
  * @author wanglinglong
  * 
  */	
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AboutActivity extends Activity {
 	TextView aboutText;	
 	ActionBar actionBar;	
@@ -41,7 +44,8 @@ public class AboutActivity extends Activity {
 	 * 初始化Data
 	 */	
 	private void initData() {					
-		actionBar.setDisplayHomeAsUpEnabled(true);							
+		actionBar.setDisplayHomeAsUpEnabled(false);	
+		actionBar.setHomeButtonEnabled(true);	
 	}	
 	
 	@Override  

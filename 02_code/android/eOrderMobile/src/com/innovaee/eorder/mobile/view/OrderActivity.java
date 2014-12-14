@@ -10,9 +10,11 @@ import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,6 +35,7 @@ import android.widget.Toast;
  * @author wanglinglong
  * 
  */		
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class OrderActivity extends Activity {
 	//调试Tag
 	private final static String TAG = "OrderActivity";
@@ -119,9 +122,10 @@ public class OrderActivity extends Activity {
             	break;
             	
             case MSG_ORDER_SUCCESS:
-            	Toast.makeText(OrderActivity.this, R.string.action_about, Toast.LENGTH_SHORT).show();
-            	try {
-					Thread.sleep(2000);
+            	Toast.makeText(OrderActivity.this, R.string.order_toast_order_successful, Toast.LENGTH_SHORT).show();
+            					
+            	try {	
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -197,8 +201,9 @@ public class OrderActivity extends Activity {
 			}												
         });	
 				
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setHomeButtonEnabled(true);	
+					
 		myOrderAdapter = new MyOrderAdapter(OrderActivity.this, selectOrderGoods, handler);//对应R中的id 
 		
 		listView.setAdapter(myOrderAdapter);

@@ -27,7 +27,7 @@
     <string name="action_order_hestory">订单查询</string>
     <string name="action_order_hestory_input">请输入会员号</string>
             
-    
+    <string name="feed_type_all">分类</string>
     <string name="feed_type_new">最新</string>
     <string name="feed_type_hot">最热</string>
     <string name="feed_type_1">川菜</string>
@@ -65,7 +65,7 @@
     <string name="order_text_title_userid">会员号</string>
     <string name="order_text_title_employee">员工号</string>
     
-    <string name="order_text_hint_tableid">请输入台号</string>
+    <string name="order_text_hint_tableid">请输入桌号</string>
     <string name="order_text_hint_qrcode">扫描二维码</string>
     <string name="order_text_hint_userid">请输入会员号</string>
     
@@ -75,7 +75,8 @@
     <string name="order_toast_please_input_userid">请输入会员号</string>
     <string name="order_toast_please_input_tableId">请输入桌号</string>
     <string name="order_toast_please_input_employeeId">请输入员工号</string>
-    	
+    <string name="order_toast_order_successful">下单成功！</string>
+    				
     <!-- OrderHestory -->
     <string name="orderhestory_item_text_order">订单:</string>
     <string name="orderhestory_item_text_time">时间:</string>

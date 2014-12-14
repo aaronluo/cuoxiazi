@@ -7,15 +7,19 @@ import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,6 +29,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author wanglinglong
  * 
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class OrderHestoryActivity extends Activity {
 	//调试Tag
 	private final static String TAG = "OrderActivity";
@@ -71,7 +76,7 @@ public class OrderHestoryActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.orderhestory_activity);
-		
+			
 		Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         userId = bundle.getString("userid");
@@ -83,6 +88,18 @@ public class OrderHestoryActivity extends Activity {
 		loadOrderHestoryListData(userId);
 	}	
 		
+	@Override  
+	public boolean onOptionsItemSelected(MenuItem item) {  
+	    switch (item.getItemId()) {  
+	    case android.R.id.home:  
+	        finish();  
+	        return true;  
+
+	    default:	
+            return super.onOptionsItemSelected(item);    	
+	    }  
+	}  
+	
 	/**
 	 * 初始化控件
 	 */
@@ -103,8 +120,12 @@ public class OrderHestoryActivity extends Activity {
 			}												
         });	
 				
-		actionBar.setDisplayHomeAsUpEnabled(true);
-				
+			
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setLogo(R.drawable.ic_publish_bottom_pan_back);
+		actionBar.setHomeButtonEnabled(true);			
+					
 		orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);
 								
 		listView.setAdapter(orderHestoryAdapter);	

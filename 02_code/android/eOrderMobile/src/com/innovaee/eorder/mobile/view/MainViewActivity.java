@@ -329,8 +329,8 @@ public class MainViewActivity extends Activity {
 		ImageView orderHestroySearch = ((ImageView)localView.findViewById(R.id.order_hestory_search));
 			
 		feedTypeName = ((TextView)localView.findViewById(R.id.feed_type_name));
-		feedTypeName.setText(R.string.feed_type_hot);
-				
+		feedTypeName.setText(R.string.feed_type_all);
+					
 		actionBar.setCustomView(localView);
 		actionBar.setDisplayShowCustomEnabled(true);	
 			

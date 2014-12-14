@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ActionButton"
+    android:layout_width="45.0dip"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:paddingLeft="0.0dip"
+    android:paddingRight="0.0dip" >
+
+    <RelativeLayout
+        android:layout_width="45.0dip"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_action_order" />
+        
+        <TextView
+            android:id="@+id/order_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="6.0dip"
+            android:background="@drawable/ic_unread_count_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="11.0sp"
+            android:visibility="invisible" 
+            />
+    </RelativeLayout>
+    
+</RelativeLayout>

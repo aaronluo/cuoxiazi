@@ -6,9 +6,11 @@ import java.util.List;
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,6 +28,7 @@ import android.widget.TextView;
  * @author wanglinglong
  * 
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MyOrderActivity extends Activity {
 	//调试Tag
 	private final static String TAG = "MyOrderActivity";
@@ -146,7 +149,8 @@ public class MyOrderActivity extends Activity {
 			}												
         });	
 				
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setHomeButtonEnabled(true);	
 		
 		myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, mHandler);//对应R中的id 
 		

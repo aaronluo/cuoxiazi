@@ -1,9 +1,11 @@
 package com.innovaee.eorder.mobile.view;
 
 import com.innovaee.eorder.R;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.Toast;
  * @author wanglinglong
  * 
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class SettingsActivity extends Activity {
 	EditText serviceUrl;
 	Button okBtn;	
@@ -50,8 +53,9 @@ public class SettingsActivity extends Activity {
 	 * 初始化Data
 	 */	
 	private void initData() {					
-		actionBar.setDisplayHomeAsUpEnabled(true);
-							
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setHomeButtonEnabled(true);
+				
 		okBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
