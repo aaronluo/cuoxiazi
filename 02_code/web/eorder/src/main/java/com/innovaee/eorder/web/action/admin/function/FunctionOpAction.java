@@ -47,11 +47,12 @@ public class FunctionOpAction extends BaseAction {
 		this.setLoginName(userDetail.getUser().getUsername());
 	}
 
+	public void validate() {
+		refreshData();
+	}
+
 	public void validateSave() {
 		System.out.println("======validateSave======" + functionName == null);
-
-		check();
-
 		// 查看用户名是否已存在
 		Function function = functionService
 				.findFunctionByFunctionName(functionName);
@@ -60,45 +61,9 @@ public class FunctionOpAction extends BaseAction {
 			// 更新页面数据
 			refreshData();
 		}
-
-	}
-
-	private void check() {
-		if (null == functionName || "".equals(functionName.trim())) {
-			addFieldError("functionName", "权限名称不能为空！");
-			// 更新页面数据
-			refreshData();
-		}
-
-		if (null == functionDesc || "".equals(functionDesc.trim())) {
-			addFieldError("functionDesc", "权限描述不能为空！");
-			// 更新页面数据
-			refreshData();
-		}
-
-		if (null == functionPath || "".equals(functionPath.trim())) {
-			addFieldError("functionPath", "权限路径不能为空！");
-			// 更新页面数据
-			refreshData();
-		}
-
-		if (null == functionParent) {
-			addFieldError("functionPath", "父权限ID不能为空！");
-			// 更新页面数据
-			refreshData();
-		}
-
-		if (null == functionOrder || "".equals(functionOrder.trim())) {
-			addFieldError("functionOrder", "权限排序不能为空！");
-			// 更新页面数据
-			refreshData();
-		}
 	}
 
 	public void validateUpdate() {
-
-		check();
-
 		System.out.println("======validateSave======" + functionName == null);
 		// 查看用户名是否已存在
 		Function function1 = functionService.loadFunction(Integer
@@ -112,7 +77,6 @@ public class FunctionOpAction extends BaseAction {
 			// 更新页面数据
 			refreshData();
 		}
-
 	}
 
 	public String save() {

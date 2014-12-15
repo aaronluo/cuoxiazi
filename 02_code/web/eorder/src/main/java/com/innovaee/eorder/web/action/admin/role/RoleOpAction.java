@@ -53,7 +53,6 @@ public class RoleOpAction extends BaseAction {
 	private String contextPath;
 	
 	public void validate() {
-
 		refreshData();
 	}
 

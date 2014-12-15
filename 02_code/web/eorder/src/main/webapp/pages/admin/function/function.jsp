@@ -102,7 +102,6 @@
 												href='<%=basePath%><s:property value="#subBanner.link" />'
 												target="main"><s:property value="#subBanner.functionName" /></a>
 										</s:iterator>
-
 									</div>
 								</div>
 							</div>
