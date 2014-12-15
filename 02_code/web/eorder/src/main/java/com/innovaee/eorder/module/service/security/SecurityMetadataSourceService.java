@@ -59,7 +59,7 @@ public class SecurityMetadataSourceService extends BaseService implements
 	}
 
 	public List<UserRole> getUserRoles(String username) {
-		User user = userDao.findUsersByUserName(username);
+		User user = userDao.findUserByUserName(username);
 		return userRoleDao.findUserRolesByUserId(user.getUserId());
 	}
 
@@ -69,7 +69,7 @@ public class SecurityMetadataSourceService extends BaseService implements
 
 	public List<UserFunctionVo> getUserFunctions(String username) {
 		List<UserFunctionVo> userFunctions = new ArrayList<UserFunctionVo>();
-		User user = (User) userDao.findUsersByUserName(username);
+		User user = userDao.findUserByUserName(username);
 		Iterator<UserRole> itUserRole = securityMetadataSourceService
 				.getUserRoles(username).iterator();
 		while (itUserRole.hasNext()) {

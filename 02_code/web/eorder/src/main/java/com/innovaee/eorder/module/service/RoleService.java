@@ -69,6 +69,10 @@ public class RoleService extends BaseService {
 	public Role loadRole(Integer roleId) {
 		return (Role) roleDao.get(roleId);
 	}
+	
+	public Role findRoleByRoleName(String roleName) {
+		return (Role) roleDao.findRoleByRoleName(roleName);
+	}
 
 	public Role findRolesByRoleName(String roleName) {
 		return (Role) roleDao.findRolesByRoleName(roleName);

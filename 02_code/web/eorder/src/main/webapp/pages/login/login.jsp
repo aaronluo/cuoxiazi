@@ -9,21 +9,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/style.css">
-	<script src="../resources/js/jquery.min.js" /></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
+<script src="../resources/js/jquery.min.js" /></script>
+<script src="../resources/js/bootstrap.min.js"></script>
 </head>
 
 <script type="text/javascript">
-// 回车提交表单（登录）
-$(function(){ 
-	document.onkeydown = function(e){ 
-		var ev = document.all ? window.event : e; 
-		if(ev.keyCode==13) { 
-			$('#loginForm').submit();//处理事件 
-		} 
-	} 
-});
-
+	// 回车提交表单（登录）
+	$(function() {
+		document.onkeydown = function(e) {
+			var ev = document.all ? window.event : e;
+			if (ev.keyCode == 13) {
+				$('#loginForm').submit();//处理事件 
+			}
+		}
+	});
 </script>
 
 <body onload="document.loginForm.j_username.focus();">
@@ -47,15 +46,16 @@ $(function(){
 		<div class="row" style="height: 120px"></div>
 		<!-- 登录框 -->
 		<div class="row">
-			<form class="eorder-form-login" id="loginForm" action="<c:url value='/j_spring_security_check'/>"
-				method="post" accept-charset="utf-8" role="form">				
-				<input type="text" name="j_username" id="username" tabindex="1" value="admin"
+			<form class="eorder-form-login" id="loginForm"
+				action="<c:url value='/j_spring_security_check'/>" method="post"
+				accept-charset="utf-8" role="form">
+				<input type="text" name="j_username" id="username" tabindex="1"
 					class="form-control eorder-input" placeholder="用户名" required autofocus />
 
-				<input type="password" name="j_password" id="password" value="admin"
-					tabindex="1" class="form-control eorder-input" placeholder="密  码" required />
-
-				<a href="#" onclick="javascript:loginForm.submit();" class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
+				<input type="password" name="j_password" id="password" tabindex="1"
+					class="form-control eorder-input" placeholder="密  码" required /> <a
+					href="#" onclick="javascript:loginForm.submit();"
+					class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
 			</form>
 			<s:actionmessage />
 			<c:if test="${not empty param.login_error}">

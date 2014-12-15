@@ -5,14 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import com.innovaee.eorder.module.entity.Function;
 
 public class FunctionDao extends BaseDao {
-
-	@Resource
-	private FunctionDao functionDao;
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -28,6 +23,16 @@ public class FunctionDao extends BaseDao {
 
 	public Function loadFunction(Integer functionId) {
 		return (Function) get(functionId);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Function findFunctionByFunctionName(String functionName) {
+		List<Function> list = (List<Function>) super.getHibernateTemplate()
+				.find("FROM Function f WHERE f.functionName=?", functionName);
+		if (null != list && 0 < list.size()) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 	public Function saveFunction(Function function) {

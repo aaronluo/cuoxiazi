@@ -12,5 +12,5 @@ public class Constants {
 	/**
 	 * 默认等级：普通会员
 	 */
-	public static Integer DEFAULT_LEVEL = 1;
+	public static Integer DEFAULT_LEVEL = 4;
 }

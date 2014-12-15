@@ -86,4 +86,8 @@ public class FunctionService extends BaseService {
 		}
 	}
 
+	public Function findFunctionByFunctionName(String functionName) {
+		return functionDao.findFunctionByFunctionName(functionName);
+	}
+
 }

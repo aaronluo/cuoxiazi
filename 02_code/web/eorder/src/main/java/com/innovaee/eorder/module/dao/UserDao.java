@@ -16,9 +16,19 @@ public class UserDao extends BaseDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public User findUsersByUserName(String username) {
+	public User findUserByUserName(String username) {
 		List<User> list = (List<User>) super.getHibernateTemplate().find(
 				"FROM User u WHERE u.username=?", username);
+		if (null != list && 0 < list.size()) {
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public User findUserByCellphone(String cellphone) {
+		List<User> list = (List<User>) super.getHibernateTemplate().find(
+				"FROM User u WHERE u.cellphone=?", cellphone);
 		if (null != list && 0 < list.size()) {
 			return list.get(0);
 		}

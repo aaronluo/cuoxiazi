@@ -14,6 +14,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../resources/js/prototype.lite.js" type="text/javascript"></script>
+<script src="../resources/js/moo.fx.js" type="text/javascript"></script>
+<script src="../resources/js/moo.fx.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/style.css">
 </head>
@@ -50,7 +53,6 @@
 			</div>
 		</s:iterator>
 	</div>
-</div>
 </div>
 <script type="text/javascript">
 	var contents = document.getElementsByClassName('content');

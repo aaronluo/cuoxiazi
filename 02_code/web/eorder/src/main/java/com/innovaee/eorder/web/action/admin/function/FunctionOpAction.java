@@ -5,11 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.module.entity.Function;
-import com.innovaee.eorder.module.entity.RoleFunction;
 import com.innovaee.eorder.module.service.FunctionService;
 import com.innovaee.eorder.module.service.RoleFunctionService;
 import com.innovaee.eorder.module.utils.MenuUtil;
@@ -18,10 +16,9 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.web.action.BaseAction;
 
-public class FunctionAction extends BaseAction {
+public class FunctionOpAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(FunctionAction.class);
 
 	private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
@@ -31,6 +28,7 @@ public class FunctionAction extends BaseAction {
 	private String functionPath;
 	private Integer functionParent;
 	private String functionOrder;
+	private String[] functionIds;
 	private List<FunctionVO> functionvos;
 
 	@Resource
@@ -49,47 +47,75 @@ public class FunctionAction extends BaseAction {
 		this.setLoginName(userDetail.getUser().getUsername());
 	}
 
-	public String login() {
-		logger.debug("enter login() method");
+	public void validateSave() {
+		System.out.println("======validateSave======" + functionName == null);
 
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
+		check();
 
-	public String doFunction() {
-		logger.debug("enter doFunction() method");
-
-		this.setMessage("");
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doLoad() {
-		if (null != functionId && !"".equals(functionId.trim())) {
-			Function function = functionService.loadFunction(Integer
-					.parseInt(functionId));
-
-			functionName = function.getFunctionName();
-			functionDesc = function.getFunctionDesc();
-			functionPath = function.getFunctionPath();
-			functionParent = function.getFunctionParent();
-			functionOrder = function.getFunctionOrder();
+		// 查看用户名是否已存在
+		Function function = functionService
+				.findFunctionByFunctionName(functionName);
+		if (null != function) {
+			addFieldError("functionName", "功能名称已被占用！");
+			// 更新页面数据
+			refreshData();
 		}
 
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
 	}
 
-	public String doList() {
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
+	private void check() {
+		if (null == functionName || "".equals(functionName.trim())) {
+			addFieldError("functionName", "权限名称不能为空！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		if (null == functionDesc || "".equals(functionDesc.trim())) {
+			addFieldError("functionDesc", "权限描述不能为空！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		if (null == functionPath || "".equals(functionPath.trim())) {
+			addFieldError("functionPath", "权限路径不能为空！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		if (null == functionParent) {
+			addFieldError("functionPath", "父权限ID不能为空！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		if (null == functionOrder || "".equals(functionOrder.trim())) {
+			addFieldError("functionOrder", "权限排序不能为空！");
+			// 更新页面数据
+			refreshData();
+		}
 	}
 
-	public String doStore() {
+	public void validateUpdate() {
+
+		check();
+
+		System.out.println("======validateSave======" + functionName == null);
+		// 查看用户名是否已存在
+		Function function1 = functionService.loadFunction(Integer
+				.parseInt(functionId));
+		Function function2 = functionService
+				.findFunctionByFunctionName(functionName);
+		// 可以找到，而且和自己的名字不同，则说明已经被占用
+		if (null != function2
+				&& function1.getFunctionId() != function2.getFunctionId()) {
+			addFieldError("functionName", "功能名称已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+
+	}
+
+	public String save() {
 		Function function = new Function();
 		if (null != functionName && !"".equals(functionName.trim())) {
 			function.setFunctionName(functionName);
@@ -103,7 +129,7 @@ public class FunctionAction extends BaseAction {
 			function.setFunctionPath(functionPath);
 		}
 
-		if (0 != functionParent) {
+		if (null != functionParent && 0 != functionParent) {
 			function.setFunctionParent(functionParent);
 		}
 
@@ -113,12 +139,13 @@ public class FunctionAction extends BaseAction {
 		function.setFunctionStatus(true);
 		functionService.saveFunction(function);
 
+		this.setMessage("新增成功！");
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
 	}
 
-	public String doUpdate() {
+	public String update() {
 		Function function = null;
 		if (null != functionId) {
 			function = functionService.loadFunction(Integer
@@ -147,41 +174,9 @@ public class FunctionAction extends BaseAction {
 
 		functionService.updateFunction(function);
 
+		this.setMessage("修改成功！");
 		// 更新页面数据
 		refreshData();
-		return SUCCESS;
-	}
-
-	public String doRemove() {
-		if (null != functionId) {
-			// 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
-			List<RoleFunction> myRoleFunctions = roleFunctionService
-					.findRoleFunctionsByFunctionId(Integer.parseInt(functionId));
-			if (null == myRoleFunctions || 0 == myRoleFunctions.size()) {
-				functionService.removeFunction(Integer.parseInt(functionId));
-			}
-		} 
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doUserInfo() {
-		logger.debug("enter doUserInfo() method");
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doRight() {
-		logger.debug("enter doRight() method");
-		return SUCCESS;
-	}
-
-	public String doBottom() {
-		logger.debug("enter doBottom() method");
 		return SUCCESS;
 	}
 
@@ -232,7 +227,15 @@ public class FunctionAction extends BaseAction {
 	public void setFunctionId(String functionId) {
 		this.functionId = functionId;
 	}
-	
+
+	public String[] getFunctionIds() {
+		return functionIds;
+	}
+
+	public void setFunctionIds(String[] functionIds) {
+		this.functionIds = functionIds;
+	}
+
 	public String getFunctionName() {
 		return functionName;
 	}

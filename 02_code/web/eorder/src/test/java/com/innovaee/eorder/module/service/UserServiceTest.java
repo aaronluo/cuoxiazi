@@ -49,7 +49,7 @@ public class UserServiceTest extends BaseSpringTestCase {
 	@Test
 	public void findUsersByUserName() {
 		String username = "admin";
-		User user = userService.findUsersByUserName(username);
+		User user = userService.findUserByUserName(username);
 		Assert.assertNotNull(user);
 	}
 

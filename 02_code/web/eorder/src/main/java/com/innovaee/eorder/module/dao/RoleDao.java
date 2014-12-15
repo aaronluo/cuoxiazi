@@ -28,6 +28,16 @@ public class RoleDao extends BaseDao {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Role findRoleByRoleName(String roleName) {
+		List<Role> list = (List<Role>) super.getHibernateTemplate().find(
+				"FROM Role f WHERE f.roleName=?", roleName);
+		if (null != list && 0 < list.size()) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Role> findAllRoles() {

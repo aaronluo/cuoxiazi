@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -15,16 +14,17 @@ import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.module.entity.User;
 import com.innovaee.eorder.module.service.UserRoleService;
 import com.innovaee.eorder.module.service.UserService;
+import com.innovaee.eorder.module.utils.Constants;
+import com.innovaee.eorder.module.utils.Md5Util;
 import com.innovaee.eorder.module.utils.MenuUtil;
 import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserVO;
 import com.innovaee.eorder.web.action.BaseAction;
 
-public class UserAction extends BaseAction {
+public class UserOpAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(UserAction.class);
 
 	private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
@@ -56,61 +56,139 @@ public class UserAction extends BaseAction {
 
 	private String operation;
 
-	public String login() {
-		logger.debug("enter login() method");
+	public void validate() {
 
+		refreshData();
+	}
+
+	public void validateSave() {
+		System.out.println("======validateSave======" + username == null);
+		// 查看用户名是否已存在
+		User user = userService.findUserByUserName(username);
+		if (null != user) {
+			addFieldError("username", "用户名已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		// 查看手机号码是否已存在
+		user = userService.findUsersByCellphone(cellphone);
+		if (null != user) {
+			addFieldError("cellphone", "手机号码已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+	}
+
+	public void validateUpdate() {
+		System.out.println("======validateSave======" + username == null);
+		// 查看用户名是否已存在
+		User user1 = userService.loadUser(Integer.parseInt(userId));
+		User user2 = userService.findUserByUserName(username);
+		// 可以找到，而且和自己的名字不同，则说明已经被占用
+		if (null != user2 && user1.getUserId() != user2.getUserId()) {
+			addFieldError("username", "用户名已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+
+		// 查看手机号码是否已存在
+		// 可以找到，而且和自己的手机不同，则说明已经被占用
+		User user3 = userService.findUsersByCellphone(cellphone);
+		if (null != user3 && !cellphone.equals(user1.getCellphone())) {
+			addFieldError("cellphone", "手机号码已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+	}
+
+	// 增加一个save方法，对应一个处理逻辑
+	public String save() {
+		String md5Password = "";
+		User user = new User();
+		if (null != username && !"".equals(username.trim())) {
+			user.setUsername(username);
+		} else {
+			setSessionMessage("message", "用户名不能为空！");
+			// 更新页面数据
+			refreshData();
+			return INPUT;
+		}
+
+		if (null != password && !"".equals(password.trim())) {
+			md5Password = Md5Util.getMD5Str(password + "{" + username + "}");
+		} else {
+			setSessionMessage("message", "密码不能为空！");
+			// 更新页面数据
+			refreshData();
+			return INPUT;
+		}
+		if (null != cellphone && !"".equals(cellphone.trim())) {
+			user.setCellphone(cellphone);
+		} else {
+			setSessionMessage("message", "手机号码不能为空！");
+			// 更新页面数据
+			refreshData();
+			return INPUT;
+		}
+
+		user.setPassword(md5Password);
+		user.setLevelId(Constants.DEFAULT_LEVEL);
+		user.setUserStatus(true);
+
+		userService.saveUser(user);
+		// 默认给用户添加普通用户的角色
+		userRoleService.saveUserRole(user, new Role(Constants.DEFAULT_ROLE));
+
+		setSessionMessage("message", "用户新增成功！");
+		
+		this.setMessage("新增成功！");
 		// 更新页面数据
 		refreshData();
+
 		return SUCCESS;
 	}
 
-	public String doUser() {
-		logger.debug("enter doUser() method");
+	public String update() {
+		setSessionMessage("username", username);
+		setSessionMessage("password", password);
+		setSessionMessage("cellphone", cellphone);
 
-		// 清空消息
-		setSessionMessage("message", "");
-		setSessionMessage("username", "");
-		setSessionMessage("password", "");
-		setSessionMessage("cellphone", "");
-		// setSessionMessage("operation", "new");
+		User user = null;
+		if (null != userId) {
+			user = userService.loadUser(Integer.parseInt(userId));
+		}
 
-		// operation = "new";
+		if (null != username && !"".equals(username.trim())) {
+			user.setUsername(username);
+		}
+		if (null != password && !"".equals(password.trim())) {
+			// 由于数据库存储的是MD5加密后的密码，所以这里要处理一下
+			// 首先判断是否修改过密码，及比对一下前台传过来的密码是否和数据库中的一致，
+			// 如果相同，则直接赋值后更新；
+			if (password.equals(user.getPassword())) {
+				user.setPassword(password);
+			}
+			// 如果不相同，则说明修改了密码，则需要加密后再存储
+			else {
+				String md5Password = Md5Util.getMD5Str(password + "{"
+						+ username + "}");
+				user.setPassword(md5Password);
+			}
+		}
+		if (null != cellphone && !"".equals(cellphone.trim())) {
+			user.setCellphone(cellphone);
+		}
+		userService.updateUser(user);
+
+		// 更新角色信息
+		userRoleService.updateUserRole(Integer.parseInt(userId), myRolesArray);
 		userId = "";
 		username = "";
 		password = "";
 		cellphone = "";
 
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doLoad() {
-		if (null != userId) {
-			User user = userService.loadUser(Integer.parseInt(userId));
-			username = user.getUsername();
-			password = user.getPassword();
-			cellphone = user.getCellphone();
-
-			// 加载用户角色信息
-			myRoles = userRoleService.findRolesByUserId(Integer
-					.parseInt(userId));
-			if (null == myRoles || 0 == myRoles.size()) {
-				myRoles.add(new Role(0, " "));
-			}
-			leftRoles = userRoleService.findLeftRolesByUserId(Integer
-					.parseInt(userId));
-			if (null == leftRoles || 0 == leftRoles.size()) {
-				leftRoles.add(new Role(0, " "));
-			}
-		}
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doList() {
+		setSessionMessage("message", "用户信息修改成功！");
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
@@ -140,37 +218,6 @@ public class UserAction extends BaseAction {
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
 		this.setLoginName(userDetail.getUser().getUsername());
-	}
-
-	public String doRemove() {
-		if (null != userId) {
-			userService.removeUser(Integer.parseInt(userId));
-		} else {
-			userService.removeUsers(userIds);
-		}
-
-		setSessionMessage("message", "用户删除成功！");
-		// 更新页面数据
-		// refreshData();
-		return SUCCESS;
-	}
-
-	public String doUserInfo() {
-		logger.debug("enter doUserInfo() method");
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doRight() {
-		logger.debug("enter doRight() method");
-		return SUCCESS;
-	}
-
-	public String doBottom() {
-		logger.debug("enter doBottom() method");
-		return SUCCESS;
 	}
 
 	public List<RoleLinkVo> getMenulist() {

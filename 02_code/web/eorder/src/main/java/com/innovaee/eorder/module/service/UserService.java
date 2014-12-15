@@ -86,8 +86,12 @@ public class UserService extends BaseService {
 		return userDao.getUserByPassword(loginId, password);
 	}
 
-	public User findUsersByUserName(String username) {
-		return (User) userDao.findUsersByUserName(username);
+	public User findUserByUserName(String username) {
+		return (User) userDao.findUserByUserName(username);
+	}
+	
+	public User findUsersByCellphone(String cellphone) {
+		return (User) userDao.findUserByCellphone(cellphone);
 	}
 
 	public User saveUser(User user) {

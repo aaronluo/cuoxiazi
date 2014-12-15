@@ -4,23 +4,28 @@
 <struts>
 	<package name="com.innovaee.eorder.web.action.admin.function" namespace="/function" extends="struts-base">
 		<action name="doFunction" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doFunction">
-			<result name="success">/pages/admin/function/function.jsp</result>
+			<result name="input">/pages/admin/function/function.jsp</result>
+			<result>/pages/admin/function/function.jsp</result>
 		</action>
-
 		<action name="doList" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="list">
+			<result name="input">/pages/admin/function/function.jsp</result>
 			<result>/pages/admin/function/function.jsp</result>
 		</action>
 		<action name="doEdit" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="load">
+			<result name="input">/pages/admin/function/function.jsp</result>
 			<result>/pages/admin/function/function.jsp</result>
 		</action>
-		<action name="doStore" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doStore">
-			<result type="redirect">doFunction.action</result>
+		<action name="save" class="com.innovaee.eorder.web.action.admin.function.FunctionOpAction" method="save">
+			<result name="input">/pages/admin/function/function.jsp</result>
+			<result>/pages/admin/function/function.jsp</result>
 		</action>
-		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doUpdate">
-			<result type="redirect">doFunction.action</result>
+		<action name="update" class="com.innovaee.eorder.web.action.admin.function.FunctionOpAction" method="update">
+			<result name="input">/pages/admin/function/function.jsp</result>
+			<result>/pages/admin/function/function.jsp</result>
 		</action>
 		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="remove">
-			<result type="redirect">doFunction.action</result>
+			<result name="input">/pages/admin/function/function.jsp</result>
+			<result>/pages/admin/function/function.jsp</result>
 		</action>
 	</package>
 

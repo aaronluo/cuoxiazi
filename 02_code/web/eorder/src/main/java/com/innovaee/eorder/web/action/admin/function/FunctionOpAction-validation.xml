@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定校验配置文件的DTD信息 -->
+<!DOCTYPE validators PUBLIC 
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<!-- 校验文件的根元素 -->
+<validators>
+	<!-- 校验Action的username属性 -->
+	<field name="functionName">
+		<!-- 指定name属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入权限名称</message>
+		</field-validator>
+		<!-- 指定username属性必须匹配正则表达式 <field-validator type="regex"> <param name="expression"><![CDATA[(\w{4,25})]]></param> 
+			<message>您输入的用户名只能是字母和数字 ，且长度必须在4到25之间</message> </field-validator> -->
+	</field>
+	<!-- 校验Action的functionDesc属性 <field name="functionDesc"> <!-- 指定functionDesc属性必须满足必填规则 -->
+	<field-validator type="requiredstring">
+		<param name="trim">true</param>
+		<message>必须输入权限描述</message>
+	</field-validator>
+	<!-- 指定functionDesc属性必须满足匹配指定的正则表达式 <field-validator type="regex"> <param name="expression"><![CDATA[(\w{4,128})]]></param> 
+		<message>您输入的密码只能是字母和数字 ，且长度必须在4到128之间</message> </field-validator> -->
+</field>
+	<!-- 校验Action的functionDesc属性 -->
+	<field name="functionDesc">
+		<!-- 指定functionDesc属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入权限描述</message>
+		</field-validator>
+		<!-- 指定functionDesc属性必须满足匹配指定的正则表达式 <field-validator type="regex"> <param name="expression"><![CDATA[(\w{4,128})]]></param> 
+			<message>您输入的密码只能是字母和数字 ，且长度必须在4到128之间</message> </field-validator> -->
+	</field>
+	<!-- 校验Action的functionDesc属性 -->
+	<field name="functionDesc">
+		<!-- 指定functionDesc属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入权限描述</message>
+		</field-validator>
+		<!-- 指定functionDesc属性必须满足匹配指定的正则表达式 <field-validator type="regex"> <param name="expression"><![CDATA[(\w{4,128})]]></param> 
+			<message>您输入的密码只能是字母和数字 ，且长度必须在4到128之间</message> </field-validator> -->
+	</field>
+	<!-- 校验Action的functionParent属性 -->
+	<field name="functionParent">
+		<!-- 指定functionParent属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入父权限的ID</message>
+		</field-validator>
+		<!-- 指定functionParent属性必须满足匹配指定的正则表达式 -->
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\d{1,6})]]></param>
+			<message>您输入的父权限的ID必须存在，父权限的ID为0的权限可以拥有子权限。</message>
+		</field-validator>
+	</field>
+	<!-- 校验Action的functionPath属性 -->
+	<field name="functionPath">
+		<!-- 指定functionPath属性必须满足必填规则 -->
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>必须输入权限路径</message>
+		</field-validator>
+		<!-- 指定functionPath属性必须满足匹配指定的正则表达式 -->
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[(\w{1,128})]]></param>
+			<message>您输入的权限路径只能是字母和数字
+				，且长度必须在1到128之间</message>
+		</field-validator>
+	</field>
+
+</validators>

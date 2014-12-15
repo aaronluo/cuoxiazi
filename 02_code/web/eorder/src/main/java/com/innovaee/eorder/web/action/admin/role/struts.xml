@@ -17,13 +17,15 @@
 			method="load">
 			<result>/pages/admin/role/role.jsp</result>
 		</action>
-		<action name="doStore" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="doStore">
-			<result type="redirect">doRole.action</result>
+		<action name="save" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
+			method="save">
+			<result name="input">/pages/admin/role/role.jsp</result>
+			<result>/pages/admin/role/role.jsp</result>
 		</action>
-		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="doUpdate">
-			<result type="redirect">doRole.action</result>
+		<action name="update" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
+			method="update">
+			<result name="input">/pages/admin/role/role.jsp</result>
+			<result>/pages/admin/role/role.jsp</result>
 		</action>
 		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
 			method="remove">

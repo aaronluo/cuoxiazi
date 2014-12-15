@@ -4,29 +4,42 @@
 <struts>
 	<package name="com.innovaee.eorder.web.action.admin.user" namespace="/user"
 		extends="struts-base">
+
+		<action name="doLoad" class="com.innovaee.eorder.web.action.admin.user.UserAction"
+			method="doLoad">
+			<result name="input">/pages/admin/user/user.jsp</result>
+			<result>/pages/admin/user/user.jsp</result>
+		</action>
 		<action name="doUser" class="com.innovaee.eorder.web.action.admin.user.UserAction"
 			method="doUser">
+			<result name="input">/pages/admin/user/user.jsp</result>
 			<result>/pages/admin/user/user.jsp</result>
 		</action>
 		<action name="doList" class="com.innovaee.eorder.web.action.admin.user.UserAction"
 			method="doList">
+			<result name="input">/pages/admin/user/user.jsp</result>
 			<result>/pages/admin/user/user.jsp</result>
 		</action>
 		<action name="doEdit" class="com.innovaee.eorder.web.action.admin.user.UserAction"
 			method="doLoad">
+			<result name="input">/pages/admin/user/user.jsp</result>
 			<result>/pages/admin/user/user.jsp</result>
 		</action>
-		<action name="doStore" class="com.innovaee.eorder.web.action.admin.user.UserAction"
-			method="doStore">
-			<result type="redirect">doUser.action</result>
-		</action>
-		<action name="doUpdate" class="com.innovaee.eorder.web.action.admin.user.UserAction"
-			method="doUpdate">
-			<result>/pages/admin/user/user.jsp</result>
-		</action>
+
 		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.user.UserAction"
 			method="doRemove">
 			<result type="redirect">doUser.action</result>
+		</action>
+
+		<action name="save" class="com.innovaee.eorder.web.action.admin.user.UserOpAction"
+			method="save">
+			<result name="input">/pages/admin/user/user.jsp</result>
+			<result>/pages/admin/user/user.jsp</result>
+		</action>
+		<action name="update" class="com.innovaee.eorder.web.action.admin.user.UserOpAction"
+			method="update">
+			<result name="input">/pages/admin/user/user.jsp</result>
+			<result>/pages/admin/user/user.jsp</result>
 		</action>
 	</package>
 

@@ -178,4 +178,11 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		parent="baseService" />
 	<bean id="userRoleService" class="com.innovaee.eorder.module.service.UserRoleService"
 		parent="baseService" />
+
+	<!-- 
+	<bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" >
+	</bean>
+	
+	 -->
+
 </beans>

@@ -3,33 +3,42 @@
 						"http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="com.innovaee.eorder.web.action.login" namespace="/login" extends="struts-base">
-		<action name="login" class="com.innovaee.eorder.web.action.login.LoginAction" method="login">
+	<package name="com.innovaee.eorder.web.action.login" namespace="/login"
+		extends="struts-base">
+		<action name="login" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="login">
 			<result name="success">/pages/login/login.jsp</result>
 		</action>
-		<action name="doLogin" class="com.innovaee.eorder.web.action.login.LoginAction" method="doLogin">
-			<result name="success">/pages/main/main.jsp</result>
+		<action name="doLogin" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doLogin">
+			<result type="redirect">../user/doUser.action</result>
 		</action>
 
-		<action name="doLogout" class="com.innovaee.eorder.web.action.login.LoginAction" method="doLogout">
+		<action name="doLogout" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doLogout">
 			<result name="success">/pages/main/login.jsp</result>
 		</action>
 
-		<action name="left" class="com.innovaee.eorder.web.action.login.LoginAction" method="doLeft">
+		<action name="left" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doLeft">
 			<result name="success">/pages/main/left.jsp</result>
 		</action>
-		<action name="right" class="com.innovaee.eorder.web.action.login.LoginAction" method="doRight">
+		<action name="right" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doRight">
 			<result name="success">/pages/main/right.jsp</result>
 		</action>
-		<action name="header" class="com.innovaee.eorder.web.action.login.LoginAction" method="doHeader">
+		<action name="header" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doHeader">
 			<result name="success">/pages/main/header.jsp</result>
 		</action>
 
-		<action name="userInfo" class="com.innovaee.eorder.web.action.login.LoginAction" method="doUserInfo">
+		<action name="userInfo" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doUserInfo">
 			<result name="success">/pages/main/userInfo.jsp</result>
 		</action>
 
-		<action name="bottom" class="com.innovaee.eorder.web.action.login.LoginAction" method="doBottom">
+		<action name="bottom" class="com.innovaee.eorder.web.action.login.LoginAction"
+			method="doBottom">
 			<result name="success">/pages/main/bottom.jsp</result>
 		</action>
 	</package>
