@@ -60,7 +60,10 @@ public class SecurityMetadataSourceService extends BaseService implements
 
 	public List<UserRole> getUserRoles(String username) {
 		User user = userDao.findUserByUserName(username);
-		return userRoleDao.findUserRolesByUserId(user.getUserId());
+		if (null != user) {
+			return userRoleDao.findUserRolesByUserId(user.getUserId());
+		}
+		return null;
 	}
 
 	public List<RoleFunction> findRoleFunctionsByRoleId(Integer roleId) {
@@ -70,26 +73,33 @@ public class SecurityMetadataSourceService extends BaseService implements
 	public List<UserFunctionVo> getUserFunctions(String username) {
 		List<UserFunctionVo> userFunctions = new ArrayList<UserFunctionVo>();
 		User user = userDao.findUserByUserName(username);
-		Iterator<UserRole> itUserRole = securityMetadataSourceService
-				.getUserRoles(username).iterator();
-		while (itUserRole.hasNext()) {
-			UserRole userRole = itUserRole.next();
-			Role role = (Role) roleDao.get(userRole.getRoleId());
-			Iterator<RoleFunction> itRoleFunction = securityMetadataSourceService
-					.findRoleFunctionsByRoleId(userRole.getRoleId()).iterator();
-			while (itRoleFunction.hasNext()) {
-				RoleFunction roleFunction = itRoleFunction.next();
 
-				Function function = (Function) functionDao.get(roleFunction
-						.getFunctionId());
+		List<UserRole> userRoleList = securityMetadataSourceService
+				.getUserRoles(username);
 
-				UserFunctionVo userFunctionVo = new UserFunctionVo();
-				userFunctionVo.setUser(user);
-				userFunctionVo.setRole(role);
-				userFunctionVo.setFunction(function);
+		if (null != userRoleList && 0 < userRoleList.size()) {
+			Iterator<UserRole> itUserRole = userRoleList.iterator();
 
-				// Add one Item
-				userFunctions.add(userFunctionVo);
+			while (itUserRole.hasNext()) {
+				UserRole userRole = itUserRole.next();
+				Role role = (Role) roleDao.get(userRole.getRoleId());
+				Iterator<RoleFunction> itRoleFunction = securityMetadataSourceService
+						.findRoleFunctionsByRoleId(userRole.getRoleId())
+						.iterator();
+				while (itRoleFunction.hasNext()) {
+					RoleFunction roleFunction = itRoleFunction.next();
+
+					Function function = (Function) functionDao.get(roleFunction
+							.getFunctionId());
+
+					UserFunctionVo userFunctionVo = new UserFunctionVo();
+					userFunctionVo.setUser(user);
+					userFunctionVo.setRole(role);
+					userFunctionVo.setFunction(function);
+
+					// Add one Item
+					userFunctions.add(userFunctionVo);
+				}
 			}
 		}
 

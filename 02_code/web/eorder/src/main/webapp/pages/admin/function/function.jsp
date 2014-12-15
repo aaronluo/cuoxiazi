@@ -183,6 +183,7 @@
 								<thead>
 									<tr>
 										<th></th>
+										<th>权限ID</th>
 										<th>权限名称</th>
 										<th>权限描述</th>
 										<th>权限路径</th>
@@ -196,8 +197,7 @@
 								<tbody>
 									<s:iterator value="functionvos">
 										<tr>
-											<td><s:hidden id="functionId" name="functionId"
-													value="%{functionId}" /></td>
+											<td><s:property value="functionId" /></td>
 											<td><s:property value="functionName" /></td>
 											<td><s:property value="functionDesc" /></td>
 											<td><s:property value="functionPath" /></td>

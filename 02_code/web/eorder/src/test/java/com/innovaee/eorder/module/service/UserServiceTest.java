@@ -19,8 +19,8 @@ public class UserServiceTest extends BaseSpringTestCase {
 	@Autowired
 	private UserService userService;
 
-	private String username = "abc";
-	private String password = "abc";
+	private String username = "abc123";
+	private String password = "abc123";
 	private String cellphone = "13888888888";
 	private Integer levelId = 1;
 	private Boolean userStatus = true;
@@ -47,8 +47,15 @@ public class UserServiceTest extends BaseSpringTestCase {
 	}
 
 	@Test
-	public void findUsersByUserName() {
+	public void findUsersByUserName_01() {
 		String username = "admin";
+		User user = userService.findUserByUserName(username);
+		Assert.assertNotNull(user);
+	}
+	
+	@Test
+	public void findUsersByUserName_02() {
+		String username = "test00";
 		User user = userService.findUserByUserName(username);
 		Assert.assertNotNull(user);
 	}

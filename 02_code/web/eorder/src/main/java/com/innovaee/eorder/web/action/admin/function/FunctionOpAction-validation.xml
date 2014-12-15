@@ -6,6 +6,11 @@
 		<field-validator type="requiredstring">
 			<message>必须输入权限名称</message>
 		</field-validator>
+		<field-validator type="stringlength" short-circuit="true">
+			<param name="maxLength">32</param>
+			<param name="minLength">2</param>
+			<message>权限名称长度必须为${minLength}到${maxLength}之间!</message>
+		</field-validator>
 	</field>
 
 	<field name="functionDesc">
