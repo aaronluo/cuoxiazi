@@ -17,7 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="../resources/js/jquery.min.js" /></script>
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../resources/js/listutil.js"></script>
+<script type="text/javascript" src="../resources/js/optiontransferselect.js"></script>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/style.css">
 </head>
@@ -27,14 +27,14 @@
 		// alert('moveOneToLeft');
 		var oListbox1 = document.getElementById("myFunctions");
 		var oListbox2 = document.getElementById("leftFunctions");
-		moveOneToLeft(oListbox1, oListbox2);
+		moveSelectedOptions(oListbox2, oListbox1, false, '', '');
 	}
 
 	function moveOneFunctionToRight() {
 		// alert('moveOneToLeft');
 		var oListbox1 = document.getElementById("myFunctions");
 		var oListbox2 = document.getElementById("leftFunctions");
-		moveOneToRight(oListbox1, oListbox2);
+		moveSelectedOptions(oListbox1, oListbox2, false, '', '');
 	}
 
 	function moveAllFunctionsToLeft() {
@@ -42,7 +42,7 @@
 		var oListbox1 = document.getElementById("myFunctions");
 		var oListbox2 = document.getElementById("leftFunctions");
 
-		moveAllToLeft(oListbox1, oListbox2);
+		moveAllOptions(oListbox2, oListbox1, false, '', '');
 	}
 
 	function moveAllFunctionsToRight() {
@@ -50,7 +50,7 @@
 		var oListbox1 = document.getElementById("myFunctions");
 		var oListbox2 = document.getElementById("leftFunctions");
 
-		moveAllToRight(oListbox1, oListbox2);
+		moveAllOptions(oListbox1, oListbox2, false, '', '');
 	}
 
 	function save() {
@@ -191,9 +191,9 @@
 								<s:hidden id="myFunctionsArray" name="myFunctionsArray" />
 								<s:hidden id="leftFunctionsArray" name="leftFunctionsArray" />
 								<input type="text" id="roleName" name="roleName"
-									class="form-control eorder-input" placeholder="角色名称" />
+									class="form-control eorder-input" placeholder="角色名称" value="${roleName}"/>
 								<input type="text" id="roleDesc" name="roleDesc"
-									class="form-control eorder-input" placeholder="角色描述">
+									class="form-control eorder-input" placeholder="角色描述" value="${roleDesc}">
 								<a href="#" onclick="save();"
 									class="btn btn-default btn-block eorder-btn-login">创建新角色</a>
 							</s:form>

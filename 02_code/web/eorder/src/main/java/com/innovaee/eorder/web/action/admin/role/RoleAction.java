@@ -81,14 +81,14 @@ public class RoleAction extends BaseAction {
 			// 加载用户角色信息
 			myFunctions = roleFunctionService.findFunctionsByRoleId(Integer
 					.parseInt(roleId));
-			if (null == myFunctions || 0 == myFunctions.size()) {
-				myFunctions.add(new Function(0, " "));
-			}
+//			if (null == myFunctions || 0 == myFunctions.size()) {
+//				myFunctions.add(new Function(0, " "));
+//			}
 			leftFunctions = roleFunctionService
 					.findLeftFunctionsByRoleId(Integer.parseInt(roleId));
-			if (null == leftFunctions || 0 == leftFunctions.size()) {
-				leftFunctions.add(new Function(0, " "));
-			}
+//			if (null == leftFunctions || 0 == leftFunctions.size()) {
+//				leftFunctions.add(new Function(0, " "));
+//			}
 		}
 		refreshData();
 		return SUCCESS;

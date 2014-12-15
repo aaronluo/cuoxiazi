@@ -25,7 +25,7 @@
 	});
 </script>
 
-<body onload="document.loginForm.j_username.focus();">
+<body>
 	<!--head navigation bar -->
 	<div class="navbar navbar-default navbar-static-top">
 		<div class="container">

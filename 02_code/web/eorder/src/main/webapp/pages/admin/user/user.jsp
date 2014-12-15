@@ -17,7 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="../resources/js/jquery.min.js" /></script>
 <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../resources/js/listutil.js"></script>
+<script type="text/javascript" src="../resources/js/optiontransferselect.js"></script>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="../resources/css/style.css">
 </head>
@@ -27,14 +27,14 @@
 		// alert('moveOneToLeft');
 		var oListbox1 = document.getElementById("myRoles");
 		var oListbox2 = document.getElementById("leftRoles");
-		moveOneToLeft(oListbox1, oListbox2);
+		moveSelectedOptions(oListbox2, oListbox1, false, '', '');
 	}
 
 	function moveOneRoleToRight() {
-		// alert('moveOneToLeft');
+		//alert('moveOneRoleToRight');
 		var oListbox1 = document.getElementById("myRoles");
 		var oListbox2 = document.getElementById("leftRoles");
-		moveOneToRight(oListbox1, oListbox2);
+		moveSelectedOptions(oListbox1, oListbox2, false, '', '');
 	}
 
 	function moveAllRolesToLeft() {
@@ -42,7 +42,8 @@
 		var oListbox1 = document.getElementById("myRoles");
 		var oListbox2 = document.getElementById("leftRoles");
 
-		moveAllToLeft(oListbox1, oListbox2);
+		//moveAllToLeft(oListbox1, oListbox2);
+		moveAllOptions(oListbox2, oListbox1, false, '', '');
 	}
 
 	function moveAllRolesToRight() {
@@ -50,7 +51,8 @@
 		var oListbox1 = document.getElementById("myRoles");
 		var oListbox2 = document.getElementById("leftRoles");
 
-		moveAllToRight(oListbox1, oListbox2);
+		//moveAllToRight(oListbox1, oListbox2);
+		moveAllOptions(oListbox1, oListbox2, false, '', '');
 	}
 
 	function save() {

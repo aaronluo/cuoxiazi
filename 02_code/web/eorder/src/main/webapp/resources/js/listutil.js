@@ -13,11 +13,16 @@ ListUtil.move = function(oListboxFrom, oListboxTo, iIndex) {
 	//refresh(oListbox2);
 }
 
-function moveOneToLeft(oListbox1, oListbox2) {
-	for (var i = 0; i < oListbox2.options.length; i++) {
-		if (oListbox2.options[i].selected) {
-			// alert("i: " + i);
-			ListUtil.move(oListbox2, oListbox1, i);
+function moveOneToOther(oListbox1, oListbox2) {
+	var len =  oListbox2.options.length;
+	for (var i = 0; i < len; i++) {
+		alert('oListbox2.options[i].selected: ' + oListbox2.options[i].selected + ':' + oListbox2.options[i].firstChild.nodeValue);
+		var ind = len - i -1;
+		alert('ind: ' + ind + ' : len: ' + len);
+		if (oListbox2.options[ind].selected) {
+			alert("move: " + oListbox2.options[ind].firstChild.nodeValue);
+			len = len - 1;
+			ListUtil.move(oListbox2, oListbox1, ind);
 		}
 	}
 }
@@ -25,7 +30,7 @@ function moveOneToLeft(oListbox1, oListbox2) {
 function moveOneToRight(oListbox1, oListbox2) {
 	for (var i = 0; i < oListbox2.options.length; i++) {
 		if (oListbox1.options[i].selected) {
-			//alert("i: " + i);
+			alert("i: " + i);
 			ListUtil.move(oListbox1, oListbox2, i);
 		}
 	}

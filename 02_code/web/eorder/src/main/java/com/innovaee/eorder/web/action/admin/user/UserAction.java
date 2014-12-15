@@ -95,14 +95,14 @@ public class UserAction extends BaseAction {
 			// 加载用户角色信息
 			myRoles = userRoleService.findRolesByUserId(Integer
 					.parseInt(userId));
-			if (null == myRoles || 0 == myRoles.size()) {
-				myRoles.add(new Role(0, " "));
-			}
+//			if (null == myRoles || 0 == myRoles.size()) {
+//				myRoles.add(new Role(0, " "));
+//			}
 			leftRoles = userRoleService.findLeftRolesByUserId(Integer
 					.parseInt(userId));
-			if (null == leftRoles || 0 == leftRoles.size()) {
-				leftRoles.add(new Role(0, " "));
-			}
+//			if (null == leftRoles || 0 == leftRoles.size()) {
+//				leftRoles.add(new Role(0, " "));
+//			}
 		}
 
 		// 更新页面数据
