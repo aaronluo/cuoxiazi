@@ -49,14 +49,6 @@ public class FunctionAction extends BaseAction {
 		this.setLoginName(userDetail.getUser().getUsername());
 	}
 
-	public String login() {
-		logger.debug("enter login() method");
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
 	public String doFunction() {
 		logger.debug("enter doFunction() method");
 
@@ -147,23 +139,37 @@ public class FunctionAction extends BaseAction {
 
 		functionService.updateFunction(function);
 
+		functionId = "";
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
 	}
 
-	public String doRemove() {
+	public void validateRemove() {
+		System.out.println("======validateSave======" + functionName == null);
 		if (null != functionId) {
 			// 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
 			List<RoleFunction> myRoleFunctions = roleFunctionService
 					.findRoleFunctionsByFunctionId(Integer.parseInt(functionId));
-			if (null == myRoleFunctions || 0 == myRoleFunctions.size()) {
-				functionService.removeFunction(Integer.parseInt(functionId));
+			if (null != myRoleFunctions && 0 < myRoleFunctions.size()) {
+				addFieldError("functionName", "该功能已被分配给某个角色，不能删除！");
+				// 更新页面数据
+				refreshData();
 			}
-		} 
+		}
+	}
 
+	public String remove() {
+		if (null != functionId) {
+			functionService.removeFunction(Integer.parseInt(functionId));
+		}
+
+		this.setMessage("删除成功！");
+		
 		// 更新页面数据
 		refreshData();
+		
+		
 		return SUCCESS;
 	}
 
@@ -232,7 +238,7 @@ public class FunctionAction extends BaseAction {
 	public void setFunctionId(String functionId) {
 		this.functionId = functionId;
 	}
-	
+
 	public String getFunctionName() {
 		return functionName;
 	}

@@ -143,6 +143,9 @@ public class UserOpAction extends BaseAction {
 		setSessionMessage("message", "用户新增成功！");
 		
 		this.setMessage("新增成功！");
+		
+		this.setUserId("");
+		
 		// 更新页面数据
 		refreshData();
 

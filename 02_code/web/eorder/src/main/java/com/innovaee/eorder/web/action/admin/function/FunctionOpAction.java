@@ -139,10 +139,14 @@ public class FunctionOpAction extends BaseAction {
 		functionService.updateFunction(function);
 
 		this.setMessage("修改成功！");
+
+		this.setFunctionId("");
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
 	}
+
+
 
 	public List<RoleLinkVo> getMenulist() {
 		return menulist;

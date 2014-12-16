@@ -150,7 +150,7 @@
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#usr_mgt_list" aria-expanded="true" aria-controls="usr_mgt_list">
+										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
 										<s:property value="#banner.functionName" />
 									</a>
 								</h4>
@@ -299,7 +299,7 @@
 													<span class="glyphicon glyphicon-edit">
 											</a></span></td>
 											<td><a
-												href='<s:url action="doRemove"><s:param name="roleId" value="roleId" /></s:url>'>
+												href='<s:url action="remove"><s:param name="roleId" value="roleId" /></s:url>'>
 													<span class="glyphicon glyphicon-trash">
 											</a></span></td>
 										</tr>
@@ -309,7 +309,6 @@
 						</table>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

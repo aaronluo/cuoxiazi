@@ -154,7 +154,7 @@
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#usr_mgt_list" aria-expanded="true" aria-controls="usr_mgt_list">
+										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
 										<s:property value="#banner.functionName" />
 									</a>
 								</h4>
@@ -226,7 +226,7 @@
 							</s:form>
 						</s:else>
 						
-						<s:fielderror label="操作信息"/>
+						<s:fielderror/>
 						<s:if test=" null != message && '' != message">
 							<h4>
 								<s:property value="message" />
