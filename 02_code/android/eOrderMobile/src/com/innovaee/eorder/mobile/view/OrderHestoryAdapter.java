@@ -58,7 +58,7 @@ public class OrderHestoryAdapter extends BaseAdapter {
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
 						
-		if (convertView == null) {
+		//if (convertView == null) {
 			if (layoutInflater != null) {						
 				view = layoutInflater.inflate(R.layout.orderhestory_listitem, null);
 						
@@ -77,11 +77,11 @@ public class OrderHestoryAdapter extends BaseAdapter {
 				timeTxtView.setText(context.getString(R.string.orderhestory_item_text_time) + time);		
 				totalPriceTxtView.setText(context.getString(R.string.orderhestory_item_text_totalprice) + String.valueOf(orderHestoryDataBean.getTotalPrice()));
 			}									
-		} else {		
-			Log.d("GoodsAdapter", "layoutInflater == null");
-			view = convertView;
-		}		
-				
+		//} else {		
+		//	Log.d("GoodsAdapter", "layoutInflater == null");
+		//	view = convertView;
+		//}		
+						
 		return view;
 	}	
 }

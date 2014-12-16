@@ -121,7 +121,13 @@ public class MyOrderActivity extends Activity {
         Bundle bundle = intent.getExtras();
 				
 		ArrayList list = bundle.getParcelableArrayList("list");
-		selectOrderGoods = (List<GoodsDataBean>) list.get(0);			
+		selectOrderGoods = (List<GoodsDataBean>) list.get(0);	
+					
+		Log.d(TAG, "selectOrderGoods.size()=" + selectOrderGoods.size());
+		for(GoodsDataBean dataBean : selectOrderGoods) {
+			Log.d(TAG, "dataBean.getId()=" + dataBean.getId());
+			Log.d(TAG, "dataBean.getName()=" + dataBean.getName());				
+		}
 			
 		initView();
 		
@@ -158,20 +164,20 @@ public class MyOrderActivity extends Activity {
 	/**
 	 * 初始化Data
 	 */	
-	private void initData() {
-		listView.setOnItemClickListener(new OnItemClickListener(){
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub	
-			}												
-        });	
-				
+	private void initData() {		
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setHomeButtonEnabled(true);	
 		
 		myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, mHandler);//对应R中的id 
 		
 		listView.setAdapter(myOrderAdapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub	
+			}												
+        });	
 		
 		delAllBtn.setOnClickListener(new View.OnClickListener()
 		{

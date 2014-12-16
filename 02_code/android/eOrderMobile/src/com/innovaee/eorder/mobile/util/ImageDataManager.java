@@ -242,7 +242,7 @@ public class ImageDataManager {
 	 * 取消正在下载的任务
 	 */
 	public synchronized void cancelTask() {
-		Log.d("ImageDataManager", "cancelTask()");
+		//Log.d("ImageDataManager", "cancelTask()");
 		synchronized (mLock) {
 			mActiveQueue.clear();
 			mWaitTasksQueue.clear();
@@ -646,22 +646,19 @@ public class ImageDataManager {
 	}
 
 	public boolean removeTask(int hashCode, String url) {
-		Log.d("ImageDataManager", "removeTask()");
-		Log.d("ImageDataManager", "url=" + url);	
+		//Log.d("ImageDataManager", "removeTask()");
+		//Log.d("ImageDataManager", "url=" + url);	
 		if (TextUtils.isEmpty(url)) {
 			return false;
 		}
-		Log.d("ImageDataManager", "001" + url);
+	
 		synchronized (mLock) {
 			boolean needRemove = true;
 			ImageDownloadTask task = mActiveQueue.get(url);
-			Log.d("ImageDataManager", "002" + url);
 			if (task != null) {
 				needRemove = task.removeListener(hashCode);
-				Log.d("ImageDataManager", "003" + url);
 			}
 			if (needRemove) {
-				Log.d("ImageDataManager", "004" + url);
 				mActiveQueue.remove(url);
 				if (mWaitTasksQueue.contains(task)) {
 					mWaitTasksQueue.remove(task);
@@ -672,8 +669,7 @@ public class ImageDataManager {
 				if (mImageThreadPoolLocal != null) {
 					mImageThreadPoolLocal.remove(task);
 				}
-			}
-			Log.d("ImageDataManager", "005" + url);
+			}	
 			return needRemove;
 		}
 	}
@@ -755,7 +751,7 @@ public class ImageDataManager {
 		 * @return true listener列表为空，可以移除整个task
 		 */
 		public boolean removeListener(int hashCode) {
-			Log.d("ImageDataManager", "removeListener()");
+			//Log.d("ImageDataManager", "removeListener()");
 			mListeners.delete(hashCode);
 			return mListeners.size() == 0;
 		}
@@ -787,9 +783,6 @@ public class ImageDataManager {
 					
 			}
 			for (int i = 0; i < mListeners.size(); i++) {
-				Log.d("ImageDataManager", "i=" + 1);				
-				Log.d("ImageDataManager", "mListeners.size()=" + mListeners.size());
-				Log.d("ImageDataManager", "mUrl=" + mUrl);	
 				OnImageLoaderListener listener = mListeners.valueAt(i);
 				if (listener != null) {
 					listener.onImageLoader(bitmap, mUrl);

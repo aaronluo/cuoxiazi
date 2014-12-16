@@ -38,6 +38,10 @@ public class MyOrderAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private Handler handler;
 		
+	private boolean  first = true;  
+	private int mCount = 0;	
+	private View positionView;
+	
 	public MyOrderAdapter(Context context) {
 		this.context = context;
 		layoutInflater = (LayoutInflater) this.context
@@ -74,14 +78,18 @@ public class MyOrderAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
-										
-		if (convertView == null) {
+		
+		//后续需要优化
+		//if (convertView == null) {
 			if (layoutInflater != null) {						
 				view = layoutInflater.inflate(R.layout.myorder_listitem, null);
 					
 				// 获取自定义的类实例		
 				final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
 								
+				Log.d("GoodsAdapter", "goodsItemDataTemp.getId()=" + goodsItemDataTemp.getId());
+				Log.d("GoodsAdapter", "goodsItemDataTemp.getName()=" + goodsItemDataTemp.getName());	
+						
 				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
 				TextView name = (TextView) view.findViewById(R.id.goods_name);
 				final TextView priceTxtView = (TextView) view.findViewById(R.id.goods_allprice);
@@ -124,13 +132,19 @@ public class MyOrderAdapter extends BaseAdapter {
 				int count = goodsItemDataTemp.getCount();				
 				Double allPrice = goodsItemDataTemp.getPrice() * count;									
 				countTxtView.setText(String.valueOf(count));				
-				priceTxtView.setText(String.valueOf(allPrice));		
-			}							
-		} else {	
-			Log.d("GoodsAdapter", "layoutInflater == null");
-			view = convertView;
-		}		
+				priceTxtView.setText(String.valueOf(allPrice));	
 				
+				convertView = view;
+				
+				if (position == 0) { 
+					positionView = view;
+				}
+			}								
+		//} else {	
+		//	Log.d("GoodsAdapter", "layoutInflater == null");
+		//	view = convertView;
+		//}		
+						
 		return view;
 	}
 	

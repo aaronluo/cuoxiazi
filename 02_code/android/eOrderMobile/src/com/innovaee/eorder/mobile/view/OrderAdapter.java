@@ -56,7 +56,7 @@ public class OrderAdapter extends BaseAdapter {
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
 										
-		if (convertView == null) {
+		//if (convertView == null) {
 			if (layoutInflater != null) {						
 				view = layoutInflater.inflate(R.layout.order_listitem, null);
 							
@@ -74,10 +74,10 @@ public class OrderAdapter extends BaseAdapter {
 				countTxtView.setText(context.getString(R.string.order_item_text_count) + String.valueOf(count));				
 				totalPirceTxtView.setText(context.getString(R.string.order_item_text_totalprice) + String.valueOf(allPrice));		
 			}													
-		} else {	
-			Log.d("GoodsAdapter", "layoutInflater == null");
-			view = convertView;
-		}		
+		//} else {	
+		//	Log.d("GoodsAdapter", "layoutInflater == null");
+		//	view = convertView;
+		//}		
 				
 		return view;
 	}	

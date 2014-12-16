@@ -86,7 +86,7 @@ public class GoodsAdapter extends BaseAdapter {
 		        return positionView;	  
 		    }  	
 	    }  
-			
+					
 		if (convertView == null) {
 			if (layoutInflater != null) {
 				Log.d("GoodsAdapter", "layoutInflater != null");

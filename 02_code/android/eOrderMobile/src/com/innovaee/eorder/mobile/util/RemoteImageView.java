@@ -159,7 +159,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 * @param url eg. http://random.com/abz.jpg
 	 */
 	public void setImageUrl(String url) {
-		Log.d("RemoteImageView", "setImageUrl");	
+		//Log.d("RemoteImageView", "setImageUrl");	
 		if (TextUtils.isEmpty(url)) {
 			loadDefaultImage();
 			return;
@@ -359,7 +359,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 
 	@Override
 	protected void onDetachedFromWindow() {
-		Log.d("RemoteImageView", "onDetachedFromWindow");	
+		//Log.d("RemoteImageView", "onDetachedFromWindow");	
 		super.onDetachedFromWindow();
 		setImageDrawable(null);
 			
@@ -370,7 +370,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	@Override
 	public void onStartTemporaryDetach() {
 		// TODO Auto-generated method stub
-		Log.d("RemoteImageView", "onStartTemporaryDetach");
+		//Log.d("RemoteImageView", "onStartTemporaryDetach");
 		super.onStartTemporaryDetach();
 			
 		//会导致第一张图片无法显示

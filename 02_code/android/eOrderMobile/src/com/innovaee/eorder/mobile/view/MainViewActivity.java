@@ -116,12 +116,18 @@ public class MainViewActivity extends Activity {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
 				progressBar.setVisibility(View.GONE);
-				gridView.setVisibility(View.VISIBLE);			
+				gridView.setVisibility(View.VISIBLE);												
 				goodsListData = (List<GoodsDataBean>) msg.obj;
 				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
 				gridView.setAdapter(goodsAdapter);
 					
 				Log.d(TAG, "goodsListData.size =" + goodsListData.size());
+				
+				for(GoodsDataBean dataBean: goodsListData) {
+					Log.d(TAG, "dataBean.getId()" + dataBean.getId());
+					Log.d(TAG, "dataBean.dataBean.getName()" + dataBean.getName());
+				}
+				
 				getOrderHestoryTestData();
 				}	
 				break;
@@ -441,7 +447,11 @@ public class MainViewActivity extends Activity {
 	    	lastFeedType = paramFeedType;
 	    		
 	    	//为了避免超长，截取前面三个字符显示
-	    	this.feedTypeName.setText(lastFeedType.getTypeName().substring(0, 3));
+	    	if (lastFeedType.getTypeName().length() > 3) {
+	    		this.feedTypeName.setText(lastFeedType.getTypeName().substring(0, 3));
+	    	} else {
+	    		this.feedTypeName.setText(lastFeedType.getTypeName());
+	    	}	
 	    														
 	    	loadCategoryData(lastFeedType.getCategoryId());
 	    }					    		
@@ -568,6 +578,8 @@ public class MainViewActivity extends Activity {
 		msg.what = MSG_UPDATE;
 		msg.obj = (Object) goodsListData;
 		handler.sendMessage(msg);
+		
+		
 	}
 
 	/**
@@ -597,9 +609,9 @@ public class MainViewActivity extends Activity {
 							Log.d("MainViewActivity:", "onRequestSuccess!");
 							if (data == null) {
 								return;
-							}
+							}								
 							goodsListData = data;
-							updateUi();	
+							updateUi();		
 						}		
 										
 						@Override
@@ -706,14 +718,19 @@ public class MainViewActivity extends Activity {
 		Log.d(TAG, "selectOrderGoods.size()=" + selectOrderGoods.size());
 			
 		for (GoodsDataBean goodsDataBean: selectOrderGoods) {
-			if (goodsDataBean.getId() == dataBean.getId()) {
+			Log.d(TAG, "goodsDataBean.getId()=" + goodsDataBean.getId());
+			Log.d(TAG, "goodsDataBean.getName()=" + goodsDataBean.getName());	
+			Log.d(TAG, "dataBean.getId()=" + dataBean.getId());
+			Log.d(TAG, "dataBean.getName()=" + dataBean.getName());
+			if (goodsDataBean.getId() == dataBean.getId()) {	
+				Log.d(TAG, "goodsDataBean.getId() == dataBean.getId()======");
 				int count = goodsDataBean.getCount() + 1;
 				goodsDataBean.setCount(count); 
 				isAddCount = true;
 				Log.d(TAG, "count=" + count);
 				break;
 			}	
-		}		
+		}				
 		
 		if(!isAddCount) {
 			Log.d(TAG, "add(dataBean)");
