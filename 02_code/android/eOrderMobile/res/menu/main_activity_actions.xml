@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-                                      
+
     <item
         android:id="@+id/action_order"
         android:actionLayout="@layout/order_count_view"
         android:showAsAction="always"
         android:title="@string/action_order"/>
-                    
     <item
         android:id="@+id/action_more"
         android:icon="@drawable/ic_action_more"
@@ -16,7 +15,7 @@
             <item
                 android:id="@+id/action_menu_refresh"
                 android:title="@string/action_fresh"/>
-            <item   
+            <item
                 android:id="@+id/action_menu_settings"
                 android:title="@string/action_settings"/>
             <item
@@ -24,5 +23,5 @@
                 android:title="@string/action_about"/>
         </menu>
     </item>
-           
+
 </menu>

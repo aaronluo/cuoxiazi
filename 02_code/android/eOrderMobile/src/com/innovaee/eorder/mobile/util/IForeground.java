@@ -8,7 +8,7 @@ import android.graphics.Rect;
  * 类描述: 蒙版显示兼容接口 <br>
  * 功能详细描述:
  * 
- * @author lichong
+ * @author wanglinglong
  * @date [2014年10月21日]
  */
 public interface IForeground {

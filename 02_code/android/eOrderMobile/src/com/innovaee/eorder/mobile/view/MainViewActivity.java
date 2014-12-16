@@ -439,10 +439,12 @@ public class MainViewActivity extends Activity {
 	    if (this.lastFeedType != paramFeedType)
 	    {
 	    	lastFeedType = paramFeedType;
-	    	this.feedTypeName.setText(lastFeedType.getTypeName());
-	    				
+	    		
+	    	//为了避免超长，截取前面三个字符显示
+	    	this.feedTypeName.setText(lastFeedType.getTypeName().substring(0, 3));
+	    														
 	    	loadCategoryData(lastFeedType.getCategoryId());
-	    }				    		
+	    }					    		
 	}												
 		
 	/**

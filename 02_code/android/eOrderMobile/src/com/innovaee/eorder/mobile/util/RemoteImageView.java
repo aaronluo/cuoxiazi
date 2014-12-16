@@ -27,7 +27,7 @@ import android.widget.ListView;
 /**
  * ImageView extended class allowing easy downloading of remote images
  * 
- * @author majunwen
+ * @author wanglinglong
  */
 public class RemoteImageView extends ImageView implements IForeground {
 	
@@ -159,6 +159,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 * @param url eg. http://random.com/abz.jpg
 	 */
 	public void setImageUrl(String url) {
+		Log.d("RemoteImageView", "setImageUrl");	
 		if (TextUtils.isEmpty(url)) {
 			loadDefaultImage();
 			return;
@@ -201,15 +202,15 @@ public class RemoteImageView extends ImageView implements IForeground {
 			}
 		}
 	}
-	
+				
 	private void setImageBitmap(String url, Bitmap bitmap) {
 		mState = STATE_ERROR;
 		String tag = mImageViews.get(RemoteImageView.this);
 		if (tag != null && tag.equals(url)) {
 			if (bitmap == null) {
-				// Log.w("TAG", "Trying again to download " + url);
+				Log.w("TAG", "Trying again to download " + url);	
 				loadDefaultImage();
-			} else {
+			} else {	
 				// if image belongs to a list update it only if it's visible
 				if (mListView != null) {
 					if (mPosition < mListView.getFirstVisiblePosition()
@@ -358,17 +359,23 @@ public class RemoteImageView extends ImageView implements IForeground {
 
 	@Override
 	protected void onDetachedFromWindow() {
+		Log.d("RemoteImageView", "onDetachedFromWindow");	
 		super.onDetachedFromWindow();
 		setImageDrawable(null);
-		removeWaitingTask(mImageViews.get(this));
-	}
+			
+		//会导致第一张图片无法显示
+		//removeWaitingTask(mImageViews.get(this));
+	}			
 
 	@Override
 	public void onStartTemporaryDetach() {
 		// TODO Auto-generated method stub
+		Log.d("RemoteImageView", "onStartTemporaryDetach");
 		super.onStartTemporaryDetach();
-		removeWaitingTask(mImageViews.get(this));
-	}
+			
+		//会导致第一张图片无法显示
+		//removeWaitingTask(mImageViews.get(this));
+	}					
 
 	@Override
 	public void dispatchDisplayHint(int hint) {

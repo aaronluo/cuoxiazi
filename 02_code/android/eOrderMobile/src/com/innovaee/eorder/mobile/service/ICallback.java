@@ -8,7 +8,7 @@ import java.util.List;
  * 类描述: 下载数据回调接口 <br>
  * 功能详细描述:
  * 
- * @author lichong
+ * @author wanglinglong
  * @param <T>
  *            成功回调返回的数据类型
  * @date [2014年9月23日]

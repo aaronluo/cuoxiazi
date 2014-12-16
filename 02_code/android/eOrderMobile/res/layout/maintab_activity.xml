@@ -11,20 +11,19 @@
         android:background="#ededed"
         android:gravity="center"
         android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
         android:numColumns="2"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        android:visibility="gone"
-        android:stretchMode="columnWidth"/>
-   		     		
-    <ProgressBar 
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp"
+        android:visibility="gone" />
+
+    <ProgressBar
         android:id="@+id/loading_data_progressbar"
-      	android:layout_width="wrap_content" 
-      	android:layout_height="wrap_content"
-      	android:visibility="gone"	
-      	android:layout_centerInParent="true"
-      	style="?android:attr/progressBarStyleLarge"/>
-		
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>
-                

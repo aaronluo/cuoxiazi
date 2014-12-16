@@ -2,22 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ActionButton"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent">
-                                                
-    <LinearLayout 
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
         android:id="@+id/layout_feed_type"
         style="@style/ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:onClick="clickOnFeedType" >
-    			
+
         <TextView
             android:id="@+id/feed_type_name"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:drawablePadding="5.0dip"
             android:gravity="center_vertical"
-            android:textSize="18.0sp" />    
+            android:textSize="18.0sp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,33 +27,32 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_triangle" />
     </LinearLayout>
-            
-    <LinearLayout 
+
+    <LinearLayout
         android:id="@+id/layout_order_hestory"
         style="@style/ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:onClick="clickOnOrderHestory" >
+
         <EditText
             android:id="@+id/order_hestory_input"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:drawablePadding="5.0dip"
-            android:inputType="numberSigned"
-            android:maxLength="11"                     
             android:gravity="center_vertical"
             android:hint="@string/action_order_hestory_input"
+            android:inputType="numberSigned"
+            android:maxLength="11"
             android:textSize="18.0sp" />
-                                                                                              
+
         <ImageView
             android:id="@+id/order_hestory_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" 
+            android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_action_order_hestory" />
     </LinearLayout>
-            
-</LinearLayout>    
-              
-    
+
+</LinearLayout>

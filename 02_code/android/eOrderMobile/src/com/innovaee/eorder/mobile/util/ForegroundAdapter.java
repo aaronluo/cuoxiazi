@@ -13,7 +13,7 @@ import android.graphics.drawable.Drawable;
  * 类描述: 蒙版显示控制器 <br>
  * 功能详细描述: 根据触屏状态下的调整蒙版显示效果
  * 
- * @author lichong
+ * @author wanglinglong
  * @date [2014年10月21日]
  */
 public class ForegroundAdapter {

@@ -25,9 +25,9 @@ public class GoodsAdapter extends BaseAdapter {
 	private Handler handler;
 			
 	private boolean  first = true;  
-	private static View temp;  
-	private int firstPosition = 0;  
-	
+	private int mCount = 0;	
+	private View positionView;
+			
 	public final class ListItemView {
 		public ImageView image;
 		public TextView title;
@@ -71,27 +71,22 @@ public class GoodsAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return position;
 	}
-
+	
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
 					
-		if(first) {  
-			Log.d("GoodsAdapter", "getView() firstPosition = position");
-            firstPosition = position;  
-        } else {  
-        	Log.d("GoodsAdapter", "getView() firstPosition = " + firstPosition);
-        	Log.d("GoodsAdapter", "getView() position = " + position);		
-            if(temp != null && (firstPosition == position)) {  
-            	Log.d("GoodsAdapter", "getView() return temp");
-                return temp;  
-            } else {  
-            	Log.d("GoodsAdapter", "getView() temp = null");
-                //temp = null;  
-            }  		
-        }  	
-						
+		if (position == 0)  
+	    {  
+	        mCount++;  
+	        if (mCount > 1)  
+		    {  
+		        Log.v("GoodsAdapter", "<getView> drop !!!");  
+		        return positionView;	  
+		    }  	
+	    }  
+			
 		if (convertView == null) {
 			if (layoutInflater != null) {
 				Log.d("GoodsAdapter", "layoutInflater != null");
@@ -105,13 +100,13 @@ public class GoodsAdapter extends BaseAdapter {
 				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
 				name.setText(goodsItemData.getName());			
 				price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
-				
-				if(first){  
-					Log.d("GoodsAdapter", "temp = view; ");
-	                temp = view;  
-	                first = false;  
-	            } 				 
-			}																						
+					
+				convertView = view;
+							
+				if (position == 0) { 
+					positionView = view;
+				}
+			}																									
 		} else {
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;

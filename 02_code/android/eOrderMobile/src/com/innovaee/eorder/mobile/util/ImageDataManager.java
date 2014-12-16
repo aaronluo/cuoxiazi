@@ -38,7 +38,7 @@ import com.innovaee.eorder.mobile.util.LruImageCache;
 /**
  * theme image manager, contain restore to cash, sdcard, etc
  * 
- * @author majunwen
+ * @author wanglinglong
  * 
  */
 public class ImageDataManager {
@@ -242,6 +242,7 @@ public class ImageDataManager {
 	 * 取消正在下载的任务
 	 */
 	public synchronized void cancelTask() {
+		Log.d("ImageDataManager", "cancelTask()");
 		synchronized (mLock) {
 			mActiveQueue.clear();
 			mWaitTasksQueue.clear();
@@ -259,7 +260,7 @@ public class ImageDataManager {
 	/**
 	 * 异步下载图片的回调接口
 	 * 
-	 * @author majunwen
+	 * @author wanglinglong
 	 */
 	public interface OnImageLoaderListener {
 		void onImageLoader(Bitmap bitmap, String url);
@@ -404,7 +405,7 @@ public class ImageDataManager {
 	 * An InputStream that skips the exact number of bytes provided, unless it
 	 * reaches EOF.
 	 * 
-	 * @author majunwen
+	 * @author wanglinglong
 	 */
 	static class FlushedInputStream extends FilterInputStream {
 		public FlushedInputStream(InputStream inputStream) {
@@ -548,7 +549,7 @@ public class ImageDataManager {
 	/**
 	 * sort file based on latest modify time
 	 * 
-	 * @author majunwen
+	 * @author wanglinglong
 	 * 
 	 */
 	class FileLastModifSort implements Comparator<File> {
@@ -645,16 +646,22 @@ public class ImageDataManager {
 	}
 
 	public boolean removeTask(int hashCode, String url) {
+		Log.d("ImageDataManager", "removeTask()");
+		Log.d("ImageDataManager", "url=" + url);	
 		if (TextUtils.isEmpty(url)) {
 			return false;
 		}
+		Log.d("ImageDataManager", "001" + url);
 		synchronized (mLock) {
 			boolean needRemove = true;
 			ImageDownloadTask task = mActiveQueue.get(url);
+			Log.d("ImageDataManager", "002" + url);
 			if (task != null) {
 				needRemove = task.removeListener(hashCode);
+				Log.d("ImageDataManager", "003" + url);
 			}
 			if (needRemove) {
+				Log.d("ImageDataManager", "004" + url);
 				mActiveQueue.remove(url);
 				if (mWaitTasksQueue.contains(task)) {
 					mWaitTasksQueue.remove(task);
@@ -666,6 +673,7 @@ public class ImageDataManager {
 					mImageThreadPoolLocal.remove(task);
 				}
 			}
+			Log.d("ImageDataManager", "005" + url);
 			return needRemove;
 		}
 	}
@@ -694,21 +702,21 @@ public class ImageDataManager {
 	 * <br>类描述:
 	 * <br>功能详细描述:
 	 * 
-	 * @author  lichong
+	 * @author  wanglinglong
 	 * @date  [2014年11月19日]
 	 */
 	private enum DownloadTaskType {
 		TASKTYPE_URL,
 		TASKTYPE_FILE
 	}
-
+	
 	/**
 	 * 
 	 * <br>
 	 * 类描述: <br>
 	 * 功能详细描述:
 	 * 
-	 * @author lichong
+	 * @author wanglinglong
 	 * @date [2014年9月30日]
 	 */
 	private class ImageDownloadTask implements Runnable {
@@ -719,7 +727,7 @@ public class ImageDataManager {
 
 		private ImageDownloadTask(File file, String url) {
 			mUrl = url;				// 回调函数需要用到url
-			mFile = file;
+			mFile = file;	
 			mTaskType = DownloadTaskType.TASKTYPE_FILE;
 			mListeners = new SparseArray<ImageDataManager.OnImageLoaderListener>();
 		}
@@ -747,6 +755,7 @@ public class ImageDataManager {
 		 * @return true listener列表为空，可以移除整个task
 		 */
 		public boolean removeListener(int hashCode) {
+			Log.d("ImageDataManager", "removeListener()");
 			mListeners.delete(hashCode);
 			return mListeners.size() == 0;
 		}
@@ -778,6 +787,9 @@ public class ImageDataManager {
 					
 			}
 			for (int i = 0; i < mListeners.size(); i++) {
+				Log.d("ImageDataManager", "i=" + 1);				
+				Log.d("ImageDataManager", "mListeners.size()=" + mListeners.size());
+				Log.d("ImageDataManager", "mUrl=" + mUrl);	
 				OnImageLoaderListener listener = mListeners.valueAt(i);
 				if (listener != null) {
 					listener.onImageLoader(bitmap, mUrl);

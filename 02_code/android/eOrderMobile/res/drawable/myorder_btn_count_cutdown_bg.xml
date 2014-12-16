@@ -3,5 +3,5 @@
 
     <item android:drawable="@drawable/btn_background_cutdown_select" android:state_pressed="true"></item>
     <item android:drawable="@drawable/btn_background_cutdown_normal" android:state_pressed="false"></item>
-    
+
 </selector>

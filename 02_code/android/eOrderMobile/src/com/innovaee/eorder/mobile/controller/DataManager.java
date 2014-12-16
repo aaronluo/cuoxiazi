@@ -323,7 +323,7 @@ public class DataManager {
 	 * 类描述: 数据请求监听器 <br>
 	 * 功能详细描述:
 	 * 
-	 * @author lichong
+	 * @author wanglinglong
 	 * @date [2014年9月24日]
 	 */
 	public static interface IDataRequestListener<T> {
