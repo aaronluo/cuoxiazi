@@ -346,6 +346,7 @@ public class MainViewActivity extends Activity {
 				String inputString = orderHestoryInput.getText().toString();
 						
 				if(inputString != null && !inputString.equals("")) {
+					orderHestoryInput.setText("");	
 					oepnOrderHestory(inputString);
 				} else {	
 					Toast.makeText(getApplicationContext(), R.string.toast_please_input_userid, Toast.LENGTH_SHORT).show();
@@ -708,8 +709,9 @@ public class MainViewActivity extends Activity {
 				goodsDataBean.setCount(count); 
 				isAddCount = true;
 				Log.d(TAG, "count=" + count);
+				break;
 			}	
-		}
+		}		
 		
 		if(!isAddCount) {
 			Log.d(TAG, "add(dataBean)");
@@ -718,7 +720,7 @@ public class MainViewActivity extends Activity {
 			selectOrderGoods.add(dataBean);
 		}								
 	}
-	
+			
 	/**
 	 * 重新刷新界面
 	 */		

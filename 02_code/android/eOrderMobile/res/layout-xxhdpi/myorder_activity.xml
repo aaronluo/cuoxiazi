@@ -18,9 +18,10 @@
         	android:divider="#d9d9d9"
         	android:dividerHeight="1dp"
         	android:minHeight="36dp"	
+        	android:paddingBottom="60dp"
         	>      
     	</ListView>		
-    	       		          	
+    	      		 		          	
     	<RelativeLayout
         	android:id="@+id/myorder_layout_button"
         	android:layout_width="fill_parent"
