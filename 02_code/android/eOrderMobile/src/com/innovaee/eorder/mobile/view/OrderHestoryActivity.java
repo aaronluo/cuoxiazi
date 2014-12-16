@@ -24,6 +24,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 		
 /**
  * 
@@ -38,6 +39,7 @@ public class OrderHestoryActivity extends Activity {
 	//内部消息定义
 	public final static int MSG_UPDATE = 10001;
 	public final static int MSG_INITDATA = 10002;
+	public final static int MSG_UPDATE_FAIL = 10003;
 		
 	//已经选择菜品list
 	private List<OrderHestoryDataBean> orderHestoryDataList;	
@@ -68,7 +70,11 @@ public class OrderHestoryActivity extends Activity {
 											
 	            case MSG_INITDATA:
 					break;
-										
+					
+	            case MSG_UPDATE_FAIL:
+	            	Toast.makeText(OrderHestoryActivity.this, R.string.order_toast_no_userid_fail, Toast.LENGTH_SHORT).show();
+	            	break;	
+	            												
 				default:
 					break;
 			}
@@ -151,6 +157,15 @@ public class OrderHestoryActivity extends Activity {
 		handler.sendMessage(msg);
 	}
 		
+	/**	
+	 * 提醒失败
+	 */
+	private void updateFail() {
+		Message msg = Message.obtain();
+		msg.what = MSG_UPDATE_FAIL;
+		handler.sendMessage(msg);
+	}	
+	
 	/**
 	 * 进入我的订单
 	 */

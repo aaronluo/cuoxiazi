@@ -23,7 +23,11 @@ public class GoodsAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private GoodsDataBean goodsItemData;
 	private Handler handler;
-		
+			
+	private boolean  first = true;  
+	private static View temp;  
+	private int firstPosition = 0;  
+	
 	public final class ListItemView {
 		public ImageView image;
 		public TextView title;
@@ -71,8 +75,23 @@ public class GoodsAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView()");
-
+		Log.d("GoodsAdapter", "getView() position=" + position);
+					
+		if(first) {  
+			Log.d("GoodsAdapter", "getView() firstPosition = position");
+            firstPosition = position;  
+        } else {  
+        	Log.d("GoodsAdapter", "getView() firstPosition = " + firstPosition);
+        	Log.d("GoodsAdapter", "getView() position = " + position);		
+            if(temp != null && (firstPosition == position)) {  
+            	Log.d("GoodsAdapter", "getView() return temp");
+                return temp;  
+            } else {  
+            	Log.d("GoodsAdapter", "getView() temp = null");
+                //temp = null;  
+            }  		
+        }  	
+						
 		if (convertView == null) {
 			if (layoutInflater != null) {
 				Log.d("GoodsAdapter", "layoutInflater != null");
@@ -86,7 +105,13 @@ public class GoodsAdapter extends BaseAdapter {
 				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
 				name.setText(goodsItemData.getName());			
 				price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
-			}																				
+				
+				if(first){  
+					Log.d("GoodsAdapter", "temp = view; ");
+	                temp = view;  
+	                first = false;  
+	            } 				 
+			}																						
 		} else {
 			Log.d("GoodsAdapter", "layoutInflater == null");
 			view = convertView;
@@ -100,4 +125,11 @@ public class GoodsAdapter extends BaseAdapter {
 
 	}
 	
+	@Override 	
+	public void notifyDataSetChanged() { 		
+		//因为notify的时候也会导致当前位置的getView重复调用 		
+		first = true; 		
+		super.notifyDataSetChanged(); 	
+		}	
+			
 }
