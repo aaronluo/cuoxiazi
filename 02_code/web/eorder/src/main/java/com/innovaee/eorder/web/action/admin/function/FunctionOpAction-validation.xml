@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 指定校验配置文件的DTD信息 -->
-<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.dtd">
+
+<!DOCTYPE validators PUBLIC 
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+
 <validators>
 	<field name="functionName">
 		<field-validator type="requiredstring">
 			<message>必须输入权限名称</message>
-		</field-validator>
-		<field-validator type="stringlength" short-circuit="true">
-			<param name="maxLength">32</param>
-			<param name="minLength">2</param>
-			<message>权限名称长度必须为${minLength}到${maxLength}之间!</message>
 		</field-validator>
 	</field>
 
@@ -32,8 +31,7 @@
 	<!-- 校验Action的functionParent属性 -->
 	<field name="functionParent">
 		<!-- 指定functionParent属性必须满足必填规则 -->
-		<field-validator type="requiredstring">
-			<param name="trim">true</param>
+		<field-validator type="int">
 			<message>必须输入父权限的ID</message>
 		</field-validator>
 	</field>

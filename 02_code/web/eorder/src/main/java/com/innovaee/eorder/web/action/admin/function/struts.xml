@@ -4,8 +4,7 @@
 <struts>
 	<package name="com.innovaee.eorder.web.action.admin.function" namespace="/function" extends="struts-base">
 		<action name="doFunction" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doFunction">
-			<result name="input">/pages/admin/function/function.jsp</result>
-			<result>/pages/admin/function/function.jsp</result>
+			<result name="success">/pages/admin/function/function.jsp</result>
 		</action>
 		<action name="doList" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doList">
 			<result name="input">/pages/admin/function/function.jsp</result>
@@ -23,7 +22,7 @@
 			<result name="input">/pages/admin/function/function.jsp</result>
 			<result>/pages/admin/function/function.jsp</result>
 		</action>
-		<action name="doRemove" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="doRemove">
+		<action name="remove" class="com.innovaee.eorder.web.action.admin.function.FunctionAction" method="remove">
 			<result name="input">/pages/admin/function/function.jsp</result>
 			<result>/pages/admin/function/function.jsp</result>
 		</action>

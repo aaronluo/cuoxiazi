@@ -51,7 +51,7 @@ public class RoleOpAction extends BaseAction {
 	private String leftFunctionsArray;
 
 	private String contextPath;
-	
+
 	public void validate() {
 		refreshData();
 	}
@@ -80,7 +80,7 @@ public class RoleOpAction extends BaseAction {
 		}
 
 	}
-	
+
 	public String save() {
 		Role role = new Role();
 		if (null != roleName && !"".equals(roleName.trim())) {
@@ -93,6 +93,8 @@ public class RoleOpAction extends BaseAction {
 		role.setRoleStatus(true);
 
 		roleService.saveRole(role);
+
+		this.setRoleId("");
 
 		refreshData();
 		return SUCCESS;

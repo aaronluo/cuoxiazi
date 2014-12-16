@@ -150,8 +150,10 @@ public class UserAction extends BaseAction {
 		}
 
 		setSessionMessage("message", "用户删除成功！");
+		
+		this.setMessage("删除成功！");
 		// 更新页面数据
-		// refreshData();
+		refreshData();
 		return SUCCESS;
 	}
 

@@ -87,7 +87,7 @@
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#usr_mgt_list" aria-expanded="true" aria-controls="usr_mgt_list">
+										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
 										<s:property value="#banner.functionName" />
 									</a>
 								</h4>
@@ -159,6 +159,7 @@
 									class="btn btn-default btn-block eorder-btn-login">修改权限信息</a>
 							</s:form>
 						</s:else>
+						
 						<s:fielderror />
 						<s:if test=" null != message && '' != message">
 							<h4>
@@ -182,7 +183,6 @@
 							<s:form id="functionForm" action="doRemove" theme="simple">
 								<thead>
 									<tr>
-										<th></th>
 										<th>权限ID</th>
 										<th>权限名称</th>
 										<th>权限描述</th>
@@ -209,7 +209,7 @@
 													<span class="glyphicon glyphicon-edit">
 											</a></span></td>
 											<td><a
-												href='<s:url action="doRemove"><s:param name="functionId" value="functionId" /></s:url>'>
+												href='<s:url action="remove"><s:param name="functionId" value="functionId" /></s:url>'>
 													<span class="glyphicon glyphicon-trash">
 											</a></span></td>
 										</tr>

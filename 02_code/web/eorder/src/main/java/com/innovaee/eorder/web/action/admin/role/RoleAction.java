@@ -139,24 +139,31 @@ public class RoleAction extends BaseAction {
 		refreshData();
 		return SUCCESS;
 	}
-
-	public String doRemove() {
+	public void validateRemove() {
 		if (null != roleId) {
 			// 先判断用户角色关联关系，如果此角色已授权给某个用户，则不能删除
 			List<UserRole> myUserRoles = userRoleService
 					.findUserRolesByRoleId(Integer.parseInt(roleId));
-			if (null == myUserRoles || 0 == myUserRoles.size()) {
-				roleService.removeRole(Integer.parseInt(roleId));
+			if (null != myUserRoles && 0 < myUserRoles.size()) {
+				addFieldError("roleName", "该角色已被分配给某个用户，不能删除！");
+				// 更新页面数据
+				refreshData();
 			}
-		} else {
-			roleService.removeRoles(roleIds);
+
+		}
+	}
+	
+	public String remove() {
+		if (null != roleId) {
+			roleService.removeRole(Integer.parseInt(roleId));
 		}
 
+		this.setMessage("删除成功！");
+		
 		refreshData();
 
 		return SUCCESS;
 	}
-
 	public String doRoleInfo() {
 		refreshData();
 		return SUCCESS;
