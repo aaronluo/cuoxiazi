@@ -57,15 +57,17 @@
 					href="#" onclick="javascript:loginForm.submit();"
 					class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
 			</form>
-			<s:actionmessage />
-			<span style="align:center;"> <c:if
-					test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+		</div>
+		<div class="row" style="height: 120px">
+			<div class="eorder-form-login">
+				<s:actionmessage />
+
+				<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
 					<font color="red"> 登录失败，请重试.<br /> <br /> 原因:<c:out
 							value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
 					</font>
 				</c:if>
-			</span>
-
+			</div>
 		</div>
 	</div>
 
