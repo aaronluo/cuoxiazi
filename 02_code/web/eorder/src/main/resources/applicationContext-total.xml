@@ -179,10 +179,24 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<bean id="userRoleService" class="com.innovaee.eorder.module.service.UserRoleService"
 		parent="baseService" />
 
-	<!-- 
-	<bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" >
+	<!-- <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" 
+		> </bean> -->
+
+	<bean id="authenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="hideUserNotFoundExceptions" value="false" />
+		<property name="userDetailsService" ref="authenticationService" />
+		<property name="passwordEncoder" ref="passwordEncode" />
+		<property name="saltSource" ref="saltSource" />
 	</bean>
-	
-	 -->
+
+
+	<!-- 配置密码加密类 -->
+	<bean id="passwordEncode"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<property name="userPropertyToUse" value="username" />
+	</bean>
 
 </beans>

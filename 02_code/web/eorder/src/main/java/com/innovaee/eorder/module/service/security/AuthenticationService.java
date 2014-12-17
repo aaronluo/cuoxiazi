@@ -33,6 +33,10 @@ public class AuthenticationService extends BaseService implements UserDetailsSer
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 
+		org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider n = null;
+
+		 
+		
 		List<UserFunctionVo> userFunctions = securityMetadataSourceService.getUserFunctions(username);
 		if (null == userFunctions || 0 == userFunctions.size()) {
 			throw new UsernameNotFoundException("user[" + username + "] is not found!");

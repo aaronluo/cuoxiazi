@@ -58,11 +58,14 @@
 					class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
 			</form>
 			<s:actionmessage />
-			<c:if test="${not empty param.login_error}">
-				<font color="red"> Your login attempt was not successful, try again.<br />
-					<br /> Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
-				</font>
-			</c:if>
+			<span style="align:center;"> <c:if
+					test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+					<font color="red"> 登录失败，请重试.<br /> <br /> 原因:<c:out
+							value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+					</font>
+				</c:if>
+			</span>
+
 		</div>
 	</div>
 

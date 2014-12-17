@@ -20,7 +20,7 @@
 		<logout logout-success-url="/default.html" />
 		<remember-me />
 		<session-management invalid-session-url="/default.html">
-			<concurrency-control max-sessions="5"
+			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" />
 		</session-management>
 
@@ -39,14 +39,10 @@
 		</authentication-provider>
 	</authentication-manager>
 
-	<beans:bean id="authenticationProvider"
-		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<beans:property name="userDetailsService" ref="authenticationService" />
-		<!--显示用户错误信息 -->
-		<beans:property name="hideUserNotFoundExceptions" value="false" />
-		<!-- 
-		<beans:property name="passwordEncoder" ref="UTPasswordEncoder" />
-		 -->
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename"
+			value="classpath:org/springframework/security/messages_zh_CN" />
 	</beans:bean>
 
 </beans:beans>
