@@ -60,7 +60,7 @@
 		//获取该页面中的第一个表单元素
 		var targetForm = document.getElementById("saveForm");
 		//动态修改目标表单的action属性
-		
+
 		targetForm.action = "save.action";
 		//targetForm.action = "doStore.action";
 		//提交表单
@@ -153,10 +153,7 @@
 							<!--菜单头-->
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
-										<s:property value="#banner.functionName" />
-									</a>
+									<s:property value="#banner.functionName" />
 								</h4>
 							</div>
 							<div class="panel-collapse collapse in" id="usr_mgt_list" role="tabpanel"
@@ -167,7 +164,7 @@
 										<s:iterator value="#banner.list" id="subBanner">
 											<a class="list-group-item"
 												href='<%=basePath%><s:property value="#subBanner.link" />'
-												target="main"><s:property value="#subBanner.functionName" /></a>
+												target="_self"><s:property value="#subBanner.functionName" /></a>
 										</s:iterator>
 
 									</div>
@@ -225,8 +222,8 @@
 									class="btn btn-default btn-block eorder-btn-login">修改用户信息</a>
 							</s:form>
 						</s:else>
-						
-						<s:fielderror/>
+
+						<s:fielderror />
 						<s:if test=" null != message && '' != message">
 							<h4>
 								<s:property value="message" />

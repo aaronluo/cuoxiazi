@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.module.entity.Function;
@@ -41,7 +44,13 @@ public class FunctionAction extends BaseAction {
 
 	private String contextPath;
 
+	@SuppressWarnings("unchecked")
 	public void refreshData() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
 		this.setMenulist(MenuUtil.getRoleLinkVOList());
 		functionvos = functionService.findAllFunctionVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
@@ -81,70 +90,6 @@ public class FunctionAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	public String doStore() {
-		Function function = new Function();
-		if (null != functionName && !"".equals(functionName.trim())) {
-			function.setFunctionName(functionName);
-		}
-
-		if (null != functionDesc && !"".equals(functionDesc.trim())) {
-			function.setFunctionDesc(functionDesc);
-		}
-
-		if (null != functionPath && !"".equals(functionPath.trim())) {
-			function.setFunctionPath(functionPath);
-		}
-
-		if (0 != functionParent) {
-			function.setFunctionParent(functionParent);
-		}
-
-		if (null != functionOrder && !"".equals(functionOrder.trim())) {
-			function.setFunctionOrder(functionOrder);
-		}
-		function.setFunctionStatus(true);
-		functionService.saveFunction(function);
-
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
-	public String doUpdate() {
-		Function function = null;
-		if (null != functionId) {
-			function = functionService.loadFunction(Integer
-					.parseInt(functionId));
-		}
-
-		if (null != functionName && !"".equals(functionName.trim())) {
-			function.setFunctionName(functionName);
-		}
-
-		if (null != functionDesc && !"".equals(functionDesc.trim())) {
-			function.setFunctionDesc(functionDesc);
-		}
-
-		if (null != functionPath && !"".equals(functionPath.trim())) {
-			function.setFunctionPath(functionPath);
-		}
-
-		if (0 != functionParent) {
-			function.setFunctionParent(functionParent);
-		}
-
-		if (null != functionOrder && !"".equals(functionOrder.trim())) {
-			function.setFunctionOrder(functionOrder);
-		}
-
-		functionService.updateFunction(function);
-
-		functionId = "";
-		// 更新页面数据
-		refreshData();
-		return SUCCESS;
-	}
-
 	public void validateRemove() {
 		System.out.println("======validateSave======" + functionName == null);
 		if (null != functionId) {
@@ -153,6 +98,10 @@ public class FunctionAction extends BaseAction {
 					.findRoleFunctionsByFunctionId(Integer.parseInt(functionId));
 			if (null != myRoleFunctions && 0 < myRoleFunctions.size()) {
 				addFieldError("functionName", "该功能已被分配给某个角色，不能删除！");
+
+				// 清空删除时传入的Id，防止返回后页面取到
+				this.setFunctionId("");
+				
 				// 更新页面数据
 				refreshData();
 			}
@@ -165,10 +114,12 @@ public class FunctionAction extends BaseAction {
 		}
 
 		this.setMessage("删除成功！");
+
+		// 清空删除时传入的Id，防止返回后页面取到
+		this.setFunctionId("");
 		
 		// 更新页面数据
 		refreshData();
-		
 		
 		return SUCCESS;
 	}

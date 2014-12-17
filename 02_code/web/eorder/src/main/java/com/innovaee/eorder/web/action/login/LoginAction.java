@@ -5,10 +5,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
+import com.innovaee.eorder.module.utils.MenuUtil;
 import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
@@ -28,6 +33,11 @@ public class LoginAction extends BaseAction {
 	}
 
 	public String doLogin() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		session.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		
 		return SUCCESS;
 	}
 

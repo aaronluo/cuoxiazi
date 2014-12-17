@@ -100,7 +100,7 @@
 										<s:iterator value="#banner.list" id="subBanner">
 											<a class="list-group-item"
 												href='<%=basePath%><s:property value="#subBanner.link" />'
-												target="main"><s:property value="#subBanner.functionName" /></a>
+												target="_self"><s:property value="#subBanner.functionName" /></a>
 										</s:iterator>
 									</div>
 								</div>
@@ -119,7 +119,7 @@
 
 				<div class="row">
 					<div class="col-md-3">
-						<s:if test="null == functionId">
+						<s:if test="null == functionId || 0 == functionId">
 							<h4>新增权限</h4>
 							<s:form class="eorder-form-usr" id="saveForm">
 								<input type="text" id="functionName" name="functionName"
@@ -160,10 +160,10 @@
 							</s:form>
 						</s:else>
 						
+						<br>
 						<s:fielderror />
 						<s:if test=" null != message && '' != message">
 							<h4>
-								操作信息
 								<s:property value="message" />
 							</h4>
 						</s:if>

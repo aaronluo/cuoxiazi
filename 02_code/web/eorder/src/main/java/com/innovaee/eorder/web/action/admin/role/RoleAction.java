@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.module.entity.Function;
@@ -53,8 +56,13 @@ public class RoleAction extends BaseAction {
 
 	private String contextPath;
 
+	@SuppressWarnings("unchecked")
 	public void refreshData() {
-		this.setMenulist(MenuUtil.getRoleLinkVOList());
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
 		rolevos = roleService.findAllRoleVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
@@ -116,29 +124,6 @@ public class RoleAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	public String doUpdate() {
-		Role role = new Role();
-		if (null != roleId) {
-			role = roleService.loadRole(Integer.parseInt(roleId));
-		}
-
-		if (null != roleName && !"".equals(roleName.trim())) {
-			role.setRoleName(roleName);
-		}
-		if (null != roleDesc && !"".equals(roleDesc.trim())) {
-			role.setRoleDesc(roleDesc);
-		}
-		roleService.updateRole(role);
-
-		// 更新角色信息
-		roleFunctionService.updateRoleFunction(Integer.parseInt(roleId),
-				myFunctionsArray);
-		roleId = "";
-		roleName = "";
-		roleDesc = "";
-		refreshData();
-		return SUCCESS;
-	}
 	public void validateRemove() {
 		if (null != roleId) {
 			// 先判断用户角色关联关系，如果此角色已授权给某个用户，则不能删除
@@ -146,6 +131,10 @@ public class RoleAction extends BaseAction {
 					.findUserRolesByRoleId(Integer.parseInt(roleId));
 			if (null != myUserRoles && 0 < myUserRoles.size()) {
 				addFieldError("roleName", "该角色已被分配给某个用户，不能删除！");
+
+				// 清空删除时传入的Id，防止返回后页面取到
+				this.setRoleId("");
+				
 				// 更新页面数据
 				refreshData();
 			}
@@ -159,7 +148,9 @@ public class RoleAction extends BaseAction {
 		}
 
 		this.setMessage("删除成功！");
-		
+
+		// 清空删除时传入的Id，防止返回后页面取到
+		this.setRoleId("");
 		refreshData();
 
 		return SUCCESS;

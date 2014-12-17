@@ -37,7 +37,7 @@ public class FunctionService extends BaseService {
 			functionVO = new FunctionVO();
 			BeanUtils.copyProperties(function, functionVO);
 
-			// 设置用户等级名称
+			// 设置上级权限名称
 			parentFunction = functionDao.loadFunction(function
 					.getFunctionParent());
 			if (null != parentFunction) {

@@ -80,6 +80,16 @@ public class RoleOpAction extends BaseAction {
 		}
 
 	}
+	
+	/**
+	 * 清空输入框数据
+	 */
+	private void clean() {
+		this.setRoleId("");
+		this.setRoleName("");
+		this.setRoleDesc("");
+	}
+
 
 	public String save() {
 		Role role = new Role();
@@ -94,8 +104,11 @@ public class RoleOpAction extends BaseAction {
 
 		roleService.saveRole(role);
 
-		this.setRoleId("");
+		this.setMessage("新增成功！");
 
+		// 清空输入框数据
+		clean();
+		
 		refreshData();
 		return SUCCESS;
 	}
@@ -117,9 +130,9 @@ public class RoleOpAction extends BaseAction {
 		// 更新角色信息
 		roleFunctionService.updateRoleFunction(Integer.parseInt(roleId),
 				myFunctionsArray);
-		roleId = "";
-		roleName = "";
-		roleDesc = "";
+		this.setMessage("修改成功");
+		// 清空输入框数据
+		clean();
 		refreshData();
 		return SUCCESS;
 	}

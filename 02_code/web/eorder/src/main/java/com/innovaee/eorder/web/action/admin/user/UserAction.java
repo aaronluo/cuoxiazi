@@ -68,17 +68,7 @@ public class UserAction extends BaseAction {
 		logger.debug("enter doUser() method");
 
 		// 清空消息
-		setSessionMessage("message", "");
-		setSessionMessage("username", "");
-		setSessionMessage("password", "");
-		setSessionMessage("cellphone", "");
-		// setSessionMessage("operation", "new");
-
-		// operation = "new";
-		userId = "";
-		username = "";
-		password = "";
-		cellphone = "";
+		// setSessionMessage("message", "");
 
 		// 更新页面数据
 		refreshData();
@@ -95,14 +85,14 @@ public class UserAction extends BaseAction {
 			// 加载用户角色信息
 			myRoles = userRoleService.findRolesByUserId(Integer
 					.parseInt(userId));
-//			if (null == myRoles || 0 == myRoles.size()) {
-//				myRoles.add(new Role(0, " "));
-//			}
+			// if (null == myRoles || 0 == myRoles.size()) {
+			// myRoles.add(new Role(0, " "));
+			// }
 			leftRoles = userRoleService.findLeftRolesByUserId(Integer
 					.parseInt(userId));
-//			if (null == leftRoles || 0 == leftRoles.size()) {
-//				leftRoles.add(new Role(0, " "));
-//			}
+			// if (null == leftRoles || 0 == leftRoles.size()) {
+			// leftRoles.add(new Role(0, " "));
+			// }
 		}
 
 		// 更新页面数据
@@ -116,26 +106,13 @@ public class UserAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	public void setSessionMessage(String key, String message) {
+	@SuppressWarnings("unchecked")
+	public void refreshData() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
-		session.setAttribute(key, message);
-		this.setMessage(message);
-	}
-
-	public void refreshData() {
-		// HttpServletRequest request = ServletActionContext.getRequest();
-		// HttpSession session = request.getSession();
-		// String message = (String) session.getAttribute("message");
-		// String username = (String) session.getAttribute("username");
-		// String password = (String) session.getAttribute("password");
-		// String cellphone = (String) session.getAttribute("cellphone");
-		// this.setMessage(message);
-		// this.setUsername(username);
-		// this.setPassword(password);
-		// this.setCellphone(cellphone);
-
-		this.setMenulist(MenuUtil.getRoleLinkVOList());
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
 		uservos = userService.findAllUserVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
@@ -145,13 +122,12 @@ public class UserAction extends BaseAction {
 	public String doRemove() {
 		if (null != userId) {
 			userService.removeUser(Integer.parseInt(userId));
-		} else {
-			userService.removeUsers(userIds);
-		}
+		} 
 
-		setSessionMessage("message", "用户删除成功！");
-		
 		this.setMessage("删除成功！");
+		
+		// 清空删除时传入的Id，防止返回后页面取到
+		this.setUserId("");
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;

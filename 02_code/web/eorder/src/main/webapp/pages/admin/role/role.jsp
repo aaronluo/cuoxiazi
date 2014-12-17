@@ -163,7 +163,7 @@
 										<s:iterator value="#banner.list" id="subBanner">
 											<a class="list-group-item"
 												href='<%=basePath%><s:property value="#subBanner.link" />'
-												target="main"><s:property value="#subBanner.functionName" /></a>
+												target="_self"><s:property value="#subBanner.functionName" /></a>
 										</s:iterator>
 
 									</div>
@@ -184,7 +184,7 @@
 				<!--列表表格-->
 				<div class="row">
 					<div class="col-md-3">
-						<s:if test="null == roleId">
+						<s:if test="null == roleId || 0 == roleId">
 							<h4>新增角色</h4>
 							<s:form class="eorder-form-usr" id="saveForm" action="doStore">
 								<s:hidden id="functionId" name="functionId" />
@@ -219,7 +219,6 @@
 						<s:fielderror />
 						<s:if test=" null != message && '' != message">
 							<h4>
-								操作信息
 								<s:property value="message" />
 							</h4>
 						</s:if>

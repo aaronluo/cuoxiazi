@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.module.entity.Function;
@@ -26,7 +29,7 @@ public class FunctionOpAction extends BaseAction {
 	private String functionName;
 	private String functionDesc;
 	private String functionPath;
-	private Integer functionParent;
+	private String functionParent;
 	private String functionOrder;
 	private String[] functionIds;
 	private List<FunctionVO> functionvos;
@@ -39,7 +42,13 @@ public class FunctionOpAction extends BaseAction {
 
 	private String contextPath;
 
+	@SuppressWarnings("unchecked")
 	public void refreshData() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
 		this.setMenulist(MenuUtil.getRoleLinkVOList());
 		functionvos = functionService.findAllFunctionVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
@@ -61,6 +70,9 @@ public class FunctionOpAction extends BaseAction {
 			// 更新页面数据
 			refreshData();
 		}
+
+		// 检查父节点ID是否有效
+		checkFunctionParentId();
 	}
 
 	public void validateUpdate() {
@@ -77,6 +89,49 @@ public class FunctionOpAction extends BaseAction {
 			// 更新页面数据
 			refreshData();
 		}
+
+		// 检查父节点ID是否有效
+		checkFunctionParentId();
+	}
+
+	private String checkFunctionParentId() {
+		if (null != functionParent && !"".equals(functionParent.trim())) {
+			int parentFunctionId = -1;
+			try {
+				parentFunctionId = Integer.parseInt(functionParent);
+			} catch (NumberFormatException e) {
+				addFieldError("functionParent",
+						"父功能ID应该为“存在的且其父ID为0”的记录对应的ID数字！");
+				// 更新页面数据
+				refreshData();
+				
+				return INPUT;
+			}
+			Function function = functionService.loadFunction(parentFunctionId);
+			if (null == function || 0 != function.getFunctionParent()) {
+				addFieldError("functionParent",
+						"父功能ID应该为“存在的且其父ID为0”的记录对应的ID数字！");
+				// 更新页面数据
+				refreshData();
+				
+				return INPUT;
+			}
+		}
+		
+		return INPUT;
+	}
+
+	/**
+	 * 清空输入框数据
+	 */
+	private void clean() {
+		this.setFunctionId("");
+		this.setFunctionName("");
+		this.setFunctionDesc("");
+		this.setFunctionPath("");
+		this.setFunctionParent("");
+		this.setFunctionOrder("");
+
 	}
 
 	public String save() {
@@ -93,8 +148,8 @@ public class FunctionOpAction extends BaseAction {
 			function.setFunctionPath(functionPath);
 		}
 
-		if (null != functionParent && 0 != functionParent) {
-			function.setFunctionParent(functionParent);
+		if (null != functionParent && !"".equals(functionParent.trim())) {
+			function.setFunctionParent(Integer.parseInt(functionParent));
 		}
 
 		if (null != functionOrder && !"".equals(functionOrder.trim())) {
@@ -104,6 +159,8 @@ public class FunctionOpAction extends BaseAction {
 		functionService.saveFunction(function);
 
 		this.setMessage("新增成功！");
+		// 清空输入框数据
+		clean();
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
@@ -128,8 +185,12 @@ public class FunctionOpAction extends BaseAction {
 			function.setFunctionPath(functionPath);
 		}
 
-		if (0 != functionParent) {
-			function.setFunctionParent(functionParent);
+		if (null != functionParent) {
+			try {
+				function.setFunctionParent(Integer.parseInt(functionParent));
+			} catch (NumberFormatException e) {
+
+			}
 		}
 
 		if (null != functionOrder && !"".equals(functionOrder.trim())) {
@@ -140,13 +201,12 @@ public class FunctionOpAction extends BaseAction {
 
 		this.setMessage("修改成功！");
 
-		this.setFunctionId("");
+		// 清空输入框数据
+		clean();
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
 	}
-
-
 
 	public List<RoleLinkVo> getMenulist() {
 		return menulist;
@@ -228,11 +288,11 @@ public class FunctionOpAction extends BaseAction {
 		this.functionPath = functionPath;
 	}
 
-	public Integer getFunctionParent() {
+	public String getFunctionParent() {
 		return functionParent;
 	}
 
-	public void setFunctionParent(Integer functionParent) {
+	public void setFunctionParent(String functionParent) {
 		this.functionParent = functionParent;
 	}
 

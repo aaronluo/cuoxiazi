@@ -15,7 +15,8 @@ import com.innovaee.eorder.module.service.BaseService;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
 
-public class AuthenticationService extends BaseService implements UserDetailsService {
+public class AuthenticationService extends BaseService implements
+		UserDetailsService {
 
 	@Resource
 	private UserDao userDao;
@@ -31,18 +32,22 @@ public class AuthenticationService extends BaseService implements UserDetailsSer
 		return null != userDao.getUserByPassword(username, password);
 	}
 
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException, DataAccessException {
 
-		org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider n = null;
+		// org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider
+		// n = null;
 
-		 
-		
-		List<UserFunctionVo> userFunctions = securityMetadataSourceService.getUserFunctions(username);
+		List<UserFunctionVo> userFunctions = securityMetadataSourceService
+				.getUserFunctions(username);
 		if (null == userFunctions || 0 == userFunctions.size()) {
-			throw new UsernameNotFoundException("user[" + username + "] is not found!");
+			throw new UsernameNotFoundException("user[" + username
+					+ "] is not found!");
 		}
 		UserDetailsVo userDetailsVo = new UserDetailsVo();
 		userDetailsVo.setUserFunctions(userFunctions);
+		// TODO 
+		
 		return userDetailsVo;
 	}
 }

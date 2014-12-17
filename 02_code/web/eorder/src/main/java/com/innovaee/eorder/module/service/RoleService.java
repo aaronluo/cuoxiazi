@@ -52,6 +52,7 @@ public class RoleService extends BaseService {
 					.getRoleId());
 			functionNames = new ArrayList<String>();
 			for (RoleFunction roleFunction : roleFunctions) {
+				// 查找功能（权限）名称
 				function = functionDao.loadFunction(roleFunction
 						.getFunctionId());
 				if (0 != function.getFunctionParent()) {

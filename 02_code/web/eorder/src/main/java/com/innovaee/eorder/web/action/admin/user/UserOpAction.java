@@ -102,6 +102,16 @@ public class UserOpAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * 清空输入框数据
+	 */
+	private void clean() {
+		this.setUserId("");
+		this.setUsername("");
+		this.setPassword("");
+		this.setCellphone("");
+	}
+
 	// 增加一个save方法，对应一个处理逻辑
 	public String save() {
 		String md5Password = "";
@@ -140,12 +150,11 @@ public class UserOpAction extends BaseAction {
 		// 默认给用户添加普通用户的角色
 		userRoleService.saveUserRole(user, new Role(Constants.DEFAULT_ROLE));
 
-		setSessionMessage("message", "用户新增成功！");
-		
 		this.setMessage("新增成功！");
-		
-		this.setUserId("");
-		
+
+		// 清空输入框数据
+		clean();
+
 		// 更新页面数据
 		refreshData();
 
@@ -186,12 +195,13 @@ public class UserOpAction extends BaseAction {
 
 		// 更新角色信息
 		userRoleService.updateUserRole(Integer.parseInt(userId), myRolesArray);
-		userId = "";
-		username = "";
-		password = "";
-		cellphone = "";
 
 		setSessionMessage("message", "用户信息修改成功！");
+
+		this.setMessage("修改成功");
+		// 清空输入框数据
+		clean();
+		
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
@@ -204,19 +214,13 @@ public class UserOpAction extends BaseAction {
 		this.setMessage(message);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void refreshData() {
-		// HttpServletRequest request = ServletActionContext.getRequest();
-		// HttpSession session = request.getSession();
-		// String message = (String) session.getAttribute("message");
-		// String username = (String) session.getAttribute("username");
-		// String password = (String) session.getAttribute("password");
-		// String cellphone = (String) session.getAttribute("cellphone");
-		// this.setMessage(message);
-		// this.setUsername(username);
-		// this.setPassword(password);
-		// this.setCellphone(cellphone);
-
-		this.setMenulist(MenuUtil.getRoleLinkVOList());
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
 		uservos = userService.findAllUserVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
