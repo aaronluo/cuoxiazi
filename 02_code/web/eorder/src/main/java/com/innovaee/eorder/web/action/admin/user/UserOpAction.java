@@ -119,7 +119,6 @@ public class UserOpAction extends BaseAction {
 		if (null != username && !"".equals(username.trim())) {
 			user.setUsername(username);
 		} else {
-			setSessionMessage("message", "用户名不能为空！");
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -128,7 +127,6 @@ public class UserOpAction extends BaseAction {
 		if (null != password && !"".equals(password.trim())) {
 			md5Password = Md5Util.getMD5Str(password + "{" + username + "}");
 		} else {
-			setSessionMessage("message", "密码不能为空！");
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -136,7 +134,6 @@ public class UserOpAction extends BaseAction {
 		if (null != cellphone && !"".equals(cellphone.trim())) {
 			user.setCellphone(cellphone);
 		} else {
-			setSessionMessage("message", "手机号码不能为空！");
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -162,10 +159,6 @@ public class UserOpAction extends BaseAction {
 	}
 
 	public String update() {
-		setSessionMessage("username", username);
-		setSessionMessage("password", password);
-		setSessionMessage("cellphone", cellphone);
-
 		User user = null;
 		if (null != userId) {
 			user = userService.loadUser(Integer.parseInt(userId));
@@ -196,8 +189,6 @@ public class UserOpAction extends BaseAction {
 		// 更新角色信息
 		userRoleService.updateUserRole(Integer.parseInt(userId), myRolesArray);
 
-		setSessionMessage("message", "用户信息修改成功！");
-
 		this.setMessage("修改成功");
 		// 清空输入框数据
 		clean();
@@ -205,13 +196,6 @@ public class UserOpAction extends BaseAction {
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
-	}
-
-	public void setSessionMessage(String key, String message) {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session = request.getSession();
-		session.setAttribute(key, message);
-		this.setMessage(message);
 	}
 
 	@SuppressWarnings("unchecked")
