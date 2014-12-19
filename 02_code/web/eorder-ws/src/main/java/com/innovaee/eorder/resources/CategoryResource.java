@@ -1,5 +1,6 @@
 package com.innovaee.eorder.resources;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.innovaee.eorder.bean.Category;
 import com.innovaee.eorder.dao.impl.CategoryDaoImpl;
+import com.innovaee.eorder.vo.CategoryVO;
 
 /**
  * 用户资源
@@ -80,11 +84,25 @@ public class CategoryResource {
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Map<String, List<Category>> getAllCategorys() {
+	public Map<String, List<CategoryVO>> getAllCategorys() {
+		List<CategoryVO> categorieVOs = new ArrayList<CategoryVO>();
 		List<Category> categories = new ArrayList<Category>();
 		categories = categoryDaoImpl.getAllCategorys();
-		Map<String, List<Category>> result = new HashMap<String, List<Category>>();
-		result.put("categories", categories);
+		
+		for (Category Category : categories) {
+			CategoryVO categoryVO = new CategoryVO();
+			try {
+				BeanUtils.copyProperties(categoryVO, Category);
+				categorieVOs.add(categoryVO);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+
+		Map<String, List<CategoryVO>> result = new HashMap<String, List<CategoryVO>>();
+		result.put("categories", categorieVOs);
 		return result;
 	}
 

@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.innovaee.eorder.util.TimestampAdapter;
 
 @XmlRootElement
 public class OrderVO implements Serializable {
@@ -43,7 +40,6 @@ public class OrderVO implements Serializable {
 		return createAt;
 	}
 
-	@XmlJavaTypeAdapter(TimestampAdapter.class)
 	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
 	}

@@ -183,24 +183,6 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>toplink.essentials</groupId>
-			<artifactId>toplink-essentials</artifactId>
-			<version>${toplink.essentials.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>toplink.essentials</groupId>
-			<artifactId>toplink-essentials-agent</artifactId>
-			<version>${toplink.essentials.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>stax</groupId>
-			<artifactId>stax</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-
 		<!-- mysql connector -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -234,29 +216,38 @@
 		<finalName>eorder-ws</finalName>
 		<resources>
 			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
 				<directory>src/main/java</directory>
 				<includes>
-					<include>**</include>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
 				</includes>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
-					<contextPath>/</contextPath>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>9000</port>
-						</connector>
-					</connectors>
+					<encoding>${build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -268,13 +259,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.10</version>
 			</plugin>
 		</plugins>
 	</build>
