@@ -80,7 +80,7 @@ public class RoleOpAction extends BaseAction {
 		}
 
 	}
-	
+
 	/**
 	 * 清空输入框数据
 	 */
@@ -90,14 +90,25 @@ public class RoleOpAction extends BaseAction {
 		this.setRoleDesc("");
 	}
 
-
 	public String save() {
 		Role role = new Role();
 		if (null != roleName && !"".equals(roleName.trim())) {
 			role.setRoleName(roleName);
+		} else {
+			addFieldError("roleName", "角色名称不能为空！");
+			// 更新页面数据
+			refreshData();
+
+			return INPUT;
 		}
 		if (null != roleDesc && !"".equals(roleDesc.trim())) {
 			role.setRoleDesc(roleDesc);
+		} else {
+			addFieldError("roleDesc", "角色描述不能为空！");
+			// 更新页面数据
+			refreshData();
+
+			return INPUT;
 		}
 
 		role.setRoleStatus(true);
@@ -108,7 +119,7 @@ public class RoleOpAction extends BaseAction {
 
 		// 清空输入框数据
 		clean();
-		
+
 		refreshData();
 		return SUCCESS;
 	}
@@ -121,9 +132,21 @@ public class RoleOpAction extends BaseAction {
 
 		if (null != roleName && !"".equals(roleName.trim())) {
 			role.setRoleName(roleName);
+		} else {
+			addFieldError("roleName", "角色名称不能为空！");
+			// 更新页面数据
+			refreshData();
+
+			return INPUT;
 		}
 		if (null != roleDesc && !"".equals(roleDesc.trim())) {
 			role.setRoleDesc(roleDesc);
+		} else {
+			addFieldError("roleDesc", "角色描述不能为空！");
+			// 更新页面数据
+			refreshData();
+
+			return INPUT;
 		}
 		roleService.updateRole(role);
 

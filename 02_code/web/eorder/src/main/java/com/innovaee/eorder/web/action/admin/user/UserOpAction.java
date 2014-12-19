@@ -119,6 +119,8 @@ public class UserOpAction extends BaseAction {
 		if (null != username && !"".equals(username.trim())) {
 			user.setUsername(username);
 		} else {
+			addFieldError("username", "用户名不能为空！");
+
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -127,6 +129,7 @@ public class UserOpAction extends BaseAction {
 		if (null != password && !"".equals(password.trim())) {
 			md5Password = Md5Util.getMD5Str(password + "{" + username + "}");
 		} else {
+			addFieldError("password", "密码不能为空！");
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -134,6 +137,7 @@ public class UserOpAction extends BaseAction {
 		if (null != cellphone && !"".equals(cellphone.trim())) {
 			user.setCellphone(cellphone);
 		} else {
+			addFieldError("cellphone", "手机号码不能为空！");
 			// 更新页面数据
 			refreshData();
 			return INPUT;
@@ -166,7 +170,14 @@ public class UserOpAction extends BaseAction {
 
 		if (null != username && !"".equals(username.trim())) {
 			user.setUsername(username);
+		} else {
+			addFieldError("username", "用户名不能为空！");
+
+			// 更新页面数据
+			refreshData();
+			return INPUT;
 		}
+
 		if (null != password && !"".equals(password.trim())) {
 			// 由于数据库存储的是MD5加密后的密码，所以这里要处理一下
 			// 首先判断是否修改过密码，及比对一下前台传过来的密码是否和数据库中的一致，
@@ -180,9 +191,20 @@ public class UserOpAction extends BaseAction {
 						+ username + "}");
 				user.setPassword(md5Password);
 			}
+		} else {
+			addFieldError("password", "密码不能为空！");
+			// 更新页面数据
+			refreshData();
+			return INPUT;
 		}
+
 		if (null != cellphone && !"".equals(cellphone.trim())) {
 			user.setCellphone(cellphone);
+		} else {
+			addFieldError("cellphone", "手机号码不能为空！");
+			// 更新页面数据
+			refreshData();
+			return INPUT;
 		}
 		userService.updateUser(user);
 
@@ -192,7 +214,7 @@ public class UserOpAction extends BaseAction {
 		this.setMessage("修改成功");
 		// 清空输入框数据
 		clean();
-		
+
 		// 更新页面数据
 		refreshData();
 		return SUCCESS;
@@ -203,7 +225,8 @@ public class UserOpAction extends BaseAction {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
 		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
-		List<RoleLinkVo> sessionMenulist= (List<RoleLinkVo>)session.getAttribute("menulist");
+		List<RoleLinkVo> sessionMenulist = (List<RoleLinkVo>) session
+				.getAttribute("menulist");
 		this.setMenulist(sessionMenulist);
 		uservos = userService.findAllUserVOs();
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
