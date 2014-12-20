@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">eorder</string>
-    <string name="hello_world">Hello world!</string>
+		
+    <string name="app_name">eOrder</string>
     <string name="action_title">订餐系统</string>
     <string name="action_settings">设置</string>
     <string name="action_fresh">刷新</string>
     <string name="action_about">关于</string>
+    <string name="action_refresh">重试</string>
+    
 
     <!-- Tab -->
     <string name="tab_name_goodsshop">菜单浏览</string>
@@ -41,7 +42,9 @@
     <!-- toast -->
     <string name="toast_please_input_userid">请输入会员号！</string>
     <string name="toast_please_order_first">请先点菜！</string>
-
+    <string name="toast_network_status_fail">网络异常，请检查网络！</string>
+    <string name="toast_get_data_fail">获取数据失败，请检查网络！</string>
+	
     <!-- Button -->
     <string name="main_griditem_btn_order">下单</string>
     <string name="main_griditem_text_name">菜品名</string>

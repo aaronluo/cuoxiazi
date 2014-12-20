@@ -29,17 +29,18 @@ import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;  				
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 			
-@SuppressWarnings("deprecation")
 public class MainViewActivity extends Activity {
 	//Log输出Tag
 	private final static String TAG = "MainViewActivity";
@@ -51,7 +52,8 @@ public class MainViewActivity extends Activity {
 	public final static int MSG_ORDER = 20004;
 	public final static int MSG_DELALL = 20005;
 	public final static int MSG_UPDATE_COUNT = 20006;
-					
+	public final static int MSG_UPDATE_FAILUI = 20007;
+						
 	//自定义ActionBar
 	private ActionBar actionBar;
 
@@ -81,7 +83,13 @@ public class MainViewActivity extends Activity {
 	
 	//显示工具类
 	private DisplayMetrics displayMetrics;	
-	 
+	
+	//显示失败刷新文字和按钮
+	private RelativeLayout failLayout;
+		
+	//失败刷新按钮
+	private Button refreshBtn;
+	 	
 	//菜品显示GridView
 	private GridView gridView;
 	
@@ -116,6 +124,7 @@ public class MainViewActivity extends Activity {
 			case MSG_UPDATE: {
 				Log.d(TAG, "MSG_UPDATE!!!");
 				progressBar.setVisibility(View.GONE);
+				failLayout.setVisibility(View.GONE);
 				gridView.setVisibility(View.VISIBLE);												
 				goodsListData = (List<GoodsDataBean>) msg.obj;
 				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
@@ -137,11 +146,14 @@ public class MainViewActivity extends Activity {
 				break;
 				
 			case MSG_UPDATE_POPMENU:
-				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");			
+				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");
+				progressBar.setVisibility(View.GONE);	
+				failLayout.setVisibility(View.GONE);
+				gridView.setVisibility(View.VISIBLE);	
 				feedTypeList = changeCategoryToFeedType(categoryListData);				
 				feedTypeAdapter = new FeedTypeAdapter(MainViewActivity.this, feedTypeList);
 				popupMenuList.setAdapter(feedTypeAdapter);
-				changeFeedType(feedTypeList.get(0));				
+				changeFeedType(feedTypeList.get(0));					
 				break;																		
 					
 			case MSG_ORDER:
@@ -164,14 +176,21 @@ public class MainViewActivity extends Activity {
 					selectOrderGoods = null;
 				}	
 				break;
-				
+						
 			case MSG_UPDATE_COUNT:
 				Log.d(TAG, "MSG_UPDATE_COUNT!!!");	
 				selectOrderGoods = (List<GoodsDataBean>) msg.obj;
 				int count = getMyOrderSelectCount();
 				updateMyOrderCount(count);							
 				break;
-							
+				
+			case MSG_UPDATE_FAILUI:
+				Log.d(TAG, "MSG_UPDATE_FAILUI!!!");	
+				progressBar.setVisibility(View.GONE);
+				failLayout.setVisibility(View.VISIBLE);
+				gridView.setVisibility(View.GONE);		
+				break;
+					
 			default:
 				break;
 			}
@@ -260,6 +279,10 @@ public class MainViewActivity extends Activity {
 		
 		gridView = (GridView) findViewById(R.id.goods_gridview);
 			
+		failLayout =  (RelativeLayout) findViewById(R.id.fail_layout);
+		
+		refreshBtn =  (Button) findViewById(R.id.refresh_btn);
+									
 		progressBar = (ProgressBar)findViewById(R.id.loading_data_progressbar);
 			
 		receiver = new BroadcastReceiver() {
@@ -300,6 +323,14 @@ public class MainViewActivity extends Activity {
 		actionBar.setDisplayShowHomeEnabled(true);
 			 									
 		initActionBarCustomView();
+		
+		refreshBtn.setOnClickListener(new View.OnClickListener()
+		{	
+			public void onClick(View paramAnonymousView)
+			{	 
+				refreshActivity();
+			}																
+		});				
 		
 		goodsAdapter = new GoodsAdapter(this, goodsListData, handler);
 			
@@ -452,7 +483,10 @@ public class MainViewActivity extends Activity {
 	    	} else {
 	    		this.feedTypeName.setText(lastFeedType.getTypeName());
 	    	}	
-	    														
+	    					
+	    	progressBar.setVisibility(View.VISIBLE);
+			failLayout.setVisibility(View.GONE);
+			gridView.setVisibility(View.GONE);		
 	    	loadCategoryData(lastFeedType.getCategoryId());
 	    }					    		
 	}												
@@ -577,11 +611,9 @@ public class MainViewActivity extends Activity {
 		Message msg = Message.obtain();
 		msg.what = MSG_UPDATE;
 		msg.obj = (Object) goodsListData;
-		handler.sendMessage(msg);
-		
-		
+		handler.sendMessage(msg);		
 	}
-
+	
 	/**
 	 * 更新Popmenu ui
 	 */
@@ -591,7 +623,16 @@ public class MainViewActivity extends Activity {
 		msg.obj = (Object) categoryListData;
 		handler.sendMessage(msg);
 	}	
-						
+					
+	/**
+	 * 更新fail ui
+	 */
+	private void updateFailUi() {
+		Message msg = Message.obtain();
+		msg.what = MSG_UPDATE_FAILUI;	
+		handler.sendMessage(msg);
+	}	
+
 	/**	
 	 * 加载某个分类菜品列表数据
 	 */								
@@ -624,7 +665,8 @@ public class MainViewActivity extends Activity {
 						public void onRequestFailed() {
 							// TODO
 							Log.d("MainViewActivity:", "onRequestFailed!");
-						}
+							updateFailUi();
+						}	
 
 						@Override
 						public void onRequestSuccess(GoodsDataBean data) {
@@ -643,9 +685,7 @@ public class MainViewActivity extends Activity {
 	 * 加载所有分类列表信息
 	 */	
 	private void loadFeedTypeListData() {		
-		Log.d(TAG, "loadFeedTypeListData()");
-		progressBar.setVisibility(View.VISIBLE);
-					
+		Log.d(TAG, "loadFeedTypeListData()");							
 		new Thread() {
 			@Override
 			public void run(){
@@ -675,7 +715,8 @@ public class MainViewActivity extends Activity {
 							public void onRequestFailed() {
 								// TODO
 								Log.d("MainViewActivity:", "onRequestFailed!");
-							}
+								updateFailUi();
+							}	
 
 							@Override
 							public void onRequestSuccess(CategoryDataBean data) {
@@ -742,16 +783,25 @@ public class MainViewActivity extends Activity {
 			
 	/**
 	 * 重新刷新界面
-	 */		
+	 */				
 	private void refreshActivity() {
-		loadFeedTypeListData();
+		progressBar.setVisibility(View.VISIBLE);
+		failLayout.setVisibility(View.GONE);
+		gridView.setVisibility(View.GONE);	
+									
+		//如果分类为null或者size为0说明分类加载也失败
+		if(feedTypeList == null || feedTypeList.size() == 0) {
+			loadFeedTypeListData();
+		} else {
+			loadCategoryData(lastFeedType.getCategoryId());
+		}	
 	}	
-	
+		
 	//***********************************************************************************************
 	//测试数据，调试使用
 	/**
 	 * 初始化测试数据
-	 */
+	 */			
 	private void initPopMenuData() {
 		feedTypeList = new ArrayList<FeedType>();
 			
@@ -849,6 +899,7 @@ public class MainViewActivity extends Activity {
 					return;
 			}	
 		}
-	}	
+	}
+		
 	
 }
