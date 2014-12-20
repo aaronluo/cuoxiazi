@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserDaoTest.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.dao;
 
 import org.junit.After;
@@ -10,6 +16,12 @@ import org.junit.Test;
 import com.innovaee.eorder.bean.User;
 import com.innovaee.eorder.dao.impl.UserDaoImpl;
 
+/**   
+* @Title: UserDaoTest 
+* @Description: 用户数据访问对象接口测试类
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserDaoTest {
 
 	private UserDao userDao;

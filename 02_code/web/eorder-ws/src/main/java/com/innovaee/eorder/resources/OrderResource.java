@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: OrderResource.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.resources;
 
 import java.lang.reflect.InvocationTargetException;
@@ -6,11 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,8 +27,10 @@ import com.innovaee.eorder.dao.impl.UserDaoImpl;
 import com.innovaee.eorder.vo.OrderVO;
 
 /**
- * 订单资源
- * 
+ * @Title: OrderResource
+ * @Description: 订单资源
+ * @author coderdream@gmail.com
+ * @version V1.0
  */
 @Path("/orders")
 public class OrderResource {
@@ -35,67 +39,12 @@ public class OrderResource {
 	private UserDaoImpl userDaoImpl = new UserDaoImpl();
 
 	/**
-	 * 增加
+	 * 根据手机号码查询该用户的订单信息
 	 * 
-	 * @param order
+	 * @param cellphone
+	 *            手机号码
+	 * @return 订单值对象
 	 */
-	@POST
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public void createOrder(Order order) {
-		orderDaoImpl.createOrder(order);
-	}
-
-	/**
-	 * 删除
-	 * 
-	 * @param id
-	 */
-	@DELETE
-	@Path("{id}")
-	public void deleteOrder(@PathParam("id") String id) {
-		orderDaoImpl.deleteOrderById(id);
-	}
-
-	/**
-	 * 修改
-	 * 
-	 * @param order
-	 */
-	@PUT
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public void updateOrder(Order order) {
-		orderDaoImpl.updateOrder(order);
-	}
-
-	/**
-	 * 根据id查询
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@GET
-	@Path("{id}")
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Order getOrderById(@PathParam("id") String id) {
-		Order u = orderDaoImpl.getOrderById(id);
-		return u;
-	}
-
-	/**
-	 * 查询所有
-	 * 
-	 * @return
-	 */
-	@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Map<String, List<Order>> getAllOrders() {
-		List<Order> orders = new ArrayList<Order>();
-		orders = orderDaoImpl.getAllOrders();
-		Map<String, List<Order>> result = new HashMap<String, List<Order>>();
-		result.put("orders", orders);
-		return result;
-	}
-
 	@GET
 	@Path("/myorders/{cellphone}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

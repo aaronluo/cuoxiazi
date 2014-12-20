@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: Category.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.bean;
 
 import java.io.Serializable;
@@ -14,6 +20,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.innovaee.eorder.util.TimestampAdapter;
 
+/**   
+* @Title: Category 
+* @Description: 菜品分类的实体
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 @Entity
 @Table(name = "t_category")
 @XmlRootElement

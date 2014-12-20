@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: Order.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.bean;
 
 import java.io.Serializable;
@@ -11,6 +17,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**   
+* @Title: Order 
+* @Description: 订单实体
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 @Entity
 @Table(name = "t_order")
 @XmlRootElement
