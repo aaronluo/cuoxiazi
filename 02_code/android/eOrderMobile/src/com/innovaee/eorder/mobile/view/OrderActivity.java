@@ -24,10 +24,12 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -170,13 +172,13 @@ public class OrderActivity extends Activity {
 		initData();		
 	}
 		
-	
+			
 	/**
 	 * 初始化控件
 	 */
 	private void initView() {
-		listView = (ListView) findViewById(R.id.myorder_listView);
-		
+		listView = (ListView) findViewById(R.id.order_listView);
+			
 		actionBar = getActionBar(); 
 		
 		inputTableId = (EditText) findViewById(R.id.table_input_id);
@@ -220,7 +222,8 @@ public class OrderActivity extends Activity {
 		orderAdapter = new OrderAdapter(OrderActivity.this, selectOrderGoods, handler);//对应R中的id 
 			
 		listView.setAdapter(orderAdapter);
-		
+		setListViewHeightBasedOnChildren(listView);		
+			
 		qrcodeBtn.setOnClickListener(new View.OnClickListener()
 		{
 			public void onClick(View paramAnonymousView)
@@ -441,6 +444,30 @@ public class OrderActivity extends Activity {
 			return false; 
 		} 
 		return true; 
+	}
+		
+	/**
+	 * 重新设置listview的高
+	 * @param listView
+	*/
+	private void setListViewHeightBasedOnChildren(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter();
+		
+		if (listAdapter == null) {
+			return;
+		}
+
+		int totalHeight = 0;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+		
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
 	}
 	
 	/**

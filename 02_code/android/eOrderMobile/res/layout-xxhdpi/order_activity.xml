@@ -17,7 +17,7 @@
             android:orientation="horizontal" >
 
             <ListView
-                android:id="@+id/myorder_listView"
+                android:id="@+id/order_listView"
                 android:layout_width="match_parent"
                 android:layout_height="236dp"
                 android:divider="#d9d9d9"

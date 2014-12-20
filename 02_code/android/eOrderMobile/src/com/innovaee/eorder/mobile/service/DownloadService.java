@@ -11,6 +11,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,6 +112,16 @@ public class DownloadService implements GoodService, CategoryService {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
 
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
+	        
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
 
@@ -120,11 +134,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseGoodsDataJson(json);
 					callback.onSuccess(beans);
-				}
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -166,6 +185,16 @@ public class DownloadService implements GoodService, CategoryService {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
 
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
+
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
 
@@ -178,11 +207,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseUserDiscountDataJson(json);
 					callback.onSuccess(beans);
-				}	
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -222,6 +256,16 @@ public class DownloadService implements GoodService, CategoryService {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
 
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
+
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
 
@@ -234,11 +278,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					T bean = (T) parseGoodsDetailJson(json);
 					callback.onSuccessT(bean);
-				}
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -271,7 +320,7 @@ public class DownloadService implements GoodService, CategoryService {
 		// 创建请求HttpClient客户端
 		Log.d(TAG, "getAllCategory");	
 		HttpClient httpClient = new DefaultHttpClient();
-
+					
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_CATEGORY;
 		Log.d(TAG, "url=" + url);
@@ -279,6 +328,16 @@ public class DownloadService implements GoodService, CategoryService {
 		try {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
+			
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
 
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
@@ -292,11 +351,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseCategoryDataJson(json);
 					callback.onSuccess(beans);
+				} else {
+					callback.onFailed("entityIsNull");
 				}				
-			}
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -340,6 +404,16 @@ public class DownloadService implements GoodService, CategoryService {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
 
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
+
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
 
@@ -352,11 +426,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
 					callback.onSuccess(beans);	
-				}
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -401,6 +480,16 @@ public class DownloadService implements GoodService, CategoryService {
 			// 创建请求的对象
 			HttpGet get = new HttpGet(new URI(url));
 
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        get.setParams(params);
+
 			// 发送get请求
 			HttpResponse httpResponse = httpClient.execute(get);
 
@@ -413,11 +502,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
-				}
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}
 
 	/**
@@ -460,7 +554,17 @@ public class DownloadService implements GoodService, CategoryService {
 		try {	
 			// 创建请求的对象	
 			HttpPost request = new HttpPost(new URI(url)); 
-					
+				
+			HttpParams params = new BasicHttpParams(); 
+			
+			//设置连接超时
+	        HttpConnectionParams.setConnectionTimeout(params, 20000);
+	        
+	        //设置请求超时
+	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
+	        	
+	        request.setParams(params);
+
 			// 先封装一个 JSON 对象 
 			JSONObject object = writeJSON(tableInfo, dataBeanList);
 			
@@ -480,11 +584,16 @@ public class DownloadService implements GoodService, CategoryService {
 					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
-				}		
-			}
+				} else {
+					callback.onFailed("entityIsNull");
+				}				
+			} else {	
+				callback.onFailed("getStatusCodeError");
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+			callback.onFailed("ExceptionError");
+		}	
 	}	
 			
 	/**

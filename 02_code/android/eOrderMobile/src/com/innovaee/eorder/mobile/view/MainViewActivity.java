@@ -355,6 +355,7 @@ public class MainViewActivity extends Activity {
 					
 		initFeedTypePopup();
 			
+		progressBar.setVisibility(View.VISIBLE);
 		loadFeedTypeListData();
 	}																
 		

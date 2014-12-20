@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="80dp"
     android:layout_gravity="center"
-    android:background="#ffeeeeee" >
-
+    android:descendantFocusability="blocksDescendants"
+    android:background="#ffeeeeee">
     <RelativeLayout
         android:id="@+id/goods_layout_text"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_toRightOf="@id/goods_image" >
-
+        android:layout_height="80dp">
+		
         <RelativeLayout
             android:id="@+id/order_layout_1"
             android:layout_width="match_parent"
@@ -66,4 +64,4 @@
         </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

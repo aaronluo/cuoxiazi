@@ -70,7 +70,7 @@ public class DataManager {
 			@Override
 			public void onFailed(String error) {
 				listener.onRequestFailed();
-			}
+			}	
 
 			@Override
 			public void onSuccessT(CategoryDataBean response) {
