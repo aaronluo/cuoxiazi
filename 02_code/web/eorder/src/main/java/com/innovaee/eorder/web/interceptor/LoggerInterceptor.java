@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: LoggerInterceptor.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.web.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +15,12 @@ import com.innovaee.eorder.module.utils.log.LoggerUtility;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 
+/**   
+* @Title: LoggerInterceptor 
+* @Description: 日志拦截器 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class LoggerInterceptor implements Interceptor {
 
 	private static final long serialVersionUID = 1L;

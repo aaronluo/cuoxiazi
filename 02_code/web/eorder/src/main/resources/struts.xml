@@ -38,20 +38,8 @@
 		</global-exception-mappings>
 	</package>
 
-	<package name="default" extends="struts-default">
-		<result-types>
-			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
-		<action name="*Link" method="{1}" class="com.innovaee.eorder.web.action.LinkAction">
-			<result name="welcome" type="tiles">welcome</result>
-			<result name="friends" type="tiles">friends</result>
-			<result name="office" type="tiles">office</result>
-		</action>
-	</package>
-
 	<!-- Add packages here -->
 	<include file="com/innovaee/eorder/web/action/login/struts.xml" />
-
 	<include file="com/innovaee/eorder/web/action/admin/function/struts.xml" />
 	<include file="com/innovaee/eorder/web/action/admin/user/struts.xml" />
 	<include file="com/innovaee/eorder/web/action/admin/role/struts.xml" />

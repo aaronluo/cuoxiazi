@@ -1,7 +1,19 @@
+/***********************************************
+ * Filename		: UserVO.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.vo;
 
 import java.sql.Timestamp;
 
+/**   
+* @Title: UserVO 
+* @Description: 用户值对象
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserVO extends BaseVo {
 
 	private Integer userId;

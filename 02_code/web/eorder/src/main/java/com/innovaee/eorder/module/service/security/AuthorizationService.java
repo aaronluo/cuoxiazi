@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: AuthorizationService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service.security;
 
 import java.util.Collection;
@@ -16,6 +22,12 @@ import org.springframework.security.web.FilterInvocation;
 import com.innovaee.eorder.module.service.BaseService;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 
+/**   
+* @Title: AuthorizationService 
+* @Description: 授权服务 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class AuthorizationService extends BaseService implements AccessDecisionManager {
 
 	private static final Logger logger = Logger.getLogger(AuthorizationService.class);

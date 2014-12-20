@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: FunctionService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service;
 
 import java.util.ArrayList;
@@ -11,6 +17,12 @@ import com.innovaee.eorder.module.dao.FunctionDao;
 import com.innovaee.eorder.module.entity.Function;
 import com.innovaee.eorder.module.vo.FunctionVO;
 
+/**   
+* @Title: FunctionService 
+* @Description: 功能服务
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class FunctionService extends BaseService {
 
 	@Resource

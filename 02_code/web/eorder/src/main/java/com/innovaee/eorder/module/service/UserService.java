@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service;
 
 import java.util.ArrayList;
@@ -17,6 +23,12 @@ import com.innovaee.eorder.module.entity.UserLevel;
 import com.innovaee.eorder.module.entity.UserRole;
 import com.innovaee.eorder.module.vo.UserVO;
 
+/**   
+* @Title: UserService 
+* @Description: 用户服务 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserService extends BaseService {
 
 	@Resource

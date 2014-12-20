@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserOpAction.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.web.action.admin.user;
 
 import java.util.ArrayList;
@@ -22,6 +28,12 @@ import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserVO;
 import com.innovaee.eorder.web.action.BaseAction;
 
+/**   
+* @Title: UserOpAction 
+* @Description: 用户操作Action（新增和修改）
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserOpAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;

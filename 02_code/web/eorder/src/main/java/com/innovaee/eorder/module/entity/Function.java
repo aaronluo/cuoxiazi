@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: Function.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.entity;
 
 import java.io.Serializable;
@@ -10,6 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**   
+* @Title: Function 
+* @Description: 功能实体
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 @Entity
 @Table(name = "t_function")
 public class Function extends BaseEntity {

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: RoleOpAction.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.web.action.admin.role;
 
 import java.util.ArrayList;
@@ -18,6 +24,12 @@ import com.innovaee.eorder.module.vo.RoleVO;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.web.action.BaseAction;
 
+/**   
+* @Title: RoleOpAction 
+* @Description: 角色操作Action（增加和修改）
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class RoleOpAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;

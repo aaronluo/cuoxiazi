@@ -1,9 +1,21 @@
+/***********************************************
+ * Filename		: UserFunctionVo.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.vo;
 
 import com.innovaee.eorder.module.entity.Function;
 import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.module.entity.User;
 
+/**   
+* @Title: UserFunctionVo 
+* @Description: 用户功能值对象 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserFunctionVo extends BaseVo {
 
 	private static final long serialVersionUID = 1L;

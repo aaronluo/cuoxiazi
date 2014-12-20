@@ -1,9 +1,21 @@
+/***********************************************
+ * Filename		: UserLevelDao.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.dao;
 
 import java.util.List;
 
 import com.innovaee.eorder.module.entity.UserRole;
 
+/**   
+* @Title: UserRoleDao 
+* @Description: 用户角色数据访问对象
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserRoleDao extends BaseDao {
 
 	@SuppressWarnings("rawtypes")

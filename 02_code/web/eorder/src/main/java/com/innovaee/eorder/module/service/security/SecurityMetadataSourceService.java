@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: SecurityMetadataSourceService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service.security;
 
 import java.util.ArrayList;
@@ -28,6 +34,12 @@ import com.innovaee.eorder.module.entity.UserRole;
 import com.innovaee.eorder.module.service.BaseService;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
 
+/**   
+* @Title: SecurityMetadataSourceService 
+* @Description: 安全元数据源服务 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class SecurityMetadataSourceService extends BaseService implements
 		FilterInvocationSecurityMetadataSource {
 

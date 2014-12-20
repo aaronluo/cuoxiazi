@@ -1,5 +1,17 @@
+/***********************************************
+ * Filename		: FunctionVO.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.vo;
 
+/**   
+* @Title: FunctionVO 
+* @Description: 功能值对象
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class FunctionVO extends BaseVo {
 
 	private Integer functionId;

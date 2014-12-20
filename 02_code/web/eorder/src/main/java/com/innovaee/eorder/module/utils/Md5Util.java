@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: Md5Util.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.utils;
 
 import java.io.UnsupportedEncodingException;
@@ -6,6 +12,12 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.log4j.Logger;
 
+/**   
+* @Title: Md5Util 
+* @Description: MD5工具类 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class Md5Util {
 	private static final Logger logger = Logger.getLogger(Md5Util.class);
 

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: RoleFunctionService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service;
 
 import java.sql.Timestamp;
@@ -17,6 +23,12 @@ import com.innovaee.eorder.module.entity.RoleFunction;
 import com.innovaee.eorder.module.utils.Constants;
 import com.innovaee.eorder.module.utils.StringUtil;
 
+/**   
+* @Title: RoleFunctionService 
+* @Description: 角色功能服务 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class RoleFunctionService extends BaseService {
 
 	@Resource

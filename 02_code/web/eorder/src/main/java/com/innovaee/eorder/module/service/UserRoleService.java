@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserRoleService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service;
 
 import java.sql.Timestamp;
@@ -17,6 +23,12 @@ import com.innovaee.eorder.module.entity.UserRole;
 import com.innovaee.eorder.module.utils.Constants;
 import com.innovaee.eorder.module.utils.StringUtil;
 
+/**   
+* @Title: UserRoleService 
+* @Description: 用户角色服务
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserRoleService extends BaseService {
 
 	@Resource

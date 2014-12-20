@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: LoggerUtility.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.utils.log;
 
 import java.util.Date;
@@ -6,8 +12,12 @@ import java.util.Stack;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
-//import org.junit.Assert;
-
+/**   
+* @Title: LoggerUtility 
+* @Description: 日志工具 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class LoggerUtility {
 	private static Logger logger = Logger.getLogger(LoggerUtility.class);
 	private static final String MDCKey = "MDCKey";
@@ -31,7 +41,8 @@ public class LoggerUtility {
 
 	public void startBizProcess(String bizName, String MDCValue) {
 		@SuppressWarnings("unchecked")
-		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC.get(LoggerUtility.class.getSimpleName());
+		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
+				.get(LoggerUtility.class.getSimpleName());
 		// Assert.assertNull(invokeInfoStack);
 
 		invokeInfoStack = new Stack<InvokeInfo>();
@@ -45,8 +56,10 @@ public class LoggerUtility {
 		MDC.put(MDCKey, MDCValue);
 
 		logger.fatal("********************************************************************************");
-		logger.fatal("Business Process Name: [" + invokeInfo.getInvokerName() + "]");
-		logger.fatal("Thread ID: " + Thread.currentThread().getId() + ", Thread name: " + Thread.currentThread().getName());
+		logger.fatal("Business Process Name: [" + invokeInfo.getInvokerName()
+				+ "]");
+		logger.fatal("Thread ID: " + Thread.currentThread().getId()
+				+ ", Thread name: " + Thread.currentThread().getName());
 		logger.fatal("Call Time: " + invokeInfo.getDate());
 		logger.fatal("--------------------- detail log info is below ---------------------------------");
 		logger.fatal("");
@@ -60,7 +73,8 @@ public class LoggerUtility {
 	public void endBizProcess() {
 		try {
 			@SuppressWarnings("unchecked")
-			Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC.get(LoggerUtility.class.getSimpleName());
+			Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
+					.get(LoggerUtility.class.getSimpleName());
 			// Assert.assertNotNull(invokeInfoStack);
 
 			InvokeInfo invokeInfo = invokeInfoStack.pop();
@@ -69,9 +83,11 @@ public class LoggerUtility {
 			Date now = new Date();
 			logger.fatal("");
 			logger.fatal("--------------------- detail log info is finished ------------------------------");
-			logger.fatal("Thread ID: " + Thread.currentThread().getId() + ", Thread name: " + Thread.currentThread().getName());
+			logger.fatal("Thread ID: " + Thread.currentThread().getId()
+					+ ", Thread name: " + Thread.currentThread().getName());
 			logger.fatal("End Time: " + now);
-			logger.fatal("Business Process [" + invokeInfo.getInvokerName() + "] is completed, elapsed time: "
+			logger.fatal("Business Process [" + invokeInfo.getInvokerName()
+					+ "] is completed, elapsed time: "
 					+ (now.getTime() - invokeInfo.getDate().getTime()));
 			logger.fatal("********************************************************************************");
 		} finally {
@@ -83,7 +99,8 @@ public class LoggerUtility {
 
 	public void startInvoke(String methodName) {
 		@SuppressWarnings("unchecked")
-		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC.get(LoggerUtility.class.getSimpleName());
+		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
+				.get(LoggerUtility.class.getSimpleName());
 		if (null == invokeInfoStack) {
 			return;
 		}
@@ -100,12 +117,15 @@ public class LoggerUtility {
 		invokeInfo.setLevel(level);
 		invokeInfoStack.push(invokeInfo);
 
-		logger.fatal(String.format("[Start Local API Invoked][+][lvl:%-2d]-----%s()", level, methodName));
+		logger.fatal(String.format(
+				"[Start Local API Invoked][+][lvl:%-2d]-----%s()", level,
+				methodName));
 	}
 
 	public void endInvoke(String methodName) {
 		@SuppressWarnings("unchecked")
-		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC.get(LoggerUtility.class.getSimpleName());
+		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
+				.get(LoggerUtility.class.getSimpleName());
 		if (null == invokeInfoStack) {
 			return;
 		}
@@ -116,8 +136,10 @@ public class LoggerUtility {
 
 		// Assert.assertEquals(invokeInfo.getInvokerName(), methodName);
 
-		logger.fatal(String.format("[End   Local API Invoked][-][lvl:%-2d]-----%s(), elapsed time: %d", invokeInfo.getLevel(), methodName,
-				new Date().getTime() - invokeInfo.getDate().getTime()));
+		logger.fatal(String
+				.format("[End   Local API Invoked][-][lvl:%-2d]-----%s(), elapsed time: %d",
+						invokeInfo.getLevel(), methodName, new Date().getTime()
+								- invokeInfo.getDate().getTime()));
 	}
 
 	public void startInvoke(Throwable t) {
@@ -140,7 +162,8 @@ public class LoggerUtility {
 		invokeInfo.setLevel(0);
 		MDC.put(PERFORMANCE_LOG_KEY, invokeInfo);
 
-		String info = String.format("[Performance Log]---->[%s]---->Start", apiName);
+		String info = String.format("[Performance Log]---->[%s]---->Start",
+				apiName);
 		logger.fatal(info);
 	}
 
@@ -148,8 +171,10 @@ public class LoggerUtility {
 		InvokeInfo invokeInfo = (InvokeInfo) MDC.get(PERFORMANCE_LOG_KEY);
 		MDC.remove(PERFORMANCE_LOG_KEY);
 
-		String info = String.format("[Performance Log]---->[%s]---->End, elapsed time: %d", invokeInfo.getInvokerName(),
-				new Date().getTime() - invokeInfo.getDate().getTime());
+		String info = String.format(
+				"[Performance Log]---->[%s]---->End, elapsed time: %d",
+				invokeInfo.getInvokerName(), new Date().getTime()
+						- invokeInfo.getDate().getTime());
 		logger.fatal(info);
 	}
 }
