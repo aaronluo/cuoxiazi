@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: Dish.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.bean;
 
 import java.io.Serializable;
@@ -14,6 +20,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.innovaee.eorder.util.TimestampAdapter;
 
+/**   
+* @Title: Dish 
+* @Description: 菜品实体 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 @Entity
 @Table(name = "t_dish")
 @XmlRootElement

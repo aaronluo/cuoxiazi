@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserDaoImpl.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.dao.impl;
 
 import java.util.List;
@@ -11,6 +17,12 @@ import com.innovaee.eorder.bean.User;
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.util.HibernateUtil;
 
+/**   
+* @Title: UserDaoImpl 
+* @Description: 用户数据访问对象实现类
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserDaoImpl implements UserDao {
 
 	@Override

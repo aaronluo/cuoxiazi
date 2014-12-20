@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: CategoryDaoImpl.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.dao.impl;
 
 import java.util.List;
@@ -11,6 +17,12 @@ import com.innovaee.eorder.bean.Category;
 import com.innovaee.eorder.dao.CategoryDao;
 import com.innovaee.eorder.util.HibernateUtil;
 
+/**   
+* @Title: CategoryDaoImpl 
+* @Description: 菜品分类数据访问接口实现 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class CategoryDaoImpl implements CategoryDao {
 
 	@Override
@@ -102,7 +114,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Category> getAllCategorys() {
+	public List<Category> getAllCategories() {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session s = null;
 		Transaction t = null;

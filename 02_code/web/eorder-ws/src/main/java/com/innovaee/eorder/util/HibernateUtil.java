@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: HibernateUtil.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.util;
 
 import org.hibernate.SessionFactory;
@@ -6,7 +12,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Hibernate 初始化配置工具类
+ * @Title: HibernateUtil
+ * @Description: Hibernate 初始化配置工具类
+ * @author coderdream@gmail.com
+ * @version V1.0
  */
 public class HibernateUtil {
 	private static Configuration configuration;

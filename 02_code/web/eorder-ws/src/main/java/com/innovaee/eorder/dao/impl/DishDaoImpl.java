@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: DishDaoImpl.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.dao.impl;
 
 import java.util.List;
@@ -11,6 +17,12 @@ import com.innovaee.eorder.bean.Dish;
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.util.HibernateUtil;
 
+/**   
+* @Title: DishDaoImpl 
+* @Description: 菜品数据访问对象接口
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class DishDaoImpl implements DishDao {
 
 	@Override

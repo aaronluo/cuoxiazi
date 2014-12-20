@@ -1,108 +1,46 @@
+/***********************************************
+ * Filename		: CategoryResource.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.resources;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import com.innovaee.eorder.bean.Category;
 import com.innovaee.eorder.dao.impl.CategoryDaoImpl;
-import com.innovaee.eorder.vo.CategoryVO;
 
 /**
- * 用户资源
- * 
+ * @Title: CategoryResource
+ * @Description: 菜品分类资源
+ * @author coderdream@gmail.com
+ * @version V1.0
  */
 @Path("/categories")
 public class CategoryResource {
 	private CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
 
 	/**
-	 * 增加
+	 * 查询所有菜品分类
 	 * 
-	 * @param category
-	 */
-	@POST
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public void createCategory(Category category) {
-		categoryDaoImpl.createCategory(category);
-	}
-
-	/**
-	 * 删除
-	 * 
-	 * @param id
-	 */
-	@DELETE
-	@Path("{id}")
-	public void deleteCategory(@PathParam("id") String id) {
-		categoryDaoImpl.deleteCategoryById(id);
-	}
-
-	/**
-	 * 修改
-	 * 
-	 * @param category
-	 */
-	@PUT
-	@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public void updateCategory(Category category) {
-		categoryDaoImpl.updateCategory(category);
-	}
-
-	/**
-	 * 根据id查询
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@GET
-	@Path("{id}")
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Category getCategoryById(@PathParam("id") String id) {
-		Category u = categoryDaoImpl.getCategoryById(id);
-		return u;
-	}
-
-	/**
-	 * 查询所有
-	 * 
-	 * @return
+	 * @return 所有菜品分类
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Map<String, List<CategoryVO>> getAllCategorys() {
-		List<CategoryVO> categorieVOs = new ArrayList<CategoryVO>();
+	public Map<String, List<Category>> getAllCategorys() {
 		List<Category> categories = new ArrayList<Category>();
-		categories = categoryDaoImpl.getAllCategorys();
-		
-		for (Category Category : categories) {
-			CategoryVO categoryVO = new CategoryVO();
-			try {
-				BeanUtils.copyProperties(categoryVO, Category);
-				categorieVOs.add(categoryVO);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
-
-		Map<String, List<CategoryVO>> result = new HashMap<String, List<CategoryVO>>();
-		result.put("categories", categorieVOs);
+		categories = categoryDaoImpl.getAllCategories();
+		Map<String, List<Category>> result = new HashMap<String, List<Category>>();
+		result.put("categories", categories);
 		return result;
 	}
 
