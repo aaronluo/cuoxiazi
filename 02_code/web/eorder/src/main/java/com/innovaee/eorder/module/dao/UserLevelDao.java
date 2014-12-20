@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: UserLevelDao.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.dao;
 
 import java.sql.Timestamp;
@@ -7,6 +13,12 @@ import java.util.List;
 
 import com.innovaee.eorder.module.entity.UserLevel;
 
+/**   
+* @Title: UserLevelDao 
+* @Description: 用户等级数据访问对象
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class UserLevelDao extends BaseDao {
 
 	@SuppressWarnings("rawtypes")

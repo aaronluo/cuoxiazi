@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: MenuUtil.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.utils;
 
 import java.util.ArrayList;
@@ -13,6 +19,12 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
 
+/**   
+* @Title: MenuUtil 
+* @Description: 菜单工具类
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class MenuUtil {
 
 	private static final Logger logger = Logger.getLogger(MenuUtil.class);

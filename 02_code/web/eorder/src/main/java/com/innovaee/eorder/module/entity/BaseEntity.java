@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: BaseEntity.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.entity;
 
 import java.io.Serializable;
@@ -9,6 +15,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+/**   
+* @Title: BaseEntity 
+* @Description: 实体基类 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public abstract class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

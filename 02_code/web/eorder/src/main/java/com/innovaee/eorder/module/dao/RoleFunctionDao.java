@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: RoleFunctionDao.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.dao;
 
 import java.sql.SQLException;
@@ -10,6 +16,12 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.innovaee.eorder.module.entity.RoleFunction;
 
+/**   
+* @Title: RoleFunctionDao 
+* @Description: 角色功能数据访问对象
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class RoleFunctionDao extends BaseDao {
 
 	@SuppressWarnings("rawtypes")

@@ -1,7 +1,19 @@
+/***********************************************
+ * Filename		: InvokeInfo.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.utils.log;
 
 import java.util.Date;
 
+/**   
+* @Title: InvokeInfo 
+* @Description: 调用信息 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class InvokeInfo {
 	private String invokerName;// invokerName
 	private Date date; // start invoke time

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: RoleService.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.service;
 
 import java.util.ArrayList;
@@ -15,6 +21,12 @@ import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.module.entity.RoleFunction;
 import com.innovaee.eorder.module.vo.RoleVO;
 
+/**   
+* @Title: RoleService 
+* @Description: 角色服务 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class RoleService extends BaseService {
 
 	@Resource

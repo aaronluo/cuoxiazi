@@ -1,8 +1,20 @@
+/***********************************************
+ * Filename		: StringUtil.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**   
+* @Title: StringUtil 
+* @Description: 字符串工具类 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class StringUtil {
 
 	public static List<String> stringToList(String srcStr, String regex) {

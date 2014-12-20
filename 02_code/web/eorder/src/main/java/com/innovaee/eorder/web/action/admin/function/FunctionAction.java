@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: FunctionAction.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.web.action.admin.function;
 
 import java.util.ArrayList;
@@ -21,6 +27,12 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.web.action.BaseAction;
 
+/**   
+* @Title: FunctionAction 
+* @Description: 功能Action（查询和删除）
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class FunctionAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;

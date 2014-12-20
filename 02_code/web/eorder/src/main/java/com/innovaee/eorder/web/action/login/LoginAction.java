@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: LoginAction.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.web.action.login;
 
 import java.util.ArrayList;
@@ -19,6 +25,12 @@ import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
 import com.innovaee.eorder.web.action.BaseAction;
 
+/**   
+* @Title: LoginAction 
+* @Description: 登录Action
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class LoginAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
