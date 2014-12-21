@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
@@ -23,6 +22,10 @@ public class CategoryAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private CategoryDataBean categoryItemData;
 
+	//缓存Item View
+	List<Integer> listPosition = new ArrayList<Integer>();  
+	List<View> listView = new ArrayList<View>();  
+	    
 	public final class ListItemView {
 		public ImageView image;
 		public TextView title;
@@ -70,29 +73,31 @@ public class CategoryAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("categoryAdapter", "getView()");
+		if (listPosition.contains(position) == false) {  
+			//这里设置缓存的Item数量
+			if(listPosition.size() > 50)  
+			{  	
+				//删除第一项
+				listPosition.remove(0);  
+				listView.remove(0);  
+			}  		
+			
+			view = layoutInflater.inflate(R.layout.category_griditem, null);
+			RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.category_image);
+			TextView name = (TextView) view.findViewById(R.id.category_name);
 
-		if (convertView == null) {
-			if (layoutInflater != null) {
-				Log.d("categoryAdapter", "layoutInflater != null");
-				view = layoutInflater.inflate(R.layout.category_griditem, null);
-				RemoteImageView imageView = (RemoteImageView) view
-						.findViewById(R.id.category_image);
+			//获取自定义的类实例
+			categoryItemData = (CategoryDataBean) listItemsData.get(position);
+			imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
+			name.setText(categoryItemData.getName());
+			
+			//添加最新项
+			listPosition.add(position);  
+	        listView.add(view);  
+		} else {  		
+			view = listView.get(listPosition.indexOf(position));
+		}	
 					
-				TextView name = (TextView) view
-						.findViewById(R.id.category_name);
-
-				// 获取自定义的类实例
-				categoryItemData = (CategoryDataBean) listItemsData
-						.get(position);
-				imageView.setImageUrl(listItemsData.get(position)
-						.getBitmapUrl());
-				name.setText(categoryItemData.getName());
-			}
-		} else {
-			Log.d("categoryAdapter", "layoutInflater == null");
-			view = convertView;
-		}
-
 		return view;
 	}
 

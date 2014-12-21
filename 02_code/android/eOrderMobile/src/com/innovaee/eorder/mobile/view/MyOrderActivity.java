@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,7 +68,7 @@ public class MyOrderActivity extends Activity {
 	private Button orderBtn;
 			
 	//消息handler
-	private Handler mHandler = new Handler(Looper.getMainLooper()) {
+	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MSG_UPDATE:	
@@ -93,7 +94,7 @@ public class MyOrderActivity extends Activity {
             	if(selectOrderGoods != null && selectOrderGoods.size() > 0) {
 	            	Double price1 = getAllPrice();			
 	            	allPirce.setText(MyOrderActivity.this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + price1);
-	            	myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, mHandler);//对应R中的id         			
+	            	myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, handler);//对应R中的id         			
 	        		listView.setAdapter(myOrderAdapter);	
             	} else {
             		finish();
@@ -168,7 +169,7 @@ public class MyOrderActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setHomeButtonEnabled(true);	
 		
-		myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, mHandler);//对应R中的id 
+		myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this, selectOrderGoods, handler);//对应R中的id 
 		
 		listView.setAdapter(myOrderAdapter);
 		
@@ -253,5 +254,13 @@ public class MyOrderActivity extends Activity {
 		intent.putExtras(bundle);		
         sendBroadcast(intent);	
 	}
-	
+			
+	/**	
+	 * 更新GridView ui
+	 */
+	private void updateUi() {
+		Message msg = Message.obtain();
+		msg.what = MSG_UPDATE;
+		handler.sendMessage(msg);		
+	}
 }

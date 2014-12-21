@@ -83,8 +83,8 @@
     <string name="orderhestory_item_text_order">订单:</string>
     <string name="orderhestory_item_text_time">时间:</string>
     <string name="orderhestory_item_text_totalprice">金额:</string>
-    <string name="order_toast_no_userid_fail">用户号不存在！</string>
-
+    <string name="order_toast_no_userid_fail">会员号不存在！</string>
+							
     <!-- Setting -->
     <string name="setting_activity_text_label">设置</string>
     <string name="setting_activity_text_service">服务器地址</string>

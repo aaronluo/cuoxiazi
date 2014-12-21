@@ -23,11 +23,11 @@ public class GoodsAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private GoodsDataBean goodsItemData;
 	private Handler handler;
-			
-	private boolean  first = true;  
-	private int mCount = 0;	
-	private View positionView;
-			
+	
+	//缓存Item View
+	List<Integer> listPosition = new ArrayList<Integer>();  
+    List<View> listView = new ArrayList<View>();  
+    			
 	public final class ListItemView {
 		public ImageView image;
 		public TextView title;
@@ -76,42 +76,33 @@ public class GoodsAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
-					
-		if (position == 0)  
-	    {  
-	        mCount++;  
-	        if (mCount > 1)  
-		    {  
-		        Log.v("GoodsAdapter", "<getView> drop !!!");  
-		        return positionView;	  
-		    }  	
-	    }  
-					
-		if (convertView == null) {
-			if (layoutInflater != null) {
-				Log.d("GoodsAdapter", "layoutInflater != null");
-				view = layoutInflater.inflate(R.layout.goods_griditem, null);
-				RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
-				TextView name = (TextView) view.findViewById(R.id.goods_name);
-				TextView price = (TextView) view.findViewById(R.id.goods_price);		
-							
-				// 获取自定义的类实例
-				goodsItemData = (GoodsDataBean) listItemsData.get(position);
-				imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
-				name.setText(goodsItemData.getName());			
-				price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
-					
-				convertView = view;
-							
-				if (position == 0) { 
-					positionView = view;
-				}
-			}																									
-		} else {
-			Log.d("GoodsAdapter", "layoutInflater == null");
-			view = convertView;
-		}
+		if (listPosition.contains(position) == false) {  
+			//这里设置缓存的Item数量
+			if(listPosition.size() > 50)  
+			{  	
+				//删除第一项
+				listPosition.remove(0);  
+				listView.remove(0);  
+			}  		
 				
+			view = layoutInflater.inflate(R.layout.goods_griditem, null);
+			RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
+			TextView name = (TextView) view.findViewById(R.id.goods_name);
+			TextView price = (TextView) view.findViewById(R.id.goods_price);		
+							
+			// 获取自定义的类实例
+			goodsItemData = (GoodsDataBean) listItemsData.get(position);
+			imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
+			name.setText(goodsItemData.getName());			
+			price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
+					
+			//添加最新项
+			listPosition.add(position);  
+	        listView.add(view);  	            	
+		} else {  		
+			view = listView.get(listPosition.indexOf(position));
+		}		  			
+		
 		return view;
 	}
 		
@@ -121,10 +112,8 @@ public class GoodsAdapter extends BaseAdapter {
 	}
 	
 	@Override 	
-	public void notifyDataSetChanged() { 		
-		//因为notify的时候也会导致当前位置的getView重复调用 		
-		first = true; 		
+	public void notifyDataSetChanged() { 		 		 		
 		super.notifyDataSetChanged(); 	
-		}	
-			
+	}	
+	
 }

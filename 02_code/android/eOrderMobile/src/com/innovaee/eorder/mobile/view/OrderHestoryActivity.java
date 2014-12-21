@@ -73,8 +73,9 @@ public class OrderHestoryActivity extends Activity {
 					
 	            case MSG_UPDATE_FAIL:
 	            	Toast.makeText(OrderHestoryActivity.this, R.string.order_toast_no_userid_fail, Toast.LENGTH_SHORT).show();
-	            	break;	
-	            												
+	            	finish();			
+	            	break;							
+	            				
 				default:
 					break;
 			}
@@ -160,7 +161,7 @@ public class OrderHestoryActivity extends Activity {
 	/**	
 	 * 提醒失败
 	 */
-	private void updateFail() {
+	private void updateFailUi() {
 		Message msg = Message.obtain();
 		msg.what = MSG_UPDATE_FAIL;
 		handler.sendMessage(msg);
@@ -216,8 +217,9 @@ public class OrderHestoryActivity extends Activity {
 						@Override
 						public void onRequestFailed() {
 							// TODO
-							Log.d("MainViewActivity:", "onRequestFailed!");
-						}
+							Log.d("MainViewActivity:", "onRequestFailed!");							
+							updateFailUi();	
+						}		
 	
 						@Override
 						public void onRequestSuccess(OrderHestoryDataBean data) {

@@ -1,11 +1,11 @@
 package com.innovaee.eorder.mobile.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import android.content.Context;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,10 @@ public class OrderAdapter extends BaseAdapter {
 	private Context context;			
 	private LayoutInflater layoutInflater;
 	private Handler handler;
+		
+	//缓存Item View
+	List<Integer> listPosition = new ArrayList<Integer>();  
+	List<View> listView = new ArrayList<View>();
 		
 	public OrderAdapter(Context context) {
 		this.context = context;
@@ -55,30 +59,39 @@ public class OrderAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
-										
-		//if (convertView == null) {
-			if (layoutInflater != null) {						
-				view = layoutInflater.inflate(R.layout.order_listitem, null);
+		
+		if (listPosition.contains(position) == false) {  
+			//这里设置缓存的Item数量
+			if(listPosition.size() > 50)  
+			{  	
+				//删除第一项
+				listPosition.remove(0);  
+				listView.remove(0);  
+			}  		
+									
+			view = layoutInflater.inflate(R.layout.order_listitem, null);
 							
-				// 获取自定义的类实例		
-				GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
+			// 获取自定义的类实例		
+			GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
 								
-				TextView nameTxtView = (TextView) view.findViewById(R.id.order_name);
-				TextView countTxtView = (TextView) view.findViewById(R.id.order_count);
-				TextView totalPirceTxtView = (TextView) view.findViewById(R.id.order_totalprice);	
+			TextView nameTxtView = (TextView) view.findViewById(R.id.order_name);
+			TextView countTxtView = (TextView) view.findViewById(R.id.order_count);
+			TextView totalPirceTxtView = (TextView) view.findViewById(R.id.order_totalprice);	
 							
-				nameTxtView.setText(goodsItemDataTemp.getName());		
+			nameTxtView.setText(goodsItemDataTemp.getName());		
 				
-				int count = goodsItemDataTemp.getCount();				
-				Double allPrice = goodsItemDataTemp.getPrice() * count;									
-				countTxtView.setText(context.getString(R.string.order_item_text_count) + String.valueOf(count));				
-				totalPirceTxtView.setText(context.getString(R.string.order_item_text_totalprice) + String.valueOf(allPrice));		
-			}													
-		//} else {	
-		//	Log.d("GoodsAdapter", "layoutInflater == null");
-		//	view = convertView;
-		//}		
-				
+			int count = goodsItemDataTemp.getCount();				
+			Double allPrice = goodsItemDataTemp.getPrice() * count;									
+			countTxtView.setText(context.getString(R.string.order_item_text_count) + String.valueOf(count));				
+			totalPirceTxtView.setText(context.getString(R.string.order_item_text_totalprice) + String.valueOf(allPrice));
+
+			//添加最新项
+			listPosition.add(position);  
+	        listView.add(view);  
+		} else {  		
+			view = listView.get(listPosition.indexOf(position));
+		}																		
+					
 		return view;
 	}	
 }
