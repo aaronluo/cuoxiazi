@@ -21,12 +21,12 @@ import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.module.entity.RoleFunction;
 import com.innovaee.eorder.module.vo.RoleVO;
 
-/**   
-* @Title: RoleService 
-* @Description: 角色服务 
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: RoleService
+ * @Description: 角色服务
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class RoleService extends BaseService {
 
 	@Resource
@@ -38,14 +38,19 @@ public class RoleService extends BaseService {
 	@Resource
 	private RoleFunctionDao roleFunctionDao;
 
+	/**
+	 * 查找所有角色
+	 * 
+	 * @return 角色列表
+	 */
 	public List<Role> findAllRoles() {
 		return (List<Role>) roleDao.findAllRoles();
 	}
 
 	/**
-	 * 返回所有用户
+	 * 返回所有用户值对象
 	 * 
-	 * @return
+	 * @return 角色值对象列表
 	 */
 	public List<RoleVO> findAllRoleVOs() {
 		List<RoleVO> rolevos = new ArrayList<RoleVO>();
@@ -79,26 +84,55 @@ public class RoleService extends BaseService {
 		return rolevos;
 	}
 
+	/**
+	 * 通过角色ID查找角色
+	 * 
+	 * @param roleId
+	 *            角色ID
+	 * @return 角色
+	 */
 	public Role loadRole(Integer roleId) {
 		return (Role) roleDao.get(roleId);
 	}
-	
+
+	/**
+	 * 根据角色名称查找角色
+	 * 
+	 * @param roleName
+	 *            角色名称
+	 * @return 角色
+	 */
 	public Role findRoleByRoleName(String roleName) {
 		return (Role) roleDao.findRoleByRoleName(roleName);
 	}
 
-	public Role findRolesByRoleName(String roleName) {
-		return (Role) roleDao.findRolesByRoleName(roleName);
-	}
-
+	/**
+	 * 保存角色
+	 * 
+	 * @param role
+	 *            待保存的角色
+	 * @return 被保存的角色
+	 */
 	public Role saveRole(Role role) {
 		return roleDao.saveRole(role);
 	}
 
+	/**
+	 * 更新角色
+	 * 
+	 * @param role
+	 *            待更新的角色
+	 */
 	public void updateRole(Role role) {
 		roleDao.updateRole(role);
 	}
 
+	/**
+	 * 根据角色ID移除角色
+	 * 
+	 * @param roleId
+	 *            角色ID
+	 */
 	public void removeRole(Integer roleId) {
 		// 1. 先删除功能
 		List<RoleFunction> roleFunctions = roleFunctionDao
@@ -111,6 +145,12 @@ public class RoleService extends BaseService {
 		roleDao.removeRole(new Role(roleId));
 	}
 
+	/**
+	 * 根据角色ID数组删除角色
+	 * 
+	 * @param roleIds
+	 *            角色ID数组
+	 */
 	public void removeRoles(String[] roleIds) {
 		int length = roleIds.length;
 		for (int i = 0; i < length; i++) {

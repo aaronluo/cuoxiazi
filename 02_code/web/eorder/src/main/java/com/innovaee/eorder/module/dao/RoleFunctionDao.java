@@ -16,12 +16,12 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.innovaee.eorder.module.entity.RoleFunction;
 
-/**   
-* @Title: RoleFunctionDao 
-* @Description: 角色功能数据访问对象
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: RoleFunctionDao
+ * @Description: 角色功能数据访问对象
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class RoleFunctionDao extends BaseDao {
 
 	@SuppressWarnings("rawtypes")
@@ -84,6 +84,11 @@ public class RoleFunctionDao extends BaseDao {
 		return list;
 	}
 
+	/**
+	 * @param roleId
+	 * @param parentFunctionId
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<RoleFunction> findRoleFunctionsByFunctionIds(Integer roleId,
 			final List<Integer> parentFunctionId) {
@@ -100,12 +105,6 @@ public class RoleFunctionDao extends BaseDao {
 								.list();
 
 						return list;
-						// return session
-						// .createQuery(
-						// "select * from RoleFunction rf where rf.functionId in(:typeids)")
-						// .setParameterList("typeids", parentFunctionId)//
-						// typeids为集合对象,如果是数组可以自己转下Arrays.asList();
-						// .list();
 					}
 				});
 	}

@@ -33,20 +33,47 @@ public class UserLevel extends BaseEntity {
 		return levelId;
 	}
 
+	/**
+	 * 等级ID
+	 */
 	@Id
 	@Column(name = "LEVEL_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer levelId;
+	
+	/**
+	 * 等级名称
+	 */
 	@Column(name = "LEVEL_NAME")
 	private String levelName;
+	
+	/**
+	 * 折扣
+	 */
 	@Column(name = "DISCOUNT")
 	private Float discount;
+	
+	/**
+	 * 等级积分
+	 */
 	@Column(name = "level_score")
 	private Integer levelScore;
+	
+	/**
+	 * 等级状态
+	 */
 	@Column(name = "Level_STATUS")
 	private Boolean levelStatus;
+	
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 

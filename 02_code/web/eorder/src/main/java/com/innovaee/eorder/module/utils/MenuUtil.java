@@ -29,6 +29,10 @@ public class MenuUtil {
 
 	private static final Logger logger = Logger.getLogger(MenuUtil.class);
 
+	/**
+	 * 根据缓存中用户信息，获得该用户的权限列表（菜单）
+	 * @return 菜单列表
+	 */
 	public static List<RoleLinkVo> getRoleLinkVOList() {
 		List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 

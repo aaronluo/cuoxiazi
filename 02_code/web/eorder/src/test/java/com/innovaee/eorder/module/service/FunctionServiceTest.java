@@ -99,27 +99,4 @@ public class FunctionServiceTest extends BaseSpringTestCase {
 		Assert.assertNull(functionDB);
 	}
 
-	@Test
-	public void removeFunctions() {
-		Function function1 = new Function(functionName, functionDesc,
-				functionPath, functionParent, functionOrder, functionStatus);
-		Function function2 = new Function(functionName, functionDesc,
-				functionPath, functionParent, functionOrder, functionStatus);
-		Function functionNew1 = functionService.saveFunction(function1);
-		Function functionNew2 = functionService.saveFunction(function2);
-
-		String[] functionIds = new String[] {
-				functionNew1.getFunctionId().toString(),
-				functionNew2.getFunctionId().toString() };
-		functionService.removeFunctions(functionIds);
-
-		// 检查
-		Function functionDB1 = functionService.loadFunction(functionNew1
-				.getFunctionId());
-		Assert.assertNull(functionDB1);
-		Function functionDB2 = functionService.loadFunction(functionNew2
-				.getFunctionId());
-		Assert.assertNull(functionDB2);
-	}
-
 }

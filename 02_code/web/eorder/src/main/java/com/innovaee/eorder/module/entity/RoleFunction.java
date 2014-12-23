@@ -33,16 +33,35 @@ public class RoleFunction extends BaseEntity {
 		return roleFunctionId;
 	}
 
+	/**
+	 * 角色功能ID
+	 */
 	@Id
 	@Column(name = "ROLE_FUNCTION_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer roleFunctionId;
+	
+	/**
+	 * 角色ID
+	 */
 	@Column(name = "role_ID")
 	private Integer roleId;
+	
+	/**
+	 * 功能ID
+	 */
 	@Column(name = "function_ID")
 	private Integer functionId;
+	
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+	
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 

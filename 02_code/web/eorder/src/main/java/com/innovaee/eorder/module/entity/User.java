@@ -33,23 +33,54 @@ public class User extends BaseEntity {
 		return userId;
 	}
 
+	/**
+	 * 用户ID
+	 */
 	@Id
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// @Column(name = "USER_ID")
 	private Integer userId;
+	
+	/**
+	 * 用户名
+	 */
 	@Column(name = "USERNAME")
 	private String username;
+	
+	/**
+	 * 密码
+	 */
 	@Column(name = "PASSWORD")
 	private String password;
+	
+	/**
+	 * 手机号码
+	 */
 	@Column(name = "CELLPHONE")
 	private String cellphone;
+	
+	/**
+	 * 等级ID
+	 */
 	@Column(name = "LEVEL_ID")
 	private Integer levelId;
+	
+	/**
+	 * 用户状态
+	 */
 	@Column(name = "USER_STATUS")
 	private Boolean userStatus;
+	
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 

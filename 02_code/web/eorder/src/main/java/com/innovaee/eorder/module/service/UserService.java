@@ -23,12 +23,12 @@ import com.innovaee.eorder.module.entity.UserLevel;
 import com.innovaee.eorder.module.entity.UserRole;
 import com.innovaee.eorder.module.vo.UserVO;
 
-/**   
-* @Title: UserService 
-* @Description: 用户服务 
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: UserService
+ * @Description: 用户服务
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class UserService extends BaseService {
 
 	@Resource
@@ -43,14 +43,21 @@ public class UserService extends BaseService {
 	@Resource
 	private RoleDao roleDao;
 
+	/**
+	 * 根据用户ID查找用户信息
+	 * 
+	 * @param userId
+	 *            用户ID
+	 * @return 用户
+	 */
 	public User loadUser(Integer userId) {
 		return (User) userDao.get(userId);
 	}
 
 	/**
-	 * 返回所有用户
+	 * 返回所有用户值对象列表
 	 * 
-	 * @return
+	 * @return 用户值对象列表
 	 */
 	public List<UserVO> findAllUserVOs() {
 		List<UserVO> uservos = new ArrayList<UserVO>();
@@ -88,36 +95,84 @@ public class UserService extends BaseService {
 	/**
 	 * 返回所有用户
 	 * 
-	 * @return
+	 * @return 用户列表
 	 */
 	public List<User> findAllUsers() {
 		return userDao.findAllUsers();
 	}
 
+	/**
+	 * 通过用户名密码查找用户
+	 * 
+	 * @param username
+	 *            用户名
+	 * @param password
+	 *            密码
+	 * @return 用户
+	 */
 	public User getUserByPassword(String loginId, String password) {
 		return userDao.getUserByPassword(loginId, password);
 	}
 
+	/**
+	 * 通过用户名查找用户
+	 * 
+	 * @param username
+	 *            用户名
+	 * @return 用户
+	 */
 	public User findUserByUserName(String username) {
 		return (User) userDao.findUserByUserName(username);
 	}
-	
+
+	/**
+	 * 通过手机号码查找用户
+	 * 
+	 * @param cellphone
+	 *            手机号码
+	 * @return 用户
+	 */
 	public User findUsersByCellphone(String cellphone) {
 		return (User) userDao.findUserByCellphone(cellphone);
 	}
 
+	/**
+	 * 保存用户
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @return 被保存的用户
+	 */
 	public User saveUser(User user) {
 		return userDao.saveUser(user);
 	}
 
+	/**
+	 * 更新用户
+	 * 
+	 * @param user
+	 *            待更新的用户信息
+	 */
 	public void updateUser(User user) {
 		userDao.updateUser(user);
 	}
 
+	/**
+	 * 移除用户
+	 * 
+	 * @param user
+	 *            待移除的用户信息
+	 */
 	public void removeUser(User user) {
 		userDao.removeUser(user);
 	}
 
+	/**
+	 * 根据用户ID移除用户信息（先删除角色，在删除用户）
+	 * 
+	 * @param userId
+	 *            用户ID
+	 */
 	public void removeUser(Integer userId) {
 		// 1. 先删除角色
 		List<UserRole> userRoles = userRoleDao.findUserRolesByUserId(userId);
@@ -128,13 +183,6 @@ public class UserService extends BaseService {
 		}
 		// 2. 再删除用户
 		userDao.removeUser(new User(userId));
-	}
-
-	public void removeUsers(String[] userIds) {
-		int length = userIds.length;
-		for (int i = 0; i < length; i++) {
-			removeUser(new User(Integer.parseInt(userIds[i])));
-		}
 	}
 
 }

@@ -15,9 +15,26 @@ import java.util.Date;
 * @version V1.0   
 */
 public class InvokeInfo {
-	private String invokerName;// invokerName
-	private Date date; // start invoke time
-	private int level; // nested level
+	
+	/**
+	 * 调用者名称
+	 */
+	private String invokerName;
+	
+	/**
+	 * 开始调用时间
+	 */
+	private Date date; 
+
+	
+	/**
+	 * 嵌套等级
+	 */
+	private int level; 
+	
+	/**
+	 * 是否在事务
+	 */
 	private boolean inTransaction;
 
 	public String getInvokerName() {

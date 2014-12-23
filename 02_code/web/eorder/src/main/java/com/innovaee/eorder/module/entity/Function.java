@@ -16,12 +16,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**   
-* @Title: Function 
-* @Description: 功能实体
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: Function
+ * @Description: 功能实体
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 @Entity
 @Table(name = "t_function")
 public class Function extends BaseEntity {
@@ -33,24 +33,59 @@ public class Function extends BaseEntity {
 		return functionId;
 	}
 
+	/**
+	 * 功能ID
+	 */
 	@Id
 	@Column(name = "FUNCTION_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer functionId;
+
+	/**
+	 * 功能名称
+	 */
 	@Column(name = "FUNCTION_NAME")
 	private String functionName;
+
+	/**
+	 * 功能描述
+	 */
 	@Column(name = "FUNCTION_DESC")
 	private String functionDesc;
+
+	/**
+	 * 功能路径
+	 */
 	@Column(name = "FUNCTION_PATH")
 	private String functionPath;
+
+	/**
+	 * 父功能ID
+	 */
 	@Column(name = "FUNCTION_PARENT")
 	private Integer functionParent;
+
+	/**
+	 * 功能排序
+	 */
 	@Column(name = "FUNCTION_ORDER")
 	private String functionOrder;
+
+	/**
+	 * 功能状态
+	 */
 	@Column(name = "FUNCTION_STATUS")
 	private Boolean functionStatus;
+
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 

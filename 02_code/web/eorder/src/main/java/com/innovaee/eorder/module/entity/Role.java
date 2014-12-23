@@ -32,18 +32,41 @@ public class Role extends BaseEntity {
 		return roleId;
 	}
 
+	/**
+	 * 角色ID
+	 */
 	@Id
 	@Column(name = "ROLE_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer roleId;
+	
+	/**
+	 * 角色名称
+	 */
 	@Column(name = "ROLE_NAME")
 	private String roleName;
+	
+	/**
+	 * 角色描述
+	 */
 	@Column(name = "ROLE_DESC")
 	private String roleDesc;
+	
+	/**
+	 * 角色状态
+	 */
 	@Column(name = "ROLE_STATUS")
 	private Boolean roleStatus;
+	
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+	
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 

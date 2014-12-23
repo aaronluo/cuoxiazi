@@ -39,7 +39,7 @@ public class RoleServiceTest extends BaseSpringTestCase {
 	@Test
 	public void findRolesByRoleName() {
 		String roleName = "Admin";
-		Role role = roleService.findRolesByRoleName(roleName);
+		Role role = roleService.findRoleByRoleName(roleName);
 		Assert.assertNotNull(role);
 	}
 

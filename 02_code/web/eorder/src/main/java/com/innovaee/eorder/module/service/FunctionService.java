@@ -17,12 +17,12 @@ import com.innovaee.eorder.module.dao.FunctionDao;
 import com.innovaee.eorder.module.entity.Function;
 import com.innovaee.eorder.module.vo.FunctionVO;
 
-/**   
-* @Title: FunctionService 
-* @Description: 功能服务
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: FunctionService
+ * @Description: 功能服务
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class FunctionService extends BaseService {
 
 	@Resource
@@ -31,14 +31,19 @@ public class FunctionService extends BaseService {
 	@Resource
 	private FunctionService functionService;
 
+	/**
+	 * 查找所有功能
+	 * 
+	 * @return 功能列表
+	 */
 	public List<Function> findAllFunctions() {
 		return (List<Function>) functionDao.findAllFunctions();
 	}
 
 	/**
-	 * 返回所有用户
+	 * 返回所有值对象列表
 	 * 
-	 * @return
+	 * @return 功能值对象列表
 	 */
 	public List<FunctionVO> findAllFunctionVOs() {
 		List<FunctionVO> functionvos = new ArrayList<FunctionVO>();
@@ -63,11 +68,26 @@ public class FunctionService extends BaseService {
 		return functionvos;
 	}
 
+	/**
+	 * 根据父功能节点ID查找功能
+	 * 
+	 * @param parentFunctionId
+	 *            父功能节点ID
+	 * 
+	 * @return 功能列表
+	 */
 	public List<Function> findFunctionsByParentFunctionId(
 			Integer parentFunctionId) {
 		return functionDao.findFunctionsByParentFunctionId(parentFunctionId);
 	}
 
+	/**
+	 * 根据功能ID查找功能
+	 * 
+	 * @param functionId
+	 *            功能ID
+	 * @return
+	 */
 	public Function loadFunction(Integer functionId) {
 		Function function = (Function) functionDao.get(functionId);
 
@@ -78,26 +98,44 @@ public class FunctionService extends BaseService {
 		return function;
 	}
 
+	/**
+	 * 保存功能
+	 * 
+	 * @param function
+	 *            待保存的功能
+	 * @return 被保存的功能
+	 */
 	public Function saveFunction(Function function) {
 		return functionDao.saveFunction(function);
 	}
 
+	/**
+	 * 更新功能
+	 * 
+	 * @param function
+	 *            待更新的功能
+	 */
 	public void updateFunction(Function function) {
 		functionDao.updateFunction(function);
 	}
 
+	/**
+	 * 根据功能ID移除功能
+	 * 
+	 * @param functionId
+	 *            功能ID
+	 */
 	public void removeFunction(Integer functionId) {
 		functionDao.removeFunction(new Function(functionId));
 	}
 
-	public void removeFunctions(String[] functionIds) {
-		int length = functionIds.length;
-		for (int i = 0; i < length; i++) {
-			functionDao.removeFunction(new Function(Integer
-					.parseInt(functionIds[i])));
-		}
-	}
-
+	/**
+	 * 通过功能名称查找功能
+	 * 
+	 * @param functionName
+	 *            功能名称
+	 * @return 功能
+	 */
 	public Function findFunctionByFunctionName(String functionName) {
 		return functionDao.findFunctionByFunctionName(functionName);
 	}

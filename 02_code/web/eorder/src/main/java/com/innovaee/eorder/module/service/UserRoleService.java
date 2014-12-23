@@ -23,12 +23,12 @@ import com.innovaee.eorder.module.entity.UserRole;
 import com.innovaee.eorder.module.utils.Constants;
 import com.innovaee.eorder.module.utils.StringUtil;
 
-/**   
-* @Title: UserRoleService 
-* @Description: 用户角色服务
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: UserRoleService
+ * @Description: 用户角色服务
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class UserRoleService extends BaseService {
 
 	@Resource
@@ -43,23 +43,55 @@ public class UserRoleService extends BaseService {
 	@Resource
 	private UserRoleService userRoleService;
 
+	/**
+	 * 查找所有用户角色
+	 * 
+	 * @return 用户角色列表
+	 */
 	public List<UserRole> findAllUserRoles() {
 		return (List<UserRole>) userRoleDao.findAllUserRoles();
 	}
 
+	/**
+	 * 通过用户ID和角色ID查找用户角色
+	 * 
+	 * @param userId
+	 * @param roleId
+	 * @return
+	 */
 	public UserRole findUserRoleByIds(Integer userId, Integer roleId) {
 		return userRoleDao.findUserRoleByIds(userId, roleId);
 	}
 
+	/**
+	 * 通过用户ID查找该用户拥有的用户角色
+	 * 
+	 * @param userId
+	 *            用户ID
+	 * @return 用户角色列表
+	 */
 	public List<UserRole> findUserRolesByUserId(Integer userId) {
 		return (List<UserRole>) userRoleDao.findUserRolesByUserId(userId);
 	}
-	
 
+	/**
+	 * 通过角色ID查找对应的用户角色
+	 * 
+	 * @param roleId
+	 *            角色ID
+	 * @return 用户角色列表
+	 */
 	public List<UserRole> findUserRolesByRoleId(Integer roleId) {
 		return (List<UserRole>) userRoleDao.findUserRolesByRoleId(roleId);
 	}
 
+	/**
+	 * 通过该用户ID查找角色
+	 * 
+	 * @param userId
+	 *            用户ID
+	 * @return 角色列表
+	 */
 	public List<Role> findRolesByUserId(Integer userId) {
 		List<Role> roles = new ArrayList<Role>();
 		List<UserRole> userRoles = userRoleDao.findUserRolesByUserId(userId);
@@ -73,8 +105,11 @@ public class UserRoleService extends BaseService {
 	}
 
 	/**
+	 * 通过角色ID查找剩余的角色
+	 * 
 	 * @param roleId
-	 * @return
+	 *            角色ID
+	 * @return 角色列表
 	 */
 	public List<Role> findLeftRolesByUserId(Integer roleId) {
 		List<Role> leftRoles = new ArrayList<Role>();
@@ -96,10 +131,26 @@ public class UserRoleService extends BaseService {
 		return leftRoles;
 	}
 
+	/**
+	 * 保存用户角色
+	 * 
+	 * @param userRole
+	 *            待保存的用户角色
+	 * @return 被保存的用户角色
+	 */
 	public void saveUserRole(UserRole userRole) {
 		userRoleDao.saveUserRole(userRole);
 	}
 
+	/**
+	 * 根据用户信息和角色信息保存用户角色
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @param role
+	 *            角色信息
+	 * @return 用户角色
+	 */
 	public UserRole saveUserRole(User user, Role role) {
 		UserRole rtnUserRole = null;
 		User userDB = (User) userDao.get(user.getUserId());
@@ -123,6 +174,14 @@ public class UserRoleService extends BaseService {
 		return rtnUserRole;
 	}
 
+	/**
+	 * 根据用户信息和角色信息删除用户角色
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @param role
+	 *            角色信息
+	 */
 	public void removeUserRole(User user, Role role) {
 		User userDB = (User) userDao.get(user.getUserId());
 		Role roleDB = (Role) roleDao.get(role.getRoleId());
@@ -138,12 +197,13 @@ public class UserRoleService extends BaseService {
 		}
 	}
 
-
 	/**
-	 * 先删除已有的，后增加最新的
+	 * 根据用户ID和已存在的角色ID更新用户的角色信息。 先删除已有的，后增加最新的
 	 * 
 	 * @param roleId
+	 *            角色ID
 	 * @param myRoles
+	 *            已有的角色ID列表字符串
 	 */
 	public void updateUserRole(Integer userId, String myRoleIds) {
 		// 1. 根据roleId获取DB中的roleId列表，然后删除；
@@ -161,14 +221,13 @@ public class UserRoleService extends BaseService {
 		}
 	}
 
+	/**
+	 * 删除用户角色
+	 * 
+	 * @param userRole
+	 *            待删除的用户角色
+	 */
 	public void removeUserRole(Integer userRoleId) {
 		userRoleDao.removeUserRole(new UserRole(userRoleId));
-	}
-
-	public void removeUserRoles(Integer[] userRoleIds) {
-		int length = userRoleIds.length;
-		for (int i = 0; i < length; i++) {
-			userRoleDao.removeUserRole(new UserRole(userRoleIds[i]));
-		}
 	}
 }

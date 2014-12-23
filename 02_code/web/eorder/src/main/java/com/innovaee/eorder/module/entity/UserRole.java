@@ -33,16 +33,35 @@ public class UserRole extends BaseEntity {
 		return userRoleId;
 	}
 
+	/**
+	 * 用户角色ID
+	 */
 	@Id
 	@Column(name = "USER_ROLE_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userRoleId;
+	
+	/**
+	 * 用户ID
+	 */
 	@Column(name = "user_id")
 	private Integer userId;
+	
+	/**
+	 * 角色ID
+	 */
 	@Column(name = "role_id")
 	private Integer roleId;
+	
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "CREATE_AT")
 	private Timestamp createAt;
+
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "UPDATE_AT")
 	private Timestamp updateAt;
 
