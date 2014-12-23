@@ -1,7 +1,18 @@
+/***********************************************
+ * Filename		: Env.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import android.os.Environment;
 
+/**
+ * 环境，服务器的相关静态定义
+ * @author leon.wang
+ *
+ */
 public final class Env {
 	/**
 	 * 路径类 所有路径相关的常量都统一放在此处

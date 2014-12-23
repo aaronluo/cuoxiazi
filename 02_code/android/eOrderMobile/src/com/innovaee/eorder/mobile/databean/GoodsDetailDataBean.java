@@ -1,16 +1,20 @@
+/***********************************************
+ * Filename		: GoodsDetailDataBean.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.databean;
 
 import java.io.Serializable;
 
 /**
- * 
+ * 商品详情数据Bean
+ * 后续扩张用，暂时没有使用
  * @author wanglinglong
  * 
  */
 public class GoodsDetailDataBean implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public final static String TABLE = "goods"; // 清单名

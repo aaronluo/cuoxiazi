@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: AboutActivity.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import com.innovaee.eorder.R;
@@ -11,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 	
 /**
- * 
+ * 关于界面
  * @author wanglinglong
  * 
  */	

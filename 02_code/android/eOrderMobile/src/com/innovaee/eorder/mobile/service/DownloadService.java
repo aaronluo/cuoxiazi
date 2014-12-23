@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: DownloadService.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.service;
 
 import java.net.URI;
@@ -12,7 +18,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
@@ -34,8 +39,8 @@ import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.util.Env;
 	
 /**
- * 下载管理器
- * 
+ * 下载服务
+ * 通过该服务和WebService获取所需数据
  * @author wanglinglong
  * 
  */
@@ -45,12 +50,10 @@ public class DownloadService implements GoodService, CategoryService {
 			
 	private static DownloadService self;
 	
-	private static Context context;
-	
-	private static String serviceUrl;		
+	private static Context context;		
 			
 	/**
-	 * 
+	 * DownloadService
 	 * @param context
 	 */
 	private DownloadService(Context contextTemp) {
@@ -61,9 +64,9 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 
+	 * 获取DownloadService接口
 	 * @param context
-	 * @return
+	 * @return DownloadService对象
 	 */
 	public static synchronized DownloadService getInstance(Context contextTemp) {
 		if (contextTemp == null) {
@@ -79,7 +82,8 @@ public class DownloadService implements GoodService, CategoryService {
 	
 	/**
 	 * 得到设置中的服务器地址
-	 * @return
+	 * 如果设置中没有设置服务器地址，则返回默认服务Url地址
+	 * @return 服务器地址
 	 */
 	public static String getServiceUrl() {
 		String url;
@@ -147,10 +151,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json数组对象
+	 * 解析菜品json数组对象
 	 * 
 	 * @param json
-	 * @return
+	 * @return 菜品列表list
 	 */
 	private List<GoodsDataBean> parseGoodsDataJson(String json) {
 		List<GoodsDataBean> goods = new ArrayList<GoodsDataBean>();
@@ -171,7 +175,8 @@ public class DownloadService implements GoodService, CategoryService {
 
 	/**
 	 * 获取会员的折扣信息
-	 * @param callback
+	 * @param userId 会员id
+	 * @param callback  回调监听器
 	 */
 	public <T> void getUserDiscountData(String userId, ICallback<T> callback) {
 		// 创建请求HttpClient客户端	
@@ -220,10 +225,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json数组对象
+	 * 解析会员信息json数组对象
 	 * 
-	 * @param json
-	 * @return
+	 * @param json 会员信息json数据
+	 * @return 会员数据list, 默认使用0位置数据
 	 */		
 	private List<UserInfoDataBean> parseUserDiscountDataJson(String json) {
 		List<UserInfoDataBean> goods = new ArrayList<UserInfoDataBean>();
@@ -241,6 +246,7 @@ public class DownloadService implements GoodService, CategoryService {
 		
 	/**
 	 * 获取最新的单个商品的详细信息
+	 * @param callback 回调监听器
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -291,10 +297,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json的单个对象
-	 * 
-	 * @param json
-	 * @return
+	 * 解析商品详情json数据
+	 * 该功能为后期扩展使用
+	 * @param json 菜品详情数据
+	 * @return 菜品信息数据Bean
 	 */
 	private GoodsDataBean parseGoodsDetailJson(String json) {
 		JSONObject obj = null;
@@ -312,6 +318,7 @@ public class DownloadService implements GoodService, CategoryService {
 
 	/**
 	 * 获取最新的商品分类表
+	 * @param callback 回调监听器
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -364,10 +371,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json数组对象
+	 * 解析分类json数据
 	 * 
-	 * @param json
-	 * @return
+	 * @param json 菜品分类json数据
+	 * @return 菜品分类信息list
 	 */
 	private List<CategoryDataBean> parseCategoryDataJson(String json) {
 		List<CategoryDataBean> categoryList = new ArrayList<CategoryDataBean>();
@@ -389,7 +396,8 @@ public class DownloadService implements GoodService, CategoryService {
 
 	/**
 	 * 获取某个会员号的历史订单记录
-	 * @param callback
+	 * @param userId 会员id
+	 * @param callback 回调监听器
 	 */	
 	public <T> void getOrderHestory(String userId, ICallback<T> callback) {
 		// TODO Auto-generated method stub
@@ -439,10 +447,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json数组对象
+	 * 解析订单历史json数据
 	 * 
-	 * @param json
-	 * @return
+	 * @param json 订单历史json数据
+	 * @return 订单数据Bean列表list
 	 */
 	private List<OrderHestoryDataBean> parseOrderHestoryDataJson(String json) {
 		List<OrderHestoryDataBean> categoryList = new ArrayList<OrderHestoryDataBean>();
@@ -465,7 +473,7 @@ public class DownloadService implements GoodService, CategoryService {
 	
 	/**
 	 * 获取某个订单详情
-	 * @param callback
+	 * @param callback 回调监听器
 	 */	
 	public <T> void getOrderInfo(ICallback<T> callback) {
 		// TODO Auto-generated method stub
@@ -515,10 +523,10 @@ public class DownloadService implements GoodService, CategoryService {
 	}
 
 	/**
-	 * 解析json数组对象
+	 * 解析订单详情json数据
 	 * 
-	 * @param json
-	 * @return
+	 * @param json 订单详情json数据
+	 * @return 订单详情数据Bean列表list
 	 */
 	private List<OrderInfoDataBean> parseOrderInfoDataJson(String json) {
 		List<OrderInfoDataBean> OrderInfoList = new ArrayList<OrderInfoDataBean>();
@@ -540,7 +548,9 @@ public class DownloadService implements GoodService, CategoryService {
 	
 	/**
 	 * 提交订单详情
-	 * @param callback
+	 * @param tableInfo 下单台数据信息
+	 * @param dataBeanList 下单数据详情信息
+	 * @param callback 回调监听器
 	 */						
 	public <T> void postOrderInfo(TableInfoDataBean tableInfo, List<OrderInfoDataBean> dataBeanList, ICallback<T> callback) {
 		// TODO Auto-generated method stub	
@@ -636,8 +646,8 @@ public class DownloadService implements GoodService, CategoryService {
 			
 	/**
 	 * 由服务器图片地址转换到真实url地址
-	 * @param bitmapPath
-	 * @return
+	 * @param bitmapPath 服务器下发的图片地址
+	 * @return 真实的图片url地址
 	 */
 	private String getBitmapUrl(String bitmapPath) {
 		String bitmapUrl = getServiceUrl() + "/eorder-ws/images" + bitmapPath;			

@@ -169,10 +169,10 @@
                 android:text="@string/order_text_discount"
                 android:textColor="#4d4d4d"
                 android:textSize="20dp" />
-
+				
             <TextView
                 android:id="@+id/original_price"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"

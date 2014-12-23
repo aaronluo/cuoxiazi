@@ -1,5 +1,5 @@
 /***********************************************
- * Filename		: BaseEntity.java																									: DishService.java
+ * Filename		: BaseEntity.java																								
  * Copyright  	: Copyright (c) 2014
  * Company    	: Innovaee
  * Created	    : 11/27/2014

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: LruImageCache.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import java.lang.ref.SoftReference;
@@ -10,12 +16,10 @@ import android.util.Log;
 import android.util.LruCache;
 
 /**
- * 
- * <br>
- * 类描述:LRU图片缓存器 <br>
+ * 类描述:LRU图片缓存器 
  * 功能详细描述:
  * 
- * @author wangzhuobin
+ * @author wanglinglong
  * @date [2012-11-30]
  */
 @SuppressLint("NewApi")
@@ -71,7 +75,7 @@ public class LruImageCache implements IImageCache {
 		}
 		if (lruCache != null) {
 			lruCache.put(key, value);
-			Log.d("mjw", "xx+" + lruCache.size());
+			Log.d(" ", "xx+" + lruCache.size());
 		}
 	}
 

@@ -1,7 +1,13 @@
+/***********************************************
+ * Filename		: GoodService.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.service;
 
 /**
- * 
+ * 菜品信息获取相关接口
  * @author wanglinglong
  * 
  */

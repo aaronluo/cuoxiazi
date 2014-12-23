@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: ForegroundAdapter.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import com.innovaee.eorder.R;
@@ -8,9 +14,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 /**
- * 
- * <br>
- * 类描述: 蒙版显示控制器 <br>
+ * 类描述: 蒙版显示控制器 
  * 功能详细描述: 根据触屏状态下的调整蒙版显示效果
  * 
  * @author wanglinglong
@@ -39,9 +43,8 @@ public class ForegroundAdapter {
 	}
 
 	/**
-	 * <br>
-	 * 功能简述: <br>
-	 * 功能详细描述: <br>
+	 * 功能简述: 
+	 * 功能详细描述: 
 	 * 注意: 必须由宿主调用
 	 * 
 	 * @param canvas
@@ -53,9 +56,8 @@ public class ForegroundAdapter {
 	}
 
 	/**
-	 * <br>
-	 * 功能简述: <br>
-	 * 功能详细描述: <br>
+	 * 功能简述: 
+	 * 功能详细描述: 
 	 * 注意: 必须由宿主调用
 	 */
 	public void drawableStateChanged() {

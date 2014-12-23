@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: OrderActivity.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
@@ -36,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 	
 /**
- * 	
+ * 	下订单界面
  * @author wanglinglong
  * 
  */		
@@ -48,11 +54,19 @@ public class OrderActivity extends Activity {
 	//改变菜品数量广播
 	public static final String ACTION_INTENT_CHANGECOUNT = "com.eorder.action.changeCount";
 		
-	//内部消息定义
+	//刷新界面消息
 	public final static int MSG_UPDATE = 10001;
+	
+	//初始化数据完成消息
 	public final static int MSG_INITDATA = 10002;
+	
+	//更新显示数量消息
 	public final static int MSG_UPDATE_COUNT = 10003;
+	
+	//更新折扣信息消息
 	public final static int MSG_UPDATE_DISCOUNT = 10004;
+	
+	//下单成功消息
 	public final static int MSG_ORDER_SUCCESS = 10005;
 						
 	//已经选择菜品list
@@ -387,6 +401,7 @@ public class OrderActivity extends Activity {
 
 	/**	
 	 * 获取某个会员号的信息
+	 * @param userId 会员id
 	 */															
 	private void getDiscountData(final String userId) {
 		Log.d(TAG, "getDiscountData");					
@@ -433,9 +448,9 @@ public class OrderActivity extends Activity {
 		
 	/**
 	 * 判断字符串是否为数字
-	 * @param str
-	 * @return
-	 */
+	 * @param str 输入字符串
+	 * @return 是否为数字，true为数字，false不为数字
+	 */	
 	private boolean isNumeric(String str) { 
 		Pattern pattern = Pattern.compile("[0-9]*"); 
 		Matcher isNum = pattern.matcher(str);
@@ -448,7 +463,7 @@ public class OrderActivity extends Activity {
 		
 	/**
 	 * 重新设置listview的高
-	 * @param listView
+	 * @param listView 需要设置的listview
 	*/
 	private void setListViewHeightBasedOnChildren(ListView listView) {
 		ListAdapter listAdapter = listView.getAdapter();
@@ -472,7 +487,7 @@ public class OrderActivity extends Activity {
 	
 	/**
 	 * 下单到服务器
-	 * @param selectOrderGoods
+	 * @param selectOrderGoods 下订单数据
 	 */
 	private void orderToService(final List<GoodsDataBean> selectOrderGoods) {	
 		orderSuccessful();

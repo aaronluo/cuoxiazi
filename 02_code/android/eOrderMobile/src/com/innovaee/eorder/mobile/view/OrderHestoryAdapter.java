@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: OrderHestoryAdapter.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 
@@ -17,6 +23,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 		
+/**
+ * 订单历史查询界面数据适配器
+ * @author leon.wang
+ *
+ */
 public class OrderHestoryAdapter extends BaseAdapter {
 	private List<OrderHestoryDataBean> listItemsData;
 	private Context context;			

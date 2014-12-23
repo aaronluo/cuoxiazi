@@ -1,20 +1,35 @@
+/***********************************************
+ * Filename		: TableInfoDataBean.java																							
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.databean;
 
 import java.io.Serializable;
 
 /**
- * 
+ * 提交订单开台信息数据Bean
  * @author wanglinglong
  * 
  */
 public class TableInfoDataBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public final static String TABLE = "table"; 					// 表单名
-	public final static String COLUM_ID = "tableId"; 				// 开台id
-	public final static String COLUM_CELLPHONE = "cellphone"; 		// 会员电话号码
-	public final static String COLUM_SERVANTID = "servantId"; 		// 员工工号
-	public final static String COLUM_DISHPRICE = "dishPrice";		// 总价
+	// 表单名
+	public final static String TABLE = "table"; 	
+	
+	// 开台id
+	public final static String COLUM_ID = "tableId"; 	
+	
+	// 会员电话号码
+	public final static String COLUM_CELLPHONE = "cellphone"; 	
+	
+	// 员工工号
+	public final static String COLUM_SERVANTID = "servantId"; 
+	
+	// 总价
+	public final static String COLUM_DISHPRICE = "dishPrice";		
 	
 	private int tableId;
 

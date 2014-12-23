@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: OrderAdapter.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
@@ -13,6 +19,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 			
+/**
+ * 下订单界面数据适配器
+ * @author leon.wang
+ *
+ */
 public class OrderAdapter extends BaseAdapter {
 	private List<GoodsDataBean> listItemsData;
 	private Context context;			

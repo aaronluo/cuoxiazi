@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: ImageDataManager.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 	
 import java.io.ByteArrayOutputStream;
@@ -36,7 +42,8 @@ import android.util.SparseArray;
 import com.innovaee.eorder.mobile.util.LruImageCache;
 
 /**
- * theme image manager, contain restore to cash, sdcard, etc
+ * 图片管理器
+ * 管理图片，存储图片到缓存和sdcard,使用时从缓存或者sdcard读取图片
  * 
  * @author wanglinglong
  * 
@@ -141,20 +148,6 @@ public class ImageDataManager {
 	}
 
 	/**
-	 * 通过URL获取图片
-	 * 
-	 * @param url
-	 * @return
-	 */
-	/*public Bitmap getBitmap(String url) {
-		Bitmap bitmap = getBitmapFromCache(url);
-		if (null == bitmap) {
-			bitmap = getBitmapFromNet(url);
-		}
-		return bitmap;
-	}*/
-
-	/**
 	 * 先从内存缓存中获取Bitmap,如果没有就从SD卡或者手机缓存中获取，SD卡或者手机缓存 没有就去下载
 	 * 
 	 * @param url
@@ -190,53 +183,6 @@ public class ImageDataManager {
 			executor.execute(task);
 		}
 	}
-
-	/**
-	 * 从网络以Url获取Bitmap
-	 * 
-	 * @param url
-	 * @return
-	 */
-	/*private Bitmap getBitmapFromNet(String url) {
-		if (TextUtils.isEmpty(url)) {
-			return null;
-		}
-		Bitmap bitmap = null;
-		InputStream stream = null;
-		HttpURLConnection conn = null;
-		try {
-			conn = (HttpURLConnection) new URL(url).openConnection();
-			conn.setConnectTimeout(15 * 1000);
-			conn.setReadTimeout(15 * 1000);
-			int code = conn.getResponseCode();
-			if (code == 200) {
-				stream = conn.getInputStream();
-				bitmap = DisplayUtil.decodeBitmap(stream);
-			}
-			try {
-				if (bitmap != null) {
-					addBitmapToCache(url, bitmap);
-					saveBmpToSd(url, bitmap);
-					Log.d("ImageDataManager", "Image cached " + url);
-				} else {
-					Log.w("ImageDataManager", "Failed to cache " + url);
-				}
-			} catch (NullPointerException e) {
-				Log.w("ImageDataManager", "Failed to cache " + url);
-			}
-		} catch (Exception e) {
-			Log.w("ImageDataManager", "Couldn't load bitmap from url: " + url);
-		} finally {
-			try {
-				if (stream != null) {
-					stream.close();
-				}
-			} catch (IOException e) {
-
-			}
-		}
-		return bitmap;
-	}*/
 
 	/**
 	 * 取消正在下载的任务
@@ -284,9 +230,9 @@ public class ImageDataManager {
 	}
 
 	/**
-	 * <br>功能简述: 从sd卡加载图片
-	 * <br>功能详细描述:
-	 * <br>注意:
+	 * 功能简述: 从sd卡加载图片
+	 * 功能详细描述:
+	 * 注意:
 	 * @param url
 	 * @return
 	 */
@@ -303,9 +249,9 @@ public class ImageDataManager {
 	}
 
 	/**
-	 * <br>功能简述: 同步下载图片
-	 * <br>功能详细描述:
-	 * <br>注意:
+	 * 功能简述: 同步下载图片
+	 * 功能详细描述:
+	 * 注意:
 	 * @param url
 	 * @return
 	 */
@@ -366,9 +312,9 @@ public class ImageDataManager {
 	}
 
 	/**
-	 * <br>功能简述: 获取 本地缓存文件
-	 * <br>功能详细描述:
-	 * <br>注意:
+	 * 功能简述: 获取 本地缓存文件
+	 * 功能详细描述:
+	 * 注意:
 	 * @param url
 	 * @return
 	 */
@@ -388,9 +334,9 @@ public class ImageDataManager {
 	}
 
 	/**
-	 * <br>功能简述: 本地缓存文件是否存在
-	 * <br>功能详细描述:
-	 * <br>注意:
+	 * 功能简述: 本地缓存文件是否存在
+	 * 功能详细描述:
+	 * 注意:
 	 * @param url
 	 * @return
 	 */
@@ -695,8 +641,8 @@ public class ImageDataManager {
 	
 	/**
 	 * 
-	 * <br>类描述:
-	 * <br>功能详细描述:
+	 * 类描述:
+	 * 功能详细描述:
 	 * 
 	 * @author  wanglinglong
 	 * @date  [2014年11月19日]
@@ -708,8 +654,8 @@ public class ImageDataManager {
 	
 	/**
 	 * 
-	 * <br>
-	 * 类描述: <br>
+	 * 
+	 * 类描述: 
 	 * 功能详细描述:
 	 * 
 	 * @author wanglinglong

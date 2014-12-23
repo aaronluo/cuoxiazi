@@ -1,21 +1,38 @@
+/***********************************************
+ * Filename		: GoodsDataBean.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.databean;
 
 import java.io.Serializable;
 
 /**
- * 
+ * 商品信息数据Bean
  * @author wanglinglong
  * 
  */
 public class GoodsDataBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public final static String TABLE = "goods"; 		// 表单名
-	public final static String COLUM_ID = "id"; 		// id
-	public final static String COLUM_NAME = "name"; 	// 名字
-	public final static String COLUM_PRICE = "price"; 	// 价格
-	public final static String COLUM_BITMAPURL = "url";	// 图片url地址
-	public final static String COLUM_COUNT = "count";   // 购买数量
+	//表单名
+	public final static String TABLE = "goods"; 
+	
+	//商品id
+	public final static String COLUM_ID = "id"; 		
+	
+	//名字
+	public final static String COLUM_NAME = "name"; 	
+	
+	//价格
+	public final static String COLUM_PRICE = "price"; 	
+	
+	//图片url地址
+	public final static String COLUM_BITMAPURL = "url";
+	
+	//购买数量
+	public final static String COLUM_COUNT = "count";  
 
 	private int id;
 

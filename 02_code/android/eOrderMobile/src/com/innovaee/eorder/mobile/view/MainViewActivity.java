@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: MainViewActivity.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 	
 import java.util.ArrayList;
@@ -41,17 +47,35 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 			
+/**
+ * 主程序入口展示界面
+ * 展示菜品某分类下所有菜品
+ * @author leon.wang
+ *
+ */
 public class MainViewActivity extends Activity {
 	//Log输出Tag
 	private final static String TAG = "MainViewActivity";
 			
-	//消息定义
+	//消息定义，界面刷新消息
 	public final static int MSG_UPDATE = 20001;
-	public final static int MSG_INITDATA = 20002;	
+	
+	//初始化数据完成消息
+	public final static int MSG_INITDATA = 20002;
+	
+	//更新popmenu消息
 	public final static int MSG_UPDATE_POPMENU = 20003;
+	
+	//下单消息
 	public final static int MSG_ORDER = 20004;
+	
+	//删除所有的消息
 	public final static int MSG_DELALL = 20005;
+	
+	//更新下单的数目的消息
 	public final static int MSG_UPDATE_COUNT = 20006;
+	
+	//提示失败的消息
 	public final static int MSG_UPDATE_FAILUI = 20007;
 						
 	//自定义ActionBar
@@ -432,6 +456,7 @@ public class MainViewActivity extends Activity {
 					
 	/**
 	 * 进入订单记录
+	 * @param 会员id
 	 */
 	private void oepnOrderHestory(String userId) {
 		Bundle bundle = new Bundle();					
@@ -470,7 +495,7 @@ public class MainViewActivity extends Activity {
 	
 	/**
 	 * 切换当前的FeedType，并更新显示
-	 * @param paramFeedType
+	 * @param paramFeedType 需要切换的菜品分类类型数据
 	 */
 	private void changeFeedType(FeedType paramFeedType)
 	{	
@@ -531,7 +556,7 @@ public class MainViewActivity extends Activity {
 				
 	/**
 	 * 处理Actionbar中FeedType自定义View点击事件
-	 * @param paramView
+	 * @param paramView 点击view区域
 	 */	
 	public void clickOnFeedType(View paramView)
 	{
@@ -550,7 +575,7 @@ public class MainViewActivity extends Activity {
 							
 	/**
 	 * 处理ActionBar中orderHestory自定义View点击事件
-	 * @param paramView
+	 * @param paramView 点击view区域
 	 */
 	public void clickOnOrderHestory(View paramView)
 	{				
@@ -568,7 +593,7 @@ public class MainViewActivity extends Activity {
 							
 	/**
 	 * 更新我的订单数目
-	 * @param count
+	 * @param count 需要更新的数目
 	 */
 	private void updateMyOrderCount(int count) {
 	    String str = "";
@@ -589,7 +614,7 @@ public class MainViewActivity extends Activity {
 				
 	/**
 	 * 得到当前下单菜品的总数量
-	 * @return
+	 * @return 当前的总数量
 	 */
 	private int getMyOrderSelectCount() {
 		int count = 0;
@@ -636,6 +661,7 @@ public class MainViewActivity extends Activity {
 
 	/**	
 	 * 加载某个分类菜品列表数据
+	 * @param 菜品分类id
 	 */								
 	private void loadCategoryData(final int id) {
 		Log.d(TAG, "loadCategoryData()");			
@@ -733,8 +759,8 @@ public class MainViewActivity extends Activity {
 	
 	/**	
 	 * 转换分类数据为切换分类所需的数据类型
-	 * @param categoryListData
-	 * @return
+	 * @param categoryListData 需要转换的原始分类数据
+	 * @return 转换后的菜品分类数据
 	 */
 	private List<FeedType> changeCategoryToFeedType(List<CategoryDataBean> categoryListData) {
 		List<FeedType> feedTypeList = new ArrayList<FeedType>();
@@ -753,7 +779,7 @@ public class MainViewActivity extends Activity {
 	/**
 	 * 添加菜品到选择列表
 	 * 如果该菜品已经存在则改变数量，如果没有则添加菜品到list中
-	 * @param dataBean
+	 * @param dataBean 当前选中的菜品数据Bean
 	 */
 	private void addGoodsToSelect(GoodsDataBean dataBean) {
 		boolean isAddCount = false;

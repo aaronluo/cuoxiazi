@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: MyOrderActivity.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
@@ -25,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 		
 /**
- * 
+ * 我的订单界面
  * @author wanglinglong
  * 
  */
@@ -40,10 +46,16 @@ public class MyOrderActivity extends Activity {
 	//改变菜品数量广播
 	public static final String ACTION_INTENT_CHANGECOUNT = "com.eorder.action.changeCount";
 					
-	//内部消息定义
+	//内部消息定义，刷新消息
 	public final static int MSG_UPDATE = 10001;
+	
+	//初始化数据完成消息
 	public final static int MSG_INITDATA = 10002;
+	
+	//更新显示的下单数目消息
 	public final static int MSG_UPDATE_COUNT = 10003;
+	
+	//重新设置适配器消息
 	public final static int MSG_RESET_ADAPTER = 10004;	
 			
 	//已选择菜品

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: SettingsActivity.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import com.innovaee.eorder.R;
@@ -14,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 	
 /**
- * 
+ * 设置界面
  * @author wanglinglong
  * 
  */
@@ -93,7 +99,7 @@ public class SettingsActivity extends Activity {
 		
 	/**
 	 * 写入服务器地址
-	 * @param url
+	 * @param url 输入的服务器地址
 	 */
 	private void saveServiceUrl(String url) { 
 		SharedPreferences mySharedPreferences= getSharedPreferences("setting", Activity.MODE_PRIVATE); 
@@ -106,7 +112,7 @@ public class SettingsActivity extends Activity {
 	
 	/**
 	 * 读取服务器地址
-	 * @return
+	 * @return 返回服务器地址
 	 */
 	private String readServiceUrl() {
 		SharedPreferences sharedPreferences= getSharedPreferences("setting", Activity.MODE_PRIVATE); 

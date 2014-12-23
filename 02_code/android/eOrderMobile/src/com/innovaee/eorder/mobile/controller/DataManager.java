@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: DataManager.java																							
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.controller;
 
 import java.util.List;
@@ -14,7 +20,7 @@ import android.util.Log;
 
 /**
  * 数据管理器
- * 
+ * 通过该类获取相关的数据，分类列表，某分类菜品列表，会员信息等
  * @author wanglinglong
  * 
  */
@@ -83,8 +89,8 @@ public class DataManager {
 	/**
 	 * 获取所有商品列表
 	 * 
-	 * @param id
-	 * @param listener
+	 * @param id 指定菜品分类的id
+	 * @param listener 回调监听
 	 */
 	public void getGoodsData(int id,
 			final IDataRequestListener<GoodsDataBean> listener) {
@@ -125,9 +131,9 @@ public class DataManager {
 
 	/**
 	 * 获取商品详情数据
-	 * 
-	 * @param id
-	 * @param listener
+	 * 通过商品的id获取详情数据，一期无此需求，为后续保留接口
+	 * @param id 商品的id
+	 * @param listener 回调监听器
 	 */
 	public void getGoodsDetailData(int id,
 			final IDataRequestListener<GoodsDetailDataBean> listener) {
@@ -174,8 +180,8 @@ public class DataManager {
 	
 	/**
 	 * 得到会员的折扣信息
-	 * @param id
-	 * @param iDataRequestListener
+	 * @param id 会员id
+	 * @param iDataRequestListener 回调监听器
 	 */
 	public void getUserDiscountData(String id,
 			final IDataRequestListener<UserInfoDataBean> iDataRequestListener) {
@@ -222,8 +228,8 @@ public class DataManager {
 		
 	/**
 	 * 下单到服务器
-	 * @param selectOrderGoods
-	 * @param iDataRequestListener
+	 * @param selectOrderGoods 下单的菜品数据list
+	 * @param iDataRequestListener 回调监听器
 	 */
 	public void orderToService(List<GoodsDataBean> selectOrderGoods,
 			final IDataRequestListener<String> iDataRequestListener) {
@@ -271,8 +277,8 @@ public class DataManager {
 	
 	/**
 	 * 得到某个会员的历史订单记录
-	 * @param id
-	 * @param listener
+	 * @param id 会员id
+	 * @param listener 回调监听器
 	 */
 	public void getOrderHestoryData(String id,
 			final IDataRequestListener<OrderHestoryDataBean> listener) {
@@ -318,9 +324,7 @@ public class DataManager {
 	}
 
 	/**
-	 * 
-	 * <br>
-	 * 类描述: 数据请求监听器 <br>
+	 * 类描述: 数据请求监听器 
 	 * 功能详细描述:
 	 * 
 	 * @author wanglinglong
@@ -329,18 +333,16 @@ public class DataManager {
 	public static interface IDataRequestListener<T> {
 
 		/**
-		 * <br>
-		 * 功能简述: <br>
-		 * 功能详细描述: <br>
+		 * 功能简述: 数据请求开始回调接口
+		 * 功能详细描述: 
 		 * 注意:
 		 */
 		public void onRequestStart();
 
 		/**
-		 * <br>
-		 * 功能简述: <br>
-		 * 功能详细描述: <br>
-		 * 注意:
+		 * 功能简述: 数据请求成功回调接口
+		 * 功能详细描述: 
+		 * 注意:返回单个数据Bean
 		 * 
 		 * @param data
 		 *            更新后的缓存数据
@@ -348,10 +350,9 @@ public class DataManager {
 		public void onRequestSuccess(T data);
 
 		/**
-		 * <br>
-		 * 功能简述: <br>
-		 * 功能详细描述: <br>
-		 * 注意:
+		 * 功能简述: 数据请求成功回调接口
+		 * 功能详细描述: 
+		 * 注意:返回多个数据Bean列表list
 		 * 
 		 * @param data
 		 *            更新后的缓存数据列表
@@ -359,10 +360,9 @@ public class DataManager {
 		public void onRequestSuccess(List<T> data);
 
 		/**
-		 * <br>
-		 * 功能简述: <br>
-		 * 功能详细描述: <br>
-		 * 注意:
+		 * 功能简述: 数据请求失败回调接口
+		 * 功能详细描述: 
+		 * 注意: 
 		 */
 		public void onRequestFailed();
 	}

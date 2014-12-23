@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: MyOrderAdapter.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
@@ -16,7 +22,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-			
+		
+/**
+ * 我的订单界面数据适配器
+ * @author leon.wang
+ *
+ */
 public class MyOrderAdapter extends BaseAdapter {
 	private List<GoodsDataBean> listItemsData;
 	private Context context;			
@@ -63,16 +74,8 @@ public class MyOrderAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		View view = null;
 		Log.d("GoodsAdapter", "getView() position=" + position);
-		//if (listPosition.contains(position) == false) {  
-			//这里设置缓存的Item数量
-			//if(listPosition.size() > 50)  
-			//{  	
-				//删除第一项
-			//	listPosition.remove(0);  
-			//	listView.remove(0);  
-			//}  		
-					
-			view = layoutInflater.inflate(R.layout.myorder_listitem, null);
+
+		view = layoutInflater.inflate(R.layout.myorder_listitem, null);
 					
 			// 获取自定义的类实例		
 			final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
@@ -123,14 +126,7 @@ public class MyOrderAdapter extends BaseAdapter {
 			Double allPrice = goodsItemDataTemp.getPrice() * count;									
 			countTxtView.setText(String.valueOf(count));				
 			priceTxtView.setText(String.valueOf(allPrice));	
-				
-			//添加最新项
-			//listPosition.add(position);  
-	        //listView.add(view);  										
-		//} else {  		
-		//	view = listView.get(listPosition.indexOf(position));
-		//}	
-					
+			
 		return view;
 	}
 	
@@ -154,6 +150,7 @@ public class MyOrderAdapter extends BaseAdapter {
 	
 	/**
 	 * 增加当前选中的菜品数量+1
+	 * @param dataBean 当前选中的菜品数据Bean
 	 */
 	private void addMyOrderSelectCount(GoodsDataBean dataBean) {
 		for (GoodsDataBean goodsDataBean: listItemsData) {
@@ -167,7 +164,7 @@ public class MyOrderAdapter extends BaseAdapter {
 	/**
 	 * 减少当前选中的菜品数量-1
 	 * 等于0则删除该项
-	 * @param dataBean
+	 * @param dataBean 当前选中的菜品数据Bean
 	 * @return 是否需要重新设置Adapter
 	 */
 	private boolean cutDownMyOrderSelectCount(GoodsDataBean dataBean) {
@@ -212,6 +209,9 @@ public class MyOrderAdapter extends BaseAdapter {
 	}
 	
 	@Override 	
+	/**
+	 * 通知数据更新
+	 */
 	public void notifyDataSetChanged() { 		 		 		
 		super.notifyDataSetChanged(); 	
 	}	

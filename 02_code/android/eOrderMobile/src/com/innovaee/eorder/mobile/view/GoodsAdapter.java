@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: GoodsAdapter.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
@@ -17,6 +23,11 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 		
+/**
+ * 菜品数据适配器
+ * @author leon.wang
+ *
+ */
 public class GoodsAdapter extends BaseAdapter {
 	private List<GoodsDataBean> listItemsData;
 	private Context context;
@@ -32,13 +43,7 @@ public class GoodsAdapter extends BaseAdapter {
 		public ImageView image;
 		public TextView title;
 	}
-
-	public GoodsAdapter(Context context) {
-		this.context = context;
-		layoutInflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-
+	
 	public GoodsAdapter(Context context, List<GoodsDataBean> list, Handler handler) {
 		this.listItemsData = list;
 		this.context = context;

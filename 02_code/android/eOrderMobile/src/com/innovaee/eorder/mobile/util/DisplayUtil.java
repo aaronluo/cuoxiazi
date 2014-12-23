@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: DisplayUtil.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import java.io.ByteArrayInputStream;
@@ -20,9 +26,9 @@ import android.util.TypedValue;
  */
 public class DisplayUtil {
 	/**
-	 * @param res
-	 * @param resId
-	 * @return
+	 * @param res 转换资源
+	 * @param resId 转换资源id
+	 * @return 生成的bitmap对象
 	 */
 	public static Bitmap decodeBitmap(Resources res, int resId) {
 		// TODO
@@ -51,9 +57,9 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * 
-	 * @param pathName
-	 * @return
+	 * 生成bitmap对象
+	 * @param pathName 图片文件路径
+	 * @return 生成的bitmap对象
 	 */
 	public static Bitmap decodeBitmap(String pathName) {
 		Bitmap retval = null;
@@ -69,9 +75,9 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * 
-	 * @param is
-	 * @return
+	 * 解析输入流到bitmap对象
+	 * @param is 输入流
+	 * @return 生成的bitmap对象
 	 */
 	public static Bitmap decodeBitmap(InputStream is) {
 		if (is == null) {
@@ -101,8 +107,9 @@ public class DisplayUtil {
 	}
 
 	/**
-	 * @param bytes
-	 * @return
+	 * 转换字节数据到bitmap对象
+	 * @param bytes 图像字节数据
+	 * @return 生成的bitmap对象
 	 */
 	public static Bitmap decodeBitmap(byte[] bytes) {
 		Bitmap retval = null;
@@ -117,6 +124,12 @@ public class DisplayUtil {
 		return retval;
 	}
 	
+	/**
+	 * 转换函数，Dip到Pixel
+	 * @param paramDisplayMetrics 工具类
+	 * @param paramFloat 
+	 * @return 转换后的数据
+	 */
 	public static int dipToPixels(DisplayMetrics paramDisplayMetrics, float paramFloat)
 	{
 	    return (int)TypedValue.applyDimension(1, paramFloat, paramDisplayMetrics);

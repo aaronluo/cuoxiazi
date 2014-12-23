@@ -1,7 +1,17 @@
+/***********************************************
+ * Filename		: ImagesUrl.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.test;
  
 
-	
+/**
+ * 测试图片地址数据	
+ * @author leon.wang
+ *
+ */
 public class ImagesUrl {
  
     public final static String[] Urls = new String[] {

@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: RemoteImageView.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import java.util.Collections;
@@ -141,9 +147,9 @@ public class RemoteImageView extends ImageView implements IForeground {
 	}
 
 	/**
-	 * <br>功能简述: 预先给视图绑定一个url，后续触发加载
-	 * <br>功能详细描述:
-	 * <br>注意:
+	 * 功能简述: 预先给视图绑定一个url，后续触发加载
+	 * 功能详细描述:
+	 * 注意:
 	 * @param url
 	 */
 	public void prepareImageUrl(String url) {

@@ -1,22 +1,33 @@
+/***********************************************
+ * Filename		: CategoryDataBean.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.databean;
 
 import java.io.Serializable;
 
 /**
+ * 菜品分类数据Bean
  * 
  * @author wanglinglong
  * 
  */
 public class CategoryDataBean implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-	public final static String TABLE = "category"; // 表单名
-	public final static String COLUM_ID = "id"; // 分类id
-	public final static String COLUM_NAME = "name"; // 分类名字
-	public final static String COLUM_BITMAPUIL = "url"; // 分类背景图片
+	
+	//表单名
+	public final static String TABLE = "category"; 
+	
+	//分类id
+	public final static String COLUM_ID = "id"; 
+	
+	//分类名字
+	public final static String COLUM_NAME = "name"; 
+	
+	//分类背景图片
+	public final static String COLUM_BITMAPUIL = "url"; 
 
 	private int id;
 
