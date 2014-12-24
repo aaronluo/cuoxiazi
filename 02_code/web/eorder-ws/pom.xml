@@ -8,142 +8,43 @@
 	<name>eorder-ws Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<jersey.version>1.18.2</jersey.version>
-		<jsr.version>1.0</jsr.version>
-		<asm.version>3.1</asm.version>
-		<jaxb.api.version>2.2.12</jaxb.api.version>
-		<activation.version>1.1</activation.version>
-		<stax.version>1.0.1</stax.version>
-		<wstx.asl.version>3.2.1</wstx.asl.version>
+		<servlet.api.version>2.5</servlet.api.version>
+		<jsp.api.version>2.1</jsp.api.version>
 		<mysql.version>5.1.17</mysql.version>
-		<commons.logging.version>1.1.1</commons.logging.version>
-		<commons.collections.version>3.2.1</commons.collections.version>
-		<commons.lang.version>2.6</commons.lang.version>
-		<commons.io.version>1.3.2</commons.io.version>
 		<hibernate.version>4.3.7.Final</hibernate.version>
+		<mysql.version>5.1.17</mysql.version>
+		<log4j.version>1.2.9</log4j.version>
+		<commons.beanutils.version>1.9.2</commons.beanutils.version>
+		<commons.lang.version>2.6</commons.lang.version>
+		<ws.rs.version>2.0.1</ws.rs.version>
+		<jackson.jaxrs.version>1.9.13</jackson.jaxrs.version>
+		<jersey.version>2.13</jersey.version>
+		<junit.version>4.11</junit.version>
+		<slf4j.version>1.5.8</slf4j.version>
 	</properties>
 
 	<dependencies>
-
 		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0.1</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
+		<!-- 编译的时候用到，打包的时候没有 -->
 		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.2</version>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-jaxrs</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>2.13</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.13</version>
-		</dependency>
-
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>${asm.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>activation</artifactId>
-			<version>${activation.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>stax</groupId>
-			<artifactId>stax-api</artifactId>
-			<version>${stax.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>woodstox</groupId>
-			<artifactId>wstx-asl</artifactId>
-			<version>${wstx.asl.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.8</version>
-		</dependency>
-
+		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-lang -->
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons.lang.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-io -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons.io.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-logging -->
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>${commons.logging.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-collections -->
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons.collections.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common -->
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils-core</artifactId>
-			<version>1.8.3</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<!-- mysql connector -->
@@ -154,25 +55,63 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- commons-beanutils for Entity layer -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons.beanutils.version}</version>
+		</dependency>
+
+		<!-- common-lang Entity layer -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-			<scope>provided</scope>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${ws.rs.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${ws.rs.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${jackson.jaxrs.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 	</dependencies>
 
