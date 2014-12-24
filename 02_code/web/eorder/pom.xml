@@ -12,30 +12,27 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
 		<struts2.version>2.3.1.2</struts2.version>
-		<sitemesh.version>2.4.2</sitemesh.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.asm.version>3.1.4.RELEASE</spring.asm.version>
 		<struts2.spring.plugin.version>2.3.16</struts2.spring.plugin.version>
 		<hibernate.version>3.6.9.Final</hibernate.version>
-		<hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
-		<hibernate.commons.version>3.3.0.ga</hibernate.commons.version>
 		<mysql.version>5.1.17</mysql.version>
-		<slf.version>1.7.5</slf.version>
 		<log4j.version>1.2.9</log4j.version>
-		<commons.logging.version>1.1.1</commons.logging.version>
-		<commons.collections.version>3.2.1</commons.collections.version>
+		<commons.beanutils.version>1.9.2</commons.beanutils.version>
 		<commons.lang.version>2.6</commons.lang.version>
-		<commons.io.version>1.3.2</commons.io.version>
-		<dbunit.version>2.4.8</dbunit.version>
-		<ognl.version>3.0.6</ognl.version>
-		<asm.version>5.0.2</asm.version>
-		<tiles.version>2.0.6</tiles.version>
 		<servlet.api.version>2.5</servlet.api.version>
 		<jsp.api.version>2.1</jsp.api.version>
 	</properties>
 
 	<dependencies>
+		<!-- 编译的时候用到，打包的时候没有 -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.api.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
+		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -51,11 +48,18 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- common -->
+		<!-- commons-beanutils for Entity layer -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils-core</artifactId>
-			<version>1.8.3</version>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons.beanutils.version}</version>
+		</dependency>
+
+		<!-- common-lang Entity layer -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -66,42 +70,7 @@
 			<version>${struts2.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.opensymphony</groupId>
-			<artifactId>xwork-core</artifactId>
-			<version>2.1.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.15</version>
-		</dependency>
-
-		<dependency>
-			<groupId>ognl</groupId>
-			<artifactId>ognl</artifactId>
-			<version>${ognl.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.0.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-
+		<!-- struts2-spring-plugin -->
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-spring-plugin</artifactId>
@@ -117,7 +86,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- spring -->
+		<!-- spring-orm for Dao layer -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -125,20 +94,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- spring-test for Unit Test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- spring security -->
+		<!-- spring security begin -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -159,15 +122,9 @@
 			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- spring security end -->
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- c3p0 -->
+		<!-- c3p0 数据库连接池 -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -175,7 +132,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- mysql connector -->
+		<!-- mysql connector 数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -183,7 +140,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- cglib -->
+		<!-- cglib for loggerUtility -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -191,15 +148,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- taglibs -->
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- jstl -->
+		<!-- jstl 标签 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -207,52 +156,12 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- 编译的时候用到，打包的时候没有 <dependency> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
-			<version>${servlet.api.version}</version> </dependency> -->
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-
 		<!-- 编译的时候用到，打包的时候没有 -->
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${jsp.api.version}</version>
-		</dependency>
-
-		<!-- common-lang -->
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons.lang.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-io -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons.io.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-logging -->
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>${commons.logging.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- common-collections -->
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${commons.collections.version}</version>
-			<scope>compile</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
