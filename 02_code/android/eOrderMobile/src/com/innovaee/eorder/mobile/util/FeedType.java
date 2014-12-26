@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename		: FeedType.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 	
 		
@@ -10,11 +16,11 @@ public class FeedType
 {
 	private String feedTypeName;	//分类名
 	private boolean needRefresh;	//是否需要刷新
-	private int classifyId;			//分类id
+	private int categoryId;			//分类id
 				
 	public FeedType(int paramInt, String paramString)
 	{
-		this.classifyId = paramInt;
+		this.categoryId = paramInt;
 	    this.feedTypeName = paramString;
 	}	
 	
@@ -28,17 +34,17 @@ public class FeedType
 	    this.needRefresh = paramBoolean;
 	}
 	
-	public int getClassifyId()
+	public int getCategoryId()
 	{
-	    return this.classifyId;
+	    return this.categoryId;
 	}
 	
 	public String getTypeName() {
 		return feedTypeName;	
 	}	
 	
-	public void setClassifyId(int id) {
-		this.classifyId = id;
+	public void setCategoryId(int id) {
+		this.categoryId = id;
 	}
 	
 	public void setFeedTypeName(String feedTypeName) {

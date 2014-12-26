@@ -1,35 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<% 	
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-		+ request.getServerName() + ":" + request.getServerPort()
-		+ path; 
-%>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title> ### - Banner</title>
-		<base target="main">
-<link href="../resources/css/basic.css" rel="stylesheet" type="text/css">
-<link href="../resources/css/banner.css" rel="stylesheet" type="text/css">
-	</head>
-	
-  	<body>
-  	<table id="banner" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td id="banner_left"><img src="../resources/image/logo.gif"></td>
-<td id="banner_right">
-<table id="banner_right_content" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td>Hi Admin, welcome to use this system!</td>
-<td><a href="<c:url value="/j_spring_security_logout" />" target="_parent"> Logout</a></td></tr>
-</table>
-</td>
-</tr>
-</table>
-  	</body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html>
+<html lang='zh-cn'>
+<head>
+<title>eOrder</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/style.css">
+</head>
+<body>
+	<!--head navigation bar -->
+	<div class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<!-- 商家名称-->
+			<a class="navbar-brand">eOrder订餐系统</a>
+			<!--自适应mobile设备菜单开关, Web后台可以不管-->
+			<button class="navbar-toggle" data-toggle="collapse"
+				data-target=".navHeaderCollapse">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<!-- 标题栏 -->
+			<div class="collapse navbar-collapse navHeaderCollapse">
+				<ul class="nav navbar-nav navbar-right">
+					<!--标题栏里面需要展现的item-->
+					<li><p class=navbar-text>
+							当前用户：
+							<s:property value="username" />
+							&nbsp;&nbsp; <a href="<c:url value='/j_spring_security_logout' />"
+								target="_parent"> 退出系统</a>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+						</p></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

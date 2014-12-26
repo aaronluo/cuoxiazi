@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.coderdream</groupId>
+	<groupId>com.innovaee</groupId>
 	<artifactId>eorder</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
@@ -12,40 +12,54 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.11</junit.version>
 		<struts2.version>2.3.1.2</struts2.version>
-		<sitemesh.version>2.4.2</sitemesh.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<spring.asm.version>3.1.4.RELEASE</spring.asm.version>
 		<struts2.spring.plugin.version>2.3.16</struts2.spring.plugin.version>
-		<hibernate.version>3.2.7.ga</hibernate.version>
-		<hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
-		<hibernate.commons.version>3.3.0.ga</hibernate.commons.version>
+		<hibernate.version>3.6.9.Final</hibernate.version>
 		<mysql.version>5.1.17</mysql.version>
-		<slf.version>1.7.5</slf.version>
-		<commons.logging.version>1.0.2</commons.logging.version>
-		<commons.collections.version>2.1</commons.collections.version>
-		<commons.lang.version>2.0</commons.lang.version>
-		<dbunit.version>2.4.8</dbunit.version>
+		<log4j.version>1.2.9</log4j.version>
+		<commons.beanutils.version>1.9.2</commons.beanutils.version>
+		<commons.lang.version>2.6</commons.lang.version>
+		<servlet.api.version>2.5</servlet.api.version>
+		<jsp.api.version>2.1</jsp.api.version>
 	</properties>
 
 	<dependencies>
+		<!-- 编译的时候用到，打包的时候没有 -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp.api.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
+		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
+		<!-- 日志包 -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf.version}</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
-		<!-- common -->
+		<!-- commons-beanutils for Entity layer -->
 		<dependency>
 			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils-core</artifactId>
-			<version>1.8.3</version>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons.beanutils.version}</version>
+		</dependency>
+
+		<!-- common-lang Entity layer -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -53,13 +67,14 @@
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-core</artifactId>
-			<version>2.3.1.2</version>
-			<scope>compile</scope>
+			<version>${struts2.version}</version>
 		</dependency>
+
+		<!-- struts2-spring-plugin -->
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-spring-plugin</artifactId>
-			<version>2.3.1.2</version>
+			<version>${struts2.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -67,11 +82,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>3.6.9.Final</version>
+			<version>${hibernate.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- spring -->
+		<!-- spring-orm for Dao layer -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -79,20 +94,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- spring-test for Unit Test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- spring security -->
+		<!-- spring security begin -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -113,32 +122,9 @@
 			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- spring security end -->
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-
-		<!-- log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.4</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- c3p0 -->
+		<!-- c3p0 数据库连接池 -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -146,15 +132,15 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- mysql connector -->
+		<!-- mysql connector 数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.18</version>
+			<version>${mysql.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- cglib -->
+		<!-- cglib for loggerUtility -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -162,15 +148,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- taglibs -->
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- jstl -->
+		<!-- jstl 标签 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -178,25 +156,65 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- servlet api -->
+		<!-- 编译的时候用到，打包的时候没有 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
 	<build>
 		<finalName>eorder</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<encoding>${build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.4.2</version>
+				<version>2.5</version>
 				<configuration>
 					<skipTests>true</skipTests>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.10</version>
 			</plugin>
 		</plugins>
 	</build>

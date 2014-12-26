@@ -12,18 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
 @Transactional(rollbackFor = { Throwable.class })
-// @TestExecutionListeners({ STFDependencyInjectionTestExecutionListener.class,
-// STFDirtiesContextTestExecutionListener.class,
-// STFTransactionalTestExecutionListener.class })
+//@TestExecutionListeners({ STFDependencyInjectionTestExecutionListener.class, STFDirtiesContextTestExecutionListener.class,
+//		STFTransactionalTestExecutionListener.class })
 public class BaseTest {
 
-    @Test
-    public void test() {
-    }
-
-    @Test
-    public void test2() {
-        Assert.assertEquals(true, true);
-    }
+	@Test
+	public void test() {
+	}
+	
+	@Test
+	public void test2() {
+		Assert.assertEquals(true, true);
+	}
 
 }

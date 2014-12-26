@@ -6,95 +6,111 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.innovaee.eorder.module.entity.Role;
-import com.innovaee.eorder.module.entity.User;
 import com.innovaee.eorder.module.entity.UserRole;
-import com.innovaee.eorder.module.utils.Md5Util;
+import com.innovaee.eorder.module.entity.User;
+import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.test.BaseSpringTestCase;
 
 public class UserRoleServiceTest extends BaseSpringTestCase {
 
-    @Autowired
-    private UserRoleService userRoleService;
+	@Autowired
+	private UserRoleService userRoleService;
 
-    @Autowired
-    private UserService userService;
+	private Integer userId = 2;
+	private Integer roleId = 1;
 
-    @Test
-    public void getAllUserRoles() {
-        List<UserRole> allUserRoles = userRoleService.findAllUserRoles();
-        Assert.assertNotNull(allUserRoles);
-        for (UserRole userRole : allUserRoles) {
-            System.out.println(userRole);
-        }
-    }
+	@Test
+	public void getAllUserRoles() {
+		List<UserRole> allUserRoles = userRoleService.findAllUserRoles();
+		Assert.assertNotNull(allUserRoles);
+		for (UserRole userRole : allUserRoles) {
+			System.out.println(userRole);
+		}
+	}
 
-    @Test
-    public void findUserRoleByUserRole() {
-        String userRole = "adminROLE_admin";
-        UserRole userRoleDB = userRoleService.findUserRoleByUserRole(userRole);
-        Assert.assertNotNull(userRoleDB);
-        Assert.assertEquals("admin", userRoleDB.getUserName());
-        Assert.assertEquals("ROLE_admin", userRoleDB.getRoleName());
-    }
+	@Test
+	public void findUserRoleByUserId_01() {
+		Integer userId = 1;
+		List<UserRole> userRoles = userRoleService
+				.findUserRolesByUserId(userId);
+		Assert.assertNotNull(userRoles);
+		for (UserRole userRole : userRoles) {
+			System.out.println(userRole);
+		}
+	}
+	
+	@Test
+	public void findUserRoleByUserId_02() {
+		Integer userId = 2;
+		List<UserRole> userRoles = userRoleService
+				.findUserRolesByUserId(userId);
+		Assert.assertNotNull(userRoles);
+		for (UserRole userRole : userRoles) {
+			System.out.println(userRole);
+		}
+	}
 
-    @Test
-    public void findUserRoleByRoleName() {
-        String roleName = "ROLE_admin";
-        List<UserRole> userRoles = userRoleService
-                .findUserRolesByRoleName(roleName);
-        Assert.assertNotNull(userRoles);
-        for (UserRole userRole : userRoles) {
-            System.out.println(userRole);
-        }
-    }
 
-    @Test
-    public void findUserRolesByUsername() {
-        String userName = "admin";
-        List<UserRole> userRoles = userRoleService
-                .findUserRolesByUsername(userName);
-        Assert.assertNotNull(userRoles);
-        for (UserRole userRole : userRoles) {
-            // Assert.assertEquals("admin", userRole.getRoleName());
-            System.out.println(userRole);
-        }
-    }
+	@Test
+	public void findUserRoleByIds() {
+		Integer userId = 1;
+		Integer roleId = 1;
+		UserRole userRole = userRoleService.findUserRoleByIds(userId, roleId);
+		Assert.assertNotNull(userRole);
+		Assert.assertEquals(roleId, userRole.getRoleId());
+		Assert.assertEquals(userId, userRole.getUserId());
+	}
 
-    @Test
-    public void saveUserRole() {
-        String roleName = "ROLE_normal";
+	@Test
+	public void saveUserRole() {
+		User user = new User(userId);
+		Role role = new Role(roleId);
+		UserRole newUserRole = userRoleService.saveUserRole(user, role);
+		Assert.assertNotNull(newUserRole);
+		Assert.assertEquals(roleId, newUserRole.getRoleId());
+		Assert.assertEquals(userId, newUserRole.getUserId());
+	}
 
-        Role role = new Role(roleName);
+	@Test
+	public void removeUserRole() {
+		Role role = new Role(roleId);
+		User user = new User(userId);
+		userRoleService.removeUserRole(user, role);
 
-        String userName = "user01";
-        User user = new User(userName);
-        String password = "1234";
-        String md5Password = Md5Util.getMD5Str(password + "{" + userName + "}");
-        user.setUserPassword(md5Password);
-        User userDB = userService.saveUser(user);
-        Assert.assertNotNull(userDB);
+		UserRole userRoleDB = userRoleService.findUserRoleByIds(roleId, userId);
+		Assert.assertNull(userRoleDB);
+	}
 
-        UserRole userRole = userRoleService.saveUserRole(role, user);
-        Assert.assertNotNull(userRole);
-        Assert.assertEquals(roleName + userName, userRole.getUserRoleName());
-        Assert.assertEquals(userName, userRole.getUserName());
-        Assert.assertEquals(roleName, userRole.getRoleName());
-    }
+	@Test
+	public void saveAndRemoveUserRole() {
+		User user = new User(userId);
+		Role role = new Role(roleId);
+		UserRole newUserRole = userRoleService.saveUserRole(user, role);
+		Assert.assertNotNull(newUserRole);
+		Assert.assertEquals(roleId, newUserRole.getRoleId());
+		Assert.assertEquals(userId, newUserRole.getUserId());
 
-    @Test
-    public void removeUserRole() {
-        String roleName = "ROLE_normal";
-        String userName = "user01";
-        Role role = new Role(roleName);
-        User user = new User(userName);
-        userRoleService.removeUserRole(role, user);
-        String userRole = roleName + userName;
-        UserRole userRoleDB = userRoleService.findUserRoleByUserRole(userRole);
-        Assert.assertNull(userRoleDB);
-        userService.removeUser(user);
-        User userDB = userService.findUsersByUserName(userName);
-        Assert.assertNull(userDB);
-    }
+		userRoleService.removeUserRole(user, role);
+		UserRole userRoleDB = userRoleService.findUserRoleByIds(roleId, userId);
+		Assert.assertNull(userRoleDB);
+	}
+
+	@Test
+	public void updateUserRole() {
+		String myRoleIds = "1,2";
+		userRoleService.updateUserRole(userId, myRoleIds);
+
+		List<UserRole> userRoles = userRoleService
+				.findUserRolesByUserId(userId);
+		Assert.assertNotNull(userRoles);
+		Assert.assertEquals(2, userRoles.size());
+	}
+
+	@Test
+	public void findLeftRolesByUserId() {
+		List<Role> roles = userRoleService.findLeftRolesByUserId(userId);
+		Assert.assertNotNull(roles);
+		Assert.assertEquals(1, roles.size());
+	}
 
 }

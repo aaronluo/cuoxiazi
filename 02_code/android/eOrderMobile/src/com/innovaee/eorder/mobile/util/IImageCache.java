@@ -1,14 +1,18 @@
+/***********************************************
+ * Filename		: IImageCache.java																									
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 12/20/2014
+ ************************************************/
 package com.innovaee.eorder.mobile.util;
 
 import android.graphics.Bitmap;
 
 /**
- * 
- * <br>
- * 类描述:图片缓存的接口 <br>
+ * 类描述:图片缓存的接口 
  * 功能详细描述:
  * 
- * @author wangzhuobin
+ * @author wanglinglong
  * @date [2012-11-30]
  */
 public interface IImageCache {

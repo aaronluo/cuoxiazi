@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48.0dip"
+    android:background="@drawable/item_background_holo_light"
+    android:drawablePadding="8.0dip"
+    android:gravity="center_vertical"
+    android:padding="10.0dip"
+    android:textSize="18.0sp" />

@@ -1,0 +1,106 @@
+body{
+  margin-bottom: 80px;
+  background-color: #ECECEC;
+  font-family: "黑体","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.page-header {
+  margin: 0;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+.panel-body {
+  padding-top: 0;
+}
+
+.navbar-default {
+  border-color: #D9D9D9;
+  background-color: #ECECEC;
+}
+
+.navbar-fixed-bottom {
+  border-width: 3px 0 0;
+}
+
+.navbar-static-top{
+  border-width: 0 0 3px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navbar-default .navbar-brand{
+  color: #666666;
+  font-size: 30px;
+
+}
+
+.list-group{
+  margin-bottom: 0px;
+}
+.list-group-item{
+  border:none;
+}
+
+.panel-body{
+  padding: 0px;
+}
+
+.panel-default>.panel-heading {
+  background-color: #ECECEC;
+}
+
+th{
+  background-color: #CCCCCC;
+}
+
+td{
+  background-color: white;
+}
+.table {
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+
+select.form-control.eorder-multi-sel{
+  height: 190px; 
+}
+
+
+.eorder-btn-login{
+  background-color: #feb13e;
+  color: white;
+  font-size: 20px;
+  padding: 4px;
+}
+
+.eorder-btn-arrow{
+    background-color: #feb13e;
+    color: white;
+    width: 85px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.eorder-form-login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.eorder-form-usr{
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.eorder-input {
+  border-color: #808080;
+  border-width: 1px;
+  margin-bottom: 15px;
+}
+
+.eorder-multi-sel{
+  border-color: #808080;
+  border-width: 1px;
+}

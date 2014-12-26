@@ -1,72 +1,81 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang='zh-cn'>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>XBRL Shared Testing Facility</title>
-  <link href="../resources/css/loginStyle.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/style.css">
+<script src="../resources/js/jquery.min.js" /></script>
+<script src="../resources/js/bootstrap.min.js"></script>
 </head>
 
-<body onload="document.loginForm.j_username.focus();">
-  <div class="loginLogo">
-    <img src="../resources/image/hplogo.jpg" width="43" height="43" alt="hpLogo" />
-  </div>
-  
-  <div class="login">
-    <h1>
-      <img src="../resources/image/xbrl.gif" alt="XBRL Shared Testing Facility" width="274" height="22" />
-    </h1>
+<script type="text/javascript">
+	// 回车提交表单（登录）
+	$(function() {
+		document.onkeydown = function(e) {
+			var ev = document.all ? window.event : e;
+			if (ev.keyCode == 13) {
+				$('#loginForm').submit();//处理事件 
+			}
+		}
+	});
+</script>
 
-    <!-- start login_card j_spring_security_check -->
-    <div id="login_card">
-      <form id="loginForm" action="<c:url value='/j_spring_security_check'/>" method="post" accept-charset="utf-8">
-        
-        <!-- start login_params -->
-        <div class="login_params">
-          <!-- user_name -->
-          <div class="param">
-            <p>
-              <span>User name:<span>*</span></span>
-              <label for="user_name"></label>
-              <input type="text" name="j_username" id="user_name" value="admin" tabindex="1" />
-              <label id="user_name_error" for="user_name" style="color: red"></label>
-            </p>
-		  </div>
-
-          <!-- password -->
-          <div class="param">
-            <p>
-              <span>Password:<span>*</span></span> <label for="password"></label>
-              <input type="text" name="j_password" id="password" value="admin" tabindex="1" style="color: red" />
-              <label id="password_error" for="password" style="color: red"></label>
-			</p>
-	      </div>
-	    </div>
-	    <!-- end login_params -->
-
-	    <!-- login_submit -->
-	    <div class="loginBut">
-	      <span>
-	        <a href="#">Forget password</a>
-	        <a href="#">Help desk</a>
-          </span>
-          <a href="#">
-            <img src="../resources/image/loginBut.gif" alt="login" width="55" height="26" onclick="javascript:loginForm.submit();"/>
-          </a>
+<body>
+	<!--head navigation bar -->
+	<div class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<!-- 商家名称-->
+			<a class="navbar-brand">eOrder订餐系统</a>
+			<!--自适应mobile设备菜单开关, Web后台可以不管-->
+			<button class="navbar-toggle" data-toggle="collapse"
+				data-target=".navHeaderCollapse">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
 		</div>
-	  </form>
-			
-      <s:actionmessage />
-      <c:if test="${not empty param.login_error}">
-        <font color="red">
-          Your login attempt was not successful, try again.<br/> <br/>
-          Reason: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />.
-        </font>
-      </c:if>
-    </div>
-    <!-- end login_card -->
-  </div>
+	</div>
+
+	<!--页面主体部分-->
+	<div class="container">
+		<!-- err msg -->
+		<div class="row" style="height: 120px"></div>
+		<!-- 登录框 -->
+		<div class="row">
+			<form class="eorder-form-login" id="loginForm"
+				action="<c:url value='/j_spring_security_check'/>" method="post"
+				accept-charset="utf-8" role="form">
+				<input type="text" name="j_username" id="username" tabindex="1"
+					class="form-control eorder-input" placeholder="用户名" required autofocus />
+
+				<input type="password" name="j_password" id="password" tabindex="1"
+					class="form-control eorder-input" placeholder="密  码" required /> <a
+					href="#" onclick="javascript:loginForm.submit();"
+					class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
+			</form>
+		</div>
+		<div class="row" style="height: 120px">
+			<div class="eorder-form-login">
+				<s:actionmessage />
+
+				<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+					<font color="red"> 登录失败，请重试.<br /> <br /> 原因:<c:out
+							value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+					</font>
+				</c:if>
+			</div>
+		</div>
+	</div>
+
+	<!--页面底部footer-->
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text pull-left">Powered by Bootstrap</p>
+		</div>
+	</div>
 </body>
 </html>

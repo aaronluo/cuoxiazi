@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byName">
+
+	<!-- support spring annotation -->
+	<context:annotation-config />
+	<!-- 去哪个包扫描生成bean <context:component-scan base-package="com.innovaee.eorder.module.entity.*" 
+		/> -->
+
+	<bean id="databaseConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:database.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置数据源 -->
+	<!-- data source 基本的连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+		<!-- 以下参数是根据SAE情况配置 -->
+		<property name="maxPoolSize" value="20" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxStatements" value="200" />
+		<property name="initialPoolSize" value="5" />
+		<property name="maxIdleTime" value="15" />
+		<property name="idleConnectionTestPeriod" value="5" />
+		<property name="testConnectionOnCheckin" value="false" />
+		<property name="testConnectionOnCheckout" value="false" />
+		<property name="preferredTestQuery" value="SELECT 1 FROM DUAL" />
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="packagesToScan">
+			<list>
+				<value>com.innovaee.eorder.module.entity</value>
+				<value>com.innovaee.eorder.module.utils.log</value>
+				<value>cn.net.msg.model</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					${hibernate.dialect}
+				</prop>
+				<prop key="hibernate.show_sql">
+					${hibernate.show_sql}
+				</prop>
+				<prop key="hibernate.format_sql">
+					${hibernate.format_sql}
+				</prop>
+				<prop key="hibernate.use_sql_comments">
+					${hibernate.use_sql_comments}
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">
+					${hibernate.hbm2ddl.auto}
+				</prop>
+				<prop key="hibernate.default_batch_fetch_size">
+					${hibernate.default_batch_fetch_size}
+				</prop>
+				<prop key="hibernate.max_fetch_depth">
+					${hibernate.max_fetch_depth}
+				</prop>
+				<prop key="hibernate.jdbc.batch_size">
+					${hibernate.jdbc.batch_size}
+				</prop>
+				<prop key="hibernate.query.factory_class">
+					${hibernate.query.factory_class}
+				</prop>
+				<prop key="hibernate.connection.useUnicode">
+					${hibernate.connection.useUnicode}
+				</prop>
+				<prop key="hibernate.connection.characterEncoding">
+					${hibernate.connection.characterEncoding}
+				</prop>
+				<prop key="hibernate.connection.pool_size">
+					${hibernate.connection.pool_size}
+				</prop>
+				<prop key="hibernate.cache.provider_class">
+					${hibernate.cache.provider_class}
+				</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- format: execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? 
+		name-pattern(param-pattern) throws-pattern?) -->
+
+	<aop:config proxy-target-class="false">
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.innovaee.eorder.module.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
+
+
+	<bean id="loggerUtility" class="com.innovaee.eorder.module.utils.log.LoggerUtility" />
+
+	<bean id="loggerUtilInterceptor"
+		class="com.innovaee.eorder.module.utils.interceptor.LoggerUtilInterceptor" />
+
+	<aop:config proxy-target-class="true">
+		<aop:aspect id="loggerAspect" ref="loggerUtilInterceptor">
+			<aop:pointcut id="logPointcut"
+				expression="execution(* com.innovaee.eorder.module..*.*(..))" />
+			<aop:before pointcut-ref="logPointcut" method="startInvoke" />
+			<aop:after pointcut-ref="logPointcut" method="endInvoke" />
+		</aop:aspect>
+	</aop:config>
+
+	<bean id="baseDAO" class="com.innovaee.eorder.module.dao.BaseDao"
+		abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="roleFunctionDao" class="com.innovaee.eorder.module.dao.RoleFunctionDao"
+		parent="baseDAO" />
+	<bean id="functionDao" class="com.innovaee.eorder.module.dao.FunctionDao"
+		parent="baseDAO" />
+	<bean id="roleDao" class="com.innovaee.eorder.module.dao.RoleDao" parent="baseDAO" />
+	<bean id="userDao" class="com.innovaee.eorder.module.dao.UserDao" parent="baseDAO" />
+	<bean id="userRoleDao" class="com.innovaee.eorder.module.dao.UserRoleDao"
+		parent="baseDAO" />
+	<bean id="userLevelDao" class="com.innovaee.eorder.module.dao.UserLevelDao"
+		parent="baseDAO" />
+
+	<bean id="baseService" class="com.innovaee.eorder.module.service.BaseService"
+		abstract="true" />
+
+	<bean id="authorizationService"
+		class="com.innovaee.eorder.module.service.security.AuthorizationService"
+		parent="baseService" />
+	<bean id="authenticationService"
+		class="com.innovaee.eorder.module.service.security.AuthenticationService"
+		parent="baseService" />
+	<bean id="securityMetadataSourceService"
+		class="com.innovaee.eorder.module.service.security.SecurityMetadataSourceService"
+		parent="baseService" />
+
+	<bean id="functionService" class="com.innovaee.eorder.module.service.FunctionService"
+		parent="baseService" />
+	<bean id="userService" class="com.innovaee.eorder.module.service.UserService"
+		parent="baseService" />
+	<bean id="roleService" class="com.innovaee.eorder.module.service.RoleService"
+		parent="baseService" />
+	<bean id="roleFunctionService" class="com.innovaee.eorder.module.service.RoleFunctionService"
+		parent="baseService" />
+	<bean id="userRoleService" class="com.innovaee.eorder.module.service.UserRoleService"
+		parent="baseService" />
+
+	<!-- <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder" 
+		> </bean> -->
+
+	<bean id="authenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="hideUserNotFoundExceptions" value="false" />
+		<property name="userDetailsService" ref="authenticationService" />
+		<property name="passwordEncoder" ref="passwordEncode" />
+		<property name="saltSource" ref="saltSource" />
+	</bean>
+
+
+	<!-- 配置密码加密类 -->
+	<bean id="passwordEncode"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<property name="userPropertyToUse" value="username" />
+	</bean>
+
+</beans>

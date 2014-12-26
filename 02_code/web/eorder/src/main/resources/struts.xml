@@ -34,33 +34,13 @@
 		</global-results>
 
 		<global-exception-mappings>
-			<exception-mapping exception="java.lang.Exception"
-				result="exception" />
+			<exception-mapping exception="java.lang.Exception" result="exception" />
 		</global-exception-mappings>
 	</package>
 
 	<!-- Add packages here -->
 	<include file="com/innovaee/eorder/web/action/login/struts.xml" />
-	<include file="com/innovaee/eorder/web/action/resetpassword/struts.xml" />
-
-	<include file="com/innovaee/eorder/web/action/admin/bankpayment/struts.xml" />
-	<include
-		file="com/innovaee/eorder/web/action/admin/bankprofilesetup/struts.xml" />
-	<include
-		file="com/innovaee/eorder/web/action/admin/bankregistration/struts.xml" />
-	<include
-		file="com/innovaee/eorder/web/action/admin/fileuploadtransaction/struts.xml" />
-	<include
-		file="com/innovaee/eorder/web/action/admin/systemsettings/struts.xml" />
-
-	<include file="com/innovaee/eorder/web/action/bank/fileupload/struts.xml" />
-	<include
-		file="com/innovaee/eorder/web/action/bank/fileuploadtransaction/struts.xml" />
-
-
 	<include file="com/innovaee/eorder/web/action/admin/function/struts.xml" />
-	<include file="com/innovaee/eorder/web/action/admin/rolefunction/struts.xml" />
 	<include file="com/innovaee/eorder/web/action/admin/user/struts.xml" />
 	<include file="com/innovaee/eorder/web/action/admin/role/struts.xml" />
-	<include file="com/innovaee/eorder/web/action/admin/userrole/struts.xml" />
 </struts>

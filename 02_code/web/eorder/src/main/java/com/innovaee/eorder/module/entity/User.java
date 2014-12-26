@@ -1,170 +1,181 @@
+/***********************************************
+ * Filename		: User.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**   
+* @Title: User 
+* @Description: 用户实体
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 @Entity
-@Table(name = "USER")
+@Table(name = "t_user")
 public class User extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    public Serializable getPK() {
-        return userName;
-    }
+	@Override
+	public Serializable getPK() {
+		return userId;
+	}
 
-    @Id
-    @Column(name = "USER_NAME")
-    private String userName;
-    @Column(name = "USER_PASSWORD")
-    private String userPassword;
-    @Column(name = "REPORT_ENTITY_NAME")
-    private String reportEntityName;
-    @Column(name = "USER_ENABLE")
-    private Boolean userEnable;
-    @Column(name = "USER_REGISTER_DATE")
-    private Date userRegisterDate;
-    @Column(name = "USER_EXPIRATION_DATE")
-    private Date userExpirationDate;
-    @Column(name = "USER_PASSWD_EXP_DATE")
-    private Date userPasswdExpDate;
-    @Column(name = "USER_EMAIL")
-    private String userEmail;
-    @Column(name = "USER_QUESTION1")
-    private String userQuestion1;
-    @Column(name = "USER_ANSWER1")
-    private String userAnswer1;
-    @Column(name = "USER_QUESTION2")
-    private String userQuestion2;
-    @Column(name = "USER_ANSWER2")
-    private String userAnswer2;
-    @Column(name = "USER_QUESTION3")
-    private String userQuestion3;
-    @Column(name = "USER_ANSWER3")
-    private String userAnswer3;
+	/**
+	 * 用户ID
+	 */
+	@Id
+	@Column(name = "USER_ID", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @Column(name = "USER_ID")
+	private Integer userId;
+	
+	/**
+	 * 用户名
+	 */
+	@Column(name = "USERNAME")
+	private String username;
+	
+	/**
+	 * 密码
+	 */
+	@Column(name = "PASSWORD")
+	private String password;
+	
+	/**
+	 * 手机号码
+	 */
+	@Column(name = "CELLPHONE")
+	private String cellphone;
+	
+	/**
+	 * 等级ID
+	 */
+	@Column(name = "LEVEL_ID")
+	private Integer levelId;
+	
+	/**
+	 * 用户状态
+	 */
+	@Column(name = "USER_STATUS")
+	private Boolean userStatus;
+	
+	/**
+	 * 创建时间
+	 */
+	@Column(name = "CREATE_AT")
+	private Timestamp createAt;
 
-    public User() {
-    }
+	/**
+	 * 更新时间
+	 */
+	@Column(name = "UPDATE_AT")
+	private Timestamp updateAt;
 
-    public User(String userName) {
-        this.userName = userName;
-    }
+	public User() {
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public User(String username, String password, String cellphone,
+			Integer levelId, Boolean userStatus, Timestamp createAt) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.cellphone = cellphone;
+		this.levelId = levelId;
+		this.userStatus = userStatus;
+		this.createAt = createAt;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public User(Integer userId) {
+		this.userId = userId;
+	}
+	
+	public User(String username) {
+		this.username = username;
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public String getReportEntityName() {
-        return reportEntityName;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setReportEntityName(String reportEntityName) {
-        this.reportEntityName = reportEntityName;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public Boolean getUserEnable() {
-        return userEnable;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setUserEnable(Boolean userEnable) {
-        this.userEnable = userEnable;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public Date getUserRegisterDate() {
-        return userRegisterDate;
-    }
+	public String getCellphone() {
+		return cellphone;
+	}
 
-    public void setUserRegisterDate(Date userRegisterDate) {
-        this.userRegisterDate = userRegisterDate;
-    }
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
 
-    public Date getUserExpirationDate() {
-        return userExpirationDate;
-    }
+	public Integer getLevelId() {
+		return levelId;
+	}
 
-    public void setUserExpirationDate(Date userExpirationDate) {
-        this.userExpirationDate = userExpirationDate;
-    }
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
 
-    public Date getUserPasswdExpDate() {
-        return userPasswdExpDate;
-    }
+	public Boolean getUserStatus() {
+		return userStatus;
+	}
 
-    public void setUserPasswdExpDate(Date userPasswdExpDate) {
-        this.userPasswdExpDate = userPasswdExpDate;
-    }
+	public void setUserStatus(Boolean userStatus) {
+		this.userStatus = userStatus;
+	}
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
+	}
 
-    public String getUserQuestion1() {
-        return userQuestion1;
-    }
+	public Timestamp getUpdateAt() {
+		return updateAt;
+	}
 
-    public void setUserQuestion1(String userQuestion1) {
-        this.userQuestion1 = userQuestion1;
-    }
+	public void setUpdateAt(Timestamp updateAt) {
+		this.updateAt = updateAt;
+	}
 
-    public String getUserAnswer1() {
-        return userAnswer1;
-    }
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username
+				+ ", password=" + password + ", cellphone=" + cellphone
+				+ ", levelId=" + levelId + ", userStatus=" + userStatus
+				+ ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
+	}
 
-    public void setUserAnswer1(String userAnswer1) {
-        this.userAnswer1 = userAnswer1;
-    }
-
-    public String getUserQuestion2() {
-        return userQuestion2;
-    }
-
-    public void setUserQuestion2(String userQuestion2) {
-        this.userQuestion2 = userQuestion2;
-    }
-
-    public String getUserAnswer2() {
-        return userAnswer2;
-    }
-
-    public void setUserAnswer2(String userAnswer2) {
-        this.userAnswer2 = userAnswer2;
-    }
-
-    public String getUserQuestion3() {
-        return userQuestion3;
-    }
-
-    public void setUserQuestion3(String userQuestion3) {
-        this.userQuestion3 = userQuestion3;
-    }
-
-    public String getUserAnswer3() {
-        return userAnswer3;
-    }
-
-    public void setUserAnswer3(String userAnswer3) {
-        this.userAnswer3 = userAnswer3;
-    }
 }

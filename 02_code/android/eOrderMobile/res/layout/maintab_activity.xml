@@ -11,11 +11,48 @@
         android:background="#ededed"
         android:gravity="center"
         android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
         android:numColumns="2"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        android:stretchMode="columnWidth"/>
-        
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/loading_data_progressbar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+    
+    <RelativeLayout
+        android:id="@+id/fail_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:visibility="gone">						
+        <TextView
+            android:id="@+id/fail_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/toast_get_data_fail"
+            android:textColor="#4d4d4d"	
+            android:textSize="20dp" />
+        <Button		
+            android:id="@+id/refresh_btn"
+            android:layout_width="121dp"
+            android:layout_height="43dp"
+			android:layout_below="@id/fail_text"
+			android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/myorder_btn_order_bg"
+            android:text="@string/action_refresh"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
+    </RelativeLayout>
+    
+
 </RelativeLayout>
-                

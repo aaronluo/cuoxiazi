@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">eorder</string>
-    <string name="hello_world">Hello world!</string>
+		
+    <string name="app_name">eOrder</string>
     <string name="action_title">订餐系统</string>
     <string name="action_settings">设置</string>
     <string name="action_fresh">刷新</string>
     <string name="action_about">关于</string>
+    <string name="action_refresh">重试</string>
     
+
     <!-- Tab -->
     <string name="tab_name_goodsshop">菜单浏览</string>
     <string name="tab_name_userorder">我的订单</string>
@@ -18,7 +19,6 @@
     <string name="optionmenu_item2">关于</string>
     <string name="optionmenu_item3">刷新</string>
     <string name="optionmenu_item100">我的</string>
-    
     <string name="action_new_secret">发秘密</string>
     <string name="action_notification">查看提醒</string>
     <string name="action_chat">聊天</string>
@@ -26,8 +26,7 @@
     <string name="action_order">订单</string>
     <string name="action_order_hestory">订单查询</string>
     <string name="action_order_hestory_input">请输入会员号</string>
-            
-    
+    <string name="feed_type_all">分类</string>
     <string name="feed_type_new">最新</string>
     <string name="feed_type_hot">最热</string>
     <string name="feed_type_1">川菜</string>
@@ -39,11 +38,13 @@
     <string name="feed_type_7">海鲜</string>
     <string name="feed_type_8">小炒</string>
     <string name="feed_type_9">饮料</string>
-        
+
     <!-- toast -->
     <string name="toast_please_input_userid">请输入会员号！</string>
     <string name="toast_please_order_first">请先点菜！</string>
-    
+    <string name="toast_network_status_fail">网络异常，请检查网络！</string>
+    <string name="toast_get_data_fail">获取数据失败，请检查网络！</string>
+	
     <!-- Button -->
     <string name="main_griditem_btn_order">下单</string>
     <string name="main_griditem_text_name">菜品名</string>
@@ -51,9 +52,48 @@
     <string name="main_griditem_text_rmb">￥</string>
     <string name="myorder_btn_text_delall">删除所有</string>
     <string name="myorder_btn_text_cancel">取消</string>
-        
+
+    <!-- MyOrder -->
+    <string name="myorder_activity_text_label">已点菜品明细</string>
+
     <!-- Order -->
-    <string name="order_activity_text_label">已点菜品明细</string>
-    
+    <string name="order_activity_text_label">确认订单</string>
+    <string name="order_text_realprice">应收</string>
+    <string name="order_text_originalprice">原价</string>
+    <string name="order_text_discount">折扣</string>
+    <string name="order_text_no_discount">无折扣</string>
+    <string name="order_text_title_tableid">桌号</string>
+    <string name="order_text_title_userid">会员号</string>
+    <string name="order_text_title_employee">员工号</string>
+    <string name="order_text_hint_tableid">请输入桌号</string>
+    <string name="order_text_hint_qrcode">扫描二维码</string>
+    <string name="order_text_hint_userid">请输入会员号</string>
+    <string name="order_text_btn_discount">获取折扣</string>
+    <string name="order_text_btn_ok">确定</string>
+    <string name="order_toast_please_input_userid">请输入会员号</string>
+    <string name="order_toast_please_input_tableId">请输入桌号</string>
+    <string name="order_toast_please_input_employeeId">请输入员工号</string>
+    <string name="order_toast_order_successful">下单成功！</string>
+    <string name="order_toast_scanresult_fail">员工号为非法字符！</string>
+    <string name="order_item_text_order">菜品:</string>
+    <string name="order_item_text_count">数量:</string>
+    <string name="order_item_text_totalprice">金额:</string>
+
+    <!-- OrderHestory -->
+    <string name="orderhestory_item_text_order">订单:</string>
+    <string name="orderhestory_item_text_time">时间:</string>
+    <string name="orderhestory_item_text_totalprice">金额:</string>
+    <string name="order_toast_no_userid_fail">会员号不存在！</string>
+							
+    <!-- Setting -->
+    <string name="setting_activity_text_label">设置</string>
+    <string name="setting_activity_text_service">服务器地址</string>
+    <string name="setting_activity_text_input">请输入服务器地址</string>
+    <string name="setting_activity_text_successful">服务器地址设置成功!</string>
+
+    <!-- About -->
+    <string name="about_activity_text_label">关于</string>
+    <string name="about_activity_text_version">版本号:V0.1</string>
+    <string name="about_activity_text_copyright">Copyright eOrderMobile.</string>
 
 </resources>

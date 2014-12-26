@@ -1,20 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html>
+<html lang='zh-cn'>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="refresh" content="60">
-<base target="main">
-<link href="../resources/css/basic.css" rel="stylesheet" type="text/css">
-<link href="../resources/css/bottom.css" rel="stylesheet" type="text/css">
+<title>eOrder</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/css/style.css">
 </head>
-
 <body>
-<table id="bottom" width="100%" height="5" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-  <tr>
-    <td align="center"><span>Copyright &copy; 2012-2013 www.hp.com</span></td>
-  </tr>
-</table>
+	<!--页面底部footer-->
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text pull-left">Powered by Bootstrap</p>
+		</div>
+	</div>
+	<script src="../resources/js/jquery.min.js" /></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
 </body>
 </html>

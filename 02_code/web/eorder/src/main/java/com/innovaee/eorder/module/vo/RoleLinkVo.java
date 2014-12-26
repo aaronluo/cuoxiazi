@@ -1,65 +1,87 @@
+/***********************************************
+ * Filename		: RoleLinkVo.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.module.vo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**   
+* @Title: RoleLinkVo 
+* @Description: 角色链接值对象（用于显示菜单） 
+* @author coderdream@gmail.com   
+* @version V1.0   
+*/
 public class RoleLinkVo extends BaseVo {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String order; // menu item order number;
-    private String name; // menu name
-    private String displayName; // the display name of the menu
-    private String link; // linkage address
-    private String flag; // level1 menu is 1, level2 menu is 2
-    private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>(); // level2 menus
-                                                                 // list
+	private String order; // menu item order number;
+	private Integer id; // menu name
+	private String name; // menu name
+	private String functionName; // the display name of the menu
+	private String link; // linkage address
+	private String flag; // level1 menu is 1, level2 menu is 2
+	private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>(); // level2 menus
+																	// list
 
-    public String getOrder() {
-        return order;
-    }
+	public String getOrder() {
+		return order;
+	}
 
-    public void setOrder(String order) {
-        this.order = order;
-    }
+	public void setOrder(String order) {
+		this.order = order;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDisplayName() {
-        return displayName;
-    }
+	public String getFunctionName() {
+		return functionName;
+	}
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
+	public void setFunctionName(String functionName) {
+		this.functionName = functionName;
+	}
 
-    public String getLink() {
-        return link;
-    }
+	public String getLink() {
+		return link;
+	}
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-    public String getFlag() {
-        return flag;
-    }
+	public String getFlag() {
+		return flag;
+	}
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
-    public List<RoleLinkVo> getList() {
-        return list;
-    }
+	public List<RoleLinkVo> getList() {
+		return list;
+	}
 
-    public void setList(List<RoleLinkVo> list) {
-        this.list = list;
-    }
+	public void setList(List<RoleLinkVo> list) {
+		this.list = list;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }
