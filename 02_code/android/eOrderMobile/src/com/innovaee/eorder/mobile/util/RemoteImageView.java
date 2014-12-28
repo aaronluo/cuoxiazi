@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,7 +32,6 @@ import android.widget.ListView;
 /**
  * ImageView extended class allowing easy downloading of remote images
  * 
- * @author wanglinglong
  */
 public class RemoteImageView extends ImageView implements IForeground {
 	
@@ -164,8 +162,7 @@ public class RemoteImageView extends ImageView implements IForeground {
 	 * 
 	 * @param url eg. http://random.com/abz.jpg
 	 */
-	public void setImageUrl(String url) {
-		//Log.d("RemoteImageView", "setImageUrl");	
+	public void setImageUrl(String url) {	
 		if (TextUtils.isEmpty(url)) {
 			loadDefaultImage();
 			return;
@@ -185,12 +182,6 @@ public class RemoteImageView extends ImageView implements IForeground {
 				mThemeImageManager.downloadImage(url, hashCode(), new OnImageLoaderListener() {
 					@Override
 					public void onImageLoader(final Bitmap bitmap, final String url) {
-								Log.i("RemoteImageView",
-										"downloadImage "
-												+ " callback, bitmap "
-												+ (bitmap == null ? "null"
-														: bitmap.toString())
-												+ ", url:" + url);
 						if (bitmap != null) {
 							mUiHandler.post(new Runnable() {
 
@@ -208,13 +199,17 @@ public class RemoteImageView extends ImageView implements IForeground {
 			}
 		}
 	}
-				
+	
+	/**
+	 * 设置bitmap
+	 * @param url url地址
+	 * @param bitmap bitmap对象
+	 */
 	private void setImageBitmap(String url, Bitmap bitmap) {
 		mState = STATE_ERROR;
 		String tag = mImageViews.get(RemoteImageView.this);
 		if (tag != null && tag.equals(url)) {
-			if (bitmap == null) {
-				Log.w("TAG", "Trying again to download " + url);	
+			if (bitmap == null) {	
 				loadDefaultImage();
 			} else {	
 				// if image belongs to a list update it only if it's visible
@@ -242,9 +237,6 @@ public class RemoteImageView extends ImageView implements IForeground {
 					int desHeight = Math.min(bitmapH, Math.round(bitmapH * scale));
 					bitmap = Bitmap.createScaledBitmap(bitmap, desWidth,
 							desHeight, false);
-					Log.i("RemoteImageView", "compreseBitmap, srcWidth:" + bitmapW
-							+ ", srcHeight:" + bitmapH + ", dstWidth:" + desWidth + ", dstHeight:"
-							+ desHeight);
 				}
 				BitmapDrawable bmpDrawable = new BitmapDrawable(getResources(),
 						bitmap);
@@ -256,15 +248,12 @@ public class RemoteImageView extends ImageView implements IForeground {
 				RemoteImageView.this.setImageDrawable(bmpDrawable);
 			}
 		}
-		final float bitmapSize = bitmap == null ? .0f : (float) (bitmap.getRowBytes() * bitmap
-				.getHeight()) / 1024;
-		Log.i("RemoteImageView", "setImageBitmap "
-				+ (mState == STATE_SUCCESS ? "success" : "failed") + ", size:" + bitmapSize + "KB"
-				+ ", url:"
-				+ url);
 	}	
 
 
+	/**
+	 * 系统调用
+	 */
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		if (mApplyAspect) {
@@ -308,10 +297,18 @@ public class RemoteImageView extends ImageView implements IForeground {
 		mDefaultImage = resid;
 	}
 	
+	/**
+	 * 设置scale类型
+	 * @param scaleType scale类型
+	 */
 	public void setScaleTypeDefault(ImageView.ScaleType scaleType) {
 		mScaleTypeDefault = scaleType;
 	}
 	
+	/**
+	 * 设置scale类型
+	 * @param scaleType scale类型
+	 */
 	public void setScaleTypeContent(ImageView.ScaleType scaleType) {
 		mScaleTypeContent = scaleType;
 	}
@@ -334,53 +331,15 @@ public class RemoteImageView extends ImageView implements IForeground {
 		}
 	}
 
-	/**
-	 * Loads image from remote location in the ListView
-	 * 
-	 * @param url eg. http://random.com/abz.jpg
-	 * @param position ListView position where the image is nested
-	 * @param listView ListView to which this image belongs
-	 */
-	/*public void setImageUrl(String url, int position, ListView listView) {
-		mPosition = position;
-		mListView = listView;
-		setImageUrl(url);
-	}*/
-
-	/*private Bitmap drawableToBitmap(Drawable drawable) {
-		
-		 * Drawable杞寲涓築itmap
-		 
-		int width = drawable.getIntrinsicWidth();
-		int height = drawable.getIntrinsicHeight();
-		Bitmap bitmap = Bitmap.createBitmap(width, height,
-				drawable.getOpacity() != PixelFormat.OPAQUE
-						? Bitmap.Config.ARGB_8888
-						: Bitmap.Config.RGB_565);
-		Canvas canvas = new Canvas(bitmap);
-		drawable.setBounds(0, 0, width, height);
-		drawable.draw(canvas);
-		return bitmap;
-	}*/
-
 	@Override
-	protected void onDetachedFromWindow() {
-		//Log.d("RemoteImageView", "onDetachedFromWindow");	
+	protected void onDetachedFromWindow() {	
 		super.onDetachedFromWindow();
-		setImageDrawable(null);
-			
-		//会导致第一张图片无法显示
-		//removeWaitingTask(mImageViews.get(this));
+		setImageDrawable(null);			
 	}			
 
 	@Override
 	public void onStartTemporaryDetach() {
-		// TODO Auto-generated method stub
-		//Log.d("RemoteImageView", "onStartTemporaryDetach");
 		super.onStartTemporaryDetach();
-			
-		//会导致第一张图片无法显示
-		//removeWaitingTask(mImageViews.get(this));
 	}					
 
 	@Override
@@ -448,13 +407,4 @@ public class RemoteImageView extends ImageView implements IForeground {
 		matrix.postTranslate((int) (dx + 0.5f), (int) (dy + 0.5f));
 		setImageMatrix(matrix);
 	}
-
-	/**
-	 * clear, resycle resources
-	 */
-	/*public void clearUp() {
-		mThemeImageManager.destory();
-		mThemeImageManager = null;
-		mUiHandler = null;
-	}*/
 }

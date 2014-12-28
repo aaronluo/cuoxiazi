@@ -28,8 +28,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
@@ -41,13 +39,9 @@ import com.innovaee.eorder.mobile.util.Env;
 /**
  * 下载服务
  * 通过该服务和WebService获取所需数据
- * @author wanglinglong
  * 
  */
 public class DownloadService implements GoodService, CategoryService {
-	//调试Tag	
-	private final static String TAG = "DownloadService";
-			
 	private static DownloadService self;
 	
 	private static Context context;		
@@ -88,10 +82,12 @@ public class DownloadService implements GoodService, CategoryService {
 	public static String getServiceUrl() {
 		String url;
 				
+		//从xml文件读取设置的服务器地址
 		SharedPreferences sharedPreferences = context.getSharedPreferences("setting", Activity.MODE_PRIVATE); 
 						
 		url = sharedPreferences.getString("serviceUrl", "");   
 			
+		//如果没有设置地址，则返回默认值
 		if(url.equals("")) {
 			url = "http://192.168.1.11:8080";
 		}	
@@ -110,7 +106,6 @@ public class DownloadService implements GoodService, CategoryService {
 
 		// 创建请求的url					
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_DISH + String.valueOf(id);	
-		Log.d(TAG, "url=" + url);
 			
 		try {
 			// 创建请求的对象
@@ -123,7 +118,7 @@ public class DownloadService implements GoodService, CategoryService {
 	        
 	        //设置请求超时
 	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
-	        	
+	        		
 	        get.setParams(params);
 	        
 			// 发送get请求
@@ -135,17 +130,19 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseGoodsDataJson(json);
 					callback.onSuccess(beans);
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -184,7 +181,6 @@ public class DownloadService implements GoodService, CategoryService {
 		
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVER_GET_USERINFO + userId;	
-		Log.d(TAG, "url=" + url);
 
 		try {
 			// 创建请求的对象
@@ -209,17 +205,19 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
 					List<T> beans = (List<T>) parseUserDiscountDataJson(json);
 					callback.onSuccess(beans);
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -256,7 +254,7 @@ public class DownloadService implements GoodService, CategoryService {
 
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_DISH_TEST;
-		Log.d(TAG, "url=" + url);
+		
 		
 		try {
 			// 创建请求的对象
@@ -281,17 +279,20 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
+					
 					T bean = (T) parseGoodsDetailJson(json);
 					callback.onSuccessT(bean);
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -323,14 +324,12 @@ public class DownloadService implements GoodService, CategoryService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void getAllCategory(ICallback<T> callback) {
-		// TODO Auto-generated method stub
-		// 创建请求HttpClient客户端
-		Log.d(TAG, "getAllCategory");	
+		// 创建请求HttpClient客户端	
 		HttpClient httpClient = new DefaultHttpClient();
 					
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_CATEGORY;
-		Log.d(TAG, "url=" + url);
+		
 			
 		try {
 			// 创建请求的对象
@@ -355,17 +354,20 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串			
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
+					
 					List<T> beans = (List<T>) parseCategoryDataJson(json);
 					callback.onSuccess(beans);
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -400,13 +402,12 @@ public class DownloadService implements GoodService, CategoryService {
 	 * @param callback 回调监听器
 	 */	
 	public <T> void getOrderHestory(String userId, ICallback<T> callback) {
-		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERHESTORY + userId;
-		Log.d(TAG, "url=" + url);
+		
 		
 		try {
 			// 创建请求的对象
@@ -431,17 +432,20 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
+					
 					List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
 					callback.onSuccess(beans);	
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -476,13 +480,12 @@ public class DownloadService implements GoodService, CategoryService {
 	 * @param callback 回调监听器
 	 */	
 	public <T> void getOrderInfo(ICallback<T> callback) {
-		// TODO Auto-generated method stub
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERINFO;
-		Log.d(TAG, "url=" + url);
+		
 		
 		try {
 			// 创建请求的对象
@@ -507,17 +510,20 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
+					
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}
@@ -552,14 +558,13 @@ public class DownloadService implements GoodService, CategoryService {
 	 * @param dataBeanList 下单数据详情信息
 	 * @param callback 回调监听器
 	 */						
-	public <T> void postOrderInfo(TableInfoDataBean tableInfo, List<OrderInfoDataBean> dataBeanList, ICallback<T> callback) {
-		// TODO Auto-generated method stub	
+	public <T> void postOrderInfo(TableInfoDataBean tableInfo, List<OrderInfoDataBean> dataBeanList, ICallback<T> callback) {	
 		// 创建请求HttpClient客户端
 		HttpClient httpClient = new DefaultHttpClient();
 
 		// 创建请求的url
 		String url = getServiceUrl() + Env.Server.SERVIE_POST_ORDER;
-		Log.d(TAG, "url=" + url);
+		
 			
 		try {	
 			// 创建请求的对象	
@@ -591,17 +596,20 @@ public class DownloadService implements GoodService, CategoryService {
 				if (entity != null) {	
 					// 获取服务器响应的json字符串
 					String json = EntityUtils.toString(entity, "UTF-8");
-					Log.d(TAG, "json=" + json.toString());
+					
 					List<T> beans = (List<T>) parseOrderInfoDataJson(json);
 					callback.onSuccess(beans);	
 				} else {
+					//异常信息
 					callback.onFailed("entityIsNull");
 				}				
 			} else {	
+				//异常信息
 				callback.onFailed("getStatusCodeError");
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
+			//异常信息
 			callback.onFailed("ExceptionError");
 		}	
 	}	
@@ -636,11 +644,9 @@ public class DownloadService implements GoodService, CategoryService {
 	        	
 	        object.put("dishList", array);
 		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}	        
-        	
-        Log.d("DownloadService:", "object=" + object.toString());	
+        		
         return object;
 	}
 			

@@ -12,18 +12,36 @@ import android.graphics.Rect;
  * 类描述: 蒙版显示兼容接口 
  * 功能详细描述:
  * 
- * @author wanglinglong
  * @date [2014年10月21日]
  */
 public interface IForeground {
 
+	/**
+	 * 得到资源状态
+	 * @return 资源状态
+	 */
 	public int[] getDrawableState();
 
+	/**
+	 * 得到热区位置
+	 * @param outRect 热区位置
+	 */
 	public void getHitRect(Rect outRect);
 
+	/**
+	 * 刷新
+	 */
 	public void invalidate();
 
+	/**
+	 * 设置是否生效
+	 * @param enabled 是否生效，true是，false否
+	 */
 	public void setDuplicateParentStateEnabled(boolean enabled);
 
+	/**
+	 * 是否被按下
+	 * @return 是否按下，true是，false否
+	 */
 	public boolean isPressed();
 }

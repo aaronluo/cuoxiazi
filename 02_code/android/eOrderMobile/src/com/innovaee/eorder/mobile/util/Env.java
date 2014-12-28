@@ -10,14 +10,12 @@ import android.os.Environment;
 
 /**
  * 环境，服务器的相关静态定义
- * @author leon.wang
  *
  */
 public final class Env {
 	/**
 	 * 路径类 所有路径相关的常量都统一放在此处
 	 * 
-	 * @author
 	 */
 	public static final class Path {
 		/**
@@ -35,7 +33,6 @@ public final class Env {
 	/**
 	 * 服务器类　所有服务器相关常量，地址放在此处
 	 * 
-	 * @author wanglinglong
 	 * 
 	 */
 	public static final class Server {

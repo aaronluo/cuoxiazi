@@ -11,7 +11,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 /**
- * @author Ryan Tang
  * 
  */
 public final class EncodingHandler {

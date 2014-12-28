@@ -16,7 +16,6 @@ import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,16 +24,19 @@ import android.widget.TextView;
 		
 /**
  * 订单历史查询界面数据适配器
- * @author leon.wang
  *
  */
 public class OrderHestoryAdapter extends BaseAdapter {
+	//会员历史记录数据
 	private List<OrderHestoryDataBean> listItemsData;
+	
 	private Context context;			
 	private LayoutInflater layoutInflater;
 		
-	//缓存Item View
-	List<Integer> listPosition = new ArrayList<Integer>();  
+	//缓存Item位置信息
+	List<Integer> listPosition = new ArrayList<Integer>();
+	
+	//缓存ItemView
 	List<View> listView = new ArrayList<View>();  
 	
 	public OrderHestoryAdapter(Context context) {
@@ -50,7 +52,6 @@ public class OrderHestoryAdapter extends BaseAdapter {
 	}					
 	
 	public int getCount() {
-		// TODO Auto-generated method stub
 		if (listItemsData != null) {
 			return listItemsData.size();
 		} else {
@@ -59,20 +60,18 @@ public class OrderHestoryAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listItemsData.get(position);
 	}
 
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView() position=" + position);
+		
+		//检查是否包含在缓存内
 		if (listPosition.contains(position) == false) {  
 			//这里设置缓存的Item数量
 			if(listPosition.size() > 50)  

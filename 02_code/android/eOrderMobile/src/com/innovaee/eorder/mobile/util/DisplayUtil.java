@@ -15,13 +15,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 
 /**
  * 显示工具集
  * 
- * @author wanglinglong
  * 
  */
 public class DisplayUtil {
@@ -31,7 +29,6 @@ public class DisplayUtil {
 	 * @return 生成的bitmap对象
 	 */
 	public static Bitmap decodeBitmap(Resources res, int resId) {
-		// TODO
 		Bitmap retval = null;
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -50,7 +47,6 @@ public class DisplayUtil {
 			retval = BitmapFactory.decodeResource(res, resId, opts);
 		} catch (Exception e) {
 		} catch (OutOfMemoryError e) {
-			Log.e("DisplayUtil", "decodeBitmap:" + e.toString());
 			System.gc();
 		}
 		return retval;
@@ -64,6 +60,7 @@ public class DisplayUtil {
 	public static Bitmap decodeBitmap(String pathName) {
 		Bitmap retval = null;
 		InputStream stream = null;
+		
 		try {
 			stream = new FileInputStream(pathName);
 			retval = decodeBitmap(stream);
@@ -83,6 +80,7 @@ public class DisplayUtil {
 		if (is == null) {
 			return null;
 		}
+		
 		Bitmap retval = null;
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inDither = false; // Disable Dithering mode
@@ -100,7 +98,6 @@ public class DisplayUtil {
 		try {
 			retval = BitmapFactory.decodeStream(is, null, opts);
 		} catch (OutOfMemoryError e) {
-			Log.e("DisplayUtil", "decodeBitmap:" + e.toString());
 			System.gc();
 		}
 		return retval;
@@ -114,6 +111,7 @@ public class DisplayUtil {
 	public static Bitmap decodeBitmap(byte[] bytes) {
 		Bitmap retval = null;
 		InputStream stream = null;
+		
 		try {
 			stream = new ByteArrayInputStream(bytes);
 			retval = decodeBitmap(stream);

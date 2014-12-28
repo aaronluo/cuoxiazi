@@ -14,7 +14,6 @@ import com.innovaee.eorder.mobile.util.RemoteImageView;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 		
 /**
  * 菜品数据适配器
- * @author leon.wang
  *
  */
 public class GoodsAdapter extends BaseAdapter {
@@ -59,7 +57,6 @@ public class GoodsAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		// TODO Auto-generated method stub
 		if (listItemsData != null) {
 			return listItemsData.size();
 		} else {
@@ -68,19 +65,15 @@ public class GoodsAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listItemsData.get(position);
 	}
 
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView() position=" + position);
 		if (listPosition.contains(position) == false) {  
 			//这里设置缓存的Item数量
 			if(listPosition.size() > 50)  
@@ -112,10 +105,8 @@ public class GoodsAdapter extends BaseAdapter {
 	}
 		
 	public void setViewBinder(ViewBinder viewBinder) {
-		// TODO Auto-generated method stub
-
 	}
-	
+		
 	@Override 	
 	public void notifyDataSetChanged() { 		 		 		
 		super.notifyDataSetChanged(); 	

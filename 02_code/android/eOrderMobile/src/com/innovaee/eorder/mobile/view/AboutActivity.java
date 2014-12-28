@@ -18,7 +18,6 @@ import android.widget.TextView;
 	
 /**
  * 关于界面
- * @author wanglinglong
  * 
  */	
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -53,8 +52,11 @@ public class AboutActivity extends Activity {
 		actionBar.setDisplayHomeAsUpEnabled(false);	
 		actionBar.setHomeButtonEnabled(true);	
 	}	
-	
-	@Override  
+		
+	/**
+	 * 系统ActionBar点击处理
+	 */
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  
 	    case android.R.id.home:  

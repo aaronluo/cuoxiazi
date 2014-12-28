@@ -12,7 +12,6 @@ import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 			
 /**
  * 下订单界面数据适配器
- * @author leon.wang
  *
  */
 public class OrderAdapter extends BaseAdapter {
@@ -48,7 +46,6 @@ public class OrderAdapter extends BaseAdapter {
 	}					
 	
 	public int getCount() {
-		// TODO Auto-generated method stub
 		if (listItemsData != null) {
 			return listItemsData.size();
 		} else {
@@ -57,20 +54,17 @@ public class OrderAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listItemsData.get(position);
 	}
 
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView() position=" + position);
 		
+		//判断该项是否在缓存内
 		if (listPosition.contains(position) == false) {  
 			//这里设置缓存的Item数量
 			if(listPosition.size() > 50)  

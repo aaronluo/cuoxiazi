@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 /**
  * 商品信息数据Bean
- * @author wanglinglong
  * 
  */
 public class GoodsDataBean implements Serializable {

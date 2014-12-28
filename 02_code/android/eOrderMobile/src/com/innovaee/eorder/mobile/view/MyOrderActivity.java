@@ -20,8 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +30,6 @@ import android.widget.TextView;
 		
 /**
  * 我的订单界面
- * @author wanglinglong
  * 
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -83,15 +80,16 @@ public class MyOrderActivity extends Activity {
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case MSG_UPDATE:	
-				Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");								
+			//更新界面消息
+			case MSG_UPDATE:									
 				break;					
 						
+			//数据初始化完成消息	
             case MSG_INITDATA:
 				break;
 
-            case MSG_UPDATE_COUNT:
-            	Log.d(TAG, "MSG_UPDATE_COUNT");	
+			//更新数目消息	
+            case MSG_UPDATE_COUNT:	
             	selectOrderGoods = (List<GoodsDataBean>) msg.obj;
             	Double price = getAllPrice();			
             	allPirce.setText(MyOrderActivity.this.getApplicationContext().getString(R.string.main_griditem_text_rmb) + price);
@@ -99,7 +97,8 @@ public class MyOrderActivity extends Activity {
             	//通知MainViewActivity刷新
             	sendBroadcastToMainActivity();
 				break;	
-										
+						
+			//重新设置Adapter消息	
             case MSG_RESET_ADAPTER:
             	selectOrderGoods = (List<GoodsDataBean>) msg.obj;
             	
@@ -123,7 +122,10 @@ public class MyOrderActivity extends Activity {
 				
 	};
 			
-	/** Called when the activity is first created. */
+	/**
+	 * 系统自动调用
+	 * Called when the activity is first created
+	 */	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -135,18 +137,15 @@ public class MyOrderActivity extends Activity {
 				
 		ArrayList list = bundle.getParcelableArrayList("list");
 		selectOrderGoods = (List<GoodsDataBean>) list.get(0);	
-					
-		Log.d(TAG, "selectOrderGoods.size()=" + selectOrderGoods.size());
-		for(GoodsDataBean dataBean : selectOrderGoods) {
-			Log.d(TAG, "dataBean.getId()=" + dataBean.getId());
-			Log.d(TAG, "dataBean.getName()=" + dataBean.getName());				
-		}
-			
+								
 		initView();
 		
 		initData();							
 	}
 							
+	/**
+	 * 系统自动调用
+	 */
 	@Override  
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  
@@ -187,8 +186,7 @@ public class MyOrderActivity extends Activity {
 		
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub	
+					long arg3) {	
 			}												
         });	
 		
@@ -196,7 +194,6 @@ public class MyOrderActivity extends Activity {
 		{
 			public void onClick(View paramAnonymousView)
 			{	 	 
-				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
 				 Intent intent = new Intent(ACTION_INTENT_DELALL);
 		         sendBroadcast(intent);
 		         finish();	
@@ -207,7 +204,6 @@ public class MyOrderActivity extends Activity {
 		{
 			public void onClick(View paramAnonymousView)
 			{	 	 
-				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
 				openOrderActivity();
 				finish();			
 			}												
@@ -265,14 +261,5 @@ public class MyOrderActivity extends Activity {
 											
 		intent.putExtras(bundle);		
         sendBroadcast(intent);	
-	}
-			
-	/**	
-	 * 更新GridView ui
-	 */
-	private void updateUi() {
-		Message msg = Message.obtain();
-		msg.what = MSG_UPDATE;
-		handler.sendMessage(msg);		
-	}
+	}			
 }

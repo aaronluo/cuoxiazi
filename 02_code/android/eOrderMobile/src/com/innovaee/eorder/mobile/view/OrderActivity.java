@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ import android.widget.Toast;
 	
 /**
  * 	下订单界面
- * @author wanglinglong
  * 
  */		
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -118,15 +116,16 @@ public class OrderActivity extends Activity {
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case MSG_UPDATE:	
-				Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");								
+			//刷新界面消息
+			case MSG_UPDATE:									
 				break;					
-						
+				
+			//初始化数据完成消息
             case MSG_INITDATA:
 				break;
 			
-            case MSG_UPDATE_COUNT:
-            	Log.d(TAG, "MSG_UPDATE_COUNT");	
+			//更新显示数目消息	
+            case MSG_UPDATE_COUNT:	
             	selectOrderGoods = (List<GoodsDataBean>) msg.obj;            	            	
             	displayPrice();
             			
@@ -134,6 +133,7 @@ public class OrderActivity extends Activity {
             	sendBroadcastToMainActivity();
 				break;	
 				
+			//更新折扣消息	
             case MSG_UPDATE_DISCOUNT:
             	String discountStr = String.valueOf(discount);
             		
@@ -146,13 +146,13 @@ public class OrderActivity extends Activity {
             	displayPrice();			
             	break;
             	
+            //更新订单成功消息	
             case MSG_ORDER_SUCCESS:
             	Toast.makeText(OrderActivity.this, R.string.order_toast_order_successful, Toast.LENGTH_SHORT).show();
             					
             	try {	
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}		
             					
@@ -167,7 +167,10 @@ public class OrderActivity extends Activity {
 		};				
 	};
 					
-	/** Called when the activity is first created. */
+	/**
+	 * 系统调用
+	 * Called when the activity is first created
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -178,6 +181,7 @@ public class OrderActivity extends Activity {
 		Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
 				
+        //获取已经选择菜品列表
 		ArrayList list = bundle.getParcelableArrayList("list");
 		selectOrderGoods = (List<GoodsDataBean>) list.get(0);			
 			
@@ -225,8 +229,7 @@ public class OrderActivity extends Activity {
 						
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub	
+					long arg3) {	
 			}												
         });	
 				
@@ -251,14 +254,11 @@ public class OrderActivity extends Activity {
 		{
 			public void onClick(View paramAnonymousView)
 			{				
-				Log.d(TAG, "discountBtn.onClick");
 				String userId = inputUserId.getText().toString();
-											
-				Log.d(TAG, "userId=" + userId);	
+												
 				if (userId != null && !userId.equals("")) {
 					getDiscountData(userId);
 				} else {		
-					Log.d(TAG, "userId == null");
 					Toast.makeText(OrderActivity.this, R.string.order_toast_please_input_userid, Toast.LENGTH_SHORT).show();
 				}					
 			}								
@@ -294,6 +294,10 @@ public class OrderActivity extends Activity {
 		displayPrice();
 	}	
 			
+	/**
+	 * 系统自动调用
+	 * 调用startActivityForResult到二维码扫描界面再返回
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -309,6 +313,9 @@ public class OrderActivity extends Activity {
 		}					
 	}	
 		
+	/**
+	 * 系统自动调用
+	 */
 	@Override  
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  
@@ -357,6 +364,7 @@ public class OrderActivity extends Activity {
 	private void displayPrice() {
 		Double allPrice = getAllPrice();
 		
+		//计算实际价格
 		Double realPrice = (allPrice * discount)/10;
 		
 		//原始价格文本显示器
@@ -403,18 +411,17 @@ public class OrderActivity extends Activity {
 	 * 获取某个会员号的信息
 	 * @param userId 会员id
 	 */															
-	private void getDiscountData(final String userId) {
-		Log.d(TAG, "getDiscountData");					
+	private void getDiscountData(final String userId) {	
+		//DataManager必须在子线程里面调用
 		new Thread() {
 			@Override				
 			public void run(){					
 				DataManager.getInstance(OrderActivity.this).getUserDiscountData(userId, 
 						new IDataRequestListener<UserInfoDataBean>() {
+							//获取成功回调函数，返回多个数据
 							@Override			
 							public void onRequestSuccess(
 									final List<UserInfoDataBean> data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
 								if (data == null) {
 									return;
 								}
@@ -423,22 +430,19 @@ public class OrderActivity extends Activity {
 								updateDiscountUi();
 							}				
 										
+							//获取开始回调函数
 							@Override
 							public void onRequestStart() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestStart!");
 							}
 		
+							//获取失败回调函数
 							@Override
 							public void onRequestFailed() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestFailed!");
 							}
 		
+							//获取成功回调函数，返回单个数据
 							@Override
 							public void onRequestSuccess(UserInfoDataBean data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
 							}
 						});
 				handler.sendEmptyMessage(0);
@@ -490,50 +494,7 @@ public class OrderActivity extends Activity {
 	 * @param selectOrderGoods 下订单数据
 	 */
 	private void orderToService(final List<GoodsDataBean> selectOrderGoods) {	
-		orderSuccessful();
-		
-		/*
-		new Thread() {
-			@Override			
-			public void run(){		
-				DataManager.getInstance(OrderActivity.this).orderToService(selectOrderGoods, 
-						new IDataRequestListener<String>() {
-							@Override				
-							public void onRequestSuccess(
-									final List<String> data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
-								if (data == null) {	
-									return;				
-								}
-								
-								orderSuccessful();	
-							}			
-										
-							@Override
-							public void onRequestStart() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestStart!");
-							}
-		
-							@Override
-							public void onRequestFailed() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestFailed!");
-							}
-		
-							@Override
-							public void onRequestSuccess(String data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
-							}
-						});
-				
-				handler.sendEmptyMessage(0);
-			}
-		}.start();	
-		*/
-	}			
-	
-			
+		orderSuccessful();		
+	}							
 }
+

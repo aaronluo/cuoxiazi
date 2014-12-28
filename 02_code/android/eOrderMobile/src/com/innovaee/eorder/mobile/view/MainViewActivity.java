@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -50,11 +49,9 @@ import android.widget.Toast;
 /**
  * 主程序入口展示界面
  * 展示菜品某分类下所有菜品
- * @author leon.wang
  *
  */
 public class MainViewActivity extends Activity {
-	//Log输出Tag
 	private final static String TAG = "MainViewActivity";
 			
 	//消息定义，界面刷新消息
@@ -141,36 +138,30 @@ public class MainViewActivity extends Activity {
 	//load数据progressBar	
 	ProgressBar progressBar;
 	
+	//消息Handler
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
+			//刷新整个UI显示
 			case MSG_UPDATE: {
-				Log.d(TAG, "MSG_UPDATE!!!");
 				progressBar.setVisibility(View.GONE);
 				failLayout.setVisibility(View.GONE);
 				gridView.setVisibility(View.VISIBLE);												
 				goodsListData = (List<GoodsDataBean>) msg.obj;
 				goodsAdapter = new GoodsAdapter(MainViewActivity.this, goodsListData, handler);
 				gridView.setAdapter(goodsAdapter);
-					
-				Log.d(TAG, "goodsListData.size =" + goodsListData.size());
-				
-				for(GoodsDataBean dataBean: goodsListData) {
-					Log.d(TAG, "dataBean.getId()" + dataBean.getId());
-					Log.d(TAG, "dataBean.dataBean.getName()" + dataBean.getName());
-				}
-				
+									
 				getOrderHestoryTestData();
 				}	
 				break;
 					
+			//初始化数据成功
 			case MSG_INITDATA:	
-				Log.d(TAG, "MSG_INITDATA!!!");
 				break;
 				
+			//重新设置PopMenu
 			case MSG_UPDATE_POPMENU:
-				Log.d(TAG, "MSG_UPDATE_POPMENU!!!");
 				progressBar.setVisibility(View.GONE);	
 				failLayout.setVisibility(View.GONE);
 				gridView.setVisibility(View.VISIBLE);	
@@ -179,9 +170,9 @@ public class MainViewActivity extends Activity {
 				popupMenuList.setAdapter(feedTypeAdapter);
 				changeFeedType(feedTypeList.get(0));					
 				break;																		
-					
+				
+			//点击某项菜品，添加到选中列表
 			case MSG_ORDER:
-				Log.d(TAG, "MSG_ORDER!!!");
 				int select = msg.arg1;		
 				if (selectOrderGoods == null) {
 					selectOrderGoods = new ArrayList<GoodsDataBean>();
@@ -194,6 +185,7 @@ public class MainViewActivity extends Activity {
 				}							
 				break;		
 					
+			//删除所有选中菜品	
 			case MSG_DELALL:
 				if(selectOrderGoods != null) {
 					selectOrderGoods.clear();
@@ -201,15 +193,15 @@ public class MainViewActivity extends Activity {
 				}	
 				break;
 						
-			case MSG_UPDATE_COUNT:
-				Log.d(TAG, "MSG_UPDATE_COUNT!!!");	
+			//更新菜品显示数量	
+			case MSG_UPDATE_COUNT:	
 				selectOrderGoods = (List<GoodsDataBean>) msg.obj;
 				int count = getMyOrderSelectCount();
 				updateMyOrderCount(count);							
 				break;
 				
-			case MSG_UPDATE_FAILUI:
-				Log.d(TAG, "MSG_UPDATE_FAILUI!!!");	
+			//显示失败UI提示	
+			case MSG_UPDATE_FAILUI:	
 				progressBar.setVisibility(View.GONE);
 				failLayout.setVisibility(View.VISIBLE);
 				gridView.setVisibility(View.GONE);		
@@ -221,6 +213,9 @@ public class MainViewActivity extends Activity {
 		}			
 	};
 		
+	/**
+	 * onCreate方法，系统默认调用
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maintab_activity);		
@@ -230,6 +225,10 @@ public class MainViewActivity extends Activity {
 		initData();					
 	}
 	
+	/**
+	 * onCreateOptionsMenu方法，系统默认调用
+	 * 设置ActionBar上要显示的View
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu paramMenu) {	
 		getMenuInflater().inflate(R.menu.main_activity_actions, paramMenu);
@@ -242,7 +241,6 @@ public class MainViewActivity extends Activity {
 	    {	
 	    	public void onClick(View paramAnonymousView)
 	    	{
-	    		Log.d(TAG, "orderCountView.onClick");
 	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
 	    			openMyOrder();
 	    		} else {
@@ -255,7 +253,6 @@ public class MainViewActivity extends Activity {
 	    {
 	    	public boolean onLongClick(View paramAnonymousView)
 	    	{		
-	    		Log.d(TAG, "orderCountView.onLongClick");
 	    		if ((selectOrderGoods != null) && (selectOrderGoods.size() > 0)) {
 	    			openMyOrder();
 	    		} else {
@@ -269,11 +266,12 @@ public class MainViewActivity extends Activity {
 	}	
 		
 			
+	/**
+	 * onOptionsItemSelected方法，系统默认调用
+	 * 弹出更多菜单点击处理
+	 */
 	@Override	
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-		Log.d(TAG, "onOptionsItemSelected item.getItemId()=" + item.getItemId());
-				
+	public boolean onOptionsItemSelected(MenuItem item) {				
 	    switch (item.getItemId()) {
 	        case R.id.action_menu_settings:
 	            openSetting();
@@ -310,10 +308,8 @@ public class MainViewActivity extends Activity {
 		progressBar = (ProgressBar)findViewById(R.id.loading_data_progressbar);
 			
 		receiver = new BroadcastReceiver() {
-			public void onReceive(Context context, Intent intent) {
-				Log.d(TAG, "BroadcastReceiver:onReceive()");	
+			public void onReceive(Context context, Intent intent) {	
 				if (intent.getAction().equals("com.eorder.action.delAll")) {
-					Log.d(TAG, "BroadcastReceiver:com.eorder.action.delAll");
 					if (selectOrderGoods != null) {
 						selectOrderGoods.clear();
 						selectOrderGoods = null;	
@@ -321,7 +317,6 @@ public class MainViewActivity extends Activity {
 						updateMyOrderCount(0);
 					}	
 				} else if (intent.getAction().equals("com.eorder.action.changeCount")) {
-					Log.d(TAG, "BroadcastReceiver:com.eorder.action.changeCount");
 					Bundle bundle = intent.getExtras();
 					
 					ArrayList list = bundle.getParcelableArrayList("list");
@@ -332,10 +327,17 @@ public class MainViewActivity extends Activity {
 				}											
 			}
 		};
-																
+		
+		//初始化广播事件
 		IntentFilter intentFilter = new IntentFilter();
+		
+		//删除所有的广播事件
         intentFilter.addAction("com.eorder.action.delAll");
+        
+        //改变当前显示的数量事件
         intentFilter.addAction("com.eorder.action.changeCount");
+        
+        //注册相应广播事件
         registerReceiver(receiver, intentFilter);        
 	}
 	
@@ -362,8 +364,7 @@ public class MainViewActivity extends Activity {
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
-				Log.d(TAG, "gridView.setOnItemClickListener!");			
+					int position, long id) {			
 				if (selectOrderGoods == null) {
 					selectOrderGoods = new ArrayList<GoodsDataBean>();
 				}
@@ -372,14 +373,17 @@ public class MainViewActivity extends Activity {
 					addGoodsToSelect(goodsListData.get(position));	
 					int count = getMyOrderSelectCount();
 					updateMyOrderCount(count);
-					Log.d(TAG, "count=" + count);
 				}						
 			}				
 		});				
 					
+		//初始化Popmenu菜单
 		initFeedTypePopup();
-			
+				
+		//显示ProgressBar,然后开始从网络加载数据
 		progressBar.setVisibility(View.VISIBLE);
+		
+		//加载所有分类数据
 		loadFeedTypeListData();
 	}																
 		
@@ -404,7 +408,6 @@ public class MainViewActivity extends Activity {
 		{
 			public void onClick(View paramAnonymousView)
 			{	 	 
-				Log.d(TAG, "orderHestroySearch.setOnClickListener!");
 				String inputString = orderHestoryInput.getText().toString();
 						
 				if(inputString != null && !inputString.equals("")) {
@@ -420,15 +423,21 @@ public class MainViewActivity extends Activity {
 		{
 			public void onClick(View paramAnonymousView)
 			{	  
-				Log.d(TAG, "feedTypeName.setOnClickListener!");
 				clickOnFeedType(paramAnonymousView);		
 			}												
 		});
 	}	
 
+	
+	/**
+	 * onDestroy方法，系统默认调用
+	 */	
 	@Override
     protected void onDestroy() {
+		
+		//必须在onDestroy中卸载监听器
         unregisterReceiver(receiver);
+        
         super.onDestroy();
     };    	
 	
@@ -464,6 +473,7 @@ public class MainViewActivity extends Activity {
 		
 		bundle.putString("userid", userId);			
 			
+		//传递历史订单记录数据
 		ArrayList list = new ArrayList();
 		list.add(orderHestoryGoods);	
 		bundle.putParcelableArrayList("list",list);
@@ -485,7 +495,8 @@ public class MainViewActivity extends Activity {
 		ArrayList list = new ArrayList();
 
 		list.add(selectOrderGoods);	
-				
+
+		//传递已经选中的菜品列表
 		bundle.putParcelableArrayList("list",list);
 					
 		intent.putExtras(bundle);						
@@ -499,6 +510,7 @@ public class MainViewActivity extends Activity {
 	 */
 	private void changeFeedType(FeedType paramFeedType)
 	{	
+		//当前需要改变的类型和上次不相同
 	    if (this.lastFeedType != paramFeedType)
 	    {
 	    	lastFeedType = paramFeedType;
@@ -509,10 +521,13 @@ public class MainViewActivity extends Activity {
 	    	} else {
 	    		this.feedTypeName.setText(lastFeedType.getTypeName());
 	    	}	
-	    					
+	    	
+	    	//隐藏ProgressBar,显示GridView
 	    	progressBar.setVisibility(View.VISIBLE);
 			failLayout.setVisibility(View.GONE);
 			gridView.setVisibility(View.GONE);		
+			
+			//重新加载改变type的菜品类型数据
 	    	loadCategoryData(lastFeedType.getCategoryId());
 	    }					    		
 	}												
@@ -578,8 +593,7 @@ public class MainViewActivity extends Activity {
 	 * @param paramView 点击view区域
 	 */
 	public void clickOnOrderHestory(View paramView)
-	{				
-		Log.d(TAG, "clickOnOrderHestory!");		
+	{							
 		if(orderHestoryInput != null) {
 			String inputString = orderHestoryInput.getText().toString();
 			
@@ -663,42 +677,38 @@ public class MainViewActivity extends Activity {
 	 * 加载某个分类菜品列表数据
 	 * @param 菜品分类id
 	 */								
-	private void loadCategoryData(final int id) {
-		Log.d(TAG, "loadCategoryData()");			
+	private void loadCategoryData(final int id) {	
+		//必须放在子线程下执行，放在UI线程中执行会导致不响应
 		new Thread(){
 			@Override
 			public void run(){
 				DataManager.getInstance(MainViewActivity.this).getGoodsData(id, 
 					new IDataRequestListener<GoodsDataBean>() {
+						
+						//请求成功后的回调处理函数，返回多个情况
 						@Override
 						public void onRequestSuccess(
 							final List<GoodsDataBean> data) {
-							// TODO Auto-generated method stub
-							Log.d("MainViewActivity:", "onRequestSuccess!");
 							if (data == null) {
 								return;
 							}								
 							goodsListData = data;
 							updateUi();		
 						}		
-										
+									
+						//请求开始的回调处理函数
 						@Override
 						public void onRequestStart() {
-							// TODO
-							Log.d("MainViewActivity:", "onRequestStart!");
 						}
 
+						//请求失败的回调处理函数
 						@Override
 						public void onRequestFailed() {
-							// TODO
-							Log.d("MainViewActivity:", "onRequestFailed!");
-							updateFailUi();
 						}	
 
+						//请求成功的回调处理函数，返回单个情况
 						@Override
 						public void onRequestSuccess(GoodsDataBean data) {
-							// TODO Auto-generated method stub
-							Log.d("MainViewActivity:", "onRequestSuccess!");
 							updateUi();
 						}
 				});
@@ -711,45 +721,40 @@ public class MainViewActivity extends Activity {
 	/**
 	 * 加载所有分类列表信息
 	 */	
-	private void loadFeedTypeListData() {		
-		Log.d(TAG, "loadFeedTypeListData()");							
+	private void loadFeedTypeListData() {			
+		//必须放在子线程下执行，放在UI线程中执行会导致不响应	
 		new Thread() {
 			@Override
 			public void run(){
 				DataManager.getInstance(MainViewActivity.this).getCategoryData(
 						new IDataRequestListener<CategoryDataBean>() {
+							//请求成功后的回调处理函数，返回多个情况
 							@Override
 							public void onRequestSuccess(
 									final List<CategoryDataBean> data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
 								if (data == null) {
 									return;
 								}
 									
-								Log.d(TAG, "data.szie=" + data.size());	
 								categoryListData = data;	
 								updatePopmenuUi();
 							}
 							
+							//请求开始的回调处理函数
 							@Override
 							public void onRequestStart() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestStart!");
 							}
 								
+							//请求失败的回调处理函数
 							@Override
 							public void onRequestFailed() {
-								// TODO
-								Log.d("MainViewActivity:", "onRequestFailed!");
 								updateFailUi();
 							}	
 
+							//请求成功的回调处理函数，返回单个情况
 							@Override
 							public void onRequestSuccess(CategoryDataBean data) {
-								// TODO Auto-generated method stub
-								Log.d("MainViewActivity:", "onRequestSuccess!");
-							}		
+							}			
 						});
 				
 				handler.sendEmptyMessage(0);
@@ -768,11 +773,8 @@ public class MainViewActivity extends Activity {
 		for(CategoryDataBean databean: categoryListData) {
 			FeedType feedType = new FeedType(databean.getId(), databean.getName());
 			feedTypeList.add(feedType);	
-			Log.d(TAG, "id=" + databean.getId());
-			Log.d(TAG, "id=" + databean.getName());
 		}	
 					
-		Log.d(TAG, "feedTypeList.size()=" + feedTypeList.size());
 		return feedTypeList;
 	}
 			
@@ -783,25 +785,17 @@ public class MainViewActivity extends Activity {
 	 */
 	private void addGoodsToSelect(GoodsDataBean dataBean) {
 		boolean isAddCount = false;
-		Log.d(TAG, "selectOrderGoods.size()=" + selectOrderGoods.size());
 			
 		for (GoodsDataBean goodsDataBean: selectOrderGoods) {
-			Log.d(TAG, "goodsDataBean.getId()=" + goodsDataBean.getId());
-			Log.d(TAG, "goodsDataBean.getName()=" + goodsDataBean.getName());	
-			Log.d(TAG, "dataBean.getId()=" + dataBean.getId());
-			Log.d(TAG, "dataBean.getName()=" + dataBean.getName());
 			if (goodsDataBean.getId() == dataBean.getId()) {	
-				Log.d(TAG, "goodsDataBean.getId() == dataBean.getId()======");
 				int count = goodsDataBean.getCount() + 1;
 				goodsDataBean.setCount(count); 
 				isAddCount = true;
-				Log.d(TAG, "count=" + count);
 				break;
 			}	
 		}				
 		
 		if(!isAddCount) {
-			Log.d(TAG, "add(dataBean)");
 			//第一次添加到selectList需要设置该对象count=1
 			dataBean.setCount(1);									
 			selectOrderGoods.add(dataBean);
@@ -823,95 +817,7 @@ public class MainViewActivity extends Activity {
 			loadCategoryData(lastFeedType.getCategoryId());
 		}	
 	}	
-		
-	//***********************************************************************************************
-	//测试数据，调试使用
-	/**
-	 * 初始化测试数据
-	 */			
-	private void initPopMenuData() {
-		feedTypeList = new ArrayList<FeedType>();
-			
-		FeedType databean1 = new FeedType(0, "最热");
-		feedTypeList.add(databean1);
-				
-		FeedType databean2 = new FeedType(1, "最新");
-		feedTypeList.add(databean2);
-		
-		FeedType databean3 = new FeedType(2, "湘菜");
-		feedTypeList.add(databean3);
-
-		FeedType databean4 = new FeedType(3, "粤菜");
-		feedTypeList.add(databean4);
-
-		FeedType databean5 = new FeedType(4, "川菜");
-		feedTypeList.add(databean5);
-				
-		FeedType databean6 = new FeedType(5, "酒水");
-		feedTypeList.add(databean6);
-		
-		FeedType databean7 = new FeedType(6, "炖汤");
-		feedTypeList.add(databean7);
-		
-		FeedType databean8 = new FeedType(7, "主食");
-		feedTypeList.add(databean8);
-		
-		lastFeedType = feedTypeList.get(0);	
-	}			
-		
-	/**
-	 * 初始化测试数据
-	 */
-	private void initTestData() {
-		goodsListData = new ArrayList<GoodsDataBean>();
-			
-		GoodsDataBean databean1 = new GoodsDataBean();
-		databean1.setId(100001);
-		databean1.setName("川菜");
-		databean1.setBitmapUrl("http://food.hnr.cn/rmc/rmfl/201307/W020130719651943856865.jpg");
-		databean1.setPrice(19.8);
-		goodsListData.add(databean1);
-				
-		GoodsDataBean databean2 = new GoodsDataBean();
-		databean2.setId(100002);
-		databean2.setName("湘菜");
-		databean2.setPrice(38.0);	
-		databean2.setBitmapUrl("http://img5.imgtn.bdimg.com/it/u=2131026967,3181874696&fm=21&gp=0.jpg");
-		goodsListData.add(databean2);
-
-		GoodsDataBean databean3 = new GoodsDataBean();
-		databean3.setId(100003);
-		databean3.setName("粤菜");
-		databean3.setPrice(26.5);
-		databean3.setBitmapUrl("http://pic21.nipic.com/20120525/2194567_150416722000_2.jpg");
-		goodsListData.add(databean3);
-
-		GoodsDataBean databean4 = new GoodsDataBean();
-		databean4.setId(100004);
-		databean4.setName("酒水");
-		databean4.setPrice(18.0);
-		databean4.setBitmapUrl("http://pic21.nipic.com/20120513/4666865_132407922000_2.jpg");
-		goodsListData.add(databean4);
-		
-		GoodsDataBean databean5 = new GoodsDataBean();
-		databean5.setId(100005);
-		databean5.setName("小菜");
-		databean5.setPrice(28.0);
-		databean5.setBitmapUrl("http://p1.ftuan.com/2012/1129/11/20121129112313883.jpg");
-		goodsListData.add(databean5);
-																			
-		GoodsDataBean databean6 = new GoodsDataBean();
-		databean6.setId(100006);
-		databean6.setName("主食");
-		databean6.setPrice(48.0);
-		databean6.setBitmapUrl("http://www.photophoto.cn/m77/161/002/1610020750.jpg");
-		goodsListData.add(databean6);
-																		
-		Log.d(TAG, "goodsListData.size =" + goodsListData.size());
-
-		updateUi();	
-	}
-		
+	
 	/**
 	 * 生成订单历史记录的测试数据
 	 */

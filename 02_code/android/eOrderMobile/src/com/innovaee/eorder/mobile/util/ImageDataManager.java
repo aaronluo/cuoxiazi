@@ -36,7 +36,6 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 	
 import com.innovaee.eorder.mobile.util.LruImageCache;
@@ -45,24 +44,19 @@ import com.innovaee.eorder.mobile.util.LruImageCache;
  * 图片管理器
  * 管理图片，存储图片到缓存和sdcard,使用时从缓存或者sdcard读取图片
  * 
- * @author wanglinglong
  * 
  */
 public class ImageDataManager {
-	
-	/**
-	 *  线程池类型
-	 */
+	//线程池类型
 	public static enum ThreadPoolType {
 		TYPE_LOCAL,  // 用于加载本地图片
 		TYPE_REMOTE  // 用于下载远程图片
 	}
 
+	//默认小大
 	private static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
-	/**
-	 * SDcard storage path
-	 */
+	//SDcard存储地址
 	private final static String STORAGE_PATH = Environment
 			.getExternalStorageDirectory().getPath() + "/eOrderMobile";
 	
@@ -159,8 +153,6 @@ public class ImageDataManager {
 			ImageDownloadTask task = mActiveQueue.get(url);
 			if (task != null) {
 				task.addListener(hashCode, listener);
-				Log.i("ImageDataManager", "downloadImage "
-						+ " return, duplex task, url:" + url + ", add new listener to task");
 				return;
 			}
 			ThreadPoolExecutor executor = null;
@@ -168,17 +160,11 @@ public class ImageDataManager {
 				File file = getBitmapSaveFile(url);
 				executor = getThreadPool(ThreadPoolType.TYPE_LOCAL);
 				task = new ImageDownloadTask(file, url);
-				Log.i("ImageDataManager",
-						"downloadImage by ThreadPoolType_TYPE_LOCAL, url:" + url);
 			} else {
 				executor = getThreadPool(ThreadPoolType.TYPE_REMOTE);
 				task = new ImageDownloadTask(url);
-				Log.i("ImageDataManager",
-						"downloadImage by ThreadPoolType_TYPE_REMOTE, url:" + url);
 			}
 			task.addListener(hashCode, listener);
-			Log.i("ImageDataManager",	
-					"addListener, url:" + url);
 			mActiveQueue.put(url, task);
 			executor.execute(task);
 		}
@@ -188,7 +174,6 @@ public class ImageDataManager {
 	 * 取消正在下载的任务
 	 */
 	public synchronized void cancelTask() {
-		//Log.d("ImageDataManager", "cancelTask()");
 		synchronized (mLock) {
 			mActiveQueue.clear();
 			mWaitTasksQueue.clear();
@@ -206,7 +191,6 @@ public class ImageDataManager {
 	/**
 	 * 异步下载图片的回调接口
 	 * 
-	 * @author wanglinglong
 	 */
 	public interface OnImageLoaderListener {
 		void onImageLoader(Bitmap bitmap, String url);
@@ -256,7 +240,6 @@ public class ImageDataManager {
 	 * @return
 	 */
 	public Bitmap downloadBitmapSync(String url) {
-		//TODO
 		Bitmap bitmap = null;
 		InputStream stream = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -285,16 +268,9 @@ public class ImageDataManager {
 				}
 			}
 		} catch (Exception e) {
-			Log.w("ImageDataManager", "Couldn't load bitmap from url: "
-					+ url + ", exception:" + e.toString());
 		} catch (OutOfMemoryError e) {
-			Log.w("ImageDataManager", "Couldn't load bitmap from url: "
-					+ url + ", exception:" + e.toString());
 		} finally {
 			if (contentLength > 0 && readCount != contentLength) {
-				Log.d("ImageDataManager",
-						"Content-Length error, contentLength:" + contentLength
-								+ ", readLength:" + readCount);
 			} else {
 				bitmap = DisplayUtil.decodeBitmap(bos.toByteArray());
 			}
@@ -310,7 +286,7 @@ public class ImageDataManager {
 		}
 		return bitmap;
 	}
-
+	
 	/**
 	 * 功能简述: 获取 本地缓存文件
 	 * 功能详细描述:
@@ -351,7 +327,6 @@ public class ImageDataManager {
 	 * An InputStream that skips the exact number of bytes provided, unless it
 	 * reaches EOF.
 	 * 
-	 * @author wanglinglong
 	 */
 	static class FlushedInputStream extends FilterInputStream {
 		public FlushedInputStream(InputStream inputStream) {
@@ -400,7 +375,6 @@ public class ImageDataManager {
 	private void saveBmpToSd(String url, Bitmap bitmap) {
 		autoCleanCache(STORAGE_PATH);
 		if (TextUtils.isEmpty(url) || bitmap == null) {
-			Log.d("mjw", " trying to save null bitmap");
 			return;
 		}
 		if (!isSdExits()) {
@@ -408,7 +382,6 @@ public class ImageDataManager {
 		}
 		// if available space is below 50, return
 		if (FREE_SD_SPACE_NEEDED_TO_CACHE > getSdAvailable()) {
-			Log.w("mjw", "Low free space onsd, do not cache");
 			return;
 		}
 		File file = getBitmapSaveFile(url);
@@ -419,9 +392,7 @@ public class ImageDataManager {
 		try {
 			outStream = new FileOutputStream(file);
 			bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-			Log.i("mjw", "Image saved tosd");
 		} catch (FileNotFoundException e) {
-			Log.w("mjw", "FileNotFoundException");
 		} finally {
 			if (outStream != null) {
 				try {
@@ -452,8 +423,6 @@ public class ImageDataManager {
 			try {
 				file.createNewFile();
 			} catch (Exception e) {
-				Log.i("ImageDataManager", "hideMediaInFolder error, folder = "
-						+ folder);
 			}
 		}
 		file = null;
@@ -485,7 +454,6 @@ public class ImageDataManager {
 				|| FREE_SD_SPACE_NEEDED_TO_CACHE > getSdAvailable()) {
 			int removeFactor = (int) ((0.4 * files.length) + 1);
 			Arrays.sort(files, new FileLastModifSort());
-			Log.i("ImageDataManager", "Clear some expiredcache files ");
 			for (int i = 0; i < removeFactor; i++) {
 				files[i].delete();
 			}
@@ -495,7 +463,6 @@ public class ImageDataManager {
 	/**
 	 * sort file based on latest modify time
 	 * 
-	 * @author wanglinglong
 	 * 
 	 */
 	class FileLastModifSort implements Comparator<File> {
@@ -544,9 +511,6 @@ public class ImageDataManager {
 			if (hasMoreWaitTask()) {
 				Runnable runnable = mWaitTasksQueue.poll();
 				if (runnable != null) {
-					Log.i("ImageDataManager",
-							"downloadImage, executeWaitTask "
-									+ runnable.toString());
 					ThreadPoolType threadPoolType = ThreadPoolType.TYPE_LOCAL;
 					if (runnable instanceof ImageDownloadTask) {
 						DownloadTaskType taskType = ((ImageDownloadTask) runnable).getTaskType();
@@ -569,9 +533,6 @@ public class ImageDataManager {
 			public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
 				// 把被拒绝的任务重新放入到等待队列中
 				synchronized (mLock) {
-					Log.i("ImageDataManager",
-							"downloadImage, rejectedExecution, add to mWaitTasksQueue: "
-									+ r.toString());
 					mWaitTasksQueue.offer(r);
 				}
 			}
@@ -592,8 +553,6 @@ public class ImageDataManager {
 	}
 
 	public boolean removeTask(int hashCode, String url) {
-		//Log.d("ImageDataManager", "removeTask()");
-		//Log.d("ImageDataManager", "url=" + url);	
 		if (TextUtils.isEmpty(url)) {
 			return false;
 		}
@@ -644,8 +603,6 @@ public class ImageDataManager {
 	 * 类描述:
 	 * 功能详细描述:
 	 * 
-	 * @author  wanglinglong
-	 * @date  [2014年11月19日]
 	 */
 	private enum DownloadTaskType {
 		TASKTYPE_URL,
@@ -653,13 +610,8 @@ public class ImageDataManager {
 	}
 	
 	/**
-	 * 
-	 * 
 	 * 类描述: 
-	 * 功能详细描述:
-	 * 
-	 * @author wanglinglong
-	 * @date [2014年9月30日]
+	 * 功能详细描述: 
 	 */
 	private class ImageDownloadTask implements Runnable {
 		private SparseArray<OnImageLoaderListener> mListeners;
@@ -685,9 +637,7 @@ public class ImageDataManager {
 		}
 
 		public void addListener(int hashCode, OnImageLoaderListener listener) {
-			Log.d("ImageDataManager", "addListener hashCode=" + hashCode);
 			if (mListeners.get(hashCode) == null) {
-				Log.d("ImageDataManager", "mListeners.put(hashCode, listener);");
 				mListeners.put(hashCode, listener);
 			}	
 		}
@@ -697,7 +647,6 @@ public class ImageDataManager {
 		 * @return true listener列表为空，可以移除整个task
 		 */
 		public boolean removeListener(int hashCode) {
-			//Log.d("ImageDataManager", "removeListener()");
 			mListeners.delete(hashCode);
 			return mListeners.size() == 0;
 		}
@@ -722,9 +671,7 @@ public class ImageDataManager {
 				if (bitmap != null) {
 					addBitmapToCache(mUrl, bitmap);
 					saveBmpToSd(mUrl, bitmap);
-					Log.d("ImageDataManager", "Image cached " + mUrl);
 				} else {
-					Log.w("ImageDataManager", "Failed to cache " + mUrl);
 				}
 					
 			}

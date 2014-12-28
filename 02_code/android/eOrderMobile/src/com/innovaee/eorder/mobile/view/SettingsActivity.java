@@ -21,7 +21,6 @@ import android.widget.Toast;
 	
 /**
  * 设置界面
- * @author wanglinglong
  * 
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -74,7 +73,6 @@ public class SettingsActivity extends Activity {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}	
 					finish();
@@ -85,6 +83,9 @@ public class SettingsActivity extends Activity {
 		});						
 	}	
 	
+	/**
+	 * 系统自动调用
+	 */	
 	@Override  
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  

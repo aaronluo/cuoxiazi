@@ -11,7 +11,6 @@ import android.app.Application;
 /**
  * 该类主要是为了方便其他工具类， 服务类通过Application 获取全局context
  * 
- * @author wanglinglong
  * 
  */
 public class MyApplication extends Application {
@@ -23,7 +22,6 @@ public class MyApplication extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		instance = this;
 	}

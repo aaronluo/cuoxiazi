@@ -11,16 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.util.Log;
 
 /**
  * 文件操作工具集
  * 
- * @author
  * 
  */
 public final class FileUtils {
@@ -57,10 +53,8 @@ public final class FileUtils {
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +70,6 @@ public final class FileUtils {
 			try {
 				file.mkdirs();
 			} catch (Exception e) {
-				Log.d("leonwang:", "mkDir error, folder = " + dir);
 			}
 		}
 		file = null;
@@ -131,7 +124,6 @@ public final class FileUtils {
 	/**
 	 * sd卡是否可读写
 	 * 
-	 * @author
 	 * @return 是否可读写，true可以读写，false不可读写
 	 */
 	public static boolean isSDCardAvaiable() {
@@ -142,7 +134,6 @@ public final class FileUtils {
 	/**
 	 * 指定路径文件是否存在
 	 * 
-	 * @author
 	 * @param filePath 文件路径
 	 * @return 是否存在，true存在，false不存在
 	 */
@@ -153,7 +144,6 @@ public final class FileUtils {
 			result = file.exists();
 			file = null;
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return result;
 	}

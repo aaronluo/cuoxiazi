@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +32,6 @@ import android.widget.Toast;
 		
 /**
  * 订单历史查询界面
- * @author wanglinglong
  * 
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -42,8 +40,13 @@ public class OrderHestoryActivity extends Activity {
 	private final static String TAG = "OrderActivity";
 		
 	//内部消息定义
+	//刷新UI消息
 	public final static int MSG_UPDATE = 10001;
+	
+	//初始化数据完成消息
 	public final static int MSG_INITDATA = 10002;
+	
+	//显示失败提示消息
 	public final static int MSG_UPDATE_FAIL = 10003;
 		
 	//已经选择菜品list
@@ -61,21 +64,24 @@ public class OrderHestoryActivity extends Activity {
 	//ActionBar
 	private ActionBar actionBar;
 				
+	//会员id
 	private String userId;
 		
 	//消息handler
 	private Handler handler = new Handler(Looper.getMainLooper()) {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-				case MSG_UPDATE:		
-					Log.d("leonwang:", "FolderListManagerActivity:MSG_UPDATE");		
+				//刷新界面消息
+				case MSG_UPDATE:				
 					orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);								
 					listView.setAdapter(orderHestoryAdapter);							
 					break;					
-											
+							
+				//数据初始化完成消息		
 	            case MSG_INITDATA:
 					break;
 					
+				//显示失败消息	
 	            case MSG_UPDATE_FAIL:
 	            	Toast.makeText(OrderHestoryActivity.this, R.string.order_toast_no_userid_fail, Toast.LENGTH_SHORT).show();
 	            	finish();			
@@ -87,7 +93,10 @@ public class OrderHestoryActivity extends Activity {
 		};				
 	};	
 			
-	/** Called when the activity is first created. */
+	/**
+	 * 系统调用
+	 * Called when the activity is first created
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -104,9 +113,13 @@ public class OrderHestoryActivity extends Activity {
 		
 		initData();		
 		
+		//加载对应会员号的历史订单记录
 		loadOrderHestoryListData(userId);
 	}	
 		
+	/**
+	 * 系统调用
+	 */
 	@Override  
 	public boolean onOptionsItemSelected(MenuItem item) {  
 	    switch (item.getItemId()) {  
@@ -135,12 +148,11 @@ public class OrderHestoryActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				openMyOrder();
 			}													
         });	
-				
-			
+						
+		//设置ActionBar的属性	
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setLogo(R.drawable.ic_publish_bottom_pan_back);
@@ -149,8 +161,6 @@ public class OrderHestoryActivity extends Activity {
 		orderHestoryAdapter = new OrderHestoryAdapter(OrderHestoryActivity.this, orderHestoryDataList);
 								
 		listView.setAdapter(orderHestoryAdapter);	
-		
-		//initTestData();
 	}
 	
 	/**	
@@ -190,21 +200,22 @@ public class OrderHestoryActivity extends Activity {
 		intent.setClass(OrderHestoryActivity.this, MyOrderActivity.class);	             						
         startActivity(intent);		
 	}
+	
 	/**
 	 * 获取会员的历史订单
 	 * @param userId
 	 */
-	private void loadOrderHestoryListData(final String userId) {	
-		new Thread() {
+	private void loadOrderHestoryListData(final String userId) {
+		//DataManager必须放在子线程中调用
+		new Thread() {	
 			@Override	
 			public void run(){			
 			DataManager.getInstance(OrderHestoryActivity.this).getOrderHestoryData(userId, 
 					new IDataRequestListener<OrderHestoryDataBean>() {
+						//获取成功回调函数，返回多个数据
 						@Override			
 						public void onRequestSuccess(
 								final List<OrderHestoryDataBean> data) {
-							// TODO Auto-generated method stub
-							Log.d("MainViewActivity:", "onRequestSuccess!");
 							if (data == null) {
 								return;
 							}
@@ -212,76 +223,26 @@ public class OrderHestoryActivity extends Activity {
 							orderHestoryDataList = data;
 							updateUi();		
 						}			
-									
+								
+						//获取数据开始回调函数
 						@Override
 						public void onRequestStart() {
-							// TODO
-							Log.d("MainViewActivity:", "onRequestStart!");
 						}
 							
+						//获取数据失败回调函数
 						@Override
 						public void onRequestFailed() {
-							// TODO
-							Log.d("MainViewActivity:", "onRequestFailed!");							
 							updateFailUi();	
 						}		
 	
+						//获取数据成功回调函数，返回单个数据
 						@Override
 						public void onRequestSuccess(OrderHestoryDataBean data) {
-							// TODO Auto-generated method stub
-							Log.d("MainViewActivity:", "onRequestSuccess!");
 						}			
 					});				
 				handler.sendEmptyMessage(0);
 			}
 		}.start();		
 	}
-		
-	/**
-	 * 初始化测试数据
-	 */
-	private void initTestData() {
-		orderHestoryDataList = new ArrayList<OrderHestoryDataBean>();
 			
-		OrderHestoryDataBean databean1 = new OrderHestoryDataBean();
-		databean1.setId(100001);
-		databean1.setTime("2014-8-01");
-		databean1.setTotalPrice(98.5);	
-		orderHestoryDataList.add(databean1);	
-						
-		OrderHestoryDataBean databean2 = new OrderHestoryDataBean();
-		databean2.setId(100002);
-		databean2.setTime("2014-8-03");
-		databean2.setTotalPrice(143.5);	
-		orderHestoryDataList.add(databean2);
-
-		OrderHestoryDataBean databean3 = new OrderHestoryDataBean();
-		databean3.setId(100003);
-		databean3.setTime("2014-10-06");
-		databean3.setTotalPrice(45.0);	
-		orderHestoryDataList.add(databean3);
-
-		OrderHestoryDataBean databean4 = new OrderHestoryDataBean();
-		databean4.setId(100004);
-		databean4.setTime("2014-10-10");
-		databean4.setTotalPrice(112.8);	
-		orderHestoryDataList.add(databean4);
-		
-		OrderHestoryDataBean databean5 = new OrderHestoryDataBean();
-		databean5.setId(100005);
-		databean5.setTime("2014-10-25");
-		databean5.setTotalPrice(199.8);	
-		orderHestoryDataList.add(databean5);
-																			
-		OrderHestoryDataBean databean6 = new OrderHestoryDataBean();
-		databean6.setId(100006);
-		databean6.setTime("2014-11-23");
-		databean6.setTotalPrice(1999.9);	
-		orderHestoryDataList.add(databean6);
-					
-		Log.d(TAG, "orderHestoryDataList.size =" + orderHestoryDataList.size());
-
-		updateUi();	
-	}
-	
 }

@@ -12,34 +12,30 @@ import java.util.concurrent.ConcurrentHashMap;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.LruCache;
 
 /**
  * 类描述:LRU图片缓存器 
  * 功能详细描述:
- * 
- * @author wanglinglong
- * @date [2012-11-30]
  */
 @SuppressLint("NewApi")
 public class LruImageCache implements IImageCache {
-	/**
-	 * 强引用图片缓存的大小，5M
-	 */
+	//强引用图片缓存的大小，5M
 	private int maxMemorySize = DEFAULT_SIZE;
+	
+	//默认小大
 	public static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
-	/**
-	 * 强引用缓存，线程安全 当缓存超过限定大小时，该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
-	 */
+	//强引用缓存，线程安全 当缓存超过限定大小时，该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
 	private LruCache<String, Bitmap> lruCache = null;
 
-	/**
-	 * 弱引用缓存
-	 */
+	//弱引用缓存
 	private ConcurrentHashMap<String, SoftReference<Bitmap>> softCache = new ConcurrentHashMap<String, SoftReference<Bitmap>>();
 
+	/**
+	 * 构造函数
+	 * @param maxMemorySize 分配的最大内存大小
+	 */
 	public LruImageCache(int maxMemorySize) {
 		if (maxMemorySize > 0) {
 			this.maxMemorySize = maxMemorySize;
@@ -75,7 +71,6 @@ public class LruImageCache implements IImageCache {
 		}
 		if (lruCache != null) {
 			lruCache.put(key, value);
-			Log.d(" ", "xx+" + lruCache.size());
 		}
 	}
 
@@ -100,11 +95,17 @@ public class LruImageCache implements IImageCache {
 		return bitmap;
 	}
 
+	/**
+	 * 清理函数
+	 */
 	public void clear() {
 		lruCache.evictAll();
 		softCache.clear();
 	}
 
+	/**
+	 * 系统自动调用
+	 */
 	@Override
 	public void remove(String key) {
 		if (key == null) {
@@ -114,10 +115,16 @@ public class LruImageCache implements IImageCache {
 		softCache.remove(key);
 	}
 
+	/**
+	 * 得到引用的图片缓存大小
+	 */
 	public int getMaxMemorySize() {
 		return maxMemorySize;
 	}
 
+	/**
+	 * 系统自动调用
+	 */
 	@Override
 	public void recycle(String key) {
 		if (TextUtils.isEmpty(key)) {

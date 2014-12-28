@@ -32,7 +32,6 @@ import com.innovaee.eorder.mobile.zxing.view.ViewfinderView;
 /**
  * Initial the camera
  * 
- * @author Ryan.Tang
  */
 public class CaptureActivity extends Activity implements Callback {
 

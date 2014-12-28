@@ -15,7 +15,6 @@ import com.innovaee.eorder.mobile.util.RemoteImageView;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 		
 /**
  * 我的订单界面数据适配器
- * @author leon.wang
  *
  */
 public class MyOrderAdapter extends BaseAdapter {
@@ -52,7 +50,6 @@ public class MyOrderAdapter extends BaseAdapter {
 	}					
 	
 	public int getCount() {
-		// TODO Auto-generated method stub
 		if (listItemsData != null) {
 			return listItemsData.size();
 		} else {
@@ -61,28 +58,21 @@ public class MyOrderAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return listItemsData.get(position);
 	}
 
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View view = null;
-		Log.d("GoodsAdapter", "getView() position=" + position);
 
 		view = layoutInflater.inflate(R.layout.myorder_listitem, null);
 					
 			// 获取自定义的类实例		
 			final GoodsDataBean goodsItemDataTemp = (GoodsDataBean) listItemsData.get(position);
-								
-			Log.d("GoodsAdapter", "goodsItemDataTemp.getId()=" + goodsItemDataTemp.getId());
-			Log.d("GoodsAdapter", "goodsItemDataTemp.getName()=" + goodsItemDataTemp.getName());	
-						
+									
 			RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
 			imageView.setImageUrl(goodsItemDataTemp.getBitmapUrl());	
 			TextView name = (TextView) view.findViewById(R.id.goods_name);

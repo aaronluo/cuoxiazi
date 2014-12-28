@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 /**
  * 分类数据Adapter	
- * @author wanglinglong
  *	
  */
 public class FeedTypeAdapter extends BaseAdapter
