@@ -37,7 +37,7 @@ public class DataManager {
 		}
 		return self;
 	}
-
+	
 	/**
 	 * 获取所有分类列表
 	 * 

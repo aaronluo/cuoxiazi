@@ -243,81 +243,6 @@ public class DownloadService implements GoodService, CategoryService {
 	}	
 		
 	/**
-	 * 获取最新的单个商品的详细信息
-	 * @param callback 回调监听器
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> void findGoodsById(ICallback<T> callback) {
-		// 创建请求HttpClient客户端
-		HttpClient httpClient = new DefaultHttpClient();
-
-		// 创建请求的url
-		String url = getServiceUrl() + Env.Server.SERVIE_GET_DISH_TEST;
-		
-		
-		try {
-			// 创建请求的对象
-			HttpGet get = new HttpGet(new URI(url));
-
-			HttpParams params = new BasicHttpParams(); 
-			
-			//设置连接超时
-	        HttpConnectionParams.setConnectionTimeout(params, 20000);
-	        
-	        //设置请求超时
-	        HttpConnectionParams.setSoTimeout(params, 20000); 	        		
-	        	
-	        get.setParams(params);
-
-			// 发送get请求
-			HttpResponse httpResponse = httpClient.execute(get);
-
-			// 如果服务成功返回响应
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				HttpEntity entity = httpResponse.getEntity();
-				if (entity != null) {
-					// 获取服务器响应的json字符串
-					String json = EntityUtils.toString(entity, "UTF-8");
-					
-					T bean = (T) parseGoodsDetailJson(json);
-					callback.onSuccessT(bean);
-				} else {
-					//异常信息
-					callback.onFailed("entityIsNull");
-				}				
-			} else {	
-				//异常信息
-				callback.onFailed("getStatusCodeError");
-			}			
-		} catch (Exception e) {
-			e.printStackTrace();
-			//异常信息
-			callback.onFailed("ExceptionError");
-		}	
-	}
-
-	/**
-	 * 解析商品详情json数据
-	 * 该功能为后期扩展使用
-	 * @param json 菜品详情数据
-	 * @return 菜品信息数据Bean
-	 */
-	private GoodsDataBean parseGoodsDetailJson(String json) {
-		JSONObject obj = null;
-		try {
-			obj = new JSONObject(json).getJSONObject("good");
-
-			GoodsDataBean good = new GoodsDataBean(obj.getInt("id"),
-					obj.getString("name"), (Double) obj.getDouble("price"), getBitmapUrl(obj.getString("url")));
-			return good;	
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/**
 	 * 获取最新的商品分类表
 	 * @param callback 回调监听器
 	 */
@@ -616,9 +541,9 @@ public class DownloadService implements GoodService, CategoryService {
 			
 	/**
 	 * 转换数据到json格式
-	 * @param tableInfo
-	 * @param dataBeanList
-	 * @return
+	 * @param tableInfo 下单台数据信息
+	 * @param dataBeanList 下单数据详情信息
+	 * @return 转换后的json数据
 	 */
 	public JSONObject writeJSON(TableInfoDataBean tableInfo, List<OrderInfoDataBean> dataBeanList) {
 	    JSONObject object = new JSONObject();	    	
