@@ -59,23 +59,4 @@ public class Md5Util {
 		return md5StrBuff.toString();
 	}
 
-	public static void main(String[] args) {
-		// Md5Util util = new Md5Util();
-		// String src = "admin{admin}";
-		// String src = "abcd{abcd}";
-		String src = "test{test}";
-		// 889255f1c9c8f12a353be255f78a848b
-		// 889255f1c9c8f12a353be255f78a848b
-		// String src = "12345{admin}";
-		// ceb4f32325eda6142bd65215f4c0f371
-		// ceb4f32325eda6142bd65215f4c0f371
-		// ceb4f32325eda6142bd65215f4c0f371
-		// a3a7302d124d78d471902bf168259beb
-		// cf3b0ef29697910a4e5c387dfc02ba66
-		// cf3b0ef29697910a4e5c387dfc02ba66
-		// String src = "test{test}";
-		logger.debug(Md5Util.getMD5Str(src));
-		System.out.println(Md5Util.getMD5Str(src));
-	}
-
 }

@@ -39,7 +39,6 @@ public class User extends BaseEntity {
 	@Id
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// @Column(name = "USER_ID")
 	private Integer userId;
 	
 	/**

@@ -65,7 +65,6 @@ public class UserService extends BaseService {
 		UserLevel userLevel = null;
 		List<UserRole> userRoles = null;
 		List<String> roleNames = null;
-		// UserRole userRole = null;
 		Role role = null;
 
 		List<User> users = userDao.findAllUsers();
@@ -177,8 +176,6 @@ public class UserService extends BaseService {
 		// 1. 先删除角色
 		List<UserRole> userRoles = userRoleDao.findUserRolesByUserId(userId);
 		for (UserRole userRole : userRoles) {
-			// role = roleDao.loadRole(userRole.getRoleId());
-			// roleNames.add(role.getRoleName());
 			userRoleDao.remove(userRole.getUserRoleId());
 		}
 		// 2. 再删除用户

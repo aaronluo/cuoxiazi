@@ -19,32 +19,33 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.module.vo.UserFunctionVo;
 
-/**   
-* @Title: MenuUtil 
-* @Description: 菜单工具类
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: MenuUtil
+ * @Description: 菜单工具类
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class MenuUtil {
 
 	private static final Logger logger = Logger.getLogger(MenuUtil.class);
 
 	/**
 	 * 根据缓存中用户信息，获得该用户的权限列表（菜单）
+	 * 
 	 * @return 菜单列表
 	 */
 	public static List<RoleLinkVo> getRoleLinkVOList() {
 		List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
-		// get user detail information from Spring Security Context
+		// 从安全框架上下文得到用户详细信息
 		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
 		Assert.notNull(userDetail);
 
-		// get all granted functions list of the authenticated user
+		// 从授权用户获取功能列表
 		List<UserFunctionVo> userFunctions = userDetail.getUserFunctions();
 
-		// sort the functions list in order by functions' order number
+		// 排序功能列表
 		Collections.sort(userFunctions, new Comparator<UserFunctionVo>() {
 			@Override
 			public int compare(UserFunctionVo o1, UserFunctionVo o2) {
@@ -53,15 +54,11 @@ public class MenuUtil {
 			}
 		});
 
-		// fill the list<RoleLinkVo> in functions' list
+		// 将功能列表填充到角色链接值对列表中
 		menulist.clear();
 		for (UserFunctionVo ufVo : userFunctions) {
-			// if (StringUtils.isEmpty(ufVo.getFunction().getFunctionParent()))
-			// {
 			if (0 == ufVo.getFunction().getFunctionParent()) {
-				// no parent menu item, this is a top level menu item
-
-				// check if there is the duplicated item in the list
+				// 检查是否有重复元素
 				boolean duplicated = false;
 				for (RoleLinkVo r : menulist) {
 					if (ufVo.getFunction().getFunctionName()
@@ -86,25 +83,22 @@ public class MenuUtil {
 				continue;
 			}
 
-			// otherwise, it's a level2 menu item
+			// 子菜单
 			RoleLinkVo parent = null;
 			for (RoleLinkVo p : menulist) {
-				// if
-				// (p.getName().equals(ufVo.getFunction().getFunctionParent()))
-				// {
 				if (p.getId() == ufVo.getFunction().getFunctionParent()) {
 					parent = p;
 					break;
 				}
 			}
 			if (null == parent) {
-				// cannot find the funcion item's parent
+				// 找不到父节点
 				logger.warn(String.format("cannot find function[%s]'s parent",
 						ufVo.getFunction().getFunctionName()));
 				continue;
 			}
 
-			// check if there is the duplicated item in the list
+			// 检查是否有重复
 			boolean duplicated = false;
 			for (RoleLinkVo r : parent.getList()) {
 				if (ufVo.getFunction().getFunctionName().equals(r.getName())) {

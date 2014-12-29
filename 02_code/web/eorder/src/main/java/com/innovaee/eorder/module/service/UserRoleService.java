@@ -209,7 +209,6 @@ public class UserRoleService extends BaseService {
 		// 1. 根据roleId获取DB中的roleId列表，然后删除；
 		List<UserRole> dbUserRoles = userRoleDao.findUserRolesByUserId(userId);
 		for (UserRole userRole : dbUserRoles) {
-			// dbRoleIds.add(userRole.getRoleId());
 			removeUserRole(new User(userId), new Role(userRole.getRoleId()));
 		}
 

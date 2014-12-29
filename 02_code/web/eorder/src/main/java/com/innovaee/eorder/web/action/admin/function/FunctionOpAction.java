@@ -74,7 +74,6 @@ public class FunctionOpAction extends BaseAction {
 	}
 
 	public void validateSave() {
-		System.out.println("======validateSave======" + functionName == null);
 		// 查看用户名是否已存在
 		Function function = functionService
 				.findFunctionByFunctionName(functionName);
@@ -89,7 +88,6 @@ public class FunctionOpAction extends BaseAction {
 	}
 
 	public void validateUpdate() {
-		System.out.println("======validateSave======" + functionName == null);
 		// 查看用户名是否已存在
 		Function function1 = functionService.loadFunction(Integer
 				.parseInt(functionId));

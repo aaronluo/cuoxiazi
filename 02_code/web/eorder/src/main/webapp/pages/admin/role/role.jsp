@@ -23,89 +23,64 @@
 </head>
 
 <script type="text/javascript">
-	function moveOneFunctionToLeft() {
-		// alert('moveOneToLeft');
-		var oListbox1 = document.getElementById("myFunctions");
-		var oListbox2 = document.getElementById("leftFunctions");
-		moveSelectedOptions(oListbox2, oListbox1, false, '', '');
-	}
-
-	function moveOneFunctionToRight() {
-		// alert('moveOneToLeft');
-		var oListbox1 = document.getElementById("myFunctions");
-		var oListbox2 = document.getElementById("leftFunctions");
-		moveSelectedOptions(oListbox1, oListbox2, false, '', '');
-	}
-
-	function moveAllFunctionsToLeft() {
-		// alert('moveAllToLeft');
-		var oListbox1 = document.getElementById("myFunctions");
-		var oListbox2 = document.getElementById("leftFunctions");
-
-		moveAllOptions(oListbox2, oListbox1, false, '', '');
-	}
-
-	function moveAllFunctionsToRight() {
-		// alert('moveOneToLeft');
-		var oListbox1 = document.getElementById("myFunctions");
-		var oListbox2 = document.getElementById("leftFunctions");
-
-		moveAllOptions(oListbox1, oListbox2, false, '', '');
-	}
+	$(function() {
+		//移到右边
+		$('#add').click(function() {
+			//获取选中的选项，删除并追加给对方
+			$('#myFunctions option:selected').appendTo('#leftFunctions');
+		});
+		//移到左边
+		$('#remove').click(function() {
+			$('#leftFunctions option:selected').appendTo('#myFunctions');
+		});
+		//全部移到右边
+		$('#add_all').click(function() {
+			//获取全部的选项,删除并追加给对方
+			$('#myFunctions option').appendTo('#leftFunctions');
+		});
+		//全部移到左边
+		$('#remove_all').click(function() {
+			$('#leftFunctions option').appendTo('#myFunctions');
+		});
+		//双击选项
+		$('#myFunctions').dblclick(function() { //绑定双击事件
+			//获取全部的选项,删除并追加给对方
+			$("option:selected", this).appendTo('#leftFunctions'); //追加给对方
+		});
+		//双击选项
+		$('#leftFunctions').dblclick(function() {
+			$("option:selected", this).appendTo('#myFunctions');
+		});
+	});
 
 	function save() {
-		//alert('call save');
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("saveForm");
-		//动态修改目标表单的action属性
-		targetForm.action = "save.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='saveForm']").attr("action", "save.action");
+		$("[name='saveForm']").attr("method", "post");
+		$("[name='saveForm']").submit();
 	}
 
 	function update() {
-		//alert('call update');
-
-		var myFunctionsOptionsObj = document.getElementById("myFunctions");
-		//alert('getOptions #1');
-		var leftFunctionsOptionsObj = document.getElementById("leftFunctions");
-		//alert('getOptions #2');
-		var myFunctionsOptions = myFunctionsOptionsObj.options;
-		//alert('getOptions #3');
-		var leftFunctionsOptions = leftFunctionsOptionsObj.options;
-		//alert('getOptions #4');
-
 		var myList = new Array();
 
-		//alert('myFunctionsOptions.length: ' + myFunctionsOptions.length);
-		for (var i = 0; i < myFunctionsOptions.length; i++) {
-			//alert(cnbook[i].getAttribute("value"));
-			//alert('myFunctionsOptions[i].value: ' + myFunctionsOptions[i].value);
-			if (0 != myFunctionsOptions[i].value) {
-				myList.push(myFunctionsOptions[i].value);
-			}
-		}
+		$("#myFunctions").each(function() {
+			$(this).children("option").each(function() {
+				myList.push($(this).val());
+			});
+		});
+
 		var leftList = new Array();
-		//alert('leftFunctionsOptions.length: ' + leftFunctionsOptions.length);
-		for (var i = 0; i < leftFunctionsOptions.length; i++) {
-			//alert(cnbook[i].getAttribute("value"));
-			//alert(leftFunctionsOptions[i].value);
-			if (0 != leftFunctionsOptions[i].value) {
-				leftList.push(leftFunctionsOptions[i].value);
-			}
-		}
-		//alert('update ###5');
-		document.getElementById("myFunctionsArray").value = myList;
-		document.getElementById("leftFunctionsArray").value = leftList;
+		$("#leftFunctions").each(function() {
+			$(this).children("option").each(function() {
+				leftList.push($(this).val());
+			});
+		});
 
-		//alert('update ###');
+		$("#myFunctionsArray").val(myList);
+		$("#leftFunctions").val(leftList);
 
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("updateForm");
-		//动态修改目标表单的action属性
-		targetForm.action = "update.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='updateForm']").attr("action", "update.action");
+		$("[name='updateForm']").attr("method", "post");
+		$("[name='updateForm']").submit();
 	}
 </script>
 <body>
@@ -149,9 +124,9 @@
 							<!--菜单头-->
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
-										<s:property value="#banner.functionName" />
+									<a data-toggle="collapse" data-parent="#eorder_menu" href="#"
+										aria-expanded="true" aria-controls="usr_mgt_list"> <s:property
+											value="#banner.functionName" />
 									</a>
 								</h4>
 							</div>
@@ -191,9 +166,11 @@
 								<s:hidden id="myFunctionsArray" name="myFunctionsArray" />
 								<s:hidden id="leftFunctionsArray" name="leftFunctionsArray" />
 								<input type="text" id="roleName" name="roleName"
-									class="form-control eorder-input" placeholder="角色名称" value="${roleName}"/>
+									class="form-control eorder-input" placeholder="角色名称"
+									value="${roleName}" />
 								<input type="text" id="roleDesc" name="roleDesc"
-									class="form-control eorder-input" placeholder="角色描述" value="${roleDesc}">
+									class="form-control eorder-input" placeholder="角色描述"
+									value="${roleDesc}">
 								<a href="#" onclick="save();"
 									class="btn btn-default btn-block eorder-btn-login">创建新角色</a>
 							</s:form>
@@ -234,23 +211,20 @@
 						</select>
 					</div>
 					<div class="col-md-2 text-center">
-						<button class="btn btn-default eorder-btn-arrow" style="margin-top: 42px"
-							onclick="moveAllFunctionsToLeft();">
+						<button id="remove_all" class="btn btn-default eorder-btn-arrow"
+							style="margin-top: 42px">
 							<span class="glyphicon glyphicon-backward"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveOneFunctionToLeft();">
+						<button id="remove" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveOneFunctionToRight();">
+						<button id="add" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveAllFunctionsToRight();">
+						<button id="add_all" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-forward"></span>
 						</button>
 					</div>

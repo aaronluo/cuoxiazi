@@ -69,7 +69,6 @@ public class RoleOpAction extends BaseAction {
 	}
 
 	public void validateSave() {
-		System.out.println("======validateSave======" + roleName == null);
 		// 查看用户名是否已存在
 		Role role = roleService.findRoleByRoleName(roleName);
 		if (null != role) {
@@ -80,7 +79,6 @@ public class RoleOpAction extends BaseAction {
 	}
 
 	public void validateUpdate() {
-		System.out.println("======validateSave======" + roleName == null);
 		// 查看用户名是否已存在
 		Role role1 = roleService.loadRole(Integer.parseInt(roleId));
 		Role role2 = roleService.findRoleByRoleName(roleName);

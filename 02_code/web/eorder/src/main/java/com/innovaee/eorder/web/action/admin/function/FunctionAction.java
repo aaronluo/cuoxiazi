@@ -103,7 +103,6 @@ public class FunctionAction extends BaseAction {
 	}
 
 	public void validateRemove() {
-		System.out.println("======validateSave======" + functionName == null);
 		if (null != functionId) {
 			// 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
 			List<RoleFunction> myRoleFunctions = roleFunctionService
