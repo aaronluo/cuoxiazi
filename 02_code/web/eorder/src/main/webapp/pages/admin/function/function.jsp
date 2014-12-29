@@ -23,26 +23,15 @@
 
 <script type="text/javascript">
 	function save() {
-		//alert('call save');
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("saveForm");
-		//动态修改目标表单的action属性
-		targetForm.action = "save.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='saveForm']").attr("action", "save.action");
+		$("[name='saveForm']").attr("method", "post");
+		$("[name='saveForm']").submit();
 	}
 
 	function update() {
-		//alert('call update');
-
-		//alert('update ###');
-
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("updateForm");
-		//动态修改目标表单的action属性
-		targetForm.action = "update.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='updateForm']").attr("action", "update.action");
+		$("[name='updateForm']").attr("method", "post");
+		$("[name='updateForm']").submit();
 	}
 </script>
 <body>
@@ -86,9 +75,9 @@
 							<!--菜单头-->
 							<div class="panel-heading" role="tab" id="usr_mgt">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#eorder_menu"
-										href="#" aria-expanded="true" aria-controls="usr_mgt_list">
-										<s:property value="#banner.functionName" />
+									<a data-toggle="collapse" data-parent="#eorder_menu" href="#"
+										aria-expanded="true" aria-controls="usr_mgt_list"> <s:property
+											value="#banner.functionName" />
 									</a>
 								</h4>
 							</div>
@@ -123,15 +112,20 @@
 							<h4>新增权限</h4>
 							<s:form class="eorder-form-usr" id="saveForm">
 								<input type="text" id="functionName" name="functionName"
-									class="form-control eorder-input" placeholder="权限名称" value="${functionName}"/>
+									class="form-control eorder-input" placeholder="权限名称"
+									value="${functionName}" />
 								<input type="text" id="functionDesc" name="functionDesc"
-									class="form-control eorder-input" placeholder="权限描述" value="${functionDesc}" />
+									class="form-control eorder-input" placeholder="权限描述"
+									value="${functionDesc}" />
 								<input type="text" id="functionPath" name="functionPath"
-									class="form-control eorder-input" placeholder="权限路径" value="${functionPath}" />
+									class="form-control eorder-input" placeholder="权限路径"
+									value="${functionPath}" />
 								<input type="text" id="functionParent" name="functionParent"
-									class="form-control eorder-input" placeholder="上级权限" value="${functionParent}" />
+									class="form-control eorder-input" placeholder="上级权限"
+									value="${functionParent}" />
 								<input type="text" id="functionOrder" name="functionOrder"
-									class="form-control eorder-input" placeholder="权限排序" value="${functionOrder}" />
+									class="form-control eorder-input" placeholder="权限排序"
+									value="${functionOrder}" />
 								<a href="#" onclick="save();"
 									class="btn btn-default btn-block eorder-btn-login">创建新权限</a>
 							</s:form>
@@ -159,7 +153,7 @@
 									class="btn btn-default btn-block eorder-btn-login">修改权限信息</a>
 							</s:form>
 						</s:else>
-						
+
 						<br>
 						<s:fielderror />
 						<s:if test=" null != message && '' != message">

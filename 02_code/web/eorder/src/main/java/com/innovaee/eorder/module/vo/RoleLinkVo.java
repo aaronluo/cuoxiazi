@@ -9,24 +9,51 @@ package com.innovaee.eorder.module.vo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**   
-* @Title: RoleLinkVo 
-* @Description: 角色链接值对象（用于显示菜单） 
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: RoleLinkVo
+ * @Description: 角色链接值对象（用于显示菜单）
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
+/**
+ * @Title: RoleLinkVo
+ * @Description: TODO(用一句话描述该文件做什么)
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class RoleLinkVo extends BaseVo {
 
 	private static final long serialVersionUID = 1L;
 
-	private String order; // menu item order number;
-	private Integer id; // menu name
-	private String name; // menu name
-	private String functionName; // the display name of the menu
-	private String link; // linkage address
-	private String flag; // level1 menu is 1, level2 menu is 2
-	private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>(); // level2 menus
-																	// list
+	/**
+	 * 菜单项排序号
+	 */
+	private String order;
+	/**
+	 * 菜单ID
+	 */
+	private Integer id;
+	/**
+	 * 菜单名
+	 */
+	private String name;
+	/**
+	 * 功能名称
+	 */
+	private String functionName;
+	/**
+	 * 链接地址
+	 */
+	private String link;
+	/**
+	 * 菜单等级，1为父节点，2为子节点
+	 */
+	private String flag;
+
+	/**
+	 * 子节点菜单列表
+	 */
+	private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
 
 	public String getOrder() {
 		return order;

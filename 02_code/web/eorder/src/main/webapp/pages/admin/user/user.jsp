@@ -23,93 +23,64 @@
 </head>
 
 <script type="text/javascript">
-	function moveOneRoleToLeft() {
-		// alert('moveOneToLeft');
-		var oListbox1 = document.getElementById("myRoles");
-		var oListbox2 = document.getElementById("leftRoles");
-		moveSelectedOptions(oListbox2, oListbox1, false, '', '');
-	}
-
-	function moveOneRoleToRight() {
-		//alert('moveOneRoleToRight');
-		var oListbox1 = document.getElementById("myRoles");
-		var oListbox2 = document.getElementById("leftRoles");
-		moveSelectedOptions(oListbox1, oListbox2, false, '', '');
-	}
-
-	function moveAllRolesToLeft() {
-		// alert('moveAllToLeft');
-		var oListbox1 = document.getElementById("myRoles");
-		var oListbox2 = document.getElementById("leftRoles");
-
-		//moveAllToLeft(oListbox1, oListbox2);
-		moveAllOptions(oListbox2, oListbox1, false, '', '');
-	}
-
-	function moveAllRolesToRight() {
-		// alert('moveOneToLeft');
-		var oListbox1 = document.getElementById("myRoles");
-		var oListbox2 = document.getElementById("leftRoles");
-
-		//moveAllToRight(oListbox1, oListbox2);
-		moveAllOptions(oListbox1, oListbox2, false, '', '');
-	}
+	$(function() {
+		//移到右边
+		$('#add').click(function() {
+			//获取选中的选项，删除并追加给对方
+			$('#myRoles option:selected').appendTo('#leftRoles');
+		});
+		//移到左边
+		$('#remove').click(function() {
+			$('#leftRoles option:selected').appendTo('#myRoles');
+		});
+		//全部移到右边
+		$('#add_all').click(function() {
+			//获取全部的选项,删除并追加给对方
+			$('#myRoles option').appendTo('#leftRoles');
+		});
+		//全部移到左边
+		$('#remove_all').click(function() {
+			$('#leftRoles option').appendTo('#myRoles');
+		});
+		//双击选项
+		$('#myRoles').dblclick(function() { //绑定双击事件
+			//获取全部的选项,删除并追加给对方
+			$("option:selected", this).appendTo('#leftRoles'); //追加给对方
+		});
+		//双击选项
+		$('#leftRoles').dblclick(function() {
+			$("option:selected", this).appendTo('#myRoles');
+		});
+	});
 
 	function save() {
-		//alert('call save');
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("saveForm");
-		//动态修改目标表单的action属性
-
-		targetForm.action = "save.action";
-		//targetForm.action = "doStore.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='saveForm']").attr("action", "save.action");
+		$("[name='saveForm']").attr("method", "post");
+		$("[name='saveForm']").submit();
 	}
 
 	function update() {
-		//alert('call update');
-
-		var myRolesOptionsObj = document.getElementById("myRoles");
-		//alert('getOptions #1');
-		var leftRolesOptionsObj = document.getElementById("leftRoles");
-		//alert('getOptions #2');
-		var myRolesOptions = myRolesOptionsObj.options;
-		//alert('getOptions #3');
-		var leftRolesOptions = leftRolesOptionsObj.options;
-		//alert('getOptions #4');
 
 		var myList = new Array();
 
-		//alert('myRolesOptions.length: ' + myRolesOptions.length);
-		for (var i = 0; i < myRolesOptions.length; i++) {
-			//alert(cnbook[i].getAttribute("value"));
-			//alert('myRolesOptions[i].firstChild.nodeValue: ' + myRolesOptions[i].value);
-			if (0 != myRolesOptions[i].value) {
-				myList.push(myRolesOptions[i].value);
-			}
-		}
+		$("#myRoles").each(function() {
+			$(this).children("option").each(function() {
+				myList.push($(this).val());
+			});
+		});
+
 		var leftList = new Array();
-		//alert('leftRolesOptions.length: ' + leftRolesOptions.length);
-		for (var i = 0; i < leftRolesOptions.length; i++) {
-			//alert(cnbook[i].getAttribute("value"));
-			//alert(leftRolesOptions[i].value);
-			if (0 != leftRolesOptions[i].value) {
-				leftList.push(leftRolesOptions[i].value);
-			}
-		}
-		//alert('update ###5');
-		document.getElementById("myRolesArray").value = myList;
-		document.getElementById("leftRolesArray").value = leftList;
+		$("#leftRoles").each(function() {
+			$(this).children("option").each(function() {
+				leftList.push($(this).val());
+			});
+		});
+		$("#myRolesArray").val(myList);
+		$("#leftRolesArray").val(leftList);
 
-		//alert('update ###');
-
-		//获取该页面中的第一个表单元素
-		var targetForm = document.getElementById("updateForm");
-		//动态修改目标表单的action属性
-		targetForm.action = "update.action";
-		//提交表单
-		targetForm.submit();
+		$("[name='updateForm']").attr("action", "update.action");
+		$("[name='updateForm']").attr("method", "post");
+		$("[name='updateForm']").submit();
 	}
 </script>
 <body>
@@ -235,30 +206,26 @@
 						<h4>已分配角色</h4>
 						<select id="myRoles" name="myRoles" multiple
 							class="form-control eorder-multi-sel">
-
 							<s:iterator value="myRoles" id="role">
 								<option value="${role.roleId}">${role.roleName}</option>
 							</s:iterator>
 						</select>
 					</div>
 					<div class="col-md-2 text-center">
-						<button class="btn btn-default eorder-btn-arrow" style="margin-top: 42px"
-							onclick="moveAllRolesToLeft();">
+						<button id="remove_all" class="btn btn-default eorder-btn-arrow"
+							style="margin-top: 42px">
 							<span class="glyphicon glyphicon-backward"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveOneRoleToLeft();">
+						<button id="remove" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveOneRoleToRight();">
+						<button id="add" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</button>
 						<br />
-						<button class="btn btn-default eorder-btn-arrow"
-							onclick="moveAllRolesToRight();">
+						<button id="add_all" class="btn btn-default eorder-btn-arrow">
 							<span class="glyphicon glyphicon-forward"></span>
 						</button>
 					</div>

@@ -43,8 +43,6 @@ public class LoggerUtility {
 		@SuppressWarnings("unchecked")
 		Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
 				.get(LoggerUtility.class.getSimpleName());
-		// Assert.assertNull(invokeInfoStack);
-
 		invokeInfoStack = new Stack<InvokeInfo>();
 		InvokeInfo invokeInfo = new InvokeInfo();
 		invokeInfo.setDate(new Date());
@@ -75,10 +73,8 @@ public class LoggerUtility {
 			@SuppressWarnings("unchecked")
 			Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
 					.get(LoggerUtility.class.getSimpleName());
-			// Assert.assertNotNull(invokeInfoStack);
 
 			InvokeInfo invokeInfo = invokeInfoStack.pop();
-			// Assert.assertNotNull(invokeInfo);
 
 			Date now = new Date();
 			logger.fatal("");
@@ -104,10 +100,8 @@ public class LoggerUtility {
 		if (null == invokeInfoStack) {
 			return;
 		}
-		// Assert.assertNotNull(invokeInfoStack);
 
 		InvokeInfo invokeInfoParent = invokeInfoStack.peek();
-		// Assert.assertNotNull(invokeInfoParent);
 
 		int level = invokeInfoStack.size();
 		InvokeInfo invokeInfo = new InvokeInfo();
@@ -129,12 +123,8 @@ public class LoggerUtility {
 		if (null == invokeInfoStack) {
 			return;
 		}
-		// Assert.assertNotNull(invokeInfoStack);
 
 		InvokeInfo invokeInfo = invokeInfoStack.pop();
-		// Assert.assertNotNull(invokeInfo);
-
-		// Assert.assertEquals(invokeInfo.getInvokerName(), methodName);
 
 		logger.fatal(String
 				.format("[End   Local API Invoked][-][lvl:%-2d]-----%s(), elapsed time: %d",

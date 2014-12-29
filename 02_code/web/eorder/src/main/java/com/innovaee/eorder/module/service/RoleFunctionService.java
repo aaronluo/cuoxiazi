@@ -214,7 +214,6 @@ public class RoleFunctionService extends BaseService {
 		Role roleDB = (Role) roleDao.get(role.getRoleId());
 		Function functionDB = (Function) functionDao.get(function
 				.getFunctionId());
-		// RoleFunction roleFunction = null;
 		if (null != roleDB && null != functionDB) {
 			Integer roleId = roleDB.getRoleId();
 			Integer functionId = functionDB.getFunctionId();
@@ -233,7 +232,6 @@ public class RoleFunctionService extends BaseService {
 					.findFunctionsByParentFunctionId(parentFunctionId);
 			List<Integer> subFunctionIdList = new ArrayList<Integer>();
 			for (Function subFunction : subFunctionList) {
-				System.out.println(subFunction);
 				subFunctionIdList.add(subFunction.getFunctionId());
 			}
 
@@ -270,7 +268,6 @@ public class RoleFunctionService extends BaseService {
 		List<RoleFunction> dbRoleFunctions = roleFunctionDao
 				.findRoleFunctionsByRoleId(roleId);
 		for (RoleFunction roleFunction : dbRoleFunctions) {
-			// dbFunctionIds.add(roleFunction.getFunctionId());
 			removeRoleFunction(new Role(roleId),
 					new Function(roleFunction.getFunctionId()));
 		}

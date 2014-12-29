@@ -57,7 +57,6 @@ public class RoleService extends BaseService {
 
 		List<RoleFunction> roleFunctions = null;
 		List<String> functionNames = null;
-		// RoleFunction roleFunction = null;
 		Function function = null;
 
 		List<Role> roles = roleDao.findAllRoles();
