@@ -27,7 +27,7 @@ public class LoggerInterceptor implements Interceptor {
     private static final long serialVersionUID = 1L;
 
     private static LoggerUtility loggerUtility = LoggerUtility.getInstance();
-    private static Logger logger = Logger.getLogger(LoggerInterceptor.class);
+    private static Logger LOGGER = Logger.getLogger(LoggerInterceptor.class);
 
     public void destroy() {
     }
@@ -49,7 +49,7 @@ public class LoggerInterceptor implements Interceptor {
                     request.getProtocol(), request.getLocalAddr(),
                     request.getLocalPort(), request.getRequestURI(),
                     request.getServletPath());
-            logger.info(requestInfo);
+            LOGGER.info(requestInfo);
             return actionInvocation.invoke();
         } finally {
             loggerUtility.endBizProcess();
