@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession;
 public class UserAction extends BaseAction {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(UserAction.class);
+    private static final Logger LOGGER = Logger.getLogger(UserAction.class);
 
     private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
@@ -70,7 +70,7 @@ public class UserAction extends BaseAction {
     private String operation;
 
     public String login() {
-        logger.debug("enter login() method");
+        LOGGER.debug("enter login() method");
 
         // 更新页面数据
         refreshData();
@@ -78,7 +78,7 @@ public class UserAction extends BaseAction {
     }
 
     public String doUser() {
-        logger.debug("enter doUser() method");
+        LOGGER.debug("enter doUser() method");
 
         // 更新页面数据
         refreshData();
@@ -139,7 +139,7 @@ public class UserAction extends BaseAction {
     }
 
     public String doUserInfo() {
-        logger.debug("enter doUserInfo() method");
+        LOGGER.debug("enter doUserInfo() method");
 
         // 更新页面数据
         refreshData();
@@ -147,12 +147,12 @@ public class UserAction extends BaseAction {
     }
 
     public String doRight() {
-        logger.debug("enter doRight() method");
+        LOGGER.debug("enter doRight() method");
         return SUCCESS;
     }
 
     public String doBottom() {
-        logger.debug("enter doBottom() method");
+        LOGGER.debug("enter doBottom() method");
         return SUCCESS;
     }
 
