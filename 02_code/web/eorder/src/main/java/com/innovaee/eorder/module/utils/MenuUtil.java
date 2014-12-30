@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class MenuUtil {
 
-    private final static  Logger LOGGER = Logger.getLogger(MenuUtil.class);
+    private static final   Logger LOGGER = Logger.getLogger(MenuUtil.class);
 
     /**
      * 根据缓存中用户信息，获得该用户的权限列表（菜单）
