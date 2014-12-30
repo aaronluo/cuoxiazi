@@ -48,7 +48,6 @@ public class MenuUtil {
 
         // 排序功能列表
         Collections.sort(userFunctions, new Comparator<UserFunctionVo>() {
-            @Override
             public int compare(UserFunctionVo o1, UserFunctionVo o2) {
                 return o1.getFunction().getFunctionOrder()
                         .compareTo(o2.getFunction().getFunctionOrder());
