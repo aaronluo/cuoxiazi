@@ -54,9 +54,9 @@ public class SecurityMetadataSourceServiceTest extends BaseSpringTestCase {
     @Test
     public void getAllConfigAttributes() {
 
-        Collection<ConfigAttribute> c = securityMetadataSourceService
+        Collection<ConfigAttribute> configs = securityMetadataSourceService
                 .getAllConfigAttributes();
-        Iterator<ConfigAttribute> iterator = c.iterator();
+        Iterator<ConfigAttribute> iterator = configs.iterator();
         while (iterator.hasNext()) {
             ConfigAttribute configAttribute = iterator.next();
             String attribute = configAttribute.getAttribute();

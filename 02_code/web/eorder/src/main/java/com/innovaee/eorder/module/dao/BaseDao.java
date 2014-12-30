@@ -43,10 +43,10 @@ public abstract class BaseDao extends HibernateDaoSupport {
      * @return
      */
     public BaseEntity remove(Serializable pk) {
-        BaseEntity o = (BaseEntity) getHibernateTemplate().load(
+        BaseEntity baseEntity = (BaseEntity) getHibernateTemplate().load(
                 getEntityClass(), pk);
-        getHibernateTemplate().delete(o);
-        return o;
+        getHibernateTemplate().delete(baseEntity);
+        return baseEntity;
     }
 
     /**

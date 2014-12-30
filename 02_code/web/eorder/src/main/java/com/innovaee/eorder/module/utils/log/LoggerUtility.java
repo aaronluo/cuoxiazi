@@ -31,16 +31,16 @@ public class LoggerUtility {
         return instance;
     }
 
-    private String getMethodName(Throwable t) {
-        if (t != null && t.getStackTrace().length > 0) {
-            StackTraceElement element = t.getStackTrace()[0];
+    private String getMethodName(Throwable throwable) {
+        if (throwable != null && throwable.getStackTrace().length > 0) {
+            StackTraceElement element = throwable.getStackTrace()[0];
             return element.getClassName() + "." + element.getMethodName();
         }
 
         return "";
     }
 
-    public void startBizProcess(String bizName, String MDCValue) {
+    public void startBizProcess(String bizName, String mdcValue) {
         @SuppressWarnings("unchecked")
         Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
                 .get(LoggerUtility.class.getSimpleName());
@@ -52,7 +52,7 @@ public class LoggerUtility {
         invokeInfo.setLevel(0);
         invokeInfoStack.push(invokeInfo);
         MDC.put(LoggerUtility.class.getSimpleName(), invokeInfoStack);
-        MDC.put(MDCKey, MDCValue);
+        MDC.put(MDCKey, mdcValue);
 
         logger.fatal("********************************************************************************");
         logger.fatal("Business Process Name: [" + invokeInfo.getInvokerName()
@@ -65,8 +65,8 @@ public class LoggerUtility {
     }
 
     public void startBizProcess(String bizName) {
-        String MDCValue = String.valueOf(Thread.currentThread().getId());
-        startBizProcess(bizName, MDCValue);
+        String mdcValue = String.valueOf(Thread.currentThread().getId());
+        startBizProcess(bizName, mdcValue);
     }
 
     public void endBizProcess() {
@@ -133,13 +133,13 @@ public class LoggerUtility {
                                 - invokeInfo.getDate().getTime()));
     }
 
-    public void startInvoke(Throwable t) {
-        String methodName = getMethodName(t);
+    public void startInvoke(Throwable throwable) {
+        String methodName = getMethodName(throwable);
         startInvoke(methodName);
     }
 
-    public void endInvoke(Throwable t) {
-        String methodName = getMethodName(t);
+    public void endInvoke(Throwable throwable) {
+        String methodName = getMethodName(throwable);
         endInvoke(methodName);
     }
 

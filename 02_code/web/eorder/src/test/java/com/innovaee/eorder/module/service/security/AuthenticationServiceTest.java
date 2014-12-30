@@ -62,8 +62,8 @@ public class AuthenticationServiceTest extends BaseSpringTestCase {
             System.out.println(function);
         }
 
-        Collection<GrantedAuthority> c = userDetails.getAuthorities();
-        Iterator<GrantedAuthority> iterator = c.iterator();
+        Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
+        Iterator<GrantedAuthority> iterator = authorities.iterator();
         while (iterator.hasNext()) {
             GrantedAuthority grantedAuthority = iterator.next();
             String rolename = grantedAuthority.getAuthority();
@@ -80,8 +80,8 @@ public class AuthenticationServiceTest extends BaseSpringTestCase {
                 .loadUserByUsername(username);
         Assert.assertNotNull(userDetails);
 
-        Collection<GrantedAuthority> c = userDetails.getAuthorities();
-        Iterator<GrantedAuthority> iterator = c.iterator();
+        Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
+        Iterator<GrantedAuthority> iterator = authorities.iterator();
         while (iterator.hasNext()) {
             GrantedAuthority grantedAuthority = iterator.next();
             String rolename = grantedAuthority.getAuthority();
