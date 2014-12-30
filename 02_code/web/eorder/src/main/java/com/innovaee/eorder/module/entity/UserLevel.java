@@ -20,7 +20,7 @@ import javax.persistence.Table;
 /**
  * @Title: UserLevel
  * @Description: 用户等级实体
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 @Entity

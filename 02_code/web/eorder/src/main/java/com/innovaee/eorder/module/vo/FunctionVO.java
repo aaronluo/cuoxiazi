@@ -10,7 +10,7 @@ package com.innovaee.eorder.module.vo;
 /**
  * @Title: FunctionVO
  * @Description: 功能值对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class FunctionVO extends BaseVo {

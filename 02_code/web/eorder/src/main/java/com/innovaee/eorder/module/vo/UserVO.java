@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 /**
  * @Title: UserVO
  * @Description: 用户值对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserVO extends BaseVo {

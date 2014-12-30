@@ -20,7 +20,7 @@ import javax.persistence.Table;
 /**
  * @Title: User
  * @Description: 用户实体
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 @Entity

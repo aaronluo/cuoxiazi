@@ -38,7 +38,7 @@ import javax.annotation.Resource;
 /**
  * @Title: SecurityMetadataSourceService
  * @Description: 安全元数据源服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class SecurityMetadataSourceService extends BaseService implements

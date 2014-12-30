@@ -5,38 +5,6 @@ import com.innovaee.eorder.module.utils.log.LoggerUtility;
 
 import org.junit.Test;
 
-class LoggerThread extends Thread {
-
-    private static final LoggerUtility loggerUtility = LoggerUtility
-            .getInstance();
-
-    public void tier2() {
-        loggerUtility.startInvoke("tier2");
-        loggerUtility.endInvoke("tier2");
-    }
-
-    @Override
-    public void run() {
-        loggerUtility.startBizProcess("testLoggerUtility");
-        loggerUtility.startInvoke("run");
-        tier2();
-        try {
-            loggerUtility.startPerformanceLog("Thread.sleep");
-            Thread.sleep(2 * 1000L);
-            loggerUtility.endPerformanceLog();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        loggerUtility.endInvoke("run");
-        loggerUtility.endBizProcess();
-
-        synchronized (this) {
-            notifyAll();
-        }
-    }
-
-}
-
 public class LoggerUtilityTest {
     @Test
     public void testLoggerUtiliy() {
@@ -51,6 +19,38 @@ public class LoggerUtilityTest {
                 thread1.wait();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+    
+    
+    static class LoggerThread extends Thread {
+
+        private static final LoggerUtility loggerUtility = LoggerUtility
+                .getInstance();
+
+        public void tier2() {
+            loggerUtility.startInvoke("tier2");
+            loggerUtility.endInvoke("tier2");
+        }
+
+        @Override
+        public void run() {
+            loggerUtility.startBizProcess("testLoggerUtility");
+            loggerUtility.startInvoke("run");
+            tier2();
+            try {
+                loggerUtility.startPerformanceLog("Thread.sleep");
+                Thread.sleep(2 * 1000L);
+                loggerUtility.endPerformanceLog();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            loggerUtility.endInvoke("run");
+            loggerUtility.endBizProcess();
+
+            synchronized (this) {
+                notifyAll();
             }
         }
     }

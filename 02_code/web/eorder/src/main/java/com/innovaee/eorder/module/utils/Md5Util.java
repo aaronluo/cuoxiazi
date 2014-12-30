@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @Title: Md5Util
  * @Description: MD5工具类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class Md5Util {
@@ -50,11 +50,12 @@ public class Md5Util {
         StringBuffer md5StrBuff = new StringBuffer();
 
         for (int i = 0; i < byteArray.length; i++) {
-            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) { 
                 md5StrBuff.append("0").append(
                         Integer.toHexString(0xFF & byteArray[i]));
-            else
+            } else { 
                 md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+            }
         }
 
         return md5StrBuff.toString();

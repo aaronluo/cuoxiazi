@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * @Title: UserRoleService
  * @Description: 用户角色服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserRoleService extends BaseService {
@@ -199,11 +199,21 @@ public class UserRoleService extends BaseService {
     }
 
     /**
+     * 删除用户角色
+     * 
+     * @param userRole
+     *            待删除的用户角色
+     */
+    public void removeUserRole(Integer userRoleId) {
+        userRoleDao.removeUserRole(new UserRole(userRoleId));
+    }    
+    
+    /**
      * 根据用户ID和已存在的角色ID更新用户的角色信息。 先删除已有的，后增加最新的
      * 
-     * @param roleId
+     * @param userId
      *            角色ID
-     * @param myRoles
+     * @param myRoleIds
      *            已有的角色ID列表字符串
      */
     public void updateUserRole(Integer userId, String myRoleIds) {
@@ -221,13 +231,4 @@ public class UserRoleService extends BaseService {
         }
     }
 
-    /**
-     * 删除用户角色
-     * 
-     * @param userRole
-     *            待删除的用户角色
-     */
-    public void removeUserRole(Integer userRoleId) {
-        userRoleDao.removeUserRole(new UserRole(userRoleId));
-    }
 }

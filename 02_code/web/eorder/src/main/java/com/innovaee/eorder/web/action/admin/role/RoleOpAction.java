@@ -28,7 +28,7 @@ import javax.annotation.Resource;
 /**
  * @Title: RoleOpAction
  * @Description: 角色操作Action（增加和修改）
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class RoleOpAction extends BaseAction {

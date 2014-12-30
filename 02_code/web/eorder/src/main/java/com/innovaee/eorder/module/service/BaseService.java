@@ -10,7 +10,7 @@ package com.innovaee.eorder.module.service;
 /**
  * @Title: BaseService
  * @Description: 服务基类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public abstract class BaseService {

@@ -14,7 +14,7 @@ import com.innovaee.eorder.module.entity.User;
 /**
  * @Title: UserFunctionVo
  * @Description: 用户功能值对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserFunctionVo extends BaseVo {

@@ -10,7 +10,7 @@ package com.innovaee.eorder.module.vo;
 /**
  * @Title: RoleVO
  * @Description: 角色值对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class RoleVO extends BaseVo {

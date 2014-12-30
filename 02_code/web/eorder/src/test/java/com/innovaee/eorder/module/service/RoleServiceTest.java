@@ -61,9 +61,6 @@ public class RoleServiceTest extends BaseSpringTestCase {
         Role role = new Role(roleName, roleDesc, roleStatus);
         Role roleNew = roleService.saveRole(role);
 
-        // 得到新增后的ID
-        Integer roleId = roleNew.getRoleId();
-
         // 更新属性
         String newRoleName = "Test2";
         String newRoleDesc = "Test2";
@@ -71,6 +68,9 @@ public class RoleServiceTest extends BaseSpringTestCase {
         roleNew.setRoleDesc(newRoleDesc);
         roleService.updateRole(roleNew);
 
+        // 得到新增后的ID
+        Integer roleId = roleNew.getRoleId();
+        
         // 检查
         Role roleDB = roleService.loadRole(roleId);
         Assert.assertNotNull(roleDB);

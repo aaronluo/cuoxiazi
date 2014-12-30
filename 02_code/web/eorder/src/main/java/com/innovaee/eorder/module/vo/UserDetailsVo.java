@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * @Title: UserDetailsVo
  * @Description: 用户详细信息值对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserDetailsVo extends BaseVo implements UserDetails {

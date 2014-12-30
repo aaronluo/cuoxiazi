@@ -17,10 +17,14 @@ import java.util.List;
 /**
  * @Title: UserDao
  * @Description: 用户数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserDao extends BaseDao {
+    
+    public UserDao() {
+        super();
+    }
 
     @SuppressWarnings("rawtypes")
     @Override
@@ -36,10 +40,10 @@ public class UserDao extends BaseDao {
      * @return 用户
      */
     @SuppressWarnings("unchecked")
-    public User findUserByUserName(String username) {
-        List<User> list = (List<User>) super.getHibernateTemplate().find(
+    public User findUserByUserName(final String username) {
+        final List<User> list = (List<User>) super.getHibernateTemplate().find(
                 "FROM User u WHERE u.username=?", username);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;

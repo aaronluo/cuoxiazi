@@ -17,10 +17,14 @@ import java.util.List;
 /**
  * @Title: RoleDao
  * @Description: 角色数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class RoleDao extends BaseDao {
+
+    public RoleDao() {
+        super();
+    }
 
     @SuppressWarnings("rawtypes")
     @Override

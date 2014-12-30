@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 /**
  * @Title: AuthenticationService
  * @Description: 验证服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class AuthenticationService extends BaseService implements

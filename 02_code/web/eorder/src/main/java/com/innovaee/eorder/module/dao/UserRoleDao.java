@@ -14,10 +14,14 @@ import java.util.List;
 /**
  * @Title: UserRoleDao
  * @Description: 用户角色数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserRoleDao extends BaseDao {
+    
+    public UserRoleDao() {
+        super();
+    }
 
     @SuppressWarnings("rawtypes")
     @Override

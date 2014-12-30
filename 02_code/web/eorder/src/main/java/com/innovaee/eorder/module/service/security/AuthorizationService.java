@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 /**
  * @Title: AuthorizationService
  * @Description: 授权服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class AuthorizationService extends BaseService implements
@@ -103,7 +103,8 @@ public class AuthorizationService extends BaseService implements
 
     @Override
     public boolean supports(ConfigAttribute attribute) {
-        logger.debug("AuthorizationService.supports(ConfigAttribute attribute), supported attribute is: "
+        logger.debug("AuthorizationService.supports(ConfigAttribute attribute), "
+                + "supported attribute is: "
                 + attribute.getAttribute());
         return true;
     }

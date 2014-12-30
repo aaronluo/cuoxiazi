@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @Title: UserOpAction
  * @Description: 用户操作Action（新增和修改）
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserOpAction extends BaseAction {
@@ -195,9 +195,7 @@ public class UserOpAction extends BaseAction {
             // 如果相同，则直接赋值后更新；
             if (password.equals(user.getPassword())) {
                 user.setPassword(password);
-            }
-            // 如果不相同，则说明修改了密码，则需要加密后再存储
-            else {
+            } else { // 如果不相同，则说明修改了密码，则需要加密后再存储
                 String md5Password = Md5Util.getMD5Str(password + "{"
                         + username + "}");
                 user.setPassword(md5Password);

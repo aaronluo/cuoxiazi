@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * @Title: BaseAction
  * @Description: Action基类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class BaseAction extends ActionSupport {

@@ -14,7 +14,7 @@ import org.aspectj.lang.JoinPoint;
 /**
  * @Title: LoggerUtilInterceptor
  * @Description: 日志工具类拦截器
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class LoggerUtilInterceptor {

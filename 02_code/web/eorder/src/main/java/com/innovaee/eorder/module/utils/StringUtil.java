@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Title: StringUtil
  * @Description: 字符串工具类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class StringUtil {

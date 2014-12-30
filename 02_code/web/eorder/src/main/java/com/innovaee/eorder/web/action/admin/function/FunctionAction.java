@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @Title: FunctionAction
  * @Description: 功能Action（查询和删除）
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class FunctionAction extends BaseAction {

@@ -17,10 +17,14 @@ import java.util.List;
 /**
  * @Title: UserLevelDao
  * @Description: 用户等级数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserLevelDao extends BaseDao {
+
+    public UserLevelDao() {
+        super();
+    }
 
     @SuppressWarnings("rawtypes")
     @Override

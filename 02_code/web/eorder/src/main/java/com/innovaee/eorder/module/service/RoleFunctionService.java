@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * @Title: RoleFunctionService
  * @Description: 角色功能服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class RoleFunctionService extends BaseService {
@@ -248,6 +248,16 @@ public class RoleFunctionService extends BaseService {
     }
 
     /**
+     * 根据角色功能ID删除角色功能
+     * 
+     * @param roleFunctionId
+     *            角色功能ID
+     */
+    public void removeRoleFunction(Integer roleFunctionId) {
+        roleFunctionDao.removeRoleFunction(new RoleFunction(roleFunctionId));
+    }    
+    
+    /**
      * @param roleId
      * @param parentFunctionId
      * @return
@@ -279,16 +289,6 @@ public class RoleFunctionService extends BaseService {
         for (Integer functionId : myFunctionIdList) {
             saveRoleFunction(new Role(roleId), new Function(functionId));
         }
-    }
-
-    /**
-     * 根据角色功能ID删除角色功能
-     * 
-     * @param roleFunctionId
-     *            角色功能ID
-     */
-    public void removeRoleFunction(Integer roleFunctionId) {
-        roleFunctionDao.removeRoleFunction(new RoleFunction(roleFunctionId));
     }
 
     /**

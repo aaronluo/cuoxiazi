@@ -17,10 +17,15 @@ import java.util.List;
 /**
  * @Title: FunctionDao
  * @Description: 权限数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class FunctionDao extends BaseDao {
+
+    public FunctionDao() {
+        super();
+
+    }
 
     @SuppressWarnings("rawtypes")
     @Override

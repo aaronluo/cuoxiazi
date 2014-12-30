@@ -1,5 +1,5 @@
 /***********************************************
- * Filename        : BaseEntity.java                                                                                                
+ * Filename        : BaseEntity.java    
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 11/27/2014
@@ -16,14 +16,11 @@ import java.io.Serializable;
 /**
  * @Title: BaseDao
  * @Description: 所有DAO的基类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseDao extends HibernateDaoSupport {
-    @SuppressWarnings("rawtypes")
-    abstract protected Class getEntityClass();
-
     /**
      * 获取实体
      * 
@@ -31,7 +28,7 @@ public abstract class BaseDao extends HibernateDaoSupport {
      *            主键
      * @return
      */
-    public BaseEntity get(Serializable pk) {
+    public BaseEntity get(final Serializable pk) {
         return (BaseEntity) getHibernateTemplate().get(getEntityClass(), pk);
     }
 
@@ -42,10 +39,11 @@ public abstract class BaseDao extends HibernateDaoSupport {
      *            主键
      * @return
      */
-    public BaseEntity remove(Serializable pk) {
-        BaseEntity baseEntity = (BaseEntity) getHibernateTemplate().load(
-                getEntityClass(), pk);
+    public BaseEntity remove(final Serializable pk) {
+        BaseEntity baseEntity = (BaseEntity) getHibernateTemplate()
+                .load(getEntityClass(), pk);
         getHibernateTemplate().delete(baseEntity);
+        
         return baseEntity;
     }
 
@@ -56,8 +54,9 @@ public abstract class BaseDao extends HibernateDaoSupport {
      *            实体
      * @return 更新后的实体
      */
-    public BaseEntity update(BaseEntity entity) {
+    public BaseEntity update(final BaseEntity entity) {
         getHibernateTemplate().update(entity);
+        
         return entity;
     }
 
@@ -70,6 +69,10 @@ public abstract class BaseDao extends HibernateDaoSupport {
      */
     public BaseEntity save(BaseEntity entity) {
         getHibernateTemplate().save(entity);
+        
         return entity;
     }
+    
+    @SuppressWarnings("rawtypes")
+    protected abstract  Class getEntityClass();    
 }

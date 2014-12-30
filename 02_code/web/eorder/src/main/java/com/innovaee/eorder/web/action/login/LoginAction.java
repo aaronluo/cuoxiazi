@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @Title: LoginAction
  * @Description: 登录Action
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class LoginAction extends BaseAction {

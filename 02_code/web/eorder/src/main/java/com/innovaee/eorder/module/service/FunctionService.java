@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 /**
  * @Title: FunctionService
  * @Description: 功能服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class FunctionService extends BaseService {
@@ -74,7 +74,6 @@ public class FunctionService extends BaseService {
      * 
      * @param parentFunctionId
      *            父功能节点ID
-     * 
      * @return 功能列表
      */
     public List<Function> findFunctionsByParentFunctionId(

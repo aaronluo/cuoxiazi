@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @Title: UserAction
  * @Description: 用户Action（查找和删除）
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserAction extends BaseAction {

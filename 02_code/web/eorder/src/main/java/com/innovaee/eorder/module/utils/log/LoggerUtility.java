@@ -16,7 +16,7 @@ import java.util.Stack;
 /**
  * @Title: LoggerUtility
  * @Description: 日志工具
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class LoggerUtility {
@@ -54,13 +54,13 @@ public class LoggerUtility {
         MDC.put(LoggerUtility.class.getSimpleName(), invokeInfoStack);
         MDC.put(MDCKey, mdcValue);
 
-        logger.fatal("********************************************************************************");
+        logger.fatal("******************************************");
         logger.fatal("Business Process Name: [" + invokeInfo.getInvokerName()
                 + "]");
         logger.fatal("Thread ID: " + Thread.currentThread().getId()
                 + ", Thread name: " + Thread.currentThread().getName());
         logger.fatal("Call Time: " + invokeInfo.getDate());
-        logger.fatal("--------------------- detail log info is below ---------------------------------");
+        logger.fatal("-------- detail log info is below --------------------");
         logger.fatal("");
     }
 
@@ -79,14 +79,14 @@ public class LoggerUtility {
 
             Date now = new Date();
             logger.fatal("");
-            logger.fatal("--------------------- detail log info is finished ------------------------------");
+            logger.fatal("--------  detail log info is finished--------------------");
             logger.fatal("Thread ID: " + Thread.currentThread().getId()
                     + ", Thread name: " + Thread.currentThread().getName());
             logger.fatal("End Time: " + now);
             logger.fatal("Business Process [" + invokeInfo.getInvokerName()
                     + "] is completed, elapsed time: "
                     + (now.getTime() - invokeInfo.getDate().getTime()));
-            logger.fatal("********************************************************************************");
+            logger.fatal("******************************************");
         } finally {
             MDC.remove(LoggerUtility.class.getSimpleName());
             MDC.remove(MDCKey);
@@ -117,6 +117,11 @@ public class LoggerUtility {
                 methodName));
     }
 
+    public void startInvoke(Throwable throwable) {
+        String methodName = getMethodName(throwable);
+        startInvoke(methodName);
+    }
+    
     public void endInvoke(String methodName) {
         @SuppressWarnings("unchecked")
         Stack<InvokeInfo> invokeInfoStack = (Stack<InvokeInfo>) MDC
@@ -133,10 +138,7 @@ public class LoggerUtility {
                                 - invokeInfo.getDate().getTime()));
     }
 
-    public void startInvoke(Throwable throwable) {
-        String methodName = getMethodName(throwable);
-        startInvoke(methodName);
-    }
+
 
     public void endInvoke(Throwable throwable) {
         String methodName = getMethodName(throwable);

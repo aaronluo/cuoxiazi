@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * @Title: UserService
  * @Description: 用户服务
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class UserService extends BaseService {

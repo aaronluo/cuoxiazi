@@ -20,10 +20,16 @@ import java.util.List;
 /**
  * @Title: RoleFunctionDao
  * @Description: 角色功能数据访问对象
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class RoleFunctionDao extends BaseDao {
+
+    
+    public RoleFunctionDao() {
+        super();
+
+    }
 
     @SuppressWarnings("rawtypes")
     @Override

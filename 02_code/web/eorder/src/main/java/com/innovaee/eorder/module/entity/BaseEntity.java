@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @Title: BaseEntity
  * @Description: 实体基类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public abstract class BaseEntity implements Serializable {

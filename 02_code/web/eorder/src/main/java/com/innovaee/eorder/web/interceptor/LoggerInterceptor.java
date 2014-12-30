@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Title: LoggerInterceptor
  * @Description: 日志拦截器
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class LoggerInterceptor implements Interceptor {

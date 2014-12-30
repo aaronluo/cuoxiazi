@@ -20,7 +20,7 @@ import javax.persistence.Table;
 /**
  * @Title: RoleFunction
  * @Description: 角色功能实体
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 @Entity

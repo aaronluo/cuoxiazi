@@ -72,9 +72,6 @@ public class FunctionServiceTest extends BaseSpringTestCase {
                 functionPath, functionParent, functionOrder, functionStatus);
         Function functionNew = functionService.saveFunction(function);
 
-        // 得到新增后的ID
-        Integer functionId = functionNew.getFunctionId();
-
         // 更新属性
         String newFunctionName = "测试2";
         String newFunctionDesc = "测试2";
@@ -82,6 +79,9 @@ public class FunctionServiceTest extends BaseSpringTestCase {
         functionNew.setFunctionDesc(newFunctionDesc);
         functionService.updateFunction(functionNew);
 
+        // 得到新增后的ID
+        Integer functionId = functionNew.getFunctionId();
+        
         // 检查
         Function functionDB = functionService.loadFunction(functionId);
         Assert.assertNotNull(functionDB);

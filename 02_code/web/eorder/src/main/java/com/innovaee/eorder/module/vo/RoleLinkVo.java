@@ -13,15 +13,10 @@ import java.util.List;
 /**
  * @Title: RoleLinkVo
  * @Description: 角色链接值对象（用于显示菜单）
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
-/**
- * @Title: RoleLinkVo
- * @Description: TODO(用一句话描述该文件做什么)
- * @author coderdream@gmail.com
- * @version V1.0
- */
+
 public class RoleLinkVo extends BaseVo {
 
     private static final long serialVersionUID = 1L;

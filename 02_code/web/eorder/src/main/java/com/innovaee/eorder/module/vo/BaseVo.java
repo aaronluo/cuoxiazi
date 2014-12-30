@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @Title: BaseVo
  * @Description: 值对象基类
- * @author coderdream@gmail.com
+ *
  * @version V1.0
  */
 public class BaseVo implements Serializable {
