@@ -38,17 +38,17 @@ import android.widget.Toast;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class OrderHestoryActivity extends Activity {
     // 调试Tag
-    private final static String TAG = "OrderActivity";
+    private static final String TAG = "OrderActivity";
 
     // 内部消息定义
     // 刷新UI消息
-    public final static int MSG_UPDATE = 10001;
+    public static final int MSG_UPDATE = 10001;
 
     // 初始化数据完成消息
-    public final static int MSG_INITDATA = 10002;
+    public static final int MSG_INITDATA = 10002;
 
     // 显示失败提示消息
-    public final static int MSG_UPDATE_FAIL = 10003;
+    public static final int MSG_UPDATE_FAIL = 10003;
 
     // 已经选择菜品list
     private List<OrderHestoryDataBean> orderHestoryDataList;

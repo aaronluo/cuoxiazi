@@ -17,19 +17,19 @@ public class TableInfoDataBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
-    public final static String TABLE = "table";
+    public static final String TABLE = "table";
 
     // 开台id定义
-    public final static String COLUM_ID = "tableId";
+    public static final String COLUM_ID = "tableId";
 
     // 会员电话号码定义
-    public final static String COLUM_CELLPHONE = "cellphone";
+    public static final String COLUM_CELLPHONE = "cellphone";
 
     // 员工工号定义
-    public final static String COLUM_SERVANTID = "servantId";
+    public static final String COLUM_SERVANTID = "servantId";
 
     // 总价定义
-    public final static String COLUM_DISHPRICE = "dishPrice";
+    public static final String COLUM_DISHPRICE = "dishPrice";
 
     // 开台id
     private int tableId;

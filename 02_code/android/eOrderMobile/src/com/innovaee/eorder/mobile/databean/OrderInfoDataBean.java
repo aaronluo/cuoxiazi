@@ -17,22 +17,22 @@ public class OrderInfoDataBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
-    public final static String TABLE = "orderitems";
+    public static final String TABLE = "orderitems";
 
     // id定义
-    public final static String COLUM_DISHID = "dishId";
+    public static final String COLUM_DISHID = "dishId";
 
     // 名字定义
-    public final static String COLUM_DISHNAME = "dishName";
+    public static final String COLUM_DISHNAME = "dishName";
 
     // 商品价格定义
-    public final static String COLUM_DISHPRICE = "dishPrice";
+    public static final String COLUM_DISHPRICE = "dishPrice";
 
     // 商品数量定义
-    public final static String COLUM_DISHAMOUNT = "dishAmount";
+    public static final String COLUM_DISHAMOUNT = "dishAmount";
 
     // 商品图片url地址定义
-    public final static String COLUM_DISHPICTURE = "dishPicture";
+    public static final String COLUM_DISHPICTURE = "dishPicture";
 
     // id
     private int dishId;

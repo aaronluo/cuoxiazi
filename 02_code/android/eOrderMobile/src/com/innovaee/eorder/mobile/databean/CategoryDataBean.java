@@ -18,16 +18,16 @@ public class CategoryDataBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
-    public final static String TABLE = "category";
+    public static final String TABLE = "category";
 
     // 分类id定义
-    public final static String COLUM_ID = "id";
+    public static final String COLUM_ID = "id";
 
     // 分类名字定义
-    public final static String COLUM_NAME = "name";
+    public static final String COLUM_NAME = "name";
 
     // 分类背景图片定义
-    public final static String COLUM_BITMAPUIL = "url";
+    public static final String COLUM_BITMAPUIL = "url";
 
     // 分类id
     private int id;

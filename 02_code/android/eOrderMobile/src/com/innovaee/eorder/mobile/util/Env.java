@@ -22,7 +22,7 @@ public final class Env {
         /**
          * sdcard缓存目录
          */
-        public final static String SDCARD = Environment
+        public static final String SDCARD = Environment
                 .getExternalStorageDirectory().getPath() + "/" + "Eorder";
 
         /**

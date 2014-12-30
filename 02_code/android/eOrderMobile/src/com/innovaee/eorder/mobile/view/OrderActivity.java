@@ -48,25 +48,25 @@ import android.widget.Toast;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class OrderActivity extends Activity {
     // 调试Tag
-    private final static String TAG = "OrderActivity";
+    private static final String TAG = "OrderActivity";
 
     // 改变菜品数量广播
     public static final String ACTION_INTENT_CHANGECOUNT = "com.eorder.action.changeCount";
 
     // 刷新界面消息
-    public final static int MSG_UPDATE = 10001;
+    public static final int MSG_UPDATE = 10001;
 
     // 初始化数据完成消息
-    public final static int MSG_INITDATA = 10002;
+    public static final int MSG_INITDATA = 10002;
 
     // 更新显示数量消息
-    public final static int MSG_UPDATE_COUNT = 10003;
+    public static final int MSG_UPDATE_COUNT = 10003;
 
     // 更新折扣信息消息
-    public final static int MSG_UPDATE_DISCOUNT = 10004;
+    public static final int MSG_UPDATE_DISCOUNT = 10004;
 
     // 下单成功消息
-    public final static int MSG_ORDER_SUCCESS = 10005;
+    public static final int MSG_ORDER_SUCCESS = 10005;
 
     // 已经选择菜品list
     private List<GoodsDataBean> selectOrderGoods;

@@ -42,7 +42,7 @@ public class RemoteImageView extends ImageView implements IForeground {
     private int mState;
 
     // Hard cache, with a fixed maximum capacity and a life duration
-    // private final static LinkedList<Bitmap> sHardBitmapCache = new
+    // private static final LinkedList<Bitmap> sHardBitmapCache = new
     // LinkedList<Bitmap>();
     private final Map<ImageView, String> mImageViews = Collections
             .synchronizedMap(new WeakHashMap<ImageView, String>());

@@ -52,28 +52,28 @@ import android.widget.Toast;
  *
  */
 public class MainViewActivity extends Activity {
-    private final static String TAG = "MainViewActivity";
+    private static final String TAG = "MainViewActivity";
 
     // 消息定义，界面刷新消息
-    public final static int MSG_UPDATE = 20001;
+    public static final int MSG_UPDATE = 20001;
 
     // 初始化数据完成消息
-    public final static int MSG_INITDATA = 20002;
+    public static final int MSG_INITDATA = 20002;
 
     // 更新popmenu消息
-    public final static int MSG_UPDATE_POPMENU = 20003;
+    public static final int MSG_UPDATE_POPMENU = 20003;
 
     // 下单消息
-    public final static int MSG_ORDER = 20004;
+    public static final int MSG_ORDER = 20004;
 
     // 删除所有的消息
-    public final static int MSG_DELALL = 20005;
+    public static final int MSG_DELALL = 20005;
 
     // 更新下单的数目的消息
-    public final static int MSG_UPDATE_COUNT = 20006;
+    public static final int MSG_UPDATE_COUNT = 20006;
 
     // 提示失败的消息
-    public final static int MSG_UPDATE_FAILUI = 20007;
+    public static final int MSG_UPDATE_FAILUI = 20007;
 
     // 自定义ActionBar
     private ActionBar actionBar;

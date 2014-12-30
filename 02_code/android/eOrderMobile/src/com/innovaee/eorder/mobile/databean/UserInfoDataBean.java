@@ -17,22 +17,22 @@ public class UserInfoDataBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
-    public final static String TABLE = "user";
+    public static final String TABLE = "user";
 
     // 会员id定义
-    public final static String COLUM_ID = "userId";
+    public static final String COLUM_ID = "userId";
 
     // 会员名字定义
-    public final static String COLUM_NAME = "userName";
+    public static final String COLUM_NAME = "userName";
 
     // 会员电话定义
-    public final static String COLUM_PRICE = "cellphone";
+    public static final String COLUM_PRICE = "cellphone";
 
     // 会员等级名称定义
-    public final static String COLUM_BITMAPURL = "levelName";
+    public static final String COLUM_BITMAPURL = "levelName";
 
     // 会员等级折扣定义
-    public final static String COLUM_COUNT = "discount";
+    public static final String COLUM_COUNT = "discount";
 
     // 会员id
     private int userId;

@@ -17,22 +17,22 @@ public class GoodsDataBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 表单名
-    public final static String TABLE = "goods";
+    public static final String TABLE = "goods";
 
     // 商品id
-    public final static String COLUM_ID = "id";
+    public static final String COLUM_ID = "id";
 
     // 名字
-    public final static String COLUM_NAME = "name";
+    public static final String COLUM_NAME = "name";
 
     // 价格
-    public final static String COLUM_PRICE = "price";
+    public static final String COLUM_PRICE = "price";
 
     // 图片url地址
-    public final static String COLUM_BITMAPURL = "url";
+    public static final String COLUM_BITMAPURL = "url";
 
     // 购买数量
-    public final static String COLUM_COUNT = "count";
+    public static final String COLUM_COUNT = "count";
 
     private int id;
 

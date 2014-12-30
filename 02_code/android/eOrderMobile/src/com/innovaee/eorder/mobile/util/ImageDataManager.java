@@ -57,7 +57,7 @@ public class ImageDataManager {
     private static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
     // SDcard存储地址
-    private final static String STORAGE_PATH = Environment
+    private static final String STORAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/eOrderMobile";
 
     /**
@@ -76,14 +76,14 @@ public class ImageDataManager {
      * when available space in SD for theme store is power CACHE_SIZE we should
      * clear the space about theme store data
      */
-    private final static int CACHE_SIZE = 200 * 1024 * 1024;
+    private static final int CACHE_SIZE = 200 * 1024 * 1024;
 
     /**
      * when available space in SD for theme store is low
      * FREE_SD_SPACE_NEEDED_TO_CACHE, we should not use the SD for storage
      * Attention: the cache size in megabytes
      */
-    private final static int FREE_SD_SPACE_NEEDED_TO_CACHE = 10;
+    private static final int FREE_SD_SPACE_NEEDED_TO_CACHE = 10;
 
     /**
      * 下载Image的线程池

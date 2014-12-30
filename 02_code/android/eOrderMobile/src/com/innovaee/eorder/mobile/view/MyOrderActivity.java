@@ -36,7 +36,7 @@ import android.widget.TextView;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MyOrderActivity extends Activity {
     // 调试Tag
-    private final static String TAG = "MyOrderActivity";
+    private static final String TAG = "MyOrderActivity";
 
     // 删除所有已选项广播
     public static final String ACTION_INTENT_DELALL = "com.eorder.action.delAll";
@@ -45,16 +45,16 @@ public class MyOrderActivity extends Activity {
     public static final String ACTION_INTENT_CHANGECOUNT = "com.eorder.action.changeCount";
 
     // 内部消息定义，刷新消息
-    public final static int MSG_UPDATE = 10001;
+    public static final int MSG_UPDATE = 10001;
 
     // 初始化数据完成消息
-    public final static int MSG_INITDATA = 10002;
+    public static final int MSG_INITDATA = 10002;
 
     // 更新显示的下单数目消息
-    public final static int MSG_UPDATE_COUNT = 10003;
+    public static final int MSG_UPDATE_COUNT = 10003;
 
     // 重新设置适配器消息
-    public final static int MSG_RESET_ADAPTER = 10004;
+    public static final int MSG_RESET_ADAPTER = 10004;
 
     // 已选择菜品
     private List<GoodsDataBean> selectOrderGoods;
