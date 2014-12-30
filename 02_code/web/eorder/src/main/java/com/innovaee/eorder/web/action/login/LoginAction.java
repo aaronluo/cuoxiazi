@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 public class LoginAction extends BaseAction {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(LoginAction.class);
+    private static final Logger LOGGER = Logger.getLogger(LoginAction.class);
 
     private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
