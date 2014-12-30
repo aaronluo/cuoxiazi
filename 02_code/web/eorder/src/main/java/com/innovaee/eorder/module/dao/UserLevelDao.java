@@ -44,7 +44,7 @@ public class UserLevelDao extends BaseDao {
         List<UserLevel> list = (List<UserLevel>) super
                 .getHibernateTemplate()
                 .find("FROM UserLevel u WHERE u.userLevelname=?", userLevelname);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;

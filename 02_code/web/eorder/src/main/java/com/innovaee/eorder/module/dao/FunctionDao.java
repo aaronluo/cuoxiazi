@@ -50,7 +50,7 @@ public class FunctionDao extends BaseDao {
      * @param functionId
      * @return
      */
-    public Function loadFunction(Integer functionId) {
+    public Function loadFunction(final Integer functionId) {
         return (Function) get(functionId);
     }
 
@@ -62,10 +62,10 @@ public class FunctionDao extends BaseDao {
      * @return 功能
      */
     @SuppressWarnings("unchecked")
-    public Function findFunctionByFunctionName(String functionName) {
-        List<Function> list = (List<Function>) super.getHibernateTemplate()
+    public Function findFunctionByFunctionName(final String functionName) {
+        final List<Function> list = (List<Function>) getHibernateTemplate()
                 .find("FROM Function f WHERE f.functionName=?", functionName);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;
@@ -78,7 +78,7 @@ public class FunctionDao extends BaseDao {
      *            待保存的功能
      * @return 已保存的功能
      */
-    public Function saveFunction(Function function) {
+    public Function saveFunction(final Function function) {
         return (Function) save(function);
     }
 
@@ -88,8 +88,8 @@ public class FunctionDao extends BaseDao {
      * @param function
      *            待更新的功能
      */
-    public void updateFunction(Function function) {
-        Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
+    public void updateFunction(final Function function) {
+        final Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
                 "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
                 .getTime()));
         function.setUpdateAt(updateAt);
@@ -102,7 +102,7 @@ public class FunctionDao extends BaseDao {
      * @param function
      *            待移除的功能
      */
-    public void removeFunction(Function function) {
+    public void removeFunction(final Function function) {
         super.getHibernateTemplate().delete(function);
     }
 
@@ -115,7 +115,7 @@ public class FunctionDao extends BaseDao {
      */
     @SuppressWarnings("unchecked")
     public List<Function> findFunctionsByParentFunctionId(
-            Integer parentFunctionId) {
+            final Integer parentFunctionId) {
         return (List<Function>) super.getHibernateTemplate().find(
                 "FROM Function f WHERE f.functionParent=?", parentFunctionId);
     }

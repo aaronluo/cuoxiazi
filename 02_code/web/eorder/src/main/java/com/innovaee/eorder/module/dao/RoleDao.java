@@ -54,7 +54,7 @@ public class RoleDao extends BaseDao {
     public Role findRolesByRoleName(String roleName) {
         List<Role> list = (List<Role>) super.getHibernateTemplate().find(
                 "FROM Role f WHERE f.roleName=?", roleName);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;
@@ -71,7 +71,7 @@ public class RoleDao extends BaseDao {
     public Role findRoleByRoleName(String roleName) {
         List<Role> list = (List<Role>) super.getHibernateTemplate().find(
                 "FROM Role f WHERE f.roleName=?", roleName);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;

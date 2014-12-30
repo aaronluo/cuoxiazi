@@ -60,7 +60,7 @@ public class UserDao extends BaseDao {
     public User findUserByCellphone(String cellphone) {
         List<User> list = (List<User>) super.getHibernateTemplate().find(
                 "FROM User u WHERE u.cellphone=?", cellphone);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;

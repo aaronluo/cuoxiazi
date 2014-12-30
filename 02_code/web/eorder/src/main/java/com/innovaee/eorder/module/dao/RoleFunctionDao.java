@@ -74,7 +74,7 @@ public class RoleFunctionDao extends BaseDao {
                 .getHibernateTemplate()
                 .find("FROM RoleFunction rf WHERE rf.roleId=? and rf.functionId=?",
                         roleId, functionId);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;

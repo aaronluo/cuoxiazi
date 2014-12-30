@@ -125,7 +125,7 @@ public class UserRoleDao extends BaseDao {
         List<UserRole> list = (List<UserRole>) super.getHibernateTemplate()
                 .find("FROM UserRole ur WHERE ur.userId=? and ur.roleId=?",
                         userId, roleId);
-        if (null != list && 0 < list.size()) {
+        if (null != list && list.size() > 0) {
             return list.get(0);
         }
         return null;
