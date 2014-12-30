@@ -102,7 +102,6 @@ public class RoleFunctionDao extends BaseDao {
 
         return getHibernateTemplate().execute(
                 new HibernateCallback<List<RoleFunction>>() {
-                    @Override
                     public List<RoleFunction> doInHibernate(Session session)
                             throws HibernateException, SQLException {
                         String hql = "from RoleFunction rf where rf.functionId in(:typeids)";

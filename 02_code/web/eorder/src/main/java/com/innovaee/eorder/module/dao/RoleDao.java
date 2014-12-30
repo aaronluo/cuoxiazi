@@ -39,7 +39,7 @@ public class RoleDao extends BaseDao {
      *            角色ID
      * @return 角色
      */
-    public Role loadRole(Integer roleId) {
+    public Role loadRole(final Integer roleId) {
         return (Role) get(roleId);
     }
 
@@ -51,8 +51,8 @@ public class RoleDao extends BaseDao {
      * @return 角色
      */
     @SuppressWarnings("unchecked")
-    public Role findRolesByRoleName(String roleName) {
-        List<Role> list = (List<Role>) super.getHibernateTemplate().find(
+    public Role findRolesByRoleName(final String roleName) {
+        final List<Role> list = (List<Role>) super.getHibernateTemplate().find(
                 "FROM Role f WHERE f.roleName=?", roleName);
         if (null != list && list.size() > 0) {
             return list.get(0);
@@ -68,8 +68,8 @@ public class RoleDao extends BaseDao {
      * @return 角色
      */
     @SuppressWarnings("unchecked")
-    public Role findRoleByRoleName(String roleName) {
-        List<Role> list = (List<Role>) super.getHibernateTemplate().find(
+    public Role findRoleByRoleName(final String roleName) {
+        final List<Role> list = (List<Role>) super.getHibernateTemplate().find(
                 "FROM Role f WHERE f.roleName=?", roleName);
         if (null != list && list.size() > 0) {
             return list.get(0);
@@ -91,19 +91,19 @@ public class RoleDao extends BaseDao {
      * @param role
      * @return
      */
-    public Role saveRole(Role role) {
+    public Role saveRole(final Role role) {
         return (Role) save(role);
     }
 
     public void updateRole(Role role) {
-        Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
+        final Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
                 "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
                 .getTime()));
         role.setUpdateAt(updateAt);
         update(role);
     }
 
-    public void removeRole(Role role) {
+    public void removeRole(final Role role) {
         super.getHibernateTemplate().delete(role);
     }
 }
