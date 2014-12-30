@@ -5,95 +5,95 @@ date:2012-02-22
 */
 /*=======================================login style=======================================*/
 body, div, ul, li, h1, input, p, span {
-	margin:0px;
-	padding:0px;
-	list-style:none;
-	font-family: Arial;
+    margin:0px;
+    padding:0px;
+    list-style:none;
+    font-family: Arial;
 }
 a, a:hover, img {
-	border:0px;
+    border:0px;
 }
 body {
-	background:url(../../resources/image/loginBg.jpg) repeat-x;
+    background:url(../../resources/image/loginBg.jpg) repeat-x;
 }
 .loginLogo {
-	width:1000px;
-	margin:0 auto;
-	height:56px;
+    width:1000px;
+    margin:0 auto;
+    height:56px;
 }
 .loginLogo img {
-	margin:6px 0 0 50px;
+    margin:6px 0 0 50px;
 }
 .login {
-	margin:0 auto;
-	width:410px;
-	padding-top:147px;
-	height:250px;
-	background:url(../../resources/image/loginLine.gif) bottom no-repeat;
+    margin:0 auto;
+    width:410px;
+    padding-top:147px;
+    height:250px;
+    background:url(../../resources/image/loginLine.gif) bottom no-repeat;
 }
 .login h1 {
-	margin-bottom:10px;
+    margin-bottom:10px;
 }
 .login p {
-	width:410px;
-	height:30px;
-	line-height:30px;
-	margin-bottom:4px;
-	background:url(../../resources/image/listBg.gif);
-	font-size:11px;
-	color:#464646;
-	font-weight:bold;
-	padding:15px 0 18px 0;
-	float:left;
+    width:410px;
+    height:30px;
+    line-height:30px;
+    margin-bottom:4px;
+    background:url(../../resources/image/listBg.gif);
+    font-size:11px;
+    color:#464646;
+    font-weight:bold;
+    padding:15px 0 18px 0;
+    float:left;
 }
 .login p span {
-	text-align:right;
-	width:105px;
-	display:block;
-	float:left;
+    text-align:right;
+    width:105px;
+    display:block;
+    float:left;
 }
 .login p span span {
-	width:5px;
-	margin-left:5px;
-	color:#ad150a;
-	display:inline !important;
-	float:none !important
+    width:5px;
+    margin-left:5px;
+    color:#ad150a;
+    display:inline !important;
+    float:none !important
 }
 .login input {
-	width:227px;
-	height:30px;
-	line-height:30px;
-	background:url(../../resources/image/inputBg.gif);
-	border:0px;
-	margin-left:40px;
-	padding:0 10px;
-	color:#a1a1a1;
-	font-size:11px;
-	font-weight:bold;
-	float:left;
+    width:227px;
+    height:30px;
+    line-height:30px;
+    background:url(../../resources/image/inputBg.gif);
+    border:0px;
+    margin-left:40px;
+    padding:0 10px;
+    color:#a1a1a1;
+    font-size:11px;
+    font-weight:bold;
+    float:left;
 }
 .loginBut {
-	width:355px;
-	height:47px;
-	line-height:47px;
-	margin-bottom:4px;
-	background:url(../../resources/image/butBg.gif);
-	font-size:11px;
-	float:left;
-	padding:0 18px 0 37px;
+    width:355px;
+    height:47px;
+    line-height:47px;
+    margin-bottom:4px;
+    background:url(../../resources/image/butBg.gif);
+    font-size:11px;
+    float:left;
+    padding:0 18px 0 37px;
 }
 .loginBut span {
-	display:block;
-	float:left;
-	width:200px;
+    display:block;
+    float:left;
+    width:200px;
 }
 .loginBut a {
-	text-decoration:underline;
-	color:#707070;
-	margin-right:15px;
+    text-decoration:underline;
+    color:#707070;
+    margin-right:15px;
 }
 .loginBut img {
-	margin-top:11px;
-	float:right;
-	display:block;
+    margin-top:11px;
+    float:right;
+    display:block;
 }

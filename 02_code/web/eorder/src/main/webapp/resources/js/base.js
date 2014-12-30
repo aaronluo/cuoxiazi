@@ -14,7 +14,7 @@ cs  =  source.children;
 //alert(cs.length);
 if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
 for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor=highlightcolor;
+    cs[i].style.backgroundColor=highlightcolor;
 }
 }
 
@@ -25,7 +25,7 @@ return
 if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
 //source.style.backgroundColor=originalcolor
 for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor="";
+    cs[i].style.backgroundColor="";
 }
 }
 
@@ -40,10 +40,10 @@ cs  =  source.children;
 //alert(cs.length);
 if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
 for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor=clickcolor;
+    cs[i].style.backgroundColor=clickcolor;
 }
 else
 for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor="";
+    cs[i].style.backgroundColor="";
 }
 }

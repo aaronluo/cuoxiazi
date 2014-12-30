@@ -1,8 +1,8 @@
 /***********************************************
- * Filename		: UserRole.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : UserRole.java 
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
 package com.innovaee.eorder.module.entity;
 
@@ -16,115 +16,115 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**   
-* @Title: UserRole 
-* @Description: 用户角色 
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: UserRole
+ * @Description: 用户角色
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 @Entity
 @Table(name = "t_user_role")
 public class UserRole extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public Serializable getPK() {
-		return userRoleId;
-	}
+    @Override
+    public Serializable getPK() {
+        return userRoleId;
+    }
 
-	/**
-	 * 用户角色ID
-	 */
-	@Id
-	@Column(name = "USER_ROLE_ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer userRoleId;
-	
-	/**
-	 * 用户ID
-	 */
-	@Column(name = "user_id")
-	private Integer userId;
-	
-	/**
-	 * 角色ID
-	 */
-	@Column(name = "role_id")
-	private Integer roleId;
-	
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "CREATE_AT")
-	private Timestamp createAt;
+    /**
+     * 用户角色ID
+     */
+    @Id
+    @Column(name = "USER_ROLE_ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer userRoleId;
 
-	/**
-	 * 更新时间
-	 */
-	@Column(name = "UPDATE_AT")
-	private Timestamp updateAt;
+    /**
+     * 用户ID
+     */
+    @Column(name = "user_id")
+    private Integer userId;
 
-	public UserRole() {
-	}
+    /**
+     * 角色ID
+     */
+    @Column(name = "role_id")
+    private Integer roleId;
 
-	public UserRole(Integer userId) {
-		super();
-		this.userId = userId;
-	}
+    /**
+     * 创建时间
+     */
+    @Column(name = "CREATE_AT")
+    private Timestamp createAt;
 
-	public UserRole(Integer userId, Integer roleId, Timestamp createAt) {
-		super();
-		this.userId = userId;
-		this.roleId = roleId;
-		this.createAt = createAt;
-	}
+    /**
+     * 更新时间
+     */
+    @Column(name = "UPDATE_AT")
+    private Timestamp updateAt;
 
-	public Integer getUserRoleId() {
-		return userRoleId;
-	}
+    public UserRole() {
+    }
 
-	public void setUserRoleId(Integer userRoleId) {
-		this.userRoleId = userRoleId;
-	}
+    public UserRole(Integer userId) {
+        super();
+        this.userId = userId;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public UserRole(Integer userId, Integer roleId, Timestamp createAt) {
+        super();
+        this.userId = userId;
+        this.roleId = roleId;
+        this.createAt = createAt;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public Integer getUserRoleId() {
+        return userRoleId;
+    }
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+    public void setUserRoleId(Integer userRoleId) {
+        this.userRoleId = userRoleId;
+    }
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public Timestamp getUpdateAt() {
-		return updateAt;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setUpdateAt(Timestamp updateAt) {
-		this.updateAt = updateAt;
-	}
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
 
-	@Override
-	public String toString() {
-		return "UserRole [userRoleId=" + userRoleId + ", userId=" + userId
-				+ ", roleId=" + roleId + ", createAt=" + createAt
-				+ ", updateAt=" + updateAt + "]";
-	}
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
+
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole [userRoleId=" + userRoleId + ", userId=" + userId
+                + ", roleId=" + roleId + ", createAt=" + createAt
+                + ", updateAt=" + updateAt + "]";
+    }
 
 }

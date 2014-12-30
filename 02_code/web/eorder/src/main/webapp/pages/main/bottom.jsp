@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html lang='zh-cn'>
@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="../resources/css/style.css">
 </head>
 <body>
-	<!--页面底部footer-->
-	<div class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<p class="navbar-text pull-left">Powered by Bootstrap</p>
-		</div>
-	</div>
-	<script src="../resources/js/jquery.min.js" /></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
+    <!--页面底部footer-->
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="navbar-text pull-left">Powered by Bootstrap</p>
+        </div>
+    </div>
+    <script src="../resources/js/jquery.min.js" /></script>
+    <script src="../resources/js/bootstrap.min.js"></script>
 </body>
 </html>

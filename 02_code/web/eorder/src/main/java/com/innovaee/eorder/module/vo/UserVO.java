@@ -1,139 +1,139 @@
 /***********************************************
- * Filename		: UserVO.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : UserVO.java 
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
 package com.innovaee.eorder.module.vo;
 
 import java.sql.Timestamp;
 
-/**   
-* @Title: UserVO 
-* @Description: 用户值对象
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
+/**
+ * @Title: UserVO
+ * @Description: 用户值对象
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
 public class UserVO extends BaseVo {
 
-	private Integer userId;
+    private Integer userId;
 
-	private String username;
+    private String username;
 
-	private String roleName;
+    private String roleName;
 
-	private String password;
+    private String password;
 
-	private String cellphone;
+    private String cellphone;
 
-	private String levelName;
+    private String levelName;
 
-	private Boolean userStatus;
+    private Boolean userStatus;
 
-	private Timestamp createAt;
+    private Timestamp createAt;
 
-	private Timestamp updateAt;
+    private Timestamp updateAt;
 
-	public UserVO() {
-	}
+    public UserVO() {
+    }
 
-	public UserVO(String username, String password, String cellphone,
-			Integer levelId, Boolean userStatus, Timestamp createAt) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.cellphone = cellphone;
-		this.userStatus = userStatus;
-		this.createAt = createAt;
-	}
+    public UserVO(String username, String password, String cellphone,
+            Integer levelId, Boolean userStatus, Timestamp createAt) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.cellphone = cellphone;
+        this.userStatus = userStatus;
+        this.createAt = createAt;
+    }
 
-	public UserVO(Integer userId) {
-		this.userId = userId;
-	}
+    public UserVO(Integer userId) {
+        this.userId = userId;
+    }
 
-	public UserVO(String username) {
-		this.username = username;
-	}
+    public UserVO(String username) {
+        this.username = username;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getCellphone() {
-		return cellphone;
-	}
+    public String getCellphone() {
+        return cellphone;
+    }
 
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
-	}
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
 
-	public Boolean getUserStatus() {
-		return userStatus;
-	}
+    public Boolean getUserStatus() {
+        return userStatus;
+    }
 
-	public void setUserStatus(Boolean userStatus) {
-		this.userStatus = userStatus;
-	}
+    public void setUserStatus(Boolean userStatus) {
+        this.userStatus = userStatus;
+    }
 
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
 
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
 
-	public Timestamp getUpdateAt() {
-		return updateAt;
-	}
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
 
-	public void setUpdateAt(Timestamp updateAt) {
-		this.updateAt = updateAt;
-	}
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
-	public String getLevelName() {
-		return levelName;
-	}
+    public String getLevelName() {
+        return levelName;
+    }
 
-	public void setLevelName(String levelName) {
-		this.levelName = levelName;
-	}
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
 
-	@Override
-	public String toString() {
-		return "UserVO [userId=" + userId + ", username=" + username
-				+ ", roleName=" + roleName + ", password=" + password
-				+ ", cellphone=" + cellphone + ", levelName=" + levelName
-				+ ", userStatus=" + userStatus + ", createAt=" + createAt
-				+ ", updateAt=" + updateAt + "]";
-	}
+    @Override
+    public String toString() {
+        return "UserVO [userId=" + userId + ", username=" + username
+                + ", roleName=" + roleName + ", password=" + password
+                + ", cellphone=" + cellphone + ", levelName=" + levelName
+                + ", userStatus=" + userStatus + ", createAt=" + createAt
+                + ", updateAt=" + updateAt + "]";
+    }
 
 }

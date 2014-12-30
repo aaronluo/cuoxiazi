@@ -49,10 +49,10 @@ StrutsUtils.clearValidationErrors = function(form) {
     }
 
     //clear previous global error messages
-	if(StrutsUtils.errorLists[form] && StrutsUtils.errorLists[form] !== null) {
-		form.parentNode.removeChild(StrutsUtils.errorLists[form]);
-		StrutsUtils.errorLists[form] = null;
-	}
+    if(StrutsUtils.errorLists[form] && StrutsUtils.errorLists[form] !== null) {
+        form.parentNode.removeChild(StrutsUtils.errorLists[form]);
+        StrutsUtils.errorLists[form] = null;
+    }
 
 };
 
@@ -63,23 +63,23 @@ StrutsUtils.errorLists = [];
 StrutsUtils.showValidationErrors = function(form, errors) {
     StrutsUtils.clearValidationErrors(form, errors);
 
-	if (errors.errors) {
-		var l, errorList = document.createElement("ul");
+    if (errors.errors) {
+        var l, errorList = document.createElement("ul");
 
-		errorList.setAttribute("class", "errorMessage");
-		errorList.setAttribute("className", "errorMessage"); // ie hack cause ie does not support setAttribute
+        errorList.setAttribute("class", "errorMessage");
+        errorList.setAttribute("className", "errorMessage"); // ie hack cause ie does not support setAttribute
 
-		for ( l = 0; l < errors.errors.length; l++) {
-			var item = document.createElement("li");
-			var itemText = document.createTextNode(errors.errors[l]);
-			item.appendChild(itemText);
+        for ( l = 0; l < errors.errors.length; l++) {
+            var item = document.createElement("li");
+            var itemText = document.createTextNode(errors.errors[l]);
+            item.appendChild(itemText);
 
-			errorList.appendChild(item);
-		}
-		
-		form.parentNode.insertBefore(errorList, form);
-		StrutsUtils.errorLists[form] = errorList;
-	}
+            errorList.appendChild(item);
+        }
+        
+        form.parentNode.insertBefore(errorList, form);
+        StrutsUtils.errorLists[form] = errorList;
+    }
 
   var i, fieldName, firstNode = StrutsUtils.firstElement(form);
   var xhtml = firstNode.tagName.toLowerCase() === "table";

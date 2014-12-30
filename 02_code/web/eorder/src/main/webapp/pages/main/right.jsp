@@ -1,24 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<% 	
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-		+ request.getServerName() + ":" + request.getServerPort()
-		+ path; 
+<%     
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+        + request.getServerName() + ":" + request.getServerPort()
+        + path; 
 %>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<script src="../resources/js/prototype.lite.js" type="text/javascript"></script>
-		<script src="../resources/js/moo.fx.js" type="text/javascript"></script>
-		<script src="../resources/js/moo.fx.pack.js" type="text/javascript"></script>		
-		<link href="../resources/css/skin.css" rel="stylesheet" type="text/css">
-		<link href="../resources/css/basic.css" rel="stylesheet" type="text/css">
-	</head>
-	
-  	<body>
-  	
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="../resources/js/prototype.lite.js" type="text/javascript"></script>
+        <script src="../resources/js/moo.fx.js" type="text/javascript"></script>
+        <script src="../resources/js/moo.fx.pack.js" type="text/javascript"></script>        
+        <link href="../resources/css/skin.css" rel="stylesheet" type="text/css">
+        <link href="../resources/css/basic.css" rel="stylesheet" type="text/css">
+    </head>
+    
+      <body>
+      
 <table id="right" width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="17" valign="top" background="../resources/image/mail_leftbg.gif"><img src="../resources/image/left-top-right.gif" width="17" height="29" /></td>
@@ -296,5 +296,5 @@ Preferred solution for professional regional business portal.
     <td valign="bottom" background="../resources/image/mail_rightbg.gif"><img src="../resources/image/buttom_right2.gif" width="16" height="17" /></td>
   </tr>
 </table>
-  	</body>
+      </body>
 </html>

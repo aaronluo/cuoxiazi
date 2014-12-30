@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-						"http://struts.apache.org/dtds/struts-2.0.dtd">
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="com.innovaee.eorder.web.action.admin.role" namespace="/role"
-		extends="struts-base">
-		<action name="doRole" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="doRole">
-			<result name="success">/pages/admin/role/role.jsp</result>
-		</action>
-		<action name="doList" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="list">
-			<result>/pages/admin/role/role.jsp</result>
-		</action>
-		<action name="doEdit" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="load">
-			<result name="input">/pages/admin/role/role.jsp</result>
-			<result>/pages/admin/role/role.jsp</result>
-		</action>
-		<action name="save" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
-			method="save">
-			<result name="input">/pages/admin/role/role.jsp</result>
-			<result>/pages/admin/role/role.jsp</result>
-		</action>
-		<action name="update" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
-			method="update">
-			<result name="input">/pages/admin/role/role.jsp</result>
-			<result>/pages/admin/role/role.jsp</result>
-		</action>
-		<action name="remove" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
-			method="remove">
-			<result name="input">/pages/admin/role/role.jsp</result>
-			<result>/pages/admin/role/role.jsp</result>
-		</action>
-	</package>
+    <package name="com.innovaee.eorder.web.action.admin.role" namespace="/role"
+        extends="struts-base">
+        <action name="doRole" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
+            method="doRole">
+            <result name="success">/pages/admin/role/role.jsp</result>
+        </action>
+        <action name="doList" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
+            method="list">
+            <result>/pages/admin/role/role.jsp</result>
+        </action>
+        <action name="doEdit" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
+            method="load">
+            <result name="input">/pages/admin/role/role.jsp</result>
+            <result>/pages/admin/role/role.jsp</result>
+        </action>
+        <action name="save" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
+            method="save">
+            <result name="input">/pages/admin/role/role.jsp</result>
+            <result>/pages/admin/role/role.jsp</result>
+        </action>
+        <action name="update" class="com.innovaee.eorder.web.action.admin.role.RoleOpAction"
+            method="update">
+            <result name="input">/pages/admin/role/role.jsp</result>
+            <result>/pages/admin/role/role.jsp</result>
+        </action>
+        <action name="remove" class="com.innovaee.eorder.web.action.admin.role.RoleAction"
+            method="remove">
+            <result name="input">/pages/admin/role/role.jsp</result>
+            <result>/pages/admin/role/role.jsp</result>
+        </action>
+    </package>
 
 </struts>

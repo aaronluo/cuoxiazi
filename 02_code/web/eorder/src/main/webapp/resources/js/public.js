@@ -2,26 +2,26 @@
  * line color change
  */
 $(document).ready(function(){
-	$(".dataTab tr").mouseover(function(){
-	$(this).addClass("over");}).mouseout(function(){
-	$(this).removeClass("over");});
-	$(".dataTab tr:even").addClass("alt");
-	$(".buttonLeft").each(function(i){
-		var id = $(this).attr("id");
-		$(this).html("<span class='buttonspan1' style='background-image:url(\"../resources/image/button_left.gif\");'></span>" +
-				"<span class='buttonspan2' style='background-image:url(\"../resources/image/button_center.gif\");'>" +
-				$("#" + id).attr("name") +
-				"</span>" +
-				"<span class='buttonspan1' style='background-image:url(\"../resources/image/button_right.gif\");'>");
-	});
-	$(".buttonRight").each(function(i){
-		var id = $(this).attr("id");
-		$(this).html("<span class='buttonspan1' style='background-image:url(\"../resources/image/button_right.gif\");float: right;'></span>" +
-				"<span class='buttonspan2' style='background-image:url(\"../resources/image/button_center.gif\");float: right;'>" +
-				$("#" + id).attr("name") +
-				"</span>" +
-				"<span class='buttonspan1' style='background-image:url(\"../resources/image/button_left.gif\");float: right;'>");
-	});
+    $(".dataTab tr").mouseover(function(){
+    $(this).addClass("over");}).mouseout(function(){
+    $(this).removeClass("over");});
+    $(".dataTab tr:even").addClass("alt");
+    $(".buttonLeft").each(function(i){
+        var id = $(this).attr("id");
+        $(this).html("<span class='buttonspan1' style='background-image:url(\"../resources/image/button_left.gif\");'></span>" +
+                "<span class='buttonspan2' style='background-image:url(\"../resources/image/button_center.gif\");'>" +
+                $("#" + id).attr("name") +
+                "</span>" +
+                "<span class='buttonspan1' style='background-image:url(\"../resources/image/button_right.gif\");'>");
+    });
+    $(".buttonRight").each(function(i){
+        var id = $(this).attr("id");
+        $(this).html("<span class='buttonspan1' style='background-image:url(\"../resources/image/button_right.gif\");float: right;'></span>" +
+                "<span class='buttonspan2' style='background-image:url(\"../resources/image/button_center.gif\");float: right;'>" +
+                $("#" + id).attr("name") +
+                "</span>" +
+                "<span class='buttonspan1' style='background-image:url(\"../resources/image/button_left.gif\");float: right;'>");
+    });
 });
 /*
  * delete the left blank characters of a string 

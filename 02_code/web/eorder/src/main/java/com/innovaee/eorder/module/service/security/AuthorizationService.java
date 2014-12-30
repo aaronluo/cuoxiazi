@@ -1,14 +1,13 @@
 /***********************************************
- * Filename		: AuthorizationService.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : AuthorizationService.java 
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
 package com.innovaee.eorder.module.service.security;
 
-import java.util.Collection;
-
-import javax.annotation.Resource;
+import com.innovaee.eorder.module.service.BaseService;
+import com.innovaee.eorder.module.vo.UserDetailsVo;
 
 import org.apache.log4j.Logger;
 import org.springframework.security.access.AccessDecisionManager;
@@ -19,79 +18,100 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 
-import com.innovaee.eorder.module.service.BaseService;
-import com.innovaee.eorder.module.vo.UserDetailsVo;
+import java.util.Collection;
 
-/**   
-* @Title: AuthorizationService 
-* @Description: 授权服务 
-* @author coderdream@gmail.com   
-* @version V1.0   
-*/
-public class AuthorizationService extends BaseService implements AccessDecisionManager {
+import javax.annotation.Resource;
 
-	private static final Logger logger = Logger.getLogger(AuthorizationService.class);
+/**
+ * @Title: AuthorizationService
+ * @Description: 授权服务
+ * @author coderdream@gmail.com
+ * @version V1.0
+ */
+public class AuthorizationService extends BaseService implements
+        AccessDecisionManager {
 
-	@Resource
-	private SecurityMetadataSourceService securityMetadataSourceService;
+    private static final Logger logger = Logger
+            .getLogger(AuthorizationService.class);
 
-	@Override
-	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
-			throws AccessDeniedException, InsufficientAuthenticationException {
+    @Resource
+    private SecurityMetadataSourceService securityMetadataSourceService;
 
-		String requestUrl = ((FilterInvocation) object).getRequestUrl();
+    @Override
+    public void decide(Authentication authentication, Object object,
+            Collection<ConfigAttribute> configAttributes)
+            throws AccessDeniedException, InsufficientAuthenticationException {
 
-		if ("anonymousUser".equals(authentication.getName())) {
-			logger.info("authentication is default value, user has not login! requestUrl[" + requestUrl + "]");
-			throw new InsufficientAuthenticationException("un-authenticated user");
-		}
+        String requestUrl = ((FilterInvocation) object).getRequestUrl();
 
-		boolean isManagedAttribute = false;
-		for (ConfigAttribute ca : securityMetadataSourceService.getAllConfigAttributes()) {
-			if (requestUrl.equals(ca.getAttribute())) {
-				logger.debug("request url [" + requestUrl + "] has been managed.");
-				isManagedAttribute = true;
-				break;
-			}
-		}
-		if (!isManagedAttribute) {
-			logger.debug("request url [" + requestUrl + "] is not a managed attribute.");
-			return;
-		}
+        if ("anonymousUser".equals(authentication.getName())) {
+            logger.info("authentication is default value, user has not login! requestUrl["
+                    + requestUrl + "]");
+            throw new InsufficientAuthenticationException(
+                    "un-authenticated user");
+        }
 
-		UserDetailsVo userDetailsVo = (UserDetailsVo) authentication.getPrincipal();
+        boolean isManagedAttribute = false;
+        for (ConfigAttribute ca : securityMetadataSourceService
+                .getAllConfigAttributes()) {
+            if (requestUrl.equals(ca.getAttribute())) {
+                logger.debug("request url [" + requestUrl
+                        + "] has been managed.");
+                isManagedAttribute = true;
+                break;
+            }
+        }
+        if (!isManagedAttribute) {
+            logger.debug("request url [" + requestUrl
+                    + "] is not a managed attribute.");
+            return;
+        }
 
-		logger.debug("AuthorizationService.decide()=================>Authentication Info Start");
-		logger.debug("AuthorizationService.decide()=================>Name[" + authentication.getName() + "]");
-		logger.debug("AuthorizationService.decide()=================>Principal[" + userDetailsVo + "]");
-		logger.debug("AuthorizationService.decide()=================>Authorities[" + authentication.getAuthorities() + "]");
-		logger.debug("AuthorizationService.decide()=================>Credentials[" + authentication.getCredentials() + "]");
-		logger.debug("AuthorizationService.decide()=================>Details[" + authentication.getDetails() + "]");
-		logger.debug("AuthorizationService.decide()=================>Authentication Info End");
+        UserDetailsVo userDetailsVo = (UserDetailsVo) authentication
+                .getPrincipal();
 
-		for (GrantedAuthority ga : authentication.getAuthorities()) {
-			if (requestUrl.equals(ga.getAuthority())) {
-				logger.debug(String.format("attribute[%s] has been granted to user[%s], roles[%s]", requestUrl, authentication.getName(),
-						userDetailsVo.getRolesName()));
-				return;
-			}
-		}
+        logger.debug("AuthorizationService.decide()=================>Authentication Info Start");
+        logger.debug("AuthorizationService.decide()=================>Name["
+                + authentication.getName() + "]");
+        logger.debug("AuthorizationService.decide()=================>Principal["
+                + userDetailsVo + "]");
+        logger.debug("AuthorizationService.decide()=================>Authorities["
+                + authentication.getAuthorities() + "]");
+        logger.debug("AuthorizationService.decide()=================>Credentials["
+                + authentication.getCredentials() + "]");
+        logger.debug("AuthorizationService.decide()=================>Details["
+                + authentication.getDetails() + "]");
+        logger.debug("AuthorizationService.decide()=================>Authentication Info End");
 
-		logger.debug(String.format("attribute[%s] has not been granted to user[%s], roles[%s]", requestUrl, authentication.getName(),
-				userDetailsVo.getRolesName()));
-		throw new AccessDeniedException("Access Denied");
-	}
+        for (GrantedAuthority ga : authentication.getAuthorities()) {
+            if (requestUrl.equals(ga.getAuthority())) {
+                logger.debug(String
+                        .format("attribute[%s] has been granted to user[%s], roles[%s]",
+                                requestUrl, authentication.getName(),
+                                userDetailsVo.getRolesName()));
+                return;
+            }
+        }
 
-	@Override
-	public boolean supports(ConfigAttribute attribute) {
-		logger.debug("AuthorizationService.supports(ConfigAttribute attribute), supported attribute is: " + attribute.getAttribute());
-		return true;
-	}
+        logger.debug(String.format(
+                "attribute[%s] has not been granted to user[%s], roles[%s]",
+                requestUrl, authentication.getName(),
+                userDetailsVo.getRolesName()));
+        throw new AccessDeniedException("Access Denied");
+    }
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		logger.debug("AuthorizationService.supports(Class<?> clazz), supported class is: " + clazz.getName());
-		return true;
-	}
+    @Override
+    public boolean supports(ConfigAttribute attribute) {
+        logger.debug("AuthorizationService.supports(ConfigAttribute attribute), supported attribute is: "
+                + attribute.getAttribute());
+        return true;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        logger.debug("AuthorizationService.supports(Class<?> clazz), supported class is: "
+                + clazz.getName());
+        return true;
+    }
 
 }
