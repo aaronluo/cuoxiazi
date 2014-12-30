@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
  * @version V1.0
  */
 public class Md5Util {
-    private static final Logger logger = Logger.getLogger(Md5Util.class);
+    private static final Logger LOGGER = Logger.getLogger(Md5Util.class);
 
     /**
      * 获取MD5编码
@@ -39,7 +39,7 @@ public class Md5Util {
 
             messageDigest.update(str.getBytes("UTF-8"));
         } catch (NoSuchAlgorithmException e) {
-            logger.error("NoSuchAlgorithmException caught!");
+            LOGGER.error("NoSuchAlgorithmException caught!");
             System.exit(-1);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
