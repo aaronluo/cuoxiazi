@@ -19,7 +19,7 @@ import org.aspectj.lang.JoinPoint;
  */
 public class LoggerUtilInterceptor {
 
-    private static final LoggerUtility loggerUtility = LoggerUtility
+    private static final LoggerUtility LOGGER_UTILITY = LoggerUtility
             .getInstance();
 
     /**
@@ -30,7 +30,7 @@ public class LoggerUtilInterceptor {
     public void startInvoke(JoinPoint joinPoint) {
         String methodName = String.format("%s.%s", joinPoint.getSignature()
                 .getDeclaringTypeName(), joinPoint.getSignature().getName());
-        loggerUtility.startInvoke(methodName);
+        LOGGER_UTILITY.startInvoke(methodName);
     }
 
     /**
@@ -41,6 +41,6 @@ public class LoggerUtilInterceptor {
     public void endInvoke(JoinPoint joinPoint) {
         String methodName = String.format("%s.%s", joinPoint.getSignature()
                 .getDeclaringTypeName(), joinPoint.getSignature().getName());
-        loggerUtility.endInvoke(methodName);
+        LOGGER_UTILITY.endInvoke(methodName);
     }
 }
