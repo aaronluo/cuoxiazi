@@ -4,8 +4,8 @@
     android:layout_height="80dp"
     android:layout_gravity="center"
     android:descendantFocusability="blocksDescendants"
-    android:background="#ffeeeeee">				
-    <RelativeLayout	
+    android:background="#ffeeeeee">        
+    <RelativeLayout 
         android:id="@+id/goods_layout_text"
         android:layout_width="match_parent"
         android:layout_height="80dp">
