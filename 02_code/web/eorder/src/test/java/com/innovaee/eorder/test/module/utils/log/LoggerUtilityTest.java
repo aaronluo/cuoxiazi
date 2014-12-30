@@ -26,28 +26,28 @@ public class LoggerUtilityTest {
     
     static class LoggerThread extends Thread {
 
-        private static final LoggerUtility loggerUtility = LoggerUtility
+        private static final LoggerUtility LOGGER_UTIILTY = LoggerUtility
                 .getInstance();
 
         public void tier2() {
-            loggerUtility.startInvoke("tier2");
-            loggerUtility.endInvoke("tier2");
+            LOGGER_UTIILTY.startInvoke("tier2");
+            LOGGER_UTIILTY.endInvoke("tier2");
         }
 
         @Override
         public void run() {
-            loggerUtility.startBizProcess("testLoggerUtility");
-            loggerUtility.startInvoke("run");
+            LOGGER_UTIILTY.startBizProcess("testLoggerUtility");
+            LOGGER_UTIILTY.startInvoke("run");
             tier2();
             try {
-                loggerUtility.startPerformanceLog("Thread.sleep");
+                LOGGER_UTIILTY.startPerformanceLog("Thread.sleep");
                 Thread.sleep(2 * 1000L);
-                loggerUtility.endPerformanceLog();
+                LOGGER_UTIILTY.endPerformanceLog();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            loggerUtility.endInvoke("run");
-            loggerUtility.endBizProcess();
+            LOGGER_UTIILTY.endInvoke("run");
+            LOGGER_UTIILTY.endBizProcess();
 
             synchronized (this) {
                 notifyAll();
