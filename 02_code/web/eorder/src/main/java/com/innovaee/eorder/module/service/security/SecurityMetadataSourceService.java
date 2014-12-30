@@ -44,7 +44,7 @@ import javax.annotation.Resource;
 public class SecurityMetadataSourceService extends BaseService implements
         FilterInvocationSecurityMetadataSource {
 
-    private static final Logger logger = Logger
+    private static final Logger LOGGER = Logger
             .getLogger(SecurityMetadataSourceService.class);
 
     @Resource
@@ -144,7 +144,7 @@ public class SecurityMetadataSourceService extends BaseService implements
     }
 
     public boolean supports(Class<?> clazz) {
-        logger.debug("SecurityMetadataSourceService.supports(Class<?> clazz), supported class is: "
+        LOGGER.debug("SecurityMetadataSourceService.supports(Class<?> clazz), supported class is: "
                 + clazz.getName());
         return true;
     }

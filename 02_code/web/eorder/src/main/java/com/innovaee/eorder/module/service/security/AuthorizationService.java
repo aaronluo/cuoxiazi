@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 public class AuthorizationService extends BaseService implements
         AccessDecisionManager {
 
-    private static final Logger logger = Logger
+    private static final Logger LOGGER = Logger
             .getLogger(AuthorizationService.class);
 
     @Resource
@@ -45,7 +45,7 @@ public class AuthorizationService extends BaseService implements
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
 
         if ("anonymousUser".equals(authentication.getName())) {
-            logger.info("authentication is default value, user has not login! requestUrl["
+            LOGGER.info("authentication is default value, user has not login! requestUrl["
                     + requestUrl + "]");
             throw new InsufficientAuthenticationException(
                     "un-authenticated user");
@@ -55,14 +55,14 @@ public class AuthorizationService extends BaseService implements
         for (ConfigAttribute ca : securityMetadataSourceService
                 .getAllConfigAttributes()) {
             if (requestUrl.equals(ca.getAttribute())) {
-                logger.debug("request url [" + requestUrl
+                LOGGER.debug("request url [" + requestUrl
                         + "] has been managed.");
                 isManagedAttribute = true;
                 break;
             }
         }
         if (!isManagedAttribute) {
-            logger.debug("request url [" + requestUrl
+            LOGGER.debug("request url [" + requestUrl
                     + "] is not a managed attribute.");
             return;
         }
@@ -70,22 +70,22 @@ public class AuthorizationService extends BaseService implements
         UserDetailsVo userDetailsVo = (UserDetailsVo) authentication
                 .getPrincipal();
 
-        logger.debug("AuthorizationService.decide()=================>Authentication Info Start");
-        logger.debug("AuthorizationService.decide()=================>Name["
+        LOGGER.debug("AuthorizationService.decide()=================>Authentication Info Start");
+        LOGGER.debug("AuthorizationService.decide()=================>Name["
                 + authentication.getName() + "]");
-        logger.debug("AuthorizationService.decide()=================>Principal["
+        LOGGER.debug("AuthorizationService.decide()=================>Principal["
                 + userDetailsVo + "]");
-        logger.debug("AuthorizationService.decide()=================>Authorities["
+        LOGGER.debug("AuthorizationService.decide()=================>Authorities["
                 + authentication.getAuthorities() + "]");
-        logger.debug("AuthorizationService.decide()=================>Credentials["
+        LOGGER.debug("AuthorizationService.decide()=================>Credentials["
                 + authentication.getCredentials() + "]");
-        logger.debug("AuthorizationService.decide()=================>Details["
+        LOGGER.debug("AuthorizationService.decide()=================>Details["
                 + authentication.getDetails() + "]");
-        logger.debug("AuthorizationService.decide()=================>Authentication Info End");
+        LOGGER.debug("AuthorizationService.decide()=================>Authentication Info End");
 
         for (GrantedAuthority ga : authentication.getAuthorities()) {
             if (requestUrl.equals(ga.getAuthority())) {
-                logger.debug(String
+                LOGGER.debug(String
                         .format("attribute[%s] has been granted to user[%s], roles[%s]",
                                 requestUrl, authentication.getName(),
                                 userDetailsVo.getRolesName()));
@@ -93,7 +93,7 @@ public class AuthorizationService extends BaseService implements
             }
         }
 
-        logger.debug(String.format(
+        LOGGER.debug(String.format(
                 "attribute[%s] has not been granted to user[%s], roles[%s]",
                 requestUrl, authentication.getName(),
                 userDetailsVo.getRolesName()));
@@ -101,14 +101,14 @@ public class AuthorizationService extends BaseService implements
     }
 
     public boolean supports(ConfigAttribute attribute) {
-        logger.debug("AuthorizationService.supports(ConfigAttribute attribute), "
+        LOGGER.debug("AuthorizationService.supports(ConfigAttribute attribute), "
                 + "supported attribute is: "
                 + attribute.getAttribute());
         return true;
     }
 
     public boolean supports(Class<?> clazz) {
-        logger.debug("AuthorizationService.supports(Class<?> clazz), supported class is: "
+        LOGGER.debug("AuthorizationService.supports(Class<?> clazz), supported class is: "
                 + clazz.getName());
         return true;
     }
