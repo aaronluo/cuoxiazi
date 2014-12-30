@@ -11,11 +11,14 @@ package com.innovaee.eorder.mobile.service;
  * 
  */
 public interface GoodService {
-	
-	/**
-	 * 获取最新的商品信息
-	 * @param id 菜品分类id
-	 * @param callback 回调函数
-	 */
-	public abstract <T> void getAllGoods(int id, ICallback<T> callback);
-}	
+
+    /**
+     * 获取最新的商品信息
+     * 
+     * @param id
+     *            菜品分类id
+     * @param callback
+     *            回调函数
+     */
+    public abstract <T> void getAllGoods(int id, ICallback<T> callback);
+}

@@ -21,95 +21,97 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
-		
+
 /**
  * 菜品数据适配器
  *
  */
 public class GoodsAdapter extends BaseAdapter {
-	private List<GoodsDataBean> listItemsData;
-	private Context context;
-	private LayoutInflater layoutInflater;
-	private GoodsDataBean goodsItemData;
-	private Handler handler;
-	
-	//缓存Item View
-	List<Integer> listPosition = new ArrayList<Integer>();  
-    List<View> listView = new ArrayList<View>();  
-    			
-	public final class ListItemView {
-		public ImageView image;
-		public TextView title;
-	}
-	
-	public GoodsAdapter(Context context, List<GoodsDataBean> list, Handler handler) {
-		this.listItemsData = list;
-		this.context = context;
-		this.handler = handler;	
-		layoutInflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+    private List<GoodsDataBean> listItemsData;
+    private Context context;
+    private LayoutInflater layoutInflater;
+    private GoodsDataBean goodsItemData;
+    private Handler handler;
 
-	public GoodsAdapter(Context context, ArrayList<String> list) {
-		this.context = context;
-		layoutInflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+    // 缓存Item View
+    List<Integer> listPosition = new ArrayList<Integer>();
+    List<View> listView = new ArrayList<View>();
 
-	public int getCount() {
-		if (listItemsData != null) {
-			return listItemsData.size();
-		} else {
-			return 0;
-		}
-	}
+    public final class ListItemView {
+        public ImageView image;
+        public TextView title;
+    }
 
-	public Object getItem(int position) {
-		return listItemsData.get(position);
-	}
+    public GoodsAdapter(Context context, List<GoodsDataBean> list,
+            Handler handler) {
+        this.listItemsData = list;
+        this.context = context;
+        this.handler = handler;
+        layoutInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
-	public long getItemId(int position) {
-		return position;
-	}
-	
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = null;
-		if (listPosition.contains(position) == false) {  
-			//这里设置缓存的Item数量
-			if(listPosition.size() > 50)  
-			{  	
-				//删除第一项
-				listPosition.remove(0);  
-				listView.remove(0);  
-			}  		
-				
-			view = layoutInflater.inflate(R.layout.goods_griditem, null);
-			RemoteImageView imageView = (RemoteImageView) view.findViewById(R.id.goods_image);
-			TextView name = (TextView) view.findViewById(R.id.goods_name);
-			TextView price = (TextView) view.findViewById(R.id.goods_price);		
-							
-			// 获取自定义的类实例
-			goodsItemData = (GoodsDataBean) listItemsData.get(position);
-			imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
-			name.setText(goodsItemData.getName());			
-			price.setText(context.getString(R.string.main_griditem_text_rmb) + String.valueOf(goodsItemData.getPrice()));
-					
-			//添加最新项
-			listPosition.add(position);  
-	        listView.add(view);  	            	
-		} else {  		
-			view = listView.get(listPosition.indexOf(position));
-		}		  			
-		
-		return view;
-	}
-		
-	public void setViewBinder(ViewBinder viewBinder) {
-	}
-		
-	@Override 	
-	public void notifyDataSetChanged() { 		 		 		
-		super.notifyDataSetChanged(); 	
-	}	
-	
+    public GoodsAdapter(Context context, ArrayList<String> list) {
+        this.context = context;
+        layoutInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public int getCount() {
+        if (listItemsData != null) {
+            return listItemsData.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public Object getItem(int position) {
+        return listItemsData.get(position);
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = null;
+        if (listPosition.contains(position) == false) {
+            // 这里设置缓存的Item数量
+            if (listPosition.size() > 50) {
+                // 删除第一项
+                listPosition.remove(0);
+                listView.remove(0);
+            }
+
+            view = layoutInflater.inflate(R.layout.goods_griditem, null);
+            RemoteImageView imageView = (RemoteImageView) view
+                    .findViewById(R.id.goods_image);
+            TextView name = (TextView) view.findViewById(R.id.goods_name);
+            TextView price = (TextView) view.findViewById(R.id.goods_price);
+
+            // 获取自定义的类实例
+            goodsItemData = (GoodsDataBean) listItemsData.get(position);
+            imageView.setImageUrl(listItemsData.get(position).getBitmapUrl());
+            name.setText(goodsItemData.getName());
+            price.setText(context.getString(R.string.main_griditem_text_rmb)
+                    + String.valueOf(goodsItemData.getPrice()));
+
+            // 添加最新项
+            listPosition.add(position);
+            listView.add(view);
+        } else {
+            view = listView.get(listPosition.indexOf(position));
+        }
+
+        return view;
+    }
+
+    public void setViewBinder(ViewBinder viewBinder) {
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
 }
