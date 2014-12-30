@@ -38,7 +38,6 @@ public class AuthorizationService extends BaseService implements
     @Resource
     private SecurityMetadataSourceService securityMetadataSourceService;
 
-    @Override
     public void decide(Authentication authentication, Object object,
             Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
@@ -101,7 +100,6 @@ public class AuthorizationService extends BaseService implements
         throw new AccessDeniedException("Access Denied");
     }
 
-    @Override
     public boolean supports(ConfigAttribute attribute) {
         logger.debug("AuthorizationService.supports(ConfigAttribute attribute), "
                 + "supported attribute is: "
@@ -109,7 +107,6 @@ public class AuthorizationService extends BaseService implements
         return true;
     }
 
-    @Override
     public boolean supports(Class<?> clazz) {
         logger.debug("AuthorizationService.supports(Class<?> clazz), supported class is: "
                 + clazz.getName());
