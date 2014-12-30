@@ -8,19 +8,19 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 public class STFTransactionalTestExecutionListener extends
         TransactionalTestExecutionListener {
-    private static final LoggerUtility loggerUtility = LoggerUtility
+    private static final LoggerUtility LOGGER_UTILITY = LoggerUtility
             .getInstance();
 
     @Override
     public void afterTestMethod(TestContext testContext) throws Exception {
-        loggerUtility.endBizProcess();
+        LOGGER_UTILITY.endBizProcess();
         super.afterTestMethod(testContext);
     }
 
     @Override
     public void beforeTestMethod(TestContext testContext) throws Exception {
         super.beforeTestMethod(testContext);
-        loggerUtility.startBizProcess(testContext.getTestMethod().getName());
+        LOGGER_UTILITY.startBizProcess(testContext.getTestMethod().getName());
     }
 
     @Override
