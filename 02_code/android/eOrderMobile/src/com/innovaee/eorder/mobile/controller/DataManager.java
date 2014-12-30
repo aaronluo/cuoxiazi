@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: DataManager.java																							
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 12/20/2014
+ * Filename    : DataManager.java                                             
+ * Copyright   : Copyright (c) 2014
+ * Company     : Innovaee
+ * Created : 12/20/2014
  ************************************************/
+
 package com.innovaee.eorder.mobile.controller;
 
 import java.util.List;

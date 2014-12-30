@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: MainViewActivity.java	
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 12/20/2014
+ * Filename    : MainViewActivity.java 
+ * Copyright   : Copyright (c) 2014
+ * Company     : Innovaee
+ * Created : 12/20/2014
  ************************************************/
+
 package com.innovaee.eorder.mobile.view;
 
 import java.util.ArrayList;
