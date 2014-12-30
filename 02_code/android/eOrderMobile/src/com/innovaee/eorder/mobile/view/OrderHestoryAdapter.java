@@ -96,8 +96,8 @@ public class OrderHestoryAdapter extends BaseAdapter {
 
             long longTime = Long.valueOf(orderHestoryDataBean.getTime())
                     .longValue();
-            Date d = new Date(longTime);
-            String time = DateFormat.getDateInstance().format(d);
+            Date date = new Date(longTime);
+            String time = DateFormat.getDateInstance().format(date);
 
             orderIdTxtView.setText(context
                     .getString(R.string.orderhestory_item_text_order)
