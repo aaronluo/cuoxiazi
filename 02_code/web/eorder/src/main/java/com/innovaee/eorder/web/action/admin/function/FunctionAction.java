@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession;
 public class FunctionAction extends BaseAction {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(FunctionAction.class);
+    private static final Logger LOGGER = Logger.getLogger(FunctionAction.class);
 
     private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
@@ -73,7 +73,7 @@ public class FunctionAction extends BaseAction {
     }
 
     public String doFunction() {
-        logger.debug("enter doFunction() method");
+        LOGGER.debug("enter doFunction() method");
 
         this.setMessage("");
         // 更新页面数据
@@ -138,7 +138,7 @@ public class FunctionAction extends BaseAction {
     }
 
     public String doUserInfo() {
-        logger.debug("enter doUserInfo() method");
+        LOGGER.debug("enter doUserInfo() method");
 
         // 更新页面数据
         refreshData();
@@ -146,12 +146,12 @@ public class FunctionAction extends BaseAction {
     }
 
     public String doRight() {
-        logger.debug("enter doRight() method");
+        LOGGER.debug("enter doRight() method");
         return SUCCESS;
     }
 
     public String doBottom() {
-        logger.debug("enter doBottom() method");
+        LOGGER.debug("enter doBottom() method");
         return SUCCESS;
     }
 
