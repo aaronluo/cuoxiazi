@@ -1,0 +1,48 @@
+Work Product Name:	app Source Codes
+Date & Time:		2014-12-30
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+1. 注释不完整 (变量，类方法说明)
+	MyApplication.java
+	DataManager.java
+	CategoryDataBean.java
+	GoodsDataBean.java
+	OrderHestoryDataBean.java
+	OrderInfoDataBean.java
+	FeedTypeAdapter.java
+	GoodsAdapter.java
+	MyOrderAdapter.java
+	OrderHestoryAdapter.java
+
+2. 中英文注释混杂
+	DisplayUtil.java
+	ImageDataManager.java
+	RemoteImageView.java
+	OrderActivity.java
+	OrderAdapter.java
+	OrderHestoryActivity.java Line 101
+
+3. DisplayUtil.java Line 129 为什么要调用系统GC？
+
+4. 移除System.out.println 而使用log记录信息
+	FileUtils.java
+
+5. e.printStackTrace()而是用log记录错误信息
+	FileUtils.java
+
+6. 一行文本超过80个字符
+	LruImageCache.java Line 29, 33
+	Env.java
+
+7. 变量名不符合编码规范
+	RemoteImageView.java 成员变量不需要用m作为前缀,比如mState 就直接定义为state
+	ImageDataManager.java 同上
+	FileUtils.java 同上
+	DataManager.java
+
+8. 空的catch{}语句块应该移除或者添加处理语句
+	ImageDataManager.java Line 280, 282, 293, 402, 432, 680
+	FileUtils.java
+	DisplayUtil.java
