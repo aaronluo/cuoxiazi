@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class MenuUtil {
 
-    private static final Logger logger = Logger.getLogger(MenuUtil.class);
+    private final static  Logger LOGGER = Logger.getLogger(MenuUtil.class);
 
     /**
      * 根据缓存中用户信息，获得该用户的权限列表（菜单）
@@ -56,13 +56,13 @@ public class MenuUtil {
 
         // 将功能列表填充到角色链接值对列表中
         menulist.clear();
-        for (UserFunctionVo ufVo : userFunctions) {
+        for (final UserFunctionVo ufVo : userFunctions) {
             if (0 == ufVo.getFunction().getFunctionParent()) {
                 // 检查是否有重复元素
                 boolean duplicated = false;
-                for (RoleLinkVo r : menulist) {
+                for (RoleLinkVo role : menulist) {
                     if (ufVo.getFunction().getFunctionName()
-                            .equals(r.getName())) {
+                            .equals(role.getName())) {
                         duplicated = true;
                         break;
                     }
@@ -71,44 +71,46 @@ public class MenuUtil {
                     continue;
                 }
 
-                RoleLinkVo rlVo = new RoleLinkVo();
-                rlVo.setFlag("1");
-                rlVo.setLink(ufVo.getFunction().getFunctionPath());
-                rlVo.setId(ufVo.getFunction().getFunctionId());
-                rlVo.setName(ufVo.getFunction().getFunctionName());
-                rlVo.setFunctionName(ufVo.getFunction().getFunctionName());
-                rlVo.setOrder(ufVo.getFunction().getFunctionOrder());
-                rlVo.setList(new ArrayList<RoleLinkVo>());
-                menulist.add(rlVo);
+                RoleLinkVo roleLinkVo = new RoleLinkVo();
+                roleLinkVo.setFlag("1");
+                roleLinkVo.setLink(ufVo.getFunction().getFunctionPath());
+                roleLinkVo.setId(ufVo.getFunction().getFunctionId());
+                roleLinkVo.setName(ufVo.getFunction().getFunctionName());
+                roleLinkVo.setFunctionName(ufVo.getFunction().getFunctionName());
+                roleLinkVo.setOrder(ufVo.getFunction().getFunctionOrder());
+                roleLinkVo.setList(new ArrayList<RoleLinkVo>());
+                menulist.add(roleLinkVo);
                 continue;
             }
 
             // 子菜单
             RoleLinkVo parent = null;
-            for (RoleLinkVo p : menulist) {
-                if (p.getId() == ufVo.getFunction().getFunctionParent()) {
-                    parent = p;
+            for (RoleLinkVo roleLinkVo : menulist) {
+                if (roleLinkVo.getId() == ufVo.getFunction().getFunctionParent()) {
+                    parent = roleLinkVo;
                     break;
                 }
             }
             if (null == parent) {
                 // 找不到父节点
-                logger.warn(String.format("cannot find function[%s]'s parent",
+                LOGGER.warn(String.format("cannot find function[%s]'s parent",
                         ufVo.getFunction().getFunctionName()));
                 continue;
             }
 
             // 检查是否有重复
             boolean duplicated = false;
-            for (RoleLinkVo r : parent.getList()) {
-                if (ufVo.getFunction().getFunctionName().equals(r.getName())) {
+            for (RoleLinkVo roleLinkVo : parent.getList()) {
+                if (ufVo.getFunction().getFunctionName().equals(roleLinkVo.getName())) {
                     duplicated = true;
                     break;
                 }
             }
+            
             if (duplicated) {
                 continue;
             }
+            
             RoleLinkVo rlVo = new RoleLinkVo();
             rlVo.setFlag("2");
             rlVo.setLink(ufVo.getFunction().getFunctionPath());
