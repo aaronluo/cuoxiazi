@@ -845,8 +845,9 @@ public class MainViewActivity extends Activity {
             for (GoodsDataBean databean : goodsListData) {
                 orderHestoryGoods.add(databean);
 
-                if (orderHestoryGoods.size() >= 4)
+                if (orderHestoryGoods.size() >= 4) {
                     return;
+                }
             }
         }
     }
