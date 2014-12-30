@@ -17,24 +17,16 @@ import java.util.Date;
  */
 public class InvokeInfo {
 
-    /**
-     * 调用者名称
-     */
+    /* 调用者名称*/
     private String invokerName;
 
-    /**
-     * 开始调用时间
-     */
+    /* 开始调用时间*/
     private Date date;
 
-    /**
-     * 嵌套等级
-     */
+    /*  嵌套等级 */
     private int level;
 
-    /**
-     * 是否在事务
-     */
+    /* 是否在事务 */
     private boolean inTransaction;
 
     public String getInvokerName() {
