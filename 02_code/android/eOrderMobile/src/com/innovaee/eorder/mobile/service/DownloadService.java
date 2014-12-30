@@ -1,5 +1,5 @@
 /***********************************************
- * Filename		: DownloadService.java																									
+ * Filename		: DownloadService.java	
  * Copyright  	: Copyright (c) 2014
  * Company    	: Innovaee
  * Created	    : 12/20/2014

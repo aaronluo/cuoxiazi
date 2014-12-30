@@ -1,5 +1,5 @@
 /***********************************************
- * Filename		: MyOrderActivity.java																									
+ * Filename		: MyOrderActivity.java	
  * Copyright  	: Copyright (c) 2014
  * Company    	: Innovaee
  * Created	    : 12/20/2014
