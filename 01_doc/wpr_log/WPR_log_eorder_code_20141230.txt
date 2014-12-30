@@ -1,0 +1,76 @@
+Work Product Name:	eOrder Source Codes
+Date & Time:		2014-12-30
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+1. 注释不完整
+	RoleDao.java
+	RoleFunctionDao.java
+	Function.java
+	Role.java
+	RoleFunction.java
+	User.java
+	UserLevel.java
+	UserRole.java
+	RoleFunctionService.java
+	AuthenticationService.java
+	AuthorizationService.java
+	SecurityMetadataSourceService.java
+	InvokeInfo.java
+	LoggerUtility.java
+	FunctionVO.java
+	RoleVO.java
+	UserDetailsVo.java
+	UserFunctionVo.java
+	UserVO.java
+	BaseAction.java
+	FunctionAction.java
+	FunctionOpAction.java
+	RoleAction.java
+	RoleOpAction.java
+	UserAction.java
+	UserOpAction.java
+	FunctionServiceTest.java
+	RoleFunctionServiceTest.java
+	RoleServiceTest.java
+	UserRoleServiceTest.java
+	UserServiceTest.java
+	AuthenticationServiceTest.java
+	SecurityMetadataSourceServiceTest.java
+
+2. BaseService 是个空的抽象类，没必要存在
+3. POM里面jetty的插件似乎没有必要
+4. UserService.java Line177 ‘先删除角色’是否应该为‘先删除用户与角色的关联’
+5. 日志格式不统一，AuthenticationService.java Line54 AuthorizationService.java Line 73 - 84
+6. AuthorizationService.java Line 103 - 114， 这两个函数里面仅仅是logger输出信息，有什么具体用处吗？ Call Hierarchy里面也没有其他地方调用
+7. SecurityMetadataSourceService.java Line146 这个函数也是输出日志，有什么具体作用？Call Hierarchy里面也没有其他地方调用
+8. 成员变量采用/* */单行注释
+	Constants.java
+	RoleLinkVo.java
+
+9. Md5Util.java Line 43 System.exit(-1); 会导致app终结 Line 45 e.printStackTrace()不应该出现
+
+10. Replace System.out.println with Logger
+	BaseEntity.java Line 48 and 50 
+	BaseVo.java Line 45 and 47
+	FunctionServiceTest.java
+	RoleFunctionServiceTest.java
+	RoleServiceTest.java
+	UserRoleServiceTest.java
+	UserServiceTest.java
+	AuthenticationServiceTest.java
+	SecurityMetadataSourceServiceTest.java
+
+11. 直接中文字符不利于国际化
+	UserAction.java Line 132
+	UserOpAction.java Line 101, Line 110, 133, 143, 151, 165, 185, 204, 213, 223, 
+
+12. LoginAction.java Line 35: 未被使用的变量
+
+13. 函数命名不合法
+	SecurityMetadataSourceServiceTest.java Line 44, Line 33
+	AuthenticationServiceTest.java Line 76, 45
+	UserServiceTest.java Line 58, 103, 51, 119
+	UserRoleServiceTest.java Line 33, 44
+	RoleFunctionServiceTest.java Line 109, 68, 57, 141, 121
