@@ -26,8 +26,8 @@ public class LoggerInterceptor implements Interceptor {
 
     private static final long serialVersionUID = 1L;
 
-    private static LoggerUtility loggerUtility = LoggerUtility.getInstance();
-    private static Logger LOGGER = Logger.getLogger(LoggerInterceptor.class);
+    private static final LoggerUtility LOGGER_UTILITY = LoggerUtility.getInstance();
+    private static final Logger LOGGER = Logger.getLogger(LoggerInterceptor.class);
 
     public void destroy() {
     }
@@ -41,7 +41,7 @@ public class LoggerInterceptor implements Interceptor {
                 .getClass().getName(), actionInvocation.getProxy().getMethod());
         HttpServletRequest request = ServletActionContext.getRequest();
 
-        loggerUtility.startBizProcess(bizName,
+        LOGGER_UTILITY.startBizProcess(bizName,
                 String.valueOf(Thread.currentThread().getId()));
         try {
             String requestInfo = String.format(
@@ -52,7 +52,7 @@ public class LoggerInterceptor implements Interceptor {
             LOGGER.info(requestInfo);
             return actionInvocation.invoke();
         } finally {
-            loggerUtility.endBizProcess();
+            LOGGER_UTILITY.endBizProcess();
         }
     }
 }
