@@ -1,0 +1,33 @@
+Work Product Name:	ws code
+Date & Time:		2014-12-31
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+1. 注释不完整
+
+2. 成员变量采用/* */单行注释
+	OrderVO.java
+
+
+3. err.printStackTrace() 不应该出现, 用日志或自定义异常
+	UserLevelDaoImpl.java
+	DishDaoImpl.java
+	OrderDaoImpl.java
+	OrderItemDaoImpl.java
+	UserDaoImpl.java
+	UserLevelDaoImpl.java
+
+4. 变量命名不符合命名规范
+	Order.java Line 45, 86, 116 order_seq
+
+5. System.out.println 用 logger代替
+	BaseEntity.java Line 48, 50
+	HibernateUtil.java Line 40
+
+6. 函数命名不符合规范
+	Order.java Line 86, 116, 45, 112
+	UserDaoTest.java Line 48, 56
+
+	
+
