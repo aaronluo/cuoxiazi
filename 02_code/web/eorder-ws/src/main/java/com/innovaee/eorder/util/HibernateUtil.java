@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: HibernateUtil.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : HibernateUtil.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
+
 package com.innovaee.eorder.util;
 
 import org.hibernate.SessionFactory;
@@ -18,29 +19,30 @@ import org.hibernate.cfg.Configuration;
  * @version V1.0
  */
 public class HibernateUtil {
-	private static Configuration configuration;
-	private static SessionFactory sessionFactory;
-	private static StandardServiceRegistry standardServiceRegistry;
-	static {
-		try {
-			// 第一步:读取Hibernate的配置文件 hibernamte.cfg.xml文件
-			configuration = new Configuration().configure("hibernate.cfg.xml");
-			// 第二步:创建服务注册构建器对象，通过配置对象中加载所有的配置信息
-			StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-			sb.applySettings(configuration.getProperties());
-			// 创建注册服务
-			standardServiceRegistry = sb.build();
-			// 第三步:创建会话工厂
-			sessionFactory = configuration
-					.buildSessionFactory(standardServiceRegistry);
-		} catch (Throwable ex) {
-			// Make sure you log the exception, as it might be swallowed
-			System.err.println("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
-	}
+    private static Configuration configuration;
+    private static SessionFactory sessionFactory;
+    private static StandardServiceRegistry standardServiceRegistry;
+    
+    static {
+        try {
+            // 第一步:读取Hibernate的配置文件 hibernamte.cfg.xml文件
+            configuration = new Configuration().configure("hibernate.cfg.xml");
+            // 第二步:创建服务注册构建器对象，通过配置对象中加载所有的配置信息
+            StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
+            sb.applySettings(configuration.getProperties());
+            // 创建注册服务
+            standardServiceRegistry = sb.build();
+            // 第三步:创建会话工厂
+            sessionFactory = configuration
+                    .buildSessionFactory(standardServiceRegistry);
+        } catch (Throwable ex) {
+            // Make sure you log the exception, as it might be swallowed
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
 
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 }
