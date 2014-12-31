@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @Title: UserLevelDao
  * @Description: 用户等级数据访问对象接口
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public interface UserLevelDao {

@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @Title: UserResource
  * @Description: 用户资源
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Path("/users")

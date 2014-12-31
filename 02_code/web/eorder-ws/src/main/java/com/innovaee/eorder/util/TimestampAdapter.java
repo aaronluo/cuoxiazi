@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 /**
  * @Title: TimestampAdapter
  * @Description: 时间适配器
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class TimestampAdapter extends XmlAdapter<Date, Timestamp> {

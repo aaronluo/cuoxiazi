@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * @Title: Category
  * @Description: 菜品分类的实体
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Entity

@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @Title: Order
  * @Description: 订单实体
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Entity

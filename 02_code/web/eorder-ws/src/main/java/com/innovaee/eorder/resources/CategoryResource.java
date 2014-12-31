@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @Title: CategoryResource
  * @Description: 菜品分类资源
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Path("/categories")

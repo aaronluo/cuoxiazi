@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @Title: DishResource
  * @Description: 菜品资源
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Path("/dishes")

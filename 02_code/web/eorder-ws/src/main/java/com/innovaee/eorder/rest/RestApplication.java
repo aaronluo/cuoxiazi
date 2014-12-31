@@ -13,7 +13,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 /**
  * @Title: RestApplication
  * @Description: REST应用入口
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class RestApplication extends ResourceConfig {

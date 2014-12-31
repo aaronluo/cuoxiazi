@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @Title: UserLevel
  * @Description: 用户等级
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Entity

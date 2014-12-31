@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @Title: DishDaoImpl
  * @Description: 菜品数据访问对象接口
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class DishDaoImpl implements DishDao {

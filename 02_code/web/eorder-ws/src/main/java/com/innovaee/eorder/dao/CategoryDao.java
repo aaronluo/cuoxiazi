@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @Title: CategoryDao
  * @Description: 分类数据访问对象接口
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public interface CategoryDao {

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @Title: OrderItemVO
  * @Description: 订单明细值对象
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @XmlRootElement

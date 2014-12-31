@@ -15,7 +15,7 @@ import org.hibernate.cfg.Configuration;
 /**
  * @Title: HibernateUtil
  * @Description: Hibernate 初始化配置工具类
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class HibernateUtil {

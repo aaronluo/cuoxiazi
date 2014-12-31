@@ -20,7 +20,7 @@ import org.junit.Test;
 /**
  * @Title: UserDaoTest
  * @Description: 用户数据访问对象接口测试类
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class UserDaoTest {

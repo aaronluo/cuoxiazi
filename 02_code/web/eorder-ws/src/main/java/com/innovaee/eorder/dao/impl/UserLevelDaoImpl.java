@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @Title: UserLevelDaoImpl
  * @Description: 用户等级数据访问对象实现类
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class UserLevelDaoImpl implements UserLevelDao {

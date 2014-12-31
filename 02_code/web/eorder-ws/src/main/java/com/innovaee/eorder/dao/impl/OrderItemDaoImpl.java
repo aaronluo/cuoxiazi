@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @Title: OrderItemDaoImpl
  * @Description: 订单明细数据访问对象实现类
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 public class OrderItemDaoImpl implements OrderItemDao {

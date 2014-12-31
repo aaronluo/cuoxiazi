@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @Title: OrderItemResource
  * @Description: 订单明细资源
- * @author coderdream@gmail.com
+*
  * @version V1.0
  */
 @Path("/orderitems")
