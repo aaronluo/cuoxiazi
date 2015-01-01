@@ -14,6 +14,7 @@ import java.io.Serializable;
  * 
  */
 public class OrderHestoryDataBean implements Serializable {
+	//序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -37,15 +38,24 @@ public class OrderHestoryDataBean implements Serializable {
     // 订单总价格
     private Double totalPrice;
 
+    /**
+     * 构造函数
+     */
     public OrderHestoryDataBean() {
     }
 
+    /**
+     * 构造函数
+     * @param id 订单id
+     * @param time 订单时间
+     * @param totalPrice 订单总价格
+     */
     public OrderHestoryDataBean(int id, String time, Double totalPrice) {
         this.id = id;
         this.time = time;
         this.totalPrice = totalPrice;
     }
-
+    
     /**
      * 获取订单id
      * 

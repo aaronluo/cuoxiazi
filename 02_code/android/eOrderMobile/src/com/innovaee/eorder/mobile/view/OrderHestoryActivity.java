@@ -98,7 +98,7 @@ public class OrderHestoryActivity extends Activity {
     };
 
     /**
-     * 系统调用 Called when the activity is first created
+     * onCreate方法，系统默认调用
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {

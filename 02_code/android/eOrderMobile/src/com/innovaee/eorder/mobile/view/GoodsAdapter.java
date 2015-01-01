@@ -19,8 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 
 /**
@@ -28,21 +26,33 @@ import android.widget.TextView;
  *
  */
 public class GoodsAdapter extends BaseAdapter {
+	//绑定数据
     private List<GoodsDataBean> listItemsData;
+    
+    //调用者Context
     private Context context;
+    
+    //xml文件加载器
     private LayoutInflater layoutInflater;
+    
+    //每一项数据
     private GoodsDataBean goodsItemData;
+    
+    //消息Handler
     private Handler handler;
 
-    // 缓存Item View
+    //缓存Item
     List<Integer> listPosition = new ArrayList<Integer>();
+    
+    //缓存View
     List<View> listView = new ArrayList<View>();
-
-    public final class ListItemView {
-        public ImageView image;
-        public TextView title;
-    }
-
+    
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param list 绑定数据
+     * @param handler 消息Handler
+     */
     public GoodsAdapter(Context context, List<GoodsDataBean> list,
             Handler handler) {
         this.listItemsData = list;
@@ -52,12 +62,20 @@ public class GoodsAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param list 绑定数据
+     */
     public GoodsAdapter(Context context, ArrayList<String> list) {
         this.context = context;
         layoutInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 得到绑定数据数目
+     */
     public int getCount() {
         if (listItemsData != null) {
             return listItemsData.size();
@@ -66,14 +84,23 @@ public class GoodsAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * 得到绑定数据的每一项
+     */
     public Object getItem(int position) {
         return listItemsData.get(position);
     }
 
+    /**
+     * 得到每一项的id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * 得到每一项的View
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
         if (listPosition.contains(position) == false) {
@@ -106,13 +133,4 @@ public class GoodsAdapter extends BaseAdapter {
 
         return view;
     }
-
-    public void setViewBinder(ViewBinder viewBinder) {
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
-
 }

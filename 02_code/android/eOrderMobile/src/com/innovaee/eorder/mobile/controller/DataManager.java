@@ -22,20 +22,29 @@ import android.content.Context;
  * 
  */
 public class DataManager {
-    private static DataManager self;
+    private static DataManager dataManager;
     private static Context context;
-
+    
+    /**
+     * 构造函数
+     * @param context 调用者的Context
+     */
     private DataManager(Context context) {
         this.context = context.getApplicationContext();
     }
 
+    /**
+     * 单例
+     * @param contextTemp 调用者的Context
+     * @return 单例自身
+     */
     public synchronized static DataManager getInstance(Context contextTemp) {
         context = contextTemp.getApplicationContext();
 
-        if (self == null) {
-            self = new DataManager(context);
+        if (dataManager == null) {
+            dataManager = new DataManager(context);
         }
-        return self;
+        return dataManager;
     }
 
     /**

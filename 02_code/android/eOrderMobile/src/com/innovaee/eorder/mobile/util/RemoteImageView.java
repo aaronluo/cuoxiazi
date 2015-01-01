@@ -30,118 +30,138 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 /**
- * ImageView extended class allowing easy downloading of remote images
- * 
+ * RemoteImageView继续自ImageView
+ * 可以自动从url下载图片
  */
 public class RemoteImageView extends ImageView implements IForeground {
-
+	//下载消息
     private static final int STATE_LOADING = 0x01;
+    
+    //成功消息
     private static final int STATE_SUCCESS = 0x02;
+    
+    //错误消息
     private static final int STATE_ERROR = 0x03;
-
-    private int mState;
-
-    // Hard cache, with a fixed maximum capacity and a life duration
-    // private static final LinkedList<Bitmap> sHardBitmapCache = new
-    // LinkedList<Bitmap>();
-    private final Map<ImageView, String> mImageViews = Collections
+    	
+    //状态
+    private int state;
+    	
+    //对应图片数据
+    private final Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new WeakHashMap<ImageView, String>());
+    
+    //消息Handler
+    private Handler uiHandler;
 
-    private Handler mUiHandler;
+    //图片在listView中的位置
+    private int position;
 
-    /**
-     * Position of the image in the mListView
-     */
-    private int mPosition;
+    //保存图片的listview
+    private ListView listView;
 
-    /**
-     * ListView containg this image
-     */
-    private ListView mListView;
+    //默认图片，加载数据或者没有找到图片时候显示
+    private Integer defaultImage;
+    
+    //图片管理器
+    private ImageDataManager themeImageManager;
 
-    /**
-     * Default image shown while loading or on url not found
-     */
-    private Integer mDefaultImage;
+    //图片显示类型
+    private ImageView.ScaleType scaleTypeDefault;
+    private ImageView.ScaleType scaleTypeContent;
+    
+    //默认高宽比     
+    private float defaultAspect;
 
-    /**
-     * Image manager
-     */
-    private ImageDataManager mThemeImageManager;
+    //内容填充高款比
+    private float curAspect;
+    
+    //是否根据图片的高宽进行高宽比适配
+    private boolean applyAspect;
 
-    private ImageView.ScaleType mScaleTypeDefault;
-    private ImageView.ScaleType mScaleTypeContent;
-    /**
-     * 默认高宽比
-     */
-    private float mDefaultAspect;
-    /**
-     * 内容填充高款比
-     */
-    private float mCurAspect;
-    /**
-     * 是否根据图片的高款进行高款比适配
-     */
-    private boolean mApplyAspect;
-    /**
-     * 计算大小时候，高款比参照物大小
-     */
-    private int mAspectSize;
-    private AspectRef mAspectRef;
+    //计算大小时候，高款比参照物大小
+    private int aspectSize;
+    private AspectRef aspectRef;
 
-    private ForegroundAdapter mFgAdapter;
+    //蒙版数据管理器
+    private ForegroundAdapter fgAdapter;
 
-    /**
-     * 计算大小时候，高款比参照物
-     */
+    //计算大小时候，高宽比参照物
     public static enum AspectRef {
         WIDTH, HEIGHT;
     }
-
+    
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param attrs AttributeSet属性
+     * @param defStyle 风格
+     */
     public RemoteImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
-
+    
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param attrs AttributeSet属性
+     */
     public RemoteImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     */
     public RemoteImageView(Context context) {
         super(context);
         init();
     }
-
+    
     /**
-     * Sharable code between constructors
+     * 初始化函数
      */
     private void init() {
-        mFgAdapter = new ForegroundAdapter(getContext(), this);
-        mFgAdapter.setForegroundDrawable(null); // 默认禁用前景绘制
-        mUiHandler = new Handler(Looper.getMainLooper());
-        mDefaultImage = R.drawable.themestore_common_default_pic;
-        mThemeImageManager = ImageDataManager.getInstance();
-        mScaleTypeDefault = ScaleType.FIT_XY;
-        mScaleTypeContent = ScaleType.CENTER_CROP;
-        mApplyAspect = false;
-        mDefaultAspect = 1.0f;
-        mCurAspect = 1.0f;
-        mAspectSize = 0;
-        mAspectRef = AspectRef.HEIGHT;
+        fgAdapter = new ForegroundAdapter(getContext(), this);
+        fgAdapter.setForegroundDrawable(null); // 默认禁用前景绘制
+        uiHandler = new Handler(Looper.getMainLooper());
+        defaultImage = R.drawable.themestore_common_default_pic;
+        themeImageManager = ImageDataManager.getInstance();
+        scaleTypeDefault = ScaleType.FIT_XY;
+        scaleTypeContent = ScaleType.CENTER_CROP;
+        applyAspect = false;
+        defaultAspect = 1.0f;
+        curAspect = 1.0f;
+        aspectSize = 0;
+        aspectRef = AspectRef.HEIGHT;
     }
 
+    /**
+     * 设置是否根据图片的高宽进行高宽比适配
+     * @param apply 是否要进行适配
+     */
     public void setIsApplyAspect(boolean apply) {
-        mApplyAspect = apply;
+        applyAspect = apply;
     }
 
+    /**
+     * 设置图片的高宽比适配参照物
+     * @param ref 适配参照物
+     * @param size 适配大小
+     */
     public void setAspectSize(AspectRef ref, int size) {
-        mAspectRef = ref;
-        mAspectSize = size;
+        aspectRef = ref;
+        aspectSize = size;
     }
 
+    /**
+     * 设置默认高宽比 
+     * @param defaultDefault
+     */
     public void setDefaultAspect(float defaultDefault) {
-        mDefaultAspect = defaultDefault;
+        defaultAspect = defaultDefault;
     }
 
     /**
@@ -152,40 +172,38 @@ public class RemoteImageView extends ImageView implements IForeground {
     public void prepareImageUrl(String url) {
         loadDefaultImage();
         if (!TextUtils.isEmpty(url)) {
-            mImageViews.put(this, url);
+            imageViews.put(this, url);
         }
     }
-
+    
     /**
-     * Loads image from remote location
-     * 
-     * @param url
-     *            eg. http://random.com/abz.jpg
+     * 加载图片
+     * @param url 图片地址
      */
     public void setImageUrl(String url) {
         if (TextUtils.isEmpty(url)) {
             loadDefaultImage();
             return;
         }
-        String oldUrl = mImageViews.get(this);
-        if (url.equals(oldUrl) && mState == STATE_SUCCESS) {
+        String oldUrl = imageViews.get(this);
+        if (url.equals(oldUrl) && state == STATE_SUCCESS) {
             return;
         }
         removeWaitingTask(oldUrl);
-        mImageViews.put(this, url);
-        Bitmap bitmap = mThemeImageManager.getBitmapFromCache(url);
+        imageViews.put(this, url);
+        Bitmap bitmap = themeImageManager.getBitmapFromCache(url);
         if (bitmap != null) {
             setImageBitmap(url, bitmap);
         } else {
             loadDefaultImage();
             try {
-                mThemeImageManager.downloadImage(url, hashCode(),
+                themeImageManager.downloadImage(url, hashCode(),
                         new OnImageLoaderListener() {
                             @Override
                             public void onImageLoader(final Bitmap bitmap,
                                     final String url) {
                                 if (bitmap != null) {
-                                    mUiHandler.post(new Runnable() {
+                                    uiHandler.post(new Runnable() {
 
                                         @Override
                                         public void run() {
@@ -203,36 +221,35 @@ public class RemoteImageView extends ImageView implements IForeground {
     }
 
     /**
-     * 设置bitmap
-     * 
+     * 设置bitmap 
      * @param url
      *            url地址
      * @param bitmap
      *            bitmap对象
      */
     private void setImageBitmap(String url, Bitmap bitmap) {
-        mState = STATE_ERROR;
-        String tag = mImageViews.get(RemoteImageView.this);
+        state = STATE_ERROR;
+        String tag = imageViews.get(RemoteImageView.this);
         if (tag != null && tag.equals(url)) {
             if (bitmap == null) {
                 loadDefaultImage();
             } else {
                 // if image belongs to a list update it only if it's visible
-                if (mListView != null) {
-                    if (mPosition < mListView.getFirstVisiblePosition()
-                            || mPosition > mListView.getLastVisiblePosition()) {
+                if (listView != null) {
+                    if (position < listView.getFirstVisiblePosition()
+                            || position > listView.getLastVisiblePosition()) {
                         return;
                     }
                 }
-                mState = STATE_SUCCESS;
+                state = STATE_SUCCESS;
                 int width = getWidth() - getPaddingLeft() - getPaddingRight();
                 int height = getHeight() - getPaddingTop() - getPaddingBottom();
                 int bitmapH = bitmap.getHeight();
                 int bitmapW = bitmap.getWidth();
                 float newAapect = (float) bitmapH / bitmapW;
-                if (mApplyAspect) {
-                    if (Math.abs(newAapect - mCurAspect) > 0.000001f) {
-                        mCurAspect = newAapect;
+                if (applyAspect) {
+                    if (Math.abs(newAapect - curAspect) > 0.000001f) {
+                        curAspect = newAapect;
                         requestLayout();
                     }
                 } else if (width > 0 && height > 0
@@ -248,11 +265,11 @@ public class RemoteImageView extends ImageView implements IForeground {
                 }
                 BitmapDrawable bmpDrawable = new BitmapDrawable(getResources(),
                         bitmap);
-                if (!mApplyAspect && mScaleTypeContent == ScaleType.MATRIX) {
+                if (!applyAspect && scaleTypeContent == ScaleType.MATRIX) {
                     setImageMatrix(bmpDrawable.getIntrinsicWidth(),
                             bmpDrawable.getIntrinsicHeight(), width, height);
                 }
-                RemoteImageView.this.setScaleType(mScaleTypeContent);
+                RemoteImageView.this.setScaleType(scaleTypeContent);
                 RemoteImageView.this.setImageDrawable(bmpDrawable);
             }
         }
@@ -263,21 +280,21 @@ public class RemoteImageView extends ImageView implements IForeground {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mApplyAspect) {
+        if (applyAspect) {
             int width;
             int height;
-            if (mAspectRef == AspectRef.WIDTH) {
-                width = mAspectSize;
-                height = (int) (width * mCurAspect);
+            if (aspectRef == AspectRef.WIDTH) {
+                width = aspectSize;
+                height = (int) (width * curAspect);
             } else {
-                height = mAspectSize;
-                width = (int) (height / mCurAspect);
+                height = aspectSize;
+                width = (int) (height / curAspect);
             }
             setMeasuredDimension(width, height);
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
-        if (!mApplyAspect && getScaleType() == ScaleType.MATRIX
+        if (!applyAspect && getScaleType() == ScaleType.MATRIX
                 && getDrawable() != null) {
             Drawable drawable = getDrawable();
             setImageMatrix(drawable.getIntrinsicWidth(),
@@ -287,23 +304,11 @@ public class RemoteImageView extends ImageView implements IForeground {
     }
 
     /**
-     * get bitmap from the method
-     * 
-     * @param url
-     * @return
-     */
-    /*
-     * public Bitmap getImageUsingUrl(String url) { return
-     * mThemeImageManager.getBitmap(url); }
-     */
-
-    /**
-     * Sets default local image shown when remote one is unavailable
-     * 
-     * @param resid
+     * 设置默认图片
+     * @param resid 默认图片id
      */
     public void setDefaultImage(Integer resid) {
-        mDefaultImage = resid;
+        defaultImage = resid;
     }
 
     /**
@@ -313,7 +318,7 @@ public class RemoteImageView extends ImageView implements IForeground {
      *            scale类型
      */
     public void setScaleTypeDefault(ImageView.ScaleType scaleType) {
-        mScaleTypeDefault = scaleType;
+        scaleTypeDefault = scaleType;
     }
 
     /**
@@ -323,47 +328,56 @@ public class RemoteImageView extends ImageView implements IForeground {
      *            scale类型
      */
     public void setScaleTypeContent(ImageView.ScaleType scaleType) {
-        mScaleTypeContent = scaleType;
+        scaleTypeContent = scaleType;
     }
 
     /**
-     * Loads default image
+     * 加载默认图片
      */
     private void loadDefaultImage() {
-        if (mState == STATE_LOADING) {
+        if (state == STATE_LOADING) {
             return;
         }
-        mState = STATE_LOADING;
-        if (mDefaultImage != null) {
-            setScaleType(mScaleTypeDefault);
-            setImageResource(mDefaultImage);
+        state = STATE_LOADING;
+        if (defaultImage != null) {
+            setScaleType(scaleTypeDefault);
+            setImageResource(defaultImage);
         }
-        if (mApplyAspect && Math.abs(mDefaultAspect - mCurAspect) > .000001f) {
-            mCurAspect = mDefaultAspect;
+        if (applyAspect && Math.abs(defaultAspect - curAspect) > .000001f) {
+            curAspect = defaultAspect;
             requestLayout();
         }
     }
 
+    /**
+     * 系统调用 
+     */
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         setImageDrawable(null);
     }
 
+    /**
+     * 系统调用 
+     */
     @Override
     public void onStartTemporaryDetach() {
         super.onStartTemporaryDetach();
     }
 
+    /**
+     * 系统调用 
+     */
     @Override
     public void dispatchDisplayHint(int hint) {
         super.dispatchDisplayHint(hint);
-        final String url = mImageViews.get(this);
+        final String url = imageViews.get(this);
         if (TextUtils.isEmpty(url)) {
             return;
         }
         if (View.VISIBLE == hint) {
-            if (mState != STATE_SUCCESS) {
+            if (state != STATE_SUCCESS) {
                 setImageUrl(url);
             }
         } else {
@@ -372,34 +386,53 @@ public class RemoteImageView extends ImageView implements IForeground {
         }
     }
 
+    /**
+     * 系统调用 
+     */
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        if (mFgAdapter != null) {
-            mFgAdapter.dispatchDraw(canvas);
+        if (fgAdapter != null) {
+            fgAdapter.dispatchDraw(canvas);
         }
     }
 
+    /**
+     * 系统调用 
+     */
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
-        if (mFgAdapter != null) {
-            mFgAdapter.drawableStateChanged();
+        if (fgAdapter != null) {
+            fgAdapter.drawableStateChanged();
         }
     }
 
+    /**
+     * 系统调用 
+     */
     public void setForegroundDrawable(Drawable drawable) {
-        if (mFgAdapter != null) {
-            mFgAdapter.setForegroundDrawable(drawable);
+        if (fgAdapter != null) {
+            fgAdapter.setForegroundDrawable(drawable);
         }
     }
 
+    /**
+     * 系统调用 
+     */
     private void removeWaitingTask(String url) {
-        if (mThemeImageManager != null) {
-            mThemeImageManager.removeTask(hashCode(), url);
+        if (themeImageManager != null) {
+            themeImageManager.removeTask(hashCode(), url);
         }
     }
 
+    /**
+     * 设置图片大小
+     * @param dwidth 宽
+     * @param dheight 高
+     * @param vwidth 转换宽
+     * @param vheight 转换高
+     */
     private void setImageMatrix(int dwidth, int dheight, int vwidth, int vheight) {
         if (vwidth <= 0 || vheight <= 0) {
             setScaleType(ScaleType.CENTER_CROP);

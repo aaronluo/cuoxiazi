@@ -30,7 +30,10 @@ public class OrderHestoryAdapter extends BaseAdapter {
     // 会员历史记录数据
     private List<OrderHestoryDataBean> listItemsData;
 
+    //调用者Context
     private Context context;
+    
+    //xml文件加载器
     private LayoutInflater layoutInflater;
 
     // 缓存Item位置信息
@@ -39,12 +42,21 @@ public class OrderHestoryAdapter extends BaseAdapter {
     // 缓存ItemView
     List<View> listView = new ArrayList<View>();
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     */
     public OrderHestoryAdapter(Context context) {
         this.context = context;
         layoutInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param list 绑定数据
+     */
     public OrderHestoryAdapter(Context context, List<OrderHestoryDataBean> list) {
         this.listItemsData = list;
         this.context = context;
@@ -52,6 +64,9 @@ public class OrderHestoryAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 得到绑定数据总数
+     */
     public int getCount() {
         if (listItemsData != null) {
             return listItemsData.size();
@@ -60,14 +75,23 @@ public class OrderHestoryAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * 得到每一项
+     */
     public Object getItem(int position) {
         return listItemsData.get(position);
     }
 
+    /**
+     * 得到每一项id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * 得到每一项的View
+     */
     @SuppressLint("InflateParams")
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;

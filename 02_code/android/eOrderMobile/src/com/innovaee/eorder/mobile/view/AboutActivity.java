@@ -23,10 +23,15 @@ import android.widget.TextView;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AboutActivity extends Activity {
+	//显示文本编辑器
     TextView aboutText;
+    
+    //窗口ActionBar
     ActionBar actionBar;
 
-    /** Called when the activity is first created. */
+    /**
+     * onCreate方法，系统默认调用
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -42,8 +42,10 @@ import com.innovaee.eorder.mobile.util.Env;
  * 
  */
 public class DownloadService implements GoodService, CategoryService {
-    private static DownloadService self;
+	//DownloadService本身
+    private static DownloadService downloadService;
 
+    //调用者Context
     private static Context context;
 
     /**
@@ -57,7 +59,7 @@ public class DownloadService implements GoodService, CategoryService {
         }
         context = contextTemp.getApplicationContext();
     }
-
+    
     /**
      * 获取DownloadService接口
      * 
@@ -70,10 +72,10 @@ public class DownloadService implements GoodService, CategoryService {
         }
         context = contextTemp.getApplicationContext();
 
-        if (self == null) {
-            self = new DownloadService(context);
+        if (downloadService == null) {
+            downloadService = new DownloadService(context);
         }
-        return self;
+        return downloadService;
     }
 
     /**

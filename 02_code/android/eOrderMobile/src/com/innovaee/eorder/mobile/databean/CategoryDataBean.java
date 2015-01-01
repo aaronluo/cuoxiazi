@@ -15,6 +15,7 @@ import java.io.Serializable;
  * 
  */
 public class CategoryDataBean implements Serializable {
+	//序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -38,9 +39,18 @@ public class CategoryDataBean implements Serializable {
     // 分类背景图片
     private String bitmapUrl;
 
+    /**
+     * 构造函数
+     */
     public CategoryDataBean() {
     }
 
+    /**
+     * 构造函数
+     * @param id 分类id
+     * @param name 分类名
+     * @param bitmapUrl 分类图片的url地址
+     */
     public CategoryDataBean(int id, String name, String bitmapUrl) {
         this.id = id;
         this.name = name;

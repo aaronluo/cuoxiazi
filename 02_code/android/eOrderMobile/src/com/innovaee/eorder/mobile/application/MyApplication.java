@@ -15,8 +15,13 @@ import android.app.Application;
  * 
  */
 public class MyApplication extends Application {
+	//MyApplication自身
     private static MyApplication instance;
 
+    /**
+     * 单例
+     * @return 单例自身
+     */
     public static MyApplication getInstance() {
         return instance;
     }

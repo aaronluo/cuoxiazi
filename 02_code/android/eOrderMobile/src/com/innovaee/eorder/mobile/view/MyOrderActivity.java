@@ -129,7 +129,7 @@ public class MyOrderActivity extends Activity {
     };
 
     /**
-     * 系统自动调用 Called when the activity is first created
+     * onCreate方法，系统默认调用
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override

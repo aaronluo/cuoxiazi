@@ -37,6 +37,7 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.innovaee.eorder.mobile.util.LruImageCache;
@@ -47,74 +48,84 @@ import com.innovaee.eorder.mobile.util.LruImageCache;
  * 
  */
 public class ImageDataManager {
-    // 线程池类型
+    //线程池类型
     public static enum ThreadPoolType {
-        TYPE_LOCAL, // 用于加载本地图片
-        TYPE_REMOTE // 用于下载远程图片
+    	//用于加载本地图片
+        TYPE_LOCAL, 
+        
+        //用于下载远程图片
+        TYPE_REMOTE 
     }
 
-    // 默认小大
+    //默认小大
     private static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
-    // SDcard存储地址
+    //SDcard存储地址
     private static final String STORAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/eOrderMobile";
 
-    /**
-     * Soft cache for bitmaps kicked out of hard cache
-     */
-    // private static LruCache<String, SoftReference<Bitmap>> sSoftBitmapCache =
-    // new LruCache<String, SoftReference<Bitmap>>(
-    // 5);
-
-    private static LruImageCache sSoftBitmapCache = new LruImageCache(
+    //缓存
+    private static LruImageCache softBitmapCache = new LruImageCache(
             DEFAULT_SIZE);
 
-    private static ImageDataManager sInstance = null;
+    //ImageDataManager单例
+    private static ImageDataManager instance = null;
 
-    /**
-     * when available space in SD for theme store is power CACHE_SIZE we should
-     * clear the space about theme store data
-     */
+    //缓存小大
     private static final int CACHE_SIZE = 200 * 1024 * 1024;
-
-    /**
-     * when available space in SD for theme store is low
-     * FREE_SD_SPACE_NEEDED_TO_CACHE, we should not use the SD for storage
-     * Attention: the cache size in megabytes
-     */
+    
+    //当sd空间小于FREE_SD_SPACE_NEEDED_TO_CACHE，将不在使用sd空间
     private static final int FREE_SD_SPACE_NEEDED_TO_CACHE = 10;
 
-    /**
-     * 下载Image的线程池
-     */
-    private ThreadPoolExecutor mImageThreadPoolRemote = null;
-    private ThreadPoolExecutor mImageThreadPoolLocal = null;
-    private HashMap<String, ImageDownloadTask> mActiveQueue; // 活跃任务队列
-    private Queue<Runnable> mWaitTasksQueue = null; // 被reject的任务队列
-    private Object mLock = new Object();
-    private RejectedExecutionHandler mRejectedExecutionHandler = null; // 任务被拒绝执行的处理器
-    private static ScheduledRunnable sScheduledRunnable = null; // 调度Runnable
-    private static ScheduledExecutorService sScheduledExecutorService = null; // 调度线程池
+    //下载Image的线程池
+    private ThreadPoolExecutor imageThreadPoolRemote = null;
+    
+    //下载Image的本地线程池
+    private ThreadPoolExecutor imageThreadPoolLocal = null;
+    
+    //活跃任务队列
+    private HashMap<String, ImageDownloadTask> activeQueue;
+    
+    //被reject的任务队列
+    private Queue<Runnable> waitTasksQueue = null; 
+    
+    //锁
+    private Object lock = new Object();
+    
+    //任务被拒绝执行的处理器
+    private RejectedExecutionHandler rejectedExecutionHandler = null;
+    
+    //调度Runnable
+    private static ScheduledRunnable scheduledRunnable = null; 
+    
+    //调度线程池
+    private static ScheduledExecutorService scheduledExecutorService = null; 
 
+    /**
+     * 构造函数
+     */
     private ImageDataManager() {
-        mActiveQueue = new HashMap<String, ImageDownloadTask>();
-        mWaitTasksQueue = new ConcurrentLinkedQueue<Runnable>();
-        if (sScheduledRunnable == null) {
-            sScheduledRunnable = new ScheduledRunnable();
-            sScheduledExecutorService = Executors
+        activeQueue = new HashMap<String, ImageDownloadTask>();
+        waitTasksQueue = new ConcurrentLinkedQueue<Runnable>();
+        if (scheduledRunnable == null) {
+            scheduledRunnable = new ScheduledRunnable();
+            scheduledExecutorService = Executors
                     .newSingleThreadScheduledExecutor();
-            sScheduledExecutorService.scheduleAtFixedRate(sScheduledRunnable,
+            scheduledExecutorService.scheduleAtFixedRate(scheduledRunnable,
                     0, 150, TimeUnit.MILLISECONDS);
         }
         initRejectedExecutionHandler();
     }
 
+    /**
+     * 获取ImageDataManager对象
+     * @return ImageDataManager对象
+     */
     public synchronized static ImageDataManager getInstance() {
-        if (sInstance == null) {
-            sInstance = new ImageDataManager();
+        if (instance == null) {
+            instance = new ImageDataManager();
         }
-        return sInstance;
+        return instance;
     }
 
     /**
@@ -126,23 +137,23 @@ public class ImageDataManager {
         synchronized (this) {
             ThreadPoolExecutor retval = null;
             if (type == ThreadPoolType.TYPE_LOCAL) {
-                if (mImageThreadPoolLocal == null
-                        || mImageThreadPoolLocal.isShutdown()) {
-                    // 为了下载图片更加的流畅，我们用了3个线程来下载图片
-                    mImageThreadPoolLocal = new ThreadPoolExecutor(3, 5, 10,
+                if (imageThreadPoolLocal == null
+                        || imageThreadPoolLocal.isShutdown()) {
+                    //为了下载图片更加的流畅，我们用了3个线程来下载图片
+                    imageThreadPoolLocal = new ThreadPoolExecutor(3, 5, 10,
                             TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(
-                                    30), mRejectedExecutionHandler);
+                                    30), rejectedExecutionHandler);
                 }
-                retval = mImageThreadPoolLocal;
+                retval = imageThreadPoolLocal;
             } else {
-                if (mImageThreadPoolRemote == null
-                        || mImageThreadPoolRemote.isShutdown()) {
-                    // 为了下载图片更加的流畅，我们用了3个线程来下载图片
-                    mImageThreadPoolRemote = new ThreadPoolExecutor(3, 5, 10,
+                if (imageThreadPoolRemote == null
+                        || imageThreadPoolRemote.isShutdown()) {
+                    //为了下载图片更加的流畅，我们用了3个线程来下载图片
+                    imageThreadPoolRemote = new ThreadPoolExecutor(3, 5, 10,
                             TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(
-                                    30), mRejectedExecutionHandler);
+                                    30), rejectedExecutionHandler);
                 }
-                retval = mImageThreadPoolRemote;
+                retval = imageThreadPoolRemote;
             }
             return retval;
         }
@@ -151,14 +162,13 @@ public class ImageDataManager {
     /**
      * 先从内存缓存中获取Bitmap,如果没有就从SD卡或者手机缓存中获取，SD卡或者手机缓存 没有就去下载
      * 
-     * @param url
-     * @param listener
-     * @return
+     * @param url 图片地址
+     * @param listener 监听器
      */
     public void downloadImage(String url, int hashCode,
             OnImageLoaderListener listener) {
-        synchronized (mLock) {
-            ImageDownloadTask task = mActiveQueue.get(url);
+        synchronized (lock) {
+            ImageDownloadTask task = activeQueue.get(url);
             if (task != null) {
                 task.addListener(hashCode, listener);
                 return;
@@ -173,7 +183,7 @@ public class ImageDataManager {
                 task = new ImageDownloadTask(url);
             }
             task.addListener(hashCode, listener);
-            mActiveQueue.put(url, task);
+            activeQueue.put(url, task);
             executor.execute(task);
         }
     }
@@ -182,17 +192,17 @@ public class ImageDataManager {
      * 取消正在下载的任务
      */
     public synchronized void cancelTask() {
-        synchronized (mLock) {
-            mActiveQueue.clear();
-            mWaitTasksQueue.clear();
+        synchronized (lock) {
+            activeQueue.clear();
+            waitTasksQueue.clear();
         }
-        if (mImageThreadPoolRemote != null) {
-            mImageThreadPoolRemote.shutdownNow();
-            mImageThreadPoolRemote = null;
+        if (imageThreadPoolRemote != null) {
+            imageThreadPoolRemote.shutdownNow();
+            imageThreadPoolRemote = null;
         }
-        if (mImageThreadPoolLocal != null) {
-            mImageThreadPoolLocal.shutdownNow();
-            mImageThreadPoolLocal = null;
+        if (imageThreadPoolLocal != null) {
+            imageThreadPoolLocal.shutdownNow();
+            imageThreadPoolLocal = null;
         }
     }
 
@@ -205,15 +215,14 @@ public class ImageDataManager {
     }
 
     /**
-     * @param url
-     *            The URL of the image that will be retrieved from the cache.
-     * @return The cached bitmap or null if it was not found.
+     * @param url 图片地址
+     * @return 图片对象
      */
     public Bitmap getBitmapFromCache(String url) {
         if (TextUtils.isEmpty(url)) {
             return null;
         }
-        Bitmap bitmap = sSoftBitmapCache.get(url);
+        Bitmap bitmap = softBitmapCache.get(url);
         if (bitmap != null && !bitmap.isRecycled()) {
             return bitmap;
         } else {
@@ -222,10 +231,9 @@ public class ImageDataManager {
     }
 
     /**
-     * 功能简述: 从sd卡加载图片 功能详细描述: 注意:
-     * 
-     * @param url
-     * @return
+     * 功能简述: 从sd卡加载图片  
+     * @param url 图片地址
+     * @return 图片对象
      */
     public Bitmap getBitmapFromSdCard(String url) {
         Bitmap retval = null;
@@ -240,10 +248,9 @@ public class ImageDataManager {
     }
 
     /**
-     * 功能简述: 同步下载图片 功能详细描述: 注意:
-     * 
-     * @param url
-     * @return
+     * 功能简述: 同步下载图片  
+     * @param url 图片地址
+     * @return 图片对象
      */
     public Bitmap downloadBitmapSync(String url) {
         Bitmap bitmap = null;
@@ -277,7 +284,7 @@ public class ImageDataManager {
                 }
             }
         } catch (Exception e) {
-        } catch (OutOfMemoryError e) {
+        	Log.e("downloadBitmapSync", "error!");
         } finally {
             if (contentLength > 0 && readCount != contentLength) {
             } else {
@@ -297,10 +304,9 @@ public class ImageDataManager {
     }
 
     /**
-     * 功能简述: 获取 本地缓存文件 功能详细描述: 注意:
-     * 
-     * @param url
-     * @return
+     * 功能简述: 获取本地缓存文件 
+     * @param url 图片地地址
+     * @return 图片文件
      */
     public File getBitmapSaveFile(String url) {
         File dir = new File(STORAGE_PATH);
@@ -318,10 +324,9 @@ public class ImageDataManager {
     }
 
     /**
-     * 功能简述: 本地缓存文件是否存在 功能详细描述: 注意:
-     * 
-     * @param url
-     * @return
+     * 功能简述: 本地缓存文件是否存在  
+     * @param url 图片地址
+     * @return 是否存在
      */
     public boolean isLocalBitmapExist(String url) {
         boolean retval = false;
@@ -331,9 +336,7 @@ public class ImageDataManager {
     }
 
     /**
-     * An InputStream that skips the exact number of bytes provided, unless it
-     * reaches EOF.
-     * 
+     * InputStream跳过指定直接数
      */
     static class FlushedInputStream extends FilterInputStream {
         public FlushedInputStream(InputStream inputStream) {
@@ -360,24 +363,22 @@ public class ImageDataManager {
     }
 
     /**
-     * Adds this bitmap to the cache.
-     * 
-     * @param bitmap
-     *            The newly downloaded bitmap.
-     */
+     * 把图片加到缓存
+     * @param url 图片地址
+     * @param bitmap 图片对象
+     */	
     public void addBitmapToCache(String url, Bitmap bitmap) {
         if (bitmap == null) {
             return;
         }
-        sSoftBitmapCache.remove(url);
-        // sSoftBitmapCache.put(url, new SoftReference<Bitmap>(bitmap));
-        sSoftBitmapCache.set(url, bitmap);
+        softBitmapCache.remove(url);
+        softBitmapCache.set(url, bitmap);
     }
 
     /**
-     * save bitmap to sdcard
-     * 
-     * @param bm
+     * 保存图片到sdcard
+     * @param url 图片地址
+     * @param bm 图片对象
      */
     private void saveBmpToSd(String url, Bitmap bitmap) {
         autoCleanCache(STORAGE_PATH);
@@ -387,7 +388,7 @@ public class ImageDataManager {
         if (!isSdExits()) {
             return;
         }
-        // if available space is below 50, return
+
         if (FREE_SD_SPACE_NEEDED_TO_CACHE > getSdAvailable()) {
             return;
         }
@@ -400,7 +401,8 @@ public class ImageDataManager {
             outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
         } catch (FileNotFoundException e) {
-        } finally {
+        	Log.e("saveBmpToSd", "error!");
+        } finally {	
             if (outStream != null) {
                 try {
                     outStream.flush();
@@ -413,9 +415,9 @@ public class ImageDataManager {
     }
 
     /**
-     * 在媒体库中隐藏文件夹内的媒体文件 1. 加入.nomedia文件，使媒体功能扫描不到，用户可以通过文件浏览器方便看到 2.
-     * 在文件夹前面加点，隐藏整个文件夹，用户需要对文件浏览器设置显示点文件才能看到
-     * 
+     * 在媒体库中隐藏文件夹内的媒体文件 
+     * 1. 加入.nomedia文件，使媒体功能扫描不到，用户可以通过文件浏览器方便看到 
+     * 2.在文件夹前面加点，隐藏整个文件夹，用户需要对文件浏览器设置显示点文件才能看到 
      * @param folder
      *            文件夹
      */
@@ -430,18 +432,16 @@ public class ImageDataManager {
             try {
                 file.createNewFile();
             } catch (Exception e) {
+            	Log.e("hideMedia", "error!");
             }
         }
         file = null;
     }
 
     /**
-     * calculate size of the file, when file size > CACHE_SIZE or the available
-     * space for sdcard < FREE_SD_SPACE_NEEDED_TO_CACHE, delete 40% for unused
-     * files recently
-     * 
-     * @param dirPath
-     */
+     * 自动清除缓存 
+     * @param dirPath 地址
+     */	
     private void autoCleanCache(String dirPath) {
         if (!isSdExits()) {
             return;
@@ -468,9 +468,7 @@ public class ImageDataManager {
     }
 
     /**
-     * sort file based on latest modify time
-     * 
-     * 
+     * 按最后修改时间排列文件
      */
     class FileLastModifSort implements Comparator<File> {
         @Override
@@ -486,9 +484,8 @@ public class ImageDataManager {
     }
 
     /**
-     * judge exists for SD
-     * 
-     * @return
+     * 判断是否存在sd卡
+     * @return 是否存在
      */
     public static boolean isSdExits() {
         String status = Environment.getExternalStorageState();
@@ -500,9 +497,8 @@ public class ImageDataManager {
     }
 
     /**
-     * obtain extra space size for SD card
-     * 
-     * @return
+     * 获取sd卡剩余空间
+     * @return sd卡剩余空间
      */
     private static int getSdAvailable() {
         File path = Environment.getExternalStorageDirectory();
@@ -513,10 +509,13 @@ public class ImageDataManager {
         return (int) sdFreeMB;
     }
 
+    /**
+     * 下载任务
+     */
     private void executeWaitTask() {
-        synchronized (mLock) {
+        synchronized (lock) {
             if (hasMoreWaitTask()) {
-                Runnable runnable = mWaitTasksQueue.poll();
+                Runnable runnable = waitTasksQueue.poll();
                 if (runnable != null) {
                     ThreadPoolType threadPoolType = ThreadPoolType.TYPE_LOCAL;
                     if (runnable instanceof ImageDownloadTask) {
@@ -536,13 +535,13 @@ public class ImageDataManager {
      * 初始化任务被拒绝执行的处理器的方法
      */
     private void initRejectedExecutionHandler() {
-        mRejectedExecutionHandler = new RejectedExecutionHandler() {
+        rejectedExecutionHandler = new RejectedExecutionHandler() {
             @Override
             public void rejectedExecution(Runnable r,
                     ThreadPoolExecutor executor) {
-                // 把被拒绝的任务重新放入到等待队列中
-                synchronized (mLock) {
-                    mWaitTasksQueue.offer(r);
+                //把被拒绝的任务重新放入到等待队列中
+                synchronized (lock) {
+                    waitTasksQueue.offer(r);
                 }
             }
         };
@@ -555,46 +554,55 @@ public class ImageDataManager {
      */
     public boolean hasMoreWaitTask() {
         boolean result = false;
-        if (!mWaitTasksQueue.isEmpty()) {
+        if (!waitTasksQueue.isEmpty()) {
             result = true;
         }
         return result;
     }
 
+    /**
+     * 删除任务
+     * @param hashCode 任务id
+     * @param url 图片地址
+     * @return 是否删除成功
+     */
     public boolean removeTask(int hashCode, String url) {
         if (TextUtils.isEmpty(url)) {
             return false;
         }
 
-        synchronized (mLock) {
+        synchronized (lock) {
             boolean needRemove = true;
-            ImageDownloadTask task = mActiveQueue.get(url);
+            ImageDownloadTask task = activeQueue.get(url);
             if (task != null) {
                 needRemove = task.removeListener(hashCode);
             }
             if (needRemove) {
-                mActiveQueue.remove(url);
-                if (mWaitTasksQueue.contains(task)) {
-                    mWaitTasksQueue.remove(task);
+                activeQueue.remove(url);
+                if (waitTasksQueue.contains(task)) {
+                    waitTasksQueue.remove(task);
                 }
-                if (mImageThreadPoolRemote != null) {
-                    mImageThreadPoolRemote.remove(task);
+                if (imageThreadPoolRemote != null) {
+                    imageThreadPoolRemote.remove(task);
                 }
-                if (mImageThreadPoolLocal != null) {
-                    mImageThreadPoolLocal.remove(task);
+                if (imageThreadPoolLocal != null) {
+                    imageThreadPoolLocal.remove(task);
                 }
             }
             return needRemove;
         }
     }
 
+    /**
+     * 销毁函数
+     */
     public void destory() {
         cancelTask();
-        sInstance = null;
-        if (sScheduledRunnable != null) {
-            sScheduledRunnable = null;
+        instance = null;
+        if (scheduledRunnable != null) {
+            scheduledRunnable = null;
         }
-        mRejectedExecutionHandler = null;
+        rejectedExecutionHandler = null;
     }
 
     /**
@@ -687,7 +695,7 @@ public class ImageDataManager {
                     listener.onImageLoader(bitmap, mUrl);
                 }
             }
-            mActiveQueue.remove(mUrl);
+            activeQueue.remove(mUrl);
         }
 
     }

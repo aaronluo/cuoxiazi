@@ -26,11 +26,13 @@ public class LruImageCache implements IImageCache {
     // 默认小大
     public static final int DEFAULT_SIZE = 5 * 1024 * 1024;
 
-    // 强引用缓存，线程安全 当缓存超过限定大小时，该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
+    //强引用缓存，线程安全当缓存超过限定大小时，
+    //该缓存会把最久没有使用的图片从缓存中移除，直到小于限制值为止
     private LruCache<String, Bitmap> lruCache = null;
 
     // 弱引用缓存
-    private ConcurrentHashMap<String, SoftReference<Bitmap>> softCache = new ConcurrentHashMap<String, SoftReference<Bitmap>>();
+    private ConcurrentHashMap<String, SoftReference<Bitmap>> softCache 
+    	= new ConcurrentHashMap<String, SoftReference<Bitmap>>();
 
     /**
      * 构造函数

@@ -14,6 +14,7 @@ import java.io.Serializable;
  * 
  */
 public class UserInfoDataBean implements Serializable {
+	//序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -49,9 +50,20 @@ public class UserInfoDataBean implements Serializable {
     // 会员等级折扣
     private Double discount;
 
+    /**
+     * 构造函数
+     */
     public UserInfoDataBean() {
     }
 
+    /**
+     * 构造函数
+     * @param userId 会员id
+     * @param userName 会员名
+     * @param cellphone 电话号码
+     * @param levelName 电话号码
+     * @param discount 会员折扣
+     */
     public UserInfoDataBean(int userId, String userName, String cellphone,
             String levelName, Double discount) {
         this.userId = userId;
@@ -130,7 +142,7 @@ public class UserInfoDataBean implements Serializable {
     /**
      * 设置会员等级名
      * 
-     * @param levelName
+     * @param levelName 等级名
      */
     public void setLevelName(String levelName) {
         this.levelName = levelName;
@@ -154,4 +166,4 @@ public class UserInfoDataBean implements Serializable {
     public void setCount(Double discount) {
         this.discount = discount;
     }
-}
+}	

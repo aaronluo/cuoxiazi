@@ -14,6 +14,7 @@ import java.io.Serializable;
  * 
  */
 public class OrderInfoDataBean implements Serializable {
+	//序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -49,9 +50,20 @@ public class OrderInfoDataBean implements Serializable {
     // 商品图片url地址
     private String dishPicture;
 
+    /**
+     * 构造函数
+     */
     public OrderInfoDataBean() {
     }
 
+    /**
+     * 构造函数
+     * @param dishId 订单id
+     * @param dishName 订单id
+     * @param dishPrice 订单价格
+     * @param dishAmount 商品数量
+     * @param dishPicture 订单价格
+     */
     public OrderInfoDataBean(int dishId, String dishName, Double dishPrice,
             int dishAmount, String dishPicture) {
         this.dishId = dishId;
@@ -83,7 +95,7 @@ public class OrderInfoDataBean implements Serializable {
     /**
      * 得到订单名
      * 
-     * @return 订单名
+     * @return 订单id
      */
     public String getDishName() {
         return this.dishName;

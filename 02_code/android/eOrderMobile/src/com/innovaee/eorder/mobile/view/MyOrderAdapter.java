@@ -28,21 +28,40 @@ import android.widget.TextView;
  *
  */
 public class MyOrderAdapter extends BaseAdapter {
+	//绑定数据
     private List<GoodsDataBean> listItemsData;
+    
+    //调用者Context
     private Context context;
+    
+    //xml文件加载器
     private LayoutInflater layoutInflater;
+    
+    //消息Handler
     private Handler handler;
 
-    // 缓存Item View
+    //缓存Item
     List<Integer> listPosition = new ArrayList<Integer>();
+    
+    //缓存View
     List<View> listView = new ArrayList<View>();
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     */
     public MyOrderAdapter(Context context) {
         this.context = context;
         layoutInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 构造函数
+     * @param context 调用者Context
+     * @param list 绑定数据
+     * @param handler 消息Handler
+     */
     public MyOrderAdapter(Context context, List<GoodsDataBean> list,
             Handler handler) {
         this.listItemsData = list;
@@ -52,6 +71,9 @@ public class MyOrderAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    /**
+     * 得到绑定数据总数
+     */
     public int getCount() {
         if (listItemsData != null) {
             return listItemsData.size();
@@ -60,14 +82,23 @@ public class MyOrderAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * 得到每一项
+     */
     public Object getItem(int position) {
         return listItemsData.get(position);
     }
 
+    /**
+     * 得到每一项id
+     */
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * 得到每一项的View
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
 

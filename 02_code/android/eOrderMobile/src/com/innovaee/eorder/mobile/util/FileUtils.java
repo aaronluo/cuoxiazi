@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Log;
 
 /**
  * 文件操作工具集
@@ -56,10 +57,10 @@ public final class FileUtils {
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.d("saveBitmap", e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+        	Log.d("saveBitmap", e.toString());
+        }	
     }
 
     /**
@@ -94,35 +95,35 @@ public final class FileUtils {
             if (replace) {
                 file.delete();
             } else {
-                System.out.println("创建单个文件" + destFileName + "失败，目标文件已存在！");
+                Log.d("createFile:", "创建单个文件失败" + destFileName);
                 return false;
             }
         }
         if (destFileName.endsWith(File.separator)) {
-            System.out.println("创建单个文件" + destFileName + "失败，目标不能是目录！");
+            Log.d("createFile:", "创建单个文件失败，目标不能是目录" + destFileName);
             return false;
-        }
+        }	
         if (!file.getParentFile().exists()) {
-            System.out.println("目标文件所在路径不存在，准备创建。。。");
             if (!file.getParentFile().mkdirs()) {
-                System.out.println("创建目录文件所在的目录失败！");
+                Log.d("createFile:", "创建目录文件所在的目录失败！");
                 return false;
             }
         }
-        // 创建目标文件
+        	
+        //创建目标文件
         try {
             if (file.createNewFile()) {
-                System.out.println("创建单个文件" + destFileName + "成功！");
+                Log.d("createFile:", "创建单个文件成功！" + destFileName);
                 return true;
             } else {
-                System.out.println("创建单个文件" + destFileName + "失败！");
+            	Log.d("createFile:", "创建单个文件失败！" + destFileName);
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("创建单个文件" + destFileName + "失败！");
+            Log.d("createFile:", "创建单个文件失败！" + destFileName);
             return false;
-        }
+        }	
     }
 
     /**

@@ -26,11 +26,18 @@ import android.widget.Toast;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class SettingsActivity extends Activity {
+	//服务器地址编辑器
     EditText serviceUrl;
+    
+    //确认按钮
     Button okBtn;
+    
+    //界面显示Actionbar
     ActionBar actionBar;
 
-    /** Called when the activity is first created. */
+    /**
+     * onCreate方法，系统默认调用
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

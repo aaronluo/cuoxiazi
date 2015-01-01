@@ -35,13 +35,10 @@ public class DisplayUtil {
         Bitmap retval = null;
         try {
             BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inDither = false; // Disable Dithering mode
-            opts.inPurgeable = true; // Tell to gc that whether it needs free
-            // memory, the Bitmap can be cleared
-            opts.inInputShareable = true; // Which kind of reference will be
-                                          // used to recover the Bitmap data
-                                          // after being clear, when it will
-                                          // be used in the future
+            opts.inDither = false; 
+            opts.inPurgeable = true; 
+            opts.inInputShareable = true; 
+            		
             // 3.0以下系统，压缩图片质量
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
                 opts.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -90,14 +87,11 @@ public class DisplayUtil {
 
         Bitmap retval = null;
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inDither = false; // Disable Dithering mode
-        opts.inPurgeable = true; // Tell to gc that whether it needs free
-                                 // memory, the Bitmap can be cleared
-        opts.inInputShareable = true; // Which kind of reference will be
-                                      // used to recover the Bitmap data
-                                      // after being clear, when it will
-                                      // be used in the future
-        // 3.0以下系统，压缩图片质量
+        opts.inDither = false; 
+        opts.inPurgeable = true;                          
+        opts.inInputShareable = true; 
+                                     
+        //3.0以下系统，压缩图片质量
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             opts.inPreferredConfig = Bitmap.Config.RGB_565;
             opts.inDither = true;

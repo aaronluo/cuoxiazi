@@ -14,6 +14,7 @@ import java.io.Serializable;
  * 
  */
 public class TableInfoDataBean implements Serializable {
+	//序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -43,9 +44,17 @@ public class TableInfoDataBean implements Serializable {
     // 总价
     private Double dishPrice;
 
+    //构造函数
     public TableInfoDataBean() {
     }
-
+    
+    /**
+     * 构造函数
+     * @param tableId 开台id
+     * @param cellphone 开台电话号码
+     * @param servantId 员工工号
+     * @param dishPrice 总价
+     */
     public TableInfoDataBean(int tableId, String cellphone, String servantId,
             Double dishPrice) {
         this.tableId = tableId;
