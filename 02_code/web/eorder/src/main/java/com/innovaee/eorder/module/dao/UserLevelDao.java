@@ -22,88 +22,88 @@ import java.util.List;
  */
 public class UserLevelDao extends BaseDao {
 
-    public UserLevelDao() {
-        super();
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Class getEntityClass() {
+		return UserLevel.class;
+	}
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    protected Class getEntityClass() {
-        return UserLevel.class;
-    }
+	/**
+	 * 通过用户等级名称查找用户等级
+	 * 
+	 * @param userLevelname
+	 *            用户等级名称
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public UserLevel findUserLevelsByUserLevelName(String userLevelname) {
+		List<UserLevel> list = (List<UserLevel>) super
+				.getHibernateTemplate()
+				.find("FROM UserLevel u WHERE u.userLevelname=?", userLevelname);
+		if (null != list && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
-    /**
-     * 通过用户等级名称查找用户等级
-     * 
-     * @param userLevelname
-     *            用户等级名称
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public UserLevel findUserLevelsByUserLevelName(String userLevelname) {
-        List<UserLevel> list = (List<UserLevel>) super
-                .getHibernateTemplate()
-                .find("FROM UserLevel u WHERE u.userLevelname=?", userLevelname);
-        if (null != list && list.size() > 0) {
-            return list.get(0);
-        }
-        return null;
-    }
+	/**
+	 * 查找所有的用户等级
+	 * 
+	 * @return 用户等级列表
+	 */
+	@SuppressWarnings("unchecked")
+	public List<UserLevel> findAllUserLevels() {
+		return (List<UserLevel>) super.getHibernateTemplate().find(
+				"FROM UserLevel");
+	}
 
-    /**
-     * 查找所有的用户等级
-     * 
-     * @return 用户等级列表
-     */
-    @SuppressWarnings("unchecked")
-    public List<UserLevel> findAllUserLevels() {
-        return (List<UserLevel>) super.getHibernateTemplate().find(
-                "FROM UserLevel");
-    }
+	/**
+	 * 通过等级ID查找用户等级
+	 * 
+	 * @param levelId
+	 *            等级ID
+	 * @return 用户等级
+	 */
+	public UserLevel loadUserLevel(Integer levelId) {
+		return (UserLevel) get(levelId);
+	}
 
-    /**
-     * 通过等级ID查找用户等级
-     * 
-     * @param levelId
-     *            等级ID
-     * @return 用户等级
-     */
-    public UserLevel loadUserLevel(Integer levelId) {
-        return (UserLevel) get(levelId);
-    }
+	/**
+	 * 保存用户等级信息
+	 * 
+	 * @param userLevel
+	 *            待保存的用户等级信息
+	 * @return 待保存的用户等级
+	 */
+	public UserLevel saveUserLevel(UserLevel userLevel) {
+		Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+				.getTime()));
+		userLevel.setCreateAt(createAt);
+		return (UserLevel) save(userLevel);
+	}
 
-    /**
-     * 保存用户等级信息
-     * 
-     * @param userLevel
-     *            待保存的用户等级信息
-     * @return 待保存的用户等级
-     */
-    public UserLevel saveUserLevel(UserLevel userLevel) {
-        return (UserLevel) save(userLevel);
-    }
+	/**
+	 * 更新用户等级信息
+	 * 
+	 * @param userLevel
+	 *            待更新的用户等级信息
+	 */
+	public void updateUserLevel(UserLevel userLevel) {
+		Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+				.getTime()));
+		userLevel.setUpdateAt(updateAt);
+		update(userLevel);
+	}
 
-    /**
-     * 更新用户等级信息
-     * 
-     * @param userLevel
-     *            待更新的用户等级信息
-     */
-    public void updateUserLevel(UserLevel userLevel) {
-        Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
-                "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
-                .getTime()));
-        userLevel.setUpdateAt(updateAt);
-        update(userLevel);
-    }
-
-    /**
-     * 移除用户等级信息
-     * 
-     * @param userLevel
-     *            待移除的用户等级信息
-     */
-    public void removeUserLevel(UserLevel userLevel) {
-        super.getHibernateTemplate().delete(userLevel);
-    }
+	/**
+	 * 移除用户等级信息
+	 * 
+	 * @param userLevel
+	 *            待移除的用户等级信息
+	 */
+	public void removeUserLevel(UserLevel userLevel) {
+		super.getHibernateTemplate().delete(userLevel);
+	}
 }

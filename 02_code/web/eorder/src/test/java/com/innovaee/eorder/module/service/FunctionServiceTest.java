@@ -1,103 +1,112 @@
-
 package com.innovaee.eorder.module.service;
 
-import com.innovaee.eorder.module.entity.Function;
-import com.innovaee.eorder.test.BaseSpringTestCase;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import com.innovaee.eorder.module.entity.Function;
+import com.innovaee.eorder.module.vo.FunctionVO;
 
+/**
+ * @Title: FunctionServiceTest
+ * @Description: 功能服务测试类
+ * @version V1.0
+ */
 public class FunctionServiceTest extends BaseSpringTestCase {
 
-    @Autowired
-    private FunctionService functionService;
+	/** 功能服务类对象 */
+	@Autowired
+	private FunctionService functionService;
 
-    private String functionName = "测试";
-    private String functionDesc = "测试";
-    private String functionPath = "/test/doTest.action";
-    private Integer functionParent = 1;
-    private String functionOrder = "010500";
-    private Boolean functionStatus = true;
+	/** 功能名称 */
+	private String functionName = "FunctionName1";
 
-    @Test
-    public void getAllFunctions() {
-        List<Function> allFunctions = functionService.findAllFunctions();
-        Assert.assertNotNull(allFunctions);
-        for (Function function : allFunctions) {
-            System.out.println(function);
-        }
-    }
+	/** 功能描述 */
+	private String functionDesc = "FunctionDesc1";
 
-    @Test
-    public void loadFunction() {
-        Integer functionId = 2;
-        Function function = functionService.loadFunction(functionId);
-        Assert.assertNotNull(function);
-        Assert.assertEquals("功能管理", function.getFunctionName());
-        System.out.println(function);
-    }
+	/** 功能路径 */
+	private String functionPath = "/test/doTest.action";
 
-    @Test
-    public void findFunctionsByParentFunctionId() {
-        Integer parentFunctionId = 1;
-        List<Function> functionList = functionService
-                .findFunctionsByParentFunctionId(parentFunctionId);
-        Assert.assertNotNull(functionList);
-        for (Function function : functionList) {
-            System.out.println(function);
-        }
-    }
+	/** 父功能ID */
+	private Integer functionParent = 1;
 
-    @Test
-    public void saveFunction() {
-        Function function = new Function(functionName, functionDesc,
-                functionPath, functionParent, functionOrder, functionStatus,
-                createAt);
-        Function functionNew = functionService.saveFunction(function);
+	/** 功能排序 */
+	private String functionOrder = "010500";
 
-        // 检查
-        Function functionDB = functionService.loadFunction(functionNew
-                .getFunctionId());
-        Assert.assertNotNull(functionDB);
-        Assert.assertEquals("测试", functionDB.getFunctionName());
-    }
+	/** 功能状态 */
+	private Boolean functionStatus = true;
 
-    @Test
-    public void updateFunction() {
-        // 先新增一个对象
-        Function function = new Function(functionName, functionDesc,
-                functionPath, functionParent, functionOrder, functionStatus);
-        Function functionNew = functionService.saveFunction(function);
+	/**
+	 * 返回所有值对象列表
+	 */
+	@Test
+	public void getAllFunctions() {
+		List<FunctionVO> allFunctionVOs = functionService.findAllFunctionVOs();
+		Assert.assertNotNull(allFunctionVOs);
+		for (FunctionVO functionVO : allFunctionVOs) {
+			LOGGER.debug(functionVO);
+		}
+	}
 
-        // 更新属性
-        String newFunctionName = "测试2";
-        String newFunctionDesc = "测试2";
-        functionNew.setFunctionName(newFunctionName);
-        functionNew.setFunctionDesc(newFunctionDesc);
-        functionService.updateFunction(functionNew);
+	/**
+	 * 先增加，再查找，再删除，再查找
+	 */
+	@Test
+	public void operateFunction() {
+		// 先新增一个对象
+		Function function = new Function(functionName, functionDesc,
+				functionPath, functionParent, functionOrder, functionStatus);
 
-        // 得到新增后的ID
-        Integer functionId = functionNew.getFunctionId();
-        
-        // 检查
-        Function functionDB = functionService.loadFunction(functionId);
-        Assert.assertNotNull(functionDB);
-        Assert.assertEquals("测试2", functionDB.getFunctionName());
-    }
+		// 1. 保存
+		Function functionNew = functionService.saveFunction(function);
 
-    @Test
-    public void removeFunction() {
-        Function function = new Function(functionName, functionDesc,
-                functionPath, functionParent, functionOrder, functionStatus);
-        Function functionNew = functionService.saveFunction(function);
-        Integer functionId = functionNew.getFunctionId();
-        functionService.removeFunction(functionId);
-        // 检查
-        Function functionDB = functionService.loadFunction(functionId);
-        Assert.assertNull(functionDB);
-    }
+		// 得到新增后的ID
+		Integer functionId = functionNew.getFunctionId();
+
+		// 更新属性
+		String newFunctionName = "FunctionName2";
+		String newFunctionDesc = "FunctionDesc2";
+		functionNew.setFunctionName(newFunctionName);
+		functionNew.setFunctionDesc(newFunctionDesc);
+		// 2. 更新
+		functionService.updateFunction(functionNew);
+
+		// 3. 查找
+		// 3.1 根据角色名称查找角色
+		Function functionDB = functionService
+				.findFunctionByFunctionName(newFunctionName);
+		Assert.assertNotNull(functionDB);
+		Assert.assertEquals(newFunctionName, functionDB.getFunctionName());
+		Assert.assertEquals(newFunctionDesc, functionDB.getFunctionDesc());
+
+		// 4. 移除
+		functionService.removeFunction(functionNew.getFunctionId());
+
+		// 3.2 通过角色ID查找角色
+		functionDB = functionService.loadFunction(functionId);
+		Assert.assertNull(functionDB);
+	}
+
+	/**
+	 * 查找（通过功能名称查找功能）
+	 */
+	@Test
+	public void findFunctionByFunctionName() {
+		Function functionDB = functionService
+				.findFunctionByFunctionName(functionName);
+		Assert.assertNull(functionDB);
+	}
+
+	/**
+	 * 查找（通过功能名称查找功能）
+	 */
+	@Test
+	public void findFunctionsByParentFunctionId() {
+		List<Function> functionListDB = functionService
+				.findFunctionsByParentFunctionId(functionParent);
+		Assert.assertNotNull(functionListDB);
+	}
 
 }

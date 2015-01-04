@@ -19,92 +19,83 @@ import java.util.List;
 
 public class RoleLinkVo extends BaseVo {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 菜单项排序号
-     */
-    private String order;
-    /**
-     * 菜单ID
-     */
-    private Integer id;
-    /**
-     * 菜单名
-     */
-    private String name;
-    /**
-     * 功能名称
-     */
-    private String functionName;
-    /**
-     * 链接地址
-     */
-    private String link;
-    /**
-     * 菜单等级，1为父节点，2为子节点
-     */
-    private String flag;
+	/** 菜单项排序号 */
+	private String order;
 
-    /**
-     * 子节点菜单列表
-     */
-    private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
+	/** 菜单ID */
+	private Integer id;
 
-    public String getOrder() {
-        return order;
-    }
+	/** 菜单名 */
+	private String name;
 
-    public void setOrder(String order) {
-        this.order = order;
-    }
+	/** 功能名称 */
+	private String functionName;
 
-    public String getName() {
-        return name;
-    }
+	/** 链接地址 */
+	private String link;
+	
+	/** 菜单等级，1为父节点，2为子节点 */
+	private String flag;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/** 子节点菜单列表 */
+	private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
 
-    public String getFunctionName() {
-        return functionName;
-    }
+	public String getOrder() {
+		return order;
+	}
 
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
-    }
+	public void setOrder(String order) {
+		this.order = order;
+	}
 
-    public String getLink() {
-        return link;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getFlag() {
-        return flag;
-    }
+	public String getFunctionName() {
+		return functionName;
+	}
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
+	public void setFunctionName(String functionName) {
+		this.functionName = functionName;
+	}
 
-    public List<RoleLinkVo> getList() {
-        return list;
-    }
+	public String getLink() {
+		return link;
+	}
 
-    public void setList(List<RoleLinkVo> list) {
-        this.list = list;
-    }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public String getFlag() {
+		return flag;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public List<RoleLinkVo> getList() {
+		return list;
+	}
+
+	public void setList(List<RoleLinkVo> list) {
+		this.list = list;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 }

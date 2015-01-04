@@ -8,7 +8,6 @@
 package com.innovaee.eorder.module.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,110 +26,93 @@ import javax.persistence.Table;
 @Table(name = "t_role_function")
 public class RoleFunction extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    public Serializable getPK() {
-        return roleFunctionId;
-    }
+	@Override
+	public Serializable getPK() {
+		return roleFunctionId;
+	}
 
-    /**
-     * 角色功能ID
-     */
-    @Id
-    @Column(name = "ROLE_FUNCTION_ID", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer roleFunctionId;
+	/**
+	 * 角色功能ID
+	 */
+	@Id
+	@Column(name = "ROLE_FUNCTION_ID", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer roleFunctionId;
 
-    /**
-     * 角色ID
-     */
-    @Column(name = "role_ID")
-    private Integer roleId;
+	/**
+	 * 角色ID
+	 */
+	@Column(name = "role_ID")
+	private Integer roleId;
 
-    /**
-     * 功能ID
-     */
-    @Column(name = "function_ID")
-    private Integer functionId;
+	/**
+	 * 功能ID
+	 */
+	@Column(name = "function_ID")
+	private Integer functionId;
 
-    /**
-     * 创建时间
-     */
-    @Column(name = "CREATE_AT")
-    private Timestamp createAt;
+	/**
+	 * 构造函数
+	 */
+	public RoleFunction() {
+	}
 
-    /**
-     * 更新时间
-     */
-    @Column(name = "UPDATE_AT")
-    private Timestamp updateAt;
+	/**
+	 * 构造函数
+	 * 
+	 * @param roleFunctionId
+	 *            角色功能ID
+	 */
+	public RoleFunction(Integer roleFunctionId) {
+		this.roleFunctionId = roleFunctionId;
+	}
 
-    public RoleFunction() {
-    }
+	/**
+	 * 构造函数
+	 * 
+	 * @param roleId
+	 *            角色ID
+	 * @param functionId
+	 *            功能ID
+	 */
+	public RoleFunction(Integer roleId, Integer functionId) {
+		super();
+		this.roleId = roleId;
+		this.functionId = functionId;
+	}
 
-    public RoleFunction(Integer roleFunctionId) {
-        this.roleFunctionId = roleFunctionId;
-    }
+	public Integer getRoleFunctionId() {
+		return roleFunctionId;
+	}
 
-    public RoleFunction(Integer roleId, Integer functionId) {
-        super();
-        this.roleId = roleId;
-        this.functionId = functionId;
-    }
+	public void setRoleFunctionId(Integer roleFunctionId) {
+		this.roleFunctionId = roleFunctionId;
+	}
 
-    public RoleFunction(Integer roleId, Integer functionId, Timestamp createAt) {
-        super();
-        this.roleId = roleId;
-        this.functionId = functionId;
-        this.createAt = createAt;
-    }
+	public Integer getRoleId() {
+		return roleId;
+	}
 
-    public Integer getRoleFunctionId() {
-        return roleFunctionId;
-    }
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
-    public void setRoleFunctionId(Integer roleFunctionId) {
-        this.roleFunctionId = roleFunctionId;
-    }
+	public Integer getFunctionId() {
+		return functionId;
+	}
 
-    public Integer getRoleId() {
-        return roleId;
-    }
+	public void setFunctionId(Integer functionId) {
+		this.functionId = functionId;
+	}
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Integer getFunctionId() {
-        return functionId;
-    }
-
-    public void setFunctionId(Integer functionId) {
-        this.functionId = functionId;
-    }
-
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    @Override
-    public String toString() {
-        return "RoleFunction [roleFunctionId=" + roleFunctionId + ", roleId="
-                + roleId + ", functionId=" + functionId + ", createAt="
-                + createAt + ", updateAt=" + updateAt + "]";
-    }
+	@Override
+	public String toString() {
+		return "RoleFunction [roleFunctionId=" + roleFunctionId + ", roleId="
+				+ roleId + ", functionId=" + functionId + ", createAt="
+				+ super.getCreateAt() + ", updateAt=" + super.getUpdateAt()
+				+ "]";
+	}
 
 }

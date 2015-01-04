@@ -15,15 +15,12 @@ package com.innovaee.eorder.module.utils;
  */
 public class Constants {
 
-    public static final String REGEX = ",";
+	/** 分隔符 */
+	public static final String REGEX = ",";
 
-    /**
-     * 默认角色：普通用户
-     */
-    public static  final Integer DEFAULT_ROLE = 2;
+	/** 默认角色：普通用户 */
+	public static final Integer DEFAULT_ROLE = 2;
 
-    /**
-     * 默认等级：普通会员
-     */
-    public static final Integer DEFAULT_LEVEL = 4;
+	/** 默认等级：普通会员 */
+	public static final Integer DEFAULT_LEVEL = 4;
 }

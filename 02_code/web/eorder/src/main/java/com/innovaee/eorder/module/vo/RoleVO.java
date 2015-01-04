@@ -15,62 +15,55 @@ package com.innovaee.eorder.module.vo;
  */
 public class RoleVO extends BaseVo {
 
-    private Integer roleId;
+	/** 角色ID */
+	private Integer roleId;
 
-    private String roleDesc;
+	/** 角色描述 */
+	private String roleDesc;
 
-    private String roleName;
+	/** 角色名称 */
+	private String roleName;
 
-    private String functionName;
+	/** 功能名称 */
+	private String functionName;
 
-    public RoleVO() {
-    }
+	public Integer getRoleId() {
+		return roleId;
+	}
 
-    public RoleVO(Integer roleId) {
-        this.roleId = roleId;
-    }
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
 
-    public RoleVO(String roleDesc) {
-        this.roleDesc = roleDesc;
-    }
+	public String getRoleDesc() {
+		return roleDesc;
+	}
 
-    public Integer getRoleId() {
-        return roleId;
-    }
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
+	}
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
+	public String getRoleName() {
+		return roleName;
+	}
 
-    public String getRoleDesc() {
-        return roleDesc;
-    }
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc;
-    }
+	public String getFunctionName() {
+		return functionName;
+	}
 
-    public String getRoleName() {
-        return roleName;
-    }
+	public void setFunctionName(String functionName) {
+		this.functionName = functionName;
+	}
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getFunctionName() {
-        return functionName;
-    }
-
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
-    }
-
-    @Override
-    public String toString() {
-        return "RoleVO [roleId=" + roleId + ", roleDesc=" + roleDesc
-                + ", roleName=" + roleName + ", functionName=" + functionName
-                + "]";
-    }
+	@Override
+	public String toString() {
+		return "RoleVO [roleId=" + roleId + ", roleDesc=" + roleDesc
+				+ ", roleName=" + roleName + ", functionName=" + functionName
+				+ "]";
+	}
 
 }

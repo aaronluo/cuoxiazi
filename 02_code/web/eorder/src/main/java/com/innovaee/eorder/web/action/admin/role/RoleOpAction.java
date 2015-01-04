@@ -33,270 +33,274 @@ import javax.annotation.Resource;
  */
 public class RoleOpAction extends BaseAction {
 
-    private static final long serialVersionUID = 1L;
+	/** 角色ID */
+	private String roleId;
 
-    private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
+	/** 角色名称 */
+	private String roleName;
 
-    private List<RoleLinkVo> list = new ArrayList<RoleLinkVo>();
+	/** 角色描述 */
+	private String roleDesc;
 
-    private String roleId;
-    private String roleName;
-    private String roleDesc;
-    private String[] roleIds;
+	/** 角色值对象列表 */
+	private List<RoleVO> rolevos = new ArrayList<RoleVO>();
 
-    private List<RoleVO> rolevos;
+	/** 角色服务类对象 */
+	@Resource
+	private RoleService roleService;
 
-    @Resource
-    private RoleService roleService;
+	/** 用户角色服务类 */
+	@Resource
+	private UserRoleService userRoleService;
 
-    @Resource
-    private UserRoleService userRoleService;
+	/** 角色功能服务类 */
+	@Resource
+	private RoleFunctionService roleFunctionService;
 
-    @Resource
-    private RoleFunctionService roleFunctionService;
+	/** 已有的功能列表 */
+	private List<Function> myFunctions = new ArrayList<Function>();
 
-    private List<Function> myFunctions = new ArrayList<Function>();
+	/** 剩余的功能列表 */
+	private List<Function> leftFunctions = new ArrayList<Function>();
 
-    private List<Function> leftFunctions = new ArrayList<Function>();
+	/** 已有的功能数组 */
+	private String myFunctionsArray;
 
-    private String myFunctionsArray;
+	/** 剩余的功能数组 */
+	private String leftFunctionsArray;
 
-    private String leftFunctionsArray;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.opensymphony.xwork2.ActionSupport#validate()
+	 */
+	public void validate() {
+		refreshData();
+	}
 
-    private String contextPath;
+	/**
+	 * 保存前的校验
+	 */
+	public void validateSave() {
+		// 查看用户名是否已存在
+		Role role = roleService.findRoleByRoleName(roleName);
+		if (null != role) {
+			addFieldError("roleName", "角色名称已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
+	}
 
-    public void validate() {
-        refreshData();
-    }
+	/**
+	 * 更新前的校验
+	 */
+	public void validateUpdate() {
+		// 查看用户名是否已存在
+		Role role1 = roleService.loadRole(Integer.parseInt(roleId));
+		Role role2 = roleService.findRoleByRoleName(roleName);
+		// 可以找到，而且和自己的名字不同，则说明已经被占用
+		if (null != role2 && role1.getRoleId().equals(role2.getRoleId())) {
+			addFieldError("roleName", "角色名称已被占用！");
+			// 更新页面数据
+			refreshData();
+		}
 
-    public void validateSave() {
-        // 查看用户名是否已存在
-        Role role = roleService.findRoleByRoleName(roleName);
-        if (null != role) {
-            addFieldError("roleName", "角色名称已被占用！");
-            // 更新页面数据
-            refreshData();
-        }
-    }
+	}
 
-    public void validateUpdate() {
-        // 查看用户名是否已存在
-        Role role1 = roleService.loadRole(Integer.parseInt(roleId));
-        Role role2 = roleService.findRoleByRoleName(roleName);
-        // 可以找到，而且和自己的名字不同，则说明已经被占用
-        if (null != role2 && role1.getRoleId() != role2.getRoleId()) {
-            addFieldError("roleName", "角色名称已被占用！");
-            // 更新页面数据
-            refreshData();
-        }
+	/**
+	 * 清空输入框数据
+	 */
+	private void clean() {
+		this.setRoleId("");
+		this.setRoleName("");
+		this.setRoleDesc("");
+	}
 
-    }
+	/**
+	 * 保存角色
+	 * 
+	 * @return
+	 */
+	public String save() {
+		Role role = new Role();
+		if (null != roleName && !"".equals(roleName.trim())) {
+			role.setRoleName(roleName);
+		} else {
+			addFieldError("roleName", "角色名称不能为空！");
+			// 更新页面数据
+			refreshData();
 
-    /**
-     * 清空输入框数据
-     */
-    private void clean() {
-        this.setRoleId("");
-        this.setRoleName("");
-        this.setRoleDesc("");
-    }
+			return INPUT;
+		}
+		if (null != roleDesc && !"".equals(roleDesc.trim())) {
+			role.setRoleDesc(roleDesc);
+		} else {
+			addFieldError("roleDesc", "角色描述不能为空！");
+			// 更新页面数据
+			refreshData();
 
-    public String save() {
-        Role role = new Role();
-        if (null != roleName && !"".equals(roleName.trim())) {
-            role.setRoleName(roleName);
-        } else {
-            addFieldError("roleName", "角色名称不能为空！");
-            // 更新页面数据
-            refreshData();
+			return INPUT;
+		}
 
-            return INPUT;
-        }
-        if (null != roleDesc && !"".equals(roleDesc.trim())) {
-            role.setRoleDesc(roleDesc);
-        } else {
-            addFieldError("roleDesc", "角色描述不能为空！");
-            // 更新页面数据
-            refreshData();
+		role.setRoleStatus(true);
 
-            return INPUT;
-        }
+		roleService.saveRole(role);
 
-        role.setRoleStatus(true);
+		this.setMessage("新增成功！");
 
-        roleService.saveRole(role);
+		// 清空输入框数据
+		clean();
 
-        this.setMessage("新增成功！");
+		refreshData();
+		return SUCCESS;
+	}
 
-        // 清空输入框数据
-        clean();
+	/**
+	 * 更新角色
+	 * 
+	 * @return
+	 */
+	public String update() {
+		Role role = new Role();
+		if (null != roleId) {
+			role = roleService.loadRole(Integer.parseInt(roleId));
+		}
 
-        refreshData();
-        return SUCCESS;
-    }
+		if (null != roleName && !"".equals(roleName.trim())) {
+			role.setRoleName(roleName);
+		} else {
+			addFieldError("roleName", "角色名称不能为空！");
+			// 更新页面数据
+			refreshData();
 
-    public String update() {
-        Role role = new Role();
-        if (null != roleId) {
-            role = roleService.loadRole(Integer.parseInt(roleId));
-        }
+			return INPUT;
+		}
+		if (null != roleDesc && !"".equals(roleDesc.trim())) {
+			role.setRoleDesc(roleDesc);
+		} else {
+			addFieldError("roleDesc", "角色描述不能为空！");
+			// 更新页面数据
+			refreshData();
 
-        if (null != roleName && !"".equals(roleName.trim())) {
-            role.setRoleName(roleName);
-        } else {
-            addFieldError("roleName", "角色名称不能为空！");
-            // 更新页面数据
-            refreshData();
+			return INPUT;
+		}
+		roleService.updateRole(role);
 
-            return INPUT;
-        }
-        if (null != roleDesc && !"".equals(roleDesc.trim())) {
-            role.setRoleDesc(roleDesc);
-        } else {
-            addFieldError("roleDesc", "角色描述不能为空！");
-            // 更新页面数据
-            refreshData();
+		// 更新角色信息
+		roleFunctionService.updateRoleFunction(Integer.parseInt(roleId),
+				myFunctionsArray);
+		this.setMessage("修改成功");
+		// 清空输入框数据
+		clean();
+		refreshData();
+		return SUCCESS;
+	}
 
-            return INPUT;
-        }
-        roleService.updateRole(role);
+	/**
+	 * 刷新页面数据
+	 */
+	public void refreshData() {
+		this.setMenulist(MenuUtil.getRoleLinkVOList());
+		rolevos = roleService.findAllRoleVOs();
+		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		this.setLoginName(userDetail.getUser().getUsername());
+	}
 
-        // 更新角色信息
-        roleFunctionService.updateRoleFunction(Integer.parseInt(roleId),
-                myFunctionsArray);
-        this.setMessage("修改成功");
-        // 清空输入框数据
-        clean();
-        refreshData();
-        return SUCCESS;
-    }
+	public List<RoleVO> getRolevos() {
+		return rolevos;
+	}
 
-    public void refreshData() {
-        this.setMenulist(MenuUtil.getRoleLinkVOList());
-        rolevos = roleService.findAllRoleVOs();
-        UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-        this.setLoginName(userDetail.getUser().getUsername());
-    }
+	public void setRolevos(List<RoleVO> rolevos) {
+		this.rolevos = rolevos;
+	}
 
-    public List<RoleLinkVo> getList() {
-        return list;
-    }
+	public RoleService getRoleService() {
+		return roleService;
+	}
 
-    public void setList(List<RoleLinkVo> list) {
-        this.list = list;
-    }
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
+	}
 
-    public String getContextPath() {
-        return contextPath;
-    }
+	public String getRoleId() {
+		return roleId;
+	}
 
-    public void setContextPath(String contextPath) {
-        this.contextPath = contextPath;
-    }
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
-    public List<RoleVO> getRolevos() {
-        return rolevos;
-    }
+	public String getRoleName() {
+		return roleName;
+	}
 
-    public void setRolevos(List<RoleVO> rolevos) {
-        this.rolevos = rolevos;
-    }
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-    public RoleService getRoleService() {
-        return roleService;
-    }
+	public String getRoleDesc() {
+		return roleDesc;
+	}
 
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
-    }
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
+	}
 
-    public String getRoleId() {
-        return roleId;
-    }
+	public RoleFunctionService getRoleFunctionService() {
+		return roleFunctionService;
+	}
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
+	public void setRoleFunctionService(RoleFunctionService roleFunctionService) {
+		this.roleFunctionService = roleFunctionService;
+	}
 
-    public String getRoleName() {
-        return roleName;
-    }
+	public List<Function> getMyFunctions() {
+		return myFunctions;
+	}
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+	public void setMyFunctions(List<Function> myFunctions) {
+		this.myFunctions = myFunctions;
+	}
 
-    public String getRoleDesc() {
-        return roleDesc;
-    }
+	public List<Function> getLeftFunctions() {
+		return leftFunctions;
+	}
 
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc;
-    }
+	public void setLeftFunctions(List<Function> leftFunctions) {
+		this.leftFunctions = leftFunctions;
+	}
 
-    public String[] getRoleIds() {
-        return roleIds;
-    }
+	public String getMyFunctionsArray() {
+		return myFunctionsArray;
+	}
 
-    public void setRoleIds(String[] roleIds) {
-        this.roleIds = roleIds;
-    }
+	public void setMyFunctionsArray(String myFunctionsArray) {
+		this.myFunctionsArray = myFunctionsArray;
+	}
 
-    public RoleFunctionService getRoleFunctionService() {
-        return roleFunctionService;
-    }
+	public String getLeftFunctionsArray() {
+		return leftFunctionsArray;
+	}
 
-    public void setRoleFunctionService(RoleFunctionService roleFunctionService) {
-        this.roleFunctionService = roleFunctionService;
-    }
+	public void setLeftFunctionsArray(String leftFunctionsArray) {
+		this.leftFunctionsArray = leftFunctionsArray;
+	}
 
-    public List<Function> getMyFunctions() {
-        return myFunctions;
-    }
+	public List<RoleLinkVo> getMenulist() {
+		return menulist;
+	}
 
-    public void setMyFunctions(List<Function> myFunctions) {
-        this.myFunctions = myFunctions;
-    }
+	public void setMenulist(List<RoleLinkVo> menulist) {
+		this.menulist = menulist;
+	}
 
-    public List<Function> getLeftFunctions() {
-        return leftFunctions;
-    }
+	public UserRoleService getUserRoleService() {
+		return userRoleService;
+	}
 
-    public void setLeftFunctions(List<Function> leftFunctions) {
-        this.leftFunctions = leftFunctions;
-    }
-
-    public String getMyFunctionsArray() {
-        return myFunctionsArray;
-    }
-
-    public void setMyFunctionsArray(String myFunctionsArray) {
-        this.myFunctionsArray = myFunctionsArray;
-    }
-
-    public String getLeftFunctionsArray() {
-        return leftFunctionsArray;
-    }
-
-    public void setLeftFunctionsArray(String leftFunctionsArray) {
-        this.leftFunctionsArray = leftFunctionsArray;
-    }
-
-    public List<RoleLinkVo> getMenulist() {
-        return menulist;
-    }
-
-    public void setMenulist(List<RoleLinkVo> menulist) {
-        this.menulist = menulist;
-    }
-
-    public UserRoleService getUserRoleService() {
-        return userRoleService;
-    }
-
-    public void setUserRoleService(UserRoleService userRoleService) {
-        this.userRoleService = userRoleService;
-    }
+	public void setUserRoleService(UserRoleService userRoleService) {
+		this.userRoleService = userRoleService;
+	}
 
 }

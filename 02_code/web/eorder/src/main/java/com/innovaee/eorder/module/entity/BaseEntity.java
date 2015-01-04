@@ -7,14 +7,16 @@
 
 package com.innovaee.eorder.module.entity;
 
-import org.apache.commons.beanutils.BeanUtils;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
+import org.apache.log4j.Logger;
 
 /**
  * @Title: BaseEntity
@@ -24,30 +26,55 @@ import java.lang.reflect.InvocationTargetException;
  */
 public abstract class BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	/** 日志对象 */
+	protected static final Logger LOGGER = Logger.getLogger(BaseEntity.class);
 
-    public abstract Serializable getPK();
+	/**
+	 * 创建时间
+	 */
+	@Column(name = "CREATE_AT")
+	private Timestamp createAt;
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.SIMPLE_STYLE);
-    }
+	/**
+	 * 更新时间
+	 */
+	@Column(name = "UPDATE_AT")
+	private Timestamp updateAt;
 
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
+	/**
+	 * 返回主键
+	 * 
+	 * @return 主键
+	 */
+	public abstract Serializable getPK();
 
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.SIMPLE_STYLE);
+	}
 
-    public void copy(Object orig) {
-        try {
-            BeanUtils.copyProperties(this, orig);
-        } catch (InvocationTargetException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalAccessException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+	public boolean equals(Object object) {
+		return EqualsBuilder.reflectionEquals(this, object);
+	}
+
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(final Timestamp createAt) {
+		this.createAt = createAt;
+	}
+
+	public Timestamp getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(final Timestamp updateAt) {
+		this.updateAt = updateAt;
+	}
+
 }

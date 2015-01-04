@@ -3,43 +3,39 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="false" />
-    <constant name="struts.locale" value="en_UTF-8" />
-    <constant name="struts.i18n.encoding" value="UTF-8" />
-    <constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.locale" value="en_UTF-8" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
 
-    <package name="struts-base" namespace="/struts" extends="struts-default">
+	<package name="struts-base" namespace="/struts" extends="struts-default">
 
-        <interceptors>
-            <interceptor name="loggerInterceptor"
-                class="com.innovaee.eorder.web.interceptor.LoggerInterceptor" />
+		<interceptors>
+			<interceptor-stack name="eorderStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
 
-            <interceptor-stack name="eorderStack">
-                <interceptor-ref name="loggerInterceptor" />
-                <interceptor-ref name="defaultStack" />
-            </interceptor-stack>
+			<interceptor-stack name="tokenStack">
+				<interceptor-ref name="token" />
+				<interceptor-ref name="eorderStack" />
+			</interceptor-stack>
+		</interceptors>
 
-            <interceptor-stack name="tokenStack">
-                <interceptor-ref name="token" />
-                <interceptor-ref name="eorderStack" />
-            </interceptor-stack>
-        </interceptors>
+		<default-interceptor-ref name="eorderStack" />
 
-        <default-interceptor-ref name="eorderStack" />
+		<global-results>
+			<result name="exception">/pages/global/exception.jsp</result>
+		</global-results>
 
-        <global-results>
-            <result name="exception">/pages/global/exception.jsp</result>
-        </global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="exception" />
+		</global-exception-mappings>
+	</package>
 
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="exception" />
-        </global-exception-mappings>
-    </package>
-
-    <!-- Add packages here -->
-    <include file="com/innovaee/eorder/web/action/login/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/function/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/user/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/role/struts.xml" />
+	<!-- Add packages here -->
+	<include file="com/innovaee/eorder/web/action/login/struts.xml" />
+	<include file="com/innovaee/eorder/web/action/admin/function/struts.xml" />
+	<include file="com/innovaee/eorder/web/action/admin/user/struts.xml" />
+	<include file="com/innovaee/eorder/web/action/admin/role/struts.xml" />
 </struts>

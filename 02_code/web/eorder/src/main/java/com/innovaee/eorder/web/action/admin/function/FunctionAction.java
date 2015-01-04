@@ -7,6 +7,15 @@
 
 package com.innovaee.eorder.web.action.admin.function;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.innovaee.eorder.module.entity.Function;
 import com.innovaee.eorder.module.entity.RoleFunction;
 import com.innovaee.eorder.module.service.FunctionService;
@@ -17,17 +26,6 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.web.action.BaseAction;
 
-import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 /**
  * @Title: FunctionAction
  * @Description: 功能Action（查询和删除）
@@ -36,211 +34,198 @@ import javax.servlet.http.HttpSession;
  */
 public class FunctionAction extends BaseAction {
 
-    private static final long serialVersionUID = 1L;
-    private static final Logger LOGGER = Logger.getLogger(FunctionAction.class);
+	/** 功能ID */
+	private String functionId;
 
-    private List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
+	/** 功能名称 */
+	private String functionName;
 
-    private String functionId;
-    private String functionName;
-    private String functionDesc;
-    private String functionPath;
-    private Integer functionParent;
-    private String functionOrder;
-    private List<FunctionVO> functionvos;
+	/** 功能描述 */
+	private String functionDesc;
 
-    @Resource
-    private FunctionService functionService;
+	/** 功能路径 */
+	private String functionPath;
 
-    @Resource
-    private RoleFunctionService roleFunctionService;
+	/** 父功能ID */
+	private Integer functionParent;
 
-    private String contextPath;
+	/** 功能排序 */
+	private String functionOrder;
 
-    @SuppressWarnings("unchecked")
-    public void refreshData() {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession session = request.getSession();
-        request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
-        List<RoleLinkVo> sessionMenulist = (List<RoleLinkVo>) session
-                .getAttribute("menulist");
-        this.setMenulist(sessionMenulist);
-        this.setMenulist(MenuUtil.getRoleLinkVOList());
-        functionvos = functionService.findAllFunctionVOs();
-        UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-        this.setLoginName(userDetail.getUser().getUsername());
-    }
+	/** 功能值对象列表 */
+	private List<FunctionVO> functionvos;
 
-    public String doFunction() {
-        LOGGER.debug("enter doFunction() method");
+	/** 功能服务类对象 */
+	@Resource
+	private FunctionService functionService;
 
-        this.setMessage("");
-        // 更新页面数据
-        refreshData();
-        return SUCCESS;
-    }
+	/** 角色功能服务类对象 */
+	@Resource
+	private RoleFunctionService roleFunctionService;
 
-    public String doLoad() {
-        if (null != functionId && !"".equals(functionId.trim())) {
-            Function function = functionService.loadFunction(Integer
-                    .parseInt(functionId));
+	/**
+	 * 刷新页面数据
+	 */
+	@SuppressWarnings("unchecked")
+	public void refreshData() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		request.setAttribute("menulist", MenuUtil.getRoleLinkVOList());
+		List<RoleLinkVo> sessionMenulist = (List<RoleLinkVo>) session
+				.getAttribute("menulist");
+		this.setMenulist(sessionMenulist);
+		this.setMenulist(MenuUtil.getRoleLinkVOList());
+		functionvos = functionService.findAllFunctionVOs();
+		UserDetailsVo userDetail = (UserDetailsVo) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		this.setLoginName(userDetail.getUser().getUsername());
+	}
 
-            functionName = function.getFunctionName();
-            functionDesc = function.getFunctionDesc();
-            functionPath = function.getFunctionPath();
-            functionParent = function.getFunctionParent();
-            functionOrder = function.getFunctionOrder();
-        }
+	/**
+	 * 进入功能页面
+	 * 
+	 * @return
+	 */
+	public String doFunction() {
+		this.setMessage("");
+		// 更新页面数据
+		refreshData();
+		return SUCCESS;
+	}
 
-        // 更新页面数据
-        refreshData();
-        return SUCCESS;
-    }
+	/**
+	 * 加载单个功能信息
+	 * 
+	 * @return
+	 */
+	public String doLoad() {
+		if (null != functionId && !"".equals(functionId.trim())) {
+			Function function = functionService.loadFunction(Integer
+					.parseInt(functionId));
 
-    public String doList() {
-        // 更新页面数据
-        refreshData();
-        return SUCCESS;
-    }
+			functionName = function.getFunctionName();
+			functionDesc = function.getFunctionDesc();
+			functionPath = function.getFunctionPath();
+			functionParent = function.getFunctionParent();
+			functionOrder = function.getFunctionOrder();
+		}
 
-    public void validateRemove() {
-        if (null != functionId) {
-            // 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
-            List<RoleFunction> myRoleFunctions = roleFunctionService
-                    .findRoleFunctionsByFunctionId(Integer.parseInt(functionId));
-            if (null != myRoleFunctions && 0 < myRoleFunctions.size()) {
-                addFieldError("functionName", "该功能已被分配给某个角色，不能删除！");
+		// 更新页面数据
+		refreshData();
+		return SUCCESS;
+	}
 
-                // 清空删除时传入的Id，防止返回后页面取到
-                this.setFunctionId("");
+	/**
+	 * 删除功能前的校验
+	 */
+	public void validateRemove() {
+		if (null != functionId) {
+			// 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
+			List<RoleFunction> myRoleFunctions = roleFunctionService
+					.findRoleFunctionsByFunctionId(Integer.parseInt(functionId));
+			if (null != myRoleFunctions && 0 < myRoleFunctions.size()) {
+				addFieldError("functionName", "该功能已被分配给某个角色，不能删除！");
 
-                // 更新页面数据
-                refreshData();
-            }
-        }
-    }
+				// 清空删除时传入的Id，防止返回后页面取到
+				this.setFunctionId("");
 
-    public String remove() {
-        if (null != functionId) {
-            functionService.removeFunction(Integer.parseInt(functionId));
-        }
+				// 更新页面数据
+				refreshData();
+			}
+		}
+	}
 
-        this.setMessage("删除成功！");
+	/**
+	 * 删除功能
+	 * 
+	 * @return
+	 */
+	public String remove() {
+		if (null != functionId) {
+			functionService.removeFunction(Integer.parseInt(functionId));
+		}
 
-        // 清空删除时传入的Id，防止返回后页面取到
-        this.setFunctionId("");
+		this.setMessage("删除成功！");
 
-        // 更新页面数据
-        refreshData();
+		// 清空删除时传入的Id，防止返回后页面取到
+		this.setFunctionId("");
 
-        return SUCCESS;
-    }
+		// 更新页面数据
+		refreshData();
 
-    public String doUserInfo() {
-        LOGGER.debug("enter doUserInfo() method");
+		return SUCCESS;
+	}
 
-        // 更新页面数据
-        refreshData();
-        return SUCCESS;
-    }
+	public RoleFunctionService getRoleFunctionService() {
+		return roleFunctionService;
+	}
 
-    public String doRight() {
-        LOGGER.debug("enter doRight() method");
-        return SUCCESS;
-    }
+	public void setRoleFunctionService(RoleFunctionService roleFunctionService) {
+		this.roleFunctionService = roleFunctionService;
+	}
 
-    public String doBottom() {
-        LOGGER.debug("enter doBottom() method");
-        return SUCCESS;
-    }
+	public List<FunctionVO> getFunctionvos() {
+		return functionvos;
+	}
 
-    public List<RoleLinkVo> getMenulist() {
-        return menulist;
-    }
+	public void setFunctionvos(List<FunctionVO> functionvos) {
+		this.functionvos = functionvos;
+	}
 
-    public void setMenulist(List<RoleLinkVo> menulist) {
-        this.menulist = menulist;
-    }
+	public FunctionService getFunctionService() {
+		return functionService;
+	}
 
-    public RoleFunctionService getRoleFunctionService() {
-        return roleFunctionService;
-    }
+	public void setFunctionService(FunctionService functionService) {
+		this.functionService = functionService;
+	}
 
-    public void setRoleFunctionService(RoleFunctionService roleFunctionService) {
-        this.roleFunctionService = roleFunctionService;
-    }
+	public String getFunctionId() {
+		return functionId;
+	}
 
-    public String getContextPath() {
-        return contextPath;
-    }
+	public void setFunctionId(String functionId) {
+		this.functionId = functionId;
+	}
 
-    public void setContextPath(String contextPath) {
-        this.contextPath = contextPath;
-    }
+	public String getFunctionName() {
+		return functionName;
+	}
 
-    public List<FunctionVO> getFunctionvos() {
-        return functionvos;
-    }
+	public void setFunctionName(String functionName) {
+		this.functionName = functionName;
+	}
 
-    public void setFunctionvos(List<FunctionVO> functionvos) {
-        this.functionvos = functionvos;
-    }
+	public String getFunctionDesc() {
+		return functionDesc;
+	}
 
-    public FunctionService getFunctionService() {
-        return functionService;
-    }
+	public void setFunctionDesc(String functionDesc) {
+		this.functionDesc = functionDesc;
+	}
 
-    public void setFunctionService(FunctionService functionService) {
-        this.functionService = functionService;
-    }
+	public String getFunctionPath() {
+		return functionPath;
+	}
 
-    public String getFunctionId() {
-        return functionId;
-    }
+	public void setFunctionPath(String functionPath) {
+		this.functionPath = functionPath;
+	}
 
-    public void setFunctionId(String functionId) {
-        this.functionId = functionId;
-    }
+	public Integer getFunctionParent() {
+		return functionParent;
+	}
 
-    public String getFunctionName() {
-        return functionName;
-    }
+	public void setFunctionParent(Integer functionParent) {
+		this.functionParent = functionParent;
+	}
 
-    public void setFunctionName(String functionName) {
-        this.functionName = functionName;
-    }
+	public String getFunctionOrder() {
+		return functionOrder;
+	}
 
-    public String getFunctionDesc() {
-        return functionDesc;
-    }
-
-    public void setFunctionDesc(String functionDesc) {
-        this.functionDesc = functionDesc;
-    }
-
-    public String getFunctionPath() {
-        return functionPath;
-    }
-
-    public void setFunctionPath(String functionPath) {
-        this.functionPath = functionPath;
-    }
-
-    public Integer getFunctionParent() {
-        return functionParent;
-    }
-
-    public void setFunctionParent(Integer functionParent) {
-        this.functionParent = functionParent;
-    }
-
-    public String getFunctionOrder() {
-        return functionOrder;
-    }
-
-    public void setFunctionOrder(String functionOrder) {
-        this.functionOrder = functionOrder;
-    }
+	public void setFunctionOrder(String functionOrder) {
+		this.functionOrder = functionOrder;
+	}
 
 }

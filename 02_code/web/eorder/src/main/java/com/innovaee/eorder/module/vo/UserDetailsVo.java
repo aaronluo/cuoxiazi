@@ -28,73 +28,79 @@ import java.util.Set;
  */
 public class UserDetailsVo extends BaseVo implements UserDetails {
 
-    private static final long serialVersionUID = 1L;
+	/** 角色名称集合 */
+	private Set<String> rolesName = new HashSet<String>();
 
-    private Set<String> rolesName = new HashSet<String>();
-    private User user;
-    private List<UserFunctionVo> userFunctions;
+	/** 用户 */
+	private User user;
 
-    public List<UserFunctionVo> getUserFunctions() {
-        return userFunctions;
-    }
+	/** 用户功能值对象列表 */
+	private List<UserFunctionVo> userFunctions;
 
-    public void setUserFunctions(List<UserFunctionVo> userFunctions) {
-        this.userFunctions = userFunctions;
+	public List<UserFunctionVo> getUserFunctions() {
+		return userFunctions;
+	}
 
-        if (!userFunctions.isEmpty()) {
-            user = userFunctions.get(0).getUser();
+	public void setUserFunctions(List<UserFunctionVo> userFunctions) {
+		this.userFunctions = userFunctions;
 
-            rolesName.clear();
-            for (UserFunctionVo userFunctionVo : userFunctions) {
-                rolesName.add(userFunctionVo.getRole().getRoleName());
-            }
-        }
-    }
+		if (!userFunctions.isEmpty()) {
+			user = userFunctions.get(0).getUser();
 
-    public Collection<GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+			rolesName.clear();
+			for (UserFunctionVo userFunctionVo : userFunctions) {
+				rolesName.add(userFunctionVo.getRole().getRoleName());
+			}
+		}
+	}
 
-        for (UserFunctionVo ufv : userFunctions) {
-            if (!StringUtils.isEmpty(ufv.getFunction().getFunctionPath())) {
-                GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
-                        ufv.getFunction().getFunctionPath());
-                grantedAuthorities.add(grantedAuthority);
-            }
-        }
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
+	 */
+	public Collection<GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
 
-        return grantedAuthorities;
-    }
+		for (UserFunctionVo ufv : userFunctions) {
+			if (!StringUtils.isEmpty(ufv.getFunction().getFunctionPath())) {
+				GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
+						ufv.getFunction().getFunctionPath());
+				grantedAuthorities.add(grantedAuthority);
+			}
+		}
 
-    public String getPassword() {
-        return user.getPassword();
-    }
+		return grantedAuthorities;
+	}
 
-    public String getUsername() {
-        return user.getUsername();
-    }
+	public String getPassword() {
+		return user.getPassword();
+	}
 
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public String getUsername() {
+		return user.getUsername();
+	}
 
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    public boolean isEnabled() {
-        return user.getUserStatus();
-    }
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    public Set<String> getRolesName() {
-        return rolesName;
-    }
+	public boolean isEnabled() {
+		return user.getUserStatus();
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public Set<String> getRolesName() {
+		return rolesName;
+	}
+
+	public User getUser() {
+		return user;
+	}
 
 }

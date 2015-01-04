@@ -7,6 +7,10 @@
 
 package com.innovaee.eorder.web.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -17,38 +21,34 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class BaseAction extends ActionSupport {
 
-    private static final long serialVersionUID = 1L;
+	protected List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
-    private String loginName;
+	private String loginName;
 
-    private String message;
-    /**
-     * Action Result Value
-     */
-    private String resultValue;
+	private String message;
 
-    public String getResultValue() {
-        return resultValue;
-    }
+	public String getLoginName() {
+		return loginName;
+	}
 
-    public void setResultValue(String resultValue) {
-        this.resultValue = resultValue;
-    }
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 
-    public String getLoginName() {
-        return loginName;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public List<RoleLinkVo> getMenulist() {
+		return menulist;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMenulist(List<RoleLinkVo> menulist) {
+		this.menulist = menulist;
+	}
 
 }

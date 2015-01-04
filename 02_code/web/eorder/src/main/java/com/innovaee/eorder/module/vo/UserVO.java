@@ -7,8 +7,6 @@
 
 package com.innovaee.eorder.module.vo;
 
-import java.sql.Timestamp;
-
 /**
  * @Title: UserVO
  * @Description: 用户值对象
@@ -17,124 +15,88 @@ import java.sql.Timestamp;
  */
 public class UserVO extends BaseVo {
 
-    private Integer userId;
+	/** 用户ID */
+	private Integer userId;
 
-    private String username;
+	/** 用户名称 */
+	private String username;
 
-    private String roleName;
+	/** 角色名称 */
+	private String roleName;
 
-    private String password;
+	/** 密码 */
+	private String password;
 
-    private String cellphone;
+	/** 手机号码 */
+	private String cellphone;
 
-    private String levelName;
+	/** 等级名称 */
+	private String levelName;
 
-    private Boolean userStatus;
+	/** 用户状态 */
+	private Boolean userStatus;
 
-    private Timestamp createAt;
+	public Integer getUserId() {
+		return userId;
+	}
 
-    private Timestamp updateAt;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public UserVO() {
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public UserVO(String username, String password, String cellphone,
-            Integer levelId, Boolean userStatus, Timestamp createAt) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.cellphone = cellphone;
-        this.userStatus = userStatus;
-        this.createAt = createAt;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public UserVO(Integer userId) {
-        this.userId = userId;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public UserVO(String username) {
-        this.username = username;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public Integer getUserId() {
-        return userId;
-    }
+	public String getCellphone() {
+		return cellphone;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public Boolean getUserStatus() {
+		return userStatus;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUserStatus(Boolean userStatus) {
+		this.userStatus = userStatus;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getRoleName() {
+		return roleName;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
-    public String getCellphone() {
-        return cellphone;
-    }
+	public String getLevelName() {
+		return levelName;
+	}
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
-    }
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
+	}
 
-    public Boolean getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Boolean userStatus) {
-        this.userStatus = userStatus;
-    }
-
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getLevelName() {
-        return levelName;
-    }
-
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
-    }
-
-    @Override
-    public String toString() {
-        return "UserVO [userId=" + userId + ", username=" + username
-                + ", roleName=" + roleName + ", password=" + password
-                + ", cellphone=" + cellphone + ", levelName=" + levelName
-                + ", userStatus=" + userStatus + ", createAt=" + createAt
-                + ", updateAt=" + updateAt + "]";
-    }
-
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", username=" + username
+				+ ", roleName=" + roleName + ", password=" + password
+				+ ", cellphone=" + cellphone + ", levelName=" + levelName
+				+ ", userStatus=" + userStatus + "]";
+	}
 }

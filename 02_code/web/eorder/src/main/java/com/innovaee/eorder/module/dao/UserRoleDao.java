@@ -9,6 +9,9 @@ package com.innovaee.eorder.module.dao;
 
 import com.innovaee.eorder.module.entity.UserRole;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,10 +21,6 @@ import java.util.List;
  * @version V1.0
  */
 public class UserRoleDao extends BaseDao {
-    
-    public UserRoleDao() {
-        super();
-    }
 
     @SuppressWarnings("rawtypes")
     @Override
@@ -59,6 +58,10 @@ public class UserRoleDao extends BaseDao {
      * @return 被保存的用户角色
      */
     public UserRole saveUserRole(UserRole userRole) {
+    	Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+				.getTime()));
+    	userRole.setCreateAt(createAt);
         return (UserRole) save(userRole);
     }
 
@@ -70,6 +73,10 @@ public class UserRoleDao extends BaseDao {
      * @return 被更新的用户角色
      */
     public void updateUserRole(UserRole userRole) {
+    	Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+				.getTime()));
+    	userRole.setUpdateAt(updateAt);
         update(userRole);
     }
 
