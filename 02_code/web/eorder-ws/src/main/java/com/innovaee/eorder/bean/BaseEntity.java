@@ -1,53 +1,76 @@
 /***********************************************
- * Filename        : BaseEntity.java
- * Copyright      : Copyright (c) 2014
- * Company        : Innovaee
- * Created        : 11/27/2014
+ * Filename		: BaseEntity.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
  ************************************************/
-
 package com.innovaee.eorder.bean;
 
-import org.apache.commons.beanutils.BeanUtils;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
+import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: BaseEntity
  * @Description: 实体类的基类
-*
+ * 
  * @version V1.0
  */
 public abstract class BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	/** 创建时间 */
+	@Column(name = "create_at")
+	private Timestamp createAt;
 
-    public abstract Serializable getPK();
+	/** 更新时间 */
+	@Column(name = "update_at")
+	private Timestamp updateAt;
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.SIMPLE_STYLE);
-    }
+	/**
+	 * 返回主键
+	 * 
+	 * @return 主键
+	 */
+	public abstract Serializable getPK();
 
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.SIMPLE_STYLE);
+	}
 
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
 
-    public void copy(Object orig) {
-        try {
-            BeanUtils.copyProperties(this, orig);
-        } catch (InvocationTargetException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalAccessException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@XmlJavaTypeAdapter(TimestampAdapter.class)
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
+	}
+
+	@XmlJavaTypeAdapter(TimestampAdapter.class)
+	public Timestamp getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Timestamp updateAt) {
+		this.updateAt = updateAt;
+	}
+
 }

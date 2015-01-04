@@ -1,14 +1,12 @@
 /***********************************************
- * Filename        : UserLevel.java
- * Copyright      : Copyright (c) 2014
- * Company        : Innovaee
- * Created        : 11/27/2014
+ * Filename		: UserLevel.java																									: DishService.java
+ * Copyright  	: Copyright (c) 2014
+ * Company    	: Innovaee
+ * Created	    : 11/27/2014
  ************************************************/
-
 package com.innovaee.eorder.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @Title: UserLevel
  * @Description: 用户等级
-*
+ * 
  * @version V1.0
  */
 @Entity
@@ -29,119 +27,79 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserLevel extends BaseEntity {
 
-    @Override
-    public Serializable getPK() {
-        return levelId;
-    }
+	@Override
+	public Serializable getPK() {
+		return levelId;
+	}
 
-    // 用户id, 不能为空, 必须唯一
-    @Id
-    @Column(name = "level_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer levelId;
+	/** 用户id, 不能为空, 必须唯一 */
+	@Id
+	@Column(name = "level_id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer levelId;
 
-    // 名称
-    @Column(name = "level_name")
-    private String levelName;
+	/** 名称 */
+	@Column(name = "level_name")
+	private String levelName;
 
-    // 折扣
-    @Column(name = "discount")
-    private float discount;
+	/** 折扣 */
+	@Column(name = "discount")
+	private float discount;
 
-    // 等级积分
-    @Column(name = "level_score")
-    private Integer levelScore;
+	/** 等级积分 */
+	@Column(name = "level_score")
+	private Integer levelScore;
 
-    // 用户状态
-    @Column(name = "level_status")
-    private Boolean levelStatus;
+	/** 用户状态 */
+	@Column(name = "level_status")
+	private Boolean levelStatus;
 
-    // 创建时间
-    @Column(name = "create_at")
-    private Timestamp createAt;
+	public Integer getLevelId() {
+		return levelId;
+	}
 
-    // 更新时间
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
 
-    public UserLevel() {
-    }
+	public String getLevelName() {
+		return levelName;
+	}
 
-    public UserLevel(Integer levelId, String levelName, String password,
-            float discount, Integer levelScore, Boolean levelStatus,
-            Timestamp createAt, Timestamp updateAt) {
-        super();
-        this.levelId = levelId;
-        this.levelName = levelName;
-        this.discount = discount;
-        this.levelScore = levelScore;
-        this.levelStatus = levelStatus;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-    }
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
+	}
 
-    public Integer getLevelId() {
-        return levelId;
-    }
+	public float getDiscount() {
+		return discount;
+	}
 
-    public void setLevelId(Integer levelId) {
-        this.levelId = levelId;
-    }
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
 
-    public String getLevelName() {
-        return levelName;
-    }
+	public Integer getLevelScore() {
+		return levelScore;
+	}
 
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
-    }
+	public void setLevelScore(Integer levelScore) {
+		this.levelScore = levelScore;
+	}
 
-    public float getDiscount() {
-        return discount;
-    }
+	public Boolean getLevelStatus() {
+		return levelStatus;
+	}
 
-    public void setDiscount(float discount) {
-        this.discount = discount;
-    }
+	public void setLevelStatus(Boolean levelStatus) {
+		this.levelStatus = levelStatus;
+	}
 
-    public Integer getLevelScore() {
-        return levelScore;
-    }
-
-    public void setLevelScore(Integer levelScore) {
-        this.levelScore = levelScore;
-    }
-
-    public Boolean getLevelStatus() {
-        return levelStatus;
-    }
-
-    public void setLevelStatus(Boolean levelStatus) {
-        this.levelStatus = levelStatus;
-    }
-
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    @Override
-    public String toString() {
-        return "UserLevel [levelId=" + levelId + ", levelName=" + levelName
-                + ", discount=" + discount + ", levelScore=" + levelScore
-                + ", levelStatus=" + levelStatus + ", createAt=" + createAt
-                + ", updateAt=" + updateAt + "]";
-    }
+	@Override
+	public String toString() {
+		return "UserLevel [levelId=" + getPK() + ", levelName=" + levelName
+				+ ", discount=" + discount + ", levelScore=" + levelScore
+				+ ", levelStatus=" + levelStatus + ", createAt="
+				+ this.getCreateAt() + ", updateAt=" + this.getUpdateAt() + "]";
+	}
 
 }
