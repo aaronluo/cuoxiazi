@@ -14,7 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @Title: AllTests
- * @Description: 测试包
+ * @Description: 单元测试包
  * @version V1.0
  */
 @RunWith(Suite.class)
@@ -23,8 +23,10 @@ import org.junit.runners.Suite.SuiteClasses;
 		UserResourceTest.class })
 public class AllTests {
 
+	/** RESTful的基本URI */
 	public static final String BASE_URI = "http://localhost:8080/eorder-ws/rest";
 
+	/** 服务器 */
 	public static HttpServer server;
 
 	/**
