@@ -35,12 +35,4 @@ public class CategoryDaoImpl implements CategoryDao {
         return categories;
     }
 
-    public static void main(String[] args) {
-        CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
-        List<Category> categories = categoryDaoImpl.getAllCategories();
-        for (Category category : categories) {
-            System.out.println("Category: " + category);
-        }
-        System.exit(0);
-    }
 }

@@ -36,14 +36,4 @@ public class OrderDaoImpl implements OrderDao {
         return orders;
     }
 
-    public static void main(String[] args) {
-        Integer memberId = 9;
-        OrderDaoImpl orderDaoImpl = new OrderDaoImpl();
-        List<Order> orders = orderDaoImpl.getOrdersByMemberId(memberId);
-        for (Order order : orders) {
-            System.out.println("Order: " + order);
-        }
-        System.exit(0);
-    }
-
 }

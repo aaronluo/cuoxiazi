@@ -21,60 +21,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OrderVO implements Serializable {
 
-    /**
-     * 订单ID
-     */
-    private Integer orderId;
+	/** 订单ID */
+	private Integer orderId;
 
-    /**
-     * 订单时间
-     */
-    private Timestamp createAt;
+	/** 订单时间 */
+	private Timestamp createAt;
 
-    /**
-     * 订单总价
-     */
-    private Float totalPrice;
+	/** 订单总价 */
+	private Float totalPrice;
 
-    public OrderVO() {
+	public Integer getOrderId() {
+		return orderId;
+	}
 
-    }
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 
-    public OrderVO(Integer orderId, Timestamp createAt, Float totalPrice) {
-        super();
-        this.orderId = orderId;
-        this.createAt = createAt;
-        this.totalPrice = totalPrice;
-    }
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
 
-    public Integer getOrderId() {
-        return orderId;
-    }
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
+	}
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
+	public Float getTotalPrice() {
+		return totalPrice;
+	}
 
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
+	public void setTotalPrice(Float totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public Float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Float totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderVO [orderId=" + orderId + ", createAt=" + createAt
-                + ", totalPrice=" + totalPrice + "]";
-    }
+	@Override
+	public String toString() {
+		return "OrderVO [orderId=" + orderId + ", createAt=" + createAt
+				+ ", totalPrice=" + totalPrice + "]";
+	}
 
 }

@@ -36,14 +36,4 @@ public class OrderItemDaoImpl implements OrderItemDao {
         return orderItems;
     }
 
-    public static void main(String[] args) {
-        Integer orderId = 1;
-        OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
-        List<OrderItem> categories = orderItemDaoImpl
-                .getOrderItemsByOrderId(orderId);
-        for (OrderItem orderItem : categories) {
-            System.out.println("OrderItem: " + orderItem);
-        }
-        System.exit(0);
-    }
 }

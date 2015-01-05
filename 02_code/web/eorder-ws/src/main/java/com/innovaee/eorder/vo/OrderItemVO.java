@@ -11,89 +11,75 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**   
-* @Title: OrderItemVO 
-* @Description: 订单明细值对象
-*    
-* @version V1.0   
-*/
+/**
+ * @Title: OrderItemVO
+ * @Description: 订单明细值对象
+ * 
+ * @version V1.0
+ */
 @XmlRootElement
 public class OrderItemVO implements Serializable {
 
-    // 菜品ID
-    private Integer dishId;
+	/** 菜品ID */
+	private Integer dishId;
 
-    // 菜品名称
-    private String dishName;
+	/** 菜品名称 */
+	private String dishName;
 
-    // 菜品价格
-    private Float dishPrice;
+	/** 菜品ID */
+	private Float dishPrice;
 
-    // 菜品数量
-    private Integer dishAmount;
+	/** 菜品数量 */
+	private Integer dishAmount;
 
-    // 菜品图片
-    private String dishPicture;
+	/** 菜品图片 */
+	private String dishPicture;
 
-    public OrderItemVO() {
+	public Integer getDishId() {
+		return dishId;
+	}
 
-    }
+	public void setDishId(Integer dishId) {
+		this.dishId = dishId;
+	}
 
-    public OrderItemVO(Integer dishId, String dishName, Float dishPrice,
-            Integer dishAmount, String dishPicture) {
-        super();
-        this.dishId = dishId;
-        this.dishName = dishName;
-        this.dishPrice = dishPrice;
-        this.dishAmount = dishAmount;
-        this.dishPicture = dishPicture;
-    }
+	public String getDishName() {
+		return dishName;
+	}
 
-    public Integer getDishId() {
-        return dishId;
-    }
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
+	}
 
-    public void setDishId(Integer dishId) {
-        this.dishId = dishId;
-    }
+	public Float getDishPrice() {
+		return dishPrice;
+	}
 
-    public String getDishName() {
-        return dishName;
-    }
+	public void setDishPrice(Float dishPrice) {
+		this.dishPrice = dishPrice;
+	}
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
+	public Integer getDishAmount() {
+		return dishAmount;
+	}
 
-    public Float getDishPrice() {
-        return dishPrice;
-    }
+	public void setDishAmount(Integer dishAmount) {
+		this.dishAmount = dishAmount;
+	}
 
-    public void setDishPrice(Float dishPrice) {
-        this.dishPrice = dishPrice;
-    }
+	public String getDishPicture() {
+		return dishPicture;
+	}
 
-    public Integer getDishAmount() {
-        return dishAmount;
-    }
+	public void setDishPicture(String dishPicture) {
+		this.dishPicture = dishPicture;
+	}
 
-    public void setDishAmount(Integer dishAmount) {
-        this.dishAmount = dishAmount;
-    }
-
-    public String getDishPicture() {
-        return dishPicture;
-    }
-
-    public void setDishPicture(String dishPicture) {
-        this.dishPicture = dishPicture;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderItemVO [dishId=" + dishId + ", dishName=" + dishName
-                + ", dishPrice=" + dishPrice + ", dishAmount=" + dishAmount
-                + ", dishPicture=" + dishPicture + "]";
-    }
+	@Override
+	public String toString() {
+		return "OrderItemVO [dishId=" + dishId + ", dishName=" + dishName
+				+ ", dishPrice=" + dishPrice + ", dishAmount=" + dishAmount
+				+ ", dishPicture=" + dishPicture + "]";
+	}
 
 }
