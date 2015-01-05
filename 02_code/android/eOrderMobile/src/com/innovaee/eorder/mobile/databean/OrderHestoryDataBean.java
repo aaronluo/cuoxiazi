@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.databean;
 
+import java.io.Serializable;
+
 
 /**
  * 订单历史详情信息数据Bean

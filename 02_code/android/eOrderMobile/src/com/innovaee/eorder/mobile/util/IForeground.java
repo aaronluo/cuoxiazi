@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import android.graphics.Rect;
+
 
 /**
  * 类描述: 蒙版显示兼容接口 功能详细描述:

@@ -7,6 +7,30 @@
 
 package com.innovaee.eorder.mobile.service;
 
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
@@ -124,8 +148,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -150,9 +173,9 @@ public class DownloadService implements GoodService, CategoryService {
                         getBitmapUrl(obj.getString("dishPicture")));
                 goods.add(good);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } catch (JSONException error) {
+            Log.d("DownloadService", "error=" + error.toString());
+        }	
         return goods;
     }
 
@@ -204,8 +227,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -228,8 +250,8 @@ public class DownloadService implements GoodService, CategoryService {
                     obj.getString("cellphone"), obj.getString("levelName"),
                     (Double) obj.getDouble("discount"));
             goods.add(userInfo);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException error) {
+        	Log.d("DownloadService", "error=" + error.toString());
         }
         return goods;
     }
@@ -283,8 +305,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -310,8 +331,8 @@ public class DownloadService implements GoodService, CategoryService {
                         getBitmapUrl(obj.getString("categoryPicture")));
                 categoryList.add(category);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException error) {
+        	Log.d("DownloadService", "error=" + error.toString());
         }
         return categoryList;
     }
@@ -366,8 +387,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -392,8 +412,8 @@ public class DownloadService implements GoodService, CategoryService {
                         obj.getDouble("totalPrice"));
                 categoryList.add(category);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException error) {
+        	Log.d("DownloadService", "error=" + error.toString());
         }
         return categoryList;
     }
@@ -445,8 +465,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -472,8 +491,8 @@ public class DownloadService implements GoodService, CategoryService {
                         getBitmapUrl(obj.getString("dishPicture")));
                 OrderInfoList.add(orderInfo);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException error) {
+        	Log.d("DownloadService", "error=" + error.toString());
         }
         return OrderInfoList;
     }
@@ -537,8 +556,7 @@ public class DownloadService implements GoodService, CategoryService {
                 // 异常信息
                 callback.onFailed("getStatusCodeError");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception error) {
             // 异常信息
             callback.onFailed("ExceptionError");
         }
@@ -577,9 +595,9 @@ public class DownloadService implements GoodService, CategoryService {
             }
 
             object.put("dishList", array);
-        } catch (JSONException e1) {
-            e1.printStackTrace();
-        }
+        } catch (JSONException error) {
+        	Log.d("DownloadService", error.toString());
+        }	
 
         return object;
     }

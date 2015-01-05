@@ -7,6 +7,17 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import java.util.List;
+
+import com.innovaee.eorder.R;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
 
 /**
  * 分类数据Adapter
@@ -63,9 +74,9 @@ public class FeedTypeAdapter extends BaseAdapter {
     /**
      * 获取每一项的View
      * @param paramInt 序号
-     * @param paramView 每一项View
-     * @param ViewGroup ViewGrop
-     */
+     * @param paramView 单独每项View，不为NULL则重复使用
+     * @param ViewGroup ViewGrop是父View本身
+     */		
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
         if (paramView == null) {
             paramView = this.inflater.inflate(R.layout.drop_down_item,

@@ -7,13 +7,31 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 
 /**
  * 我的订单界面
  * 
  */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class MyOrderActivity extends Activity {
     // 调试Tag
     private static final String TAG = "MyOrderActivity";
@@ -161,7 +179,8 @@ public class MyOrderActivity extends Activity {
     /**
      * 初始化Data
      */
-    private void initData() {
+    @SuppressLint("NewApi")
+	private void initData() {
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setHomeButtonEnabled(true);
 

@@ -7,6 +7,21 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import com.innovaee.eorder.R;
+
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 
 /**
  * 设置界面
@@ -69,7 +84,7 @@ public class SettingsActivity extends Activity {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    	Log.d("SettingsActivity", e.toString());
                     }
                     finish();
                 } else {

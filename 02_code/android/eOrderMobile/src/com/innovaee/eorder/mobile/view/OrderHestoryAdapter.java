@@ -7,6 +7,19 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 
 /**
@@ -79,7 +92,6 @@ public class OrderHestoryAdapter extends BaseAdapter {
     /**
      * 得到每一项的View
      */
-    @SuppressLint("InflateParams")
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
 

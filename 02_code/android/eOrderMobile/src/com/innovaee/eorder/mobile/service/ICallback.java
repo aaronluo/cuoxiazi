@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.service;
 
+import java.util.List;
+
 
 /**
  * 类描述: 下载数据回调接口 功能详细描述:

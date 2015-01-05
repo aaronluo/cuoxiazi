@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.databean;
 
+import java.io.Serializable;
+
 
 /**
  * 商品信息数据Bean

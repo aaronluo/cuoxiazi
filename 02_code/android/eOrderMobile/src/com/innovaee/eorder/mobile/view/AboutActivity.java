@@ -7,12 +7,20 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import com.innovaee.eorder.R;
+
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 
 /**
  * 关于界面
  * 
  */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AboutActivity extends Activity {
     //显示文本编辑器
     TextView aboutText;
@@ -45,7 +53,8 @@ public class AboutActivity extends Activity {
     /**
      * 初始化Data
      */
-    private void initData() {
+    @SuppressLint("NewApi")
+	private void initData() {
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setHomeButtonEnabled(true);
     }

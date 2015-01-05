@@ -7,6 +7,15 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.util.Log;
+
 
 /**
  * 文件操作工具集
@@ -38,20 +47,20 @@ public final class FileUtils {
      *            保持的图片名字
      */
     public static void saveBitmap(Bitmap mBitmap, String mName) {
-        File f = new File(Env.Path.PHOTO_PATH, mName);
+        File file = new File(Env.Path.PHOTO_PATH, mName);
 
-        if (f.exists()) {
-            f.delete();
+        if (file.exists()) {
+            file.delete();
         }
         try {
-            FileOutputStream out = new FileOutputStream(f);
+            FileOutputStream out = new FileOutputStream(file);
             mBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.flush();
             out.close();
-        } catch (FileNotFoundException e) {
-            Log.d("saveBitmap", e.toString());
-        } catch (IOException e) {
-            Log.d("saveBitmap", e.toString());
+        } catch (FileNotFoundException error) {
+            Log.d("saveBitmap", error.toString());
+        } catch (IOException error) {
+            Log.d("saveBitmap", error.toString());
         }    
     }
 
@@ -66,8 +75,9 @@ public final class FileUtils {
         if (!file.exists()) {
             try {
                 file.mkdirs();
-            } catch (Exception e) {
-            }
+            } catch (Exception error) {
+            	Log.e("mkDir", error.toString());
+            }	
         }
         file = null;
     }
@@ -111,8 +121,7 @@ public final class FileUtils {
                 Log.d("createFile:", "创建单个文件失败！" + destFileName);
                 return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException error) {
             Log.d("createFile:", "创建单个文件失败！" + destFileName);
             return false;
         }    
@@ -141,9 +150,10 @@ public final class FileUtils {
             File file = new File(filePath);
             result = file.exists();
             file = null;
-        } catch (Exception e) {
+        } catch (Exception error) {
+        	Log.e("isFileExist", error.toString());
         }
         return result;
-    }
+    }	
 
 }

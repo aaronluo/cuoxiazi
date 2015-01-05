@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import android.graphics.Bitmap;
+
 
 /**
  * 类描述:图片缓存的接口 功能详细描述:

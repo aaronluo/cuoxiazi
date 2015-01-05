@@ -7,6 +7,10 @@
 
 package com.innovaee.eorder.mobile.controller;
 
+import java.util.List;
+
+import android.content.Context;
+
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
@@ -57,10 +61,10 @@ public class DataManager {
         }
 
         // 获取DownloadService实例
-        DownloadService mDldMgr = DownloadService.getInstance(context);
+        DownloadService downloadService = DownloadService.getInstance(context);
 
         // 获取所有分类列表数据
-        mDldMgr.getAllCategory(new ICallback<CategoryDataBean>() {
+        downloadService.getAllCategory(new ICallback<CategoryDataBean>() {
             @Override
             public void onStarted() {
                 listener.onRequestStart();
@@ -104,10 +108,10 @@ public class DataManager {
         }
 
         // 获取DownloadService实例
-        DownloadService mDldMgr = DownloadService.getInstance(context);
+        DownloadService downloadService = DownloadService.getInstance(context);
 
         // 获取某个分类id下所有菜品列表
-        mDldMgr.getAllGoods(id, new ICallback<GoodsDataBean>() {
+        downloadService.getAllGoods(id, new ICallback<GoodsDataBean>() {
             @Override
             public void onStarted() {
                 listener.onRequestStart();
@@ -140,48 +144,48 @@ public class DataManager {
      * 
      * @param id
      *            会员id
-     * @param iDataRequestListener
+     * @param dataRequestListener
      *            回调监听器
      */
     public void getUserDiscountData(String id,
-            final IDataRequestListener<UserInfoDataBean> iDataRequestListener) {
-        if (iDataRequestListener == null) {
+            final IDataRequestListener<UserInfoDataBean> dataRequestListener) {
+        if (dataRequestListener == null) {
             // 无回调，也就没有实际意义
             return;
         }
 
         // 获取DownloadService实例
-        DownloadService mDldMgr = DownloadService.getInstance(context);
+        DownloadService downloadService = DownloadService.getInstance(context);
 
         // 获取某个会员号的折扣信息
-        mDldMgr.getUserDiscountData(id, new ICallback<UserInfoDataBean>() {
+        downloadService.getUserDiscountData(id, new ICallback<UserInfoDataBean>() {
             @Override
             public void onStarted() {
-                iDataRequestListener.onRequestStart();
+                dataRequestListener.onRequestStart();
             }
 
             @Override
             public void onSuccess(List<UserInfoDataBean> response) {
                 boolean success = response != null && response.size() > 0;
                 if (success) {
-                    iDataRequestListener.onRequestSuccess(response);
+                    dataRequestListener.onRequestSuccess(response);
                 } else {
-                    iDataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed();
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                iDataRequestListener.onRequestFailed();
+                dataRequestListener.onRequestFailed();
             }
 
             @Override
             public void onSuccessT(UserInfoDataBean response) {
                 boolean success = response != null;
                 if (success) {
-                    iDataRequestListener.onRequestSuccess(response);
+                    dataRequestListener.onRequestSuccess(response);
                 } else {
-                    iDataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed();
                 }
             }
 
@@ -193,49 +197,49 @@ public class DataManager {
      * 
      * @param selectOrderGoods
      *            下单的菜品数据list
-     * @param iDataRequestListener
+     * @param dataRequestListener
      *            回调监听器
      */
     public void orderToService(List<GoodsDataBean> selectOrderGoods,
-            final IDataRequestListener<String> iDataRequestListener) {
-        if (iDataRequestListener == null) {
+            final IDataRequestListener<String> dataRequestListener) {
+        if (dataRequestListener == null) {
             // 无回调，也就没有实际意义
             return;
         }
 
         String id = "";
         // 获取DownloadService实例
-        DownloadService mDldMgr = DownloadService.getInstance(context);
+        DownloadService downloadService = DownloadService.getInstance(context);
 
         // 下单到服务器
-        mDldMgr.getUserDiscountData(id, new ICallback<String>() {
+        downloadService.getUserDiscountData(id, new ICallback<String>() {
             @Override
             public void onStarted() {
-                iDataRequestListener.onRequestStart();
+                dataRequestListener.onRequestStart();
             }
 
             @Override
             public void onSuccess(List<String> response) {
                 boolean success = response != null && response.size() > 0;
                 if (success) {
-                    iDataRequestListener.onRequestSuccess(response);
+                    dataRequestListener.onRequestSuccess(response);
                 } else {
-                    iDataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed();
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                iDataRequestListener.onRequestFailed();
+                dataRequestListener.onRequestFailed();
             }
 
             @Override
             public void onSuccessT(String response) {
                 boolean success = response != null;
                 if (success) {
-                    iDataRequestListener.onRequestSuccess(response);
+                    dataRequestListener.onRequestSuccess(response);
                 } else {
-                    iDataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed();
                 }
             }
 
@@ -258,10 +262,10 @@ public class DataManager {
         }
 
         // 获取DownloadService实例
-        DownloadService mDldMgr = DownloadService.getInstance(context);
+        DownloadService downloadService = DownloadService.getInstance(context);
 
         // 获取某个会员的历史订单记录
-        mDldMgr.getOrderHestory(id, new ICallback<OrderHestoryDataBean>() {
+        downloadService.getOrderHestory(id, new ICallback<OrderHestoryDataBean>() {
             @Override
             public void onStarted() {
                 listener.onRequestStart();

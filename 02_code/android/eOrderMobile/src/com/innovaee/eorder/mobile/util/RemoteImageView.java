@@ -7,8 +7,28 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import com.google.zxing.common.Collections;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.RejectedExecutionException;
+
+import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.util.ImageDataManager.OnImageLoaderListener;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 /**
  * RemoteImageView继续自ImageView
@@ -195,10 +215,10 @@ public class RemoteImageView extends ImageView implements IForeground {
                             }
                         });
 
-            } catch (RejectedExecutionException e) {
-                // do nothing, just don't crash
+            } catch (RejectedExecutionException error) {
+            	Log.e("setImageUrl", error.toString());
             }
-        }
+        }	
     }
 
     /**

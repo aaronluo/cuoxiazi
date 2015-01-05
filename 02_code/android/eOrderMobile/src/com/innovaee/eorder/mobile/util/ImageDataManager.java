@@ -7,8 +7,40 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import com.google.zxing.common.Comparator;
-import com.innovaee.eorder.mobile.util.ImageDataManager.ThreadPoolType;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.os.StatFs;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.SparseArray;
+	
+import com.innovaee.eorder.mobile.util.LruImageCache;
 
 /**
  * 图片管理器 管理图片，存储图片到缓存和sdcard,使用时从缓存或者sdcard读取图片
@@ -251,11 +283,12 @@ public class ImageDataManager {
                     readCount += byteCount;
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception error) {
             Log.e("downloadBitmapSync", "error!");
         } finally {
             if (contentLength > 0 && readCount != contentLength) {
-            } else {
+            	Log.d("downloadBitmapSync", "readCount != contentLength");
+            } else {	
                 bitmap = DisplayUtil.decodeBitmap(bos.toByteArray());
             }
             try {
@@ -265,7 +298,8 @@ public class ImageDataManager {
                 if (bos != null) {
                     bos.close();
                 }
-            } catch (IOException e) {
+            } catch (IOException error) {
+            	Log.e("DownloadService", error.toString());
             }
         }
         return bitmap;
@@ -312,10 +346,10 @@ public class ImageDataManager {
         }
 
         @Override
-        public long skip(long n) throws IOException {
+        public long skip(long number) throws IOException {
             long totalBytesSkipped = 0L;
-            while (totalBytesSkipped < n) {
-                long bytesSkipped = in.skip(n - totalBytesSkipped);
+            while (totalBytesSkipped < number) {
+                long bytesSkipped = in.skip(number - totalBytesSkipped);
                 if (bytesSkipped == 0L) {
                     int b = read();
                     if (b < 0) {
@@ -368,15 +402,15 @@ public class ImageDataManager {
         try {
             outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException error) {
             Log.e("saveBmpToSd", "error!");
         } finally {    
             if (outStream != null) {
                 try {
                     outStream.flush();
                     outStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException error) {
+                	Log.d("ImageDataManager", error.toString());
                 }
             }
         }
@@ -399,7 +433,7 @@ public class ImageDataManager {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (Exception e) {
+            } catch (Exception error) {
                 Log.e("hideMedia", "error!");
             }
         }
@@ -505,11 +539,11 @@ public class ImageDataManager {
     private void initRejectedExecutionHandler() {
         rejectedExecutionHandler = new RejectedExecutionHandler() {
             @Override
-            public void rejectedExecution(Runnable r,
+            public void rejectedExecution(Runnable runnable,
                     ThreadPoolExecutor executor) {
                 //把被拒绝的任务重新放入到等待队列中
                 synchronized (lock) {
-                    waitTasksQueue.offer(r);
+                    waitTasksQueue.offer(runnable);
                 }
             }
         };
@@ -653,10 +687,8 @@ public class ImageDataManager {
                 if (bitmap != null) {
                     addBitmapToCache(mUrl, bitmap);
                     saveBmpToSd(mUrl, bitmap);
-                } else {
-                }
-
-            }
+                }	 
+            }	
             for (int i = 0; i < mListeners.size(); i++) {
                 OnImageLoaderListener listener = mListeners.valueAt(i);
                 if (listener != null) {

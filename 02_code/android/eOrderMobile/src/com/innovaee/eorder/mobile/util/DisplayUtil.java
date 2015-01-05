@@ -7,6 +7,18 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
+
 
 /**
  * 显示工具集
@@ -35,8 +47,9 @@ public class DisplayUtil {
                 opts.inDither = true;
             }
             retval = BitmapFactory.decodeResource(res, resId, opts);
-        } catch (Exception e) {
-        } catch (OutOfMemoryError e) {
+        } catch (Exception error) {
+        	Log.e("decodeBitmap", error.toString());
+        } catch (OutOfMemoryError error) {
             System.gc();
         }
         return retval;
@@ -56,10 +69,11 @@ public class DisplayUtil {
         try {
             stream = new FileInputStream(pathName);
             retval = decodeBitmap(stream);
-        } catch (Exception e) {
-        } catch (OutOfMemoryError e) {
+        } catch (Exception error) {
+        	Log.e("decodeBitmap", error.toString());
+        } catch (OutOfMemoryError error) {
             System.gc();
-        }
+        }		
         return retval;
     }
 
@@ -88,7 +102,7 @@ public class DisplayUtil {
         }
         try {
             retval = BitmapFactory.decodeStream(is, null, opts);
-        } catch (OutOfMemoryError e) {
+        } catch (OutOfMemoryError error) {
             System.gc();
         }
         return retval;
@@ -108,8 +122,9 @@ public class DisplayUtil {
         try {
             stream = new ByteArrayInputStream(bytes);
             retval = decodeBitmap(stream);
-        } catch (Exception e) {
-        } catch (OutOfMemoryError e) {
+        } catch (Exception error) {
+        	Log.e("decodeBitmap", error.toString());
+        } catch (OutOfMemoryError error) {
             System.gc();
         }
         return retval;

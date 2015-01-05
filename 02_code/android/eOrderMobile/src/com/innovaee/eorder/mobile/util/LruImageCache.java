@@ -7,6 +7,14 @@
 
 package com.innovaee.eorder.mobile.util;
 
+import java.lang.ref.SoftReference;
+import java.util.concurrent.ConcurrentHashMap;
+
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
+import android.text.TextUtils;
+
 
 /**
  * 类描述:LRU图片缓存器 功能详细描述:

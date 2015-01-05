@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.application;
 
+import android.app.Application;
+
 
 /**
  * 该类主要是为了方便其他工具类， 服务类通过Application 获取全局context
