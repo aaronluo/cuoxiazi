@@ -22,6 +22,9 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class UserDaoImpl implements UserDao {
 
+    /* (non-Javadoc)
+     * @see com.innovaee.eorder.dao.UserDao#getUserByCellphone(java.lang.String)
+     */
     @Override
     public User getUserByCellphone(String cellphone) {
         Session session = HibernateUtil.getSession();

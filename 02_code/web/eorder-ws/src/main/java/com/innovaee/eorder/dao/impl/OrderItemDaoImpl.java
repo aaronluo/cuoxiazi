@@ -23,6 +23,9 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class OrderItemDaoImpl implements OrderItemDao {
 
+    /* (non-Javadoc)
+     * @see com.innovaee.eorder.dao.OrderItemDao#getOrderItemsByOrderId(java.lang.Integer)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<OrderItem> getOrderItemsByOrderId(Integer orderId) {

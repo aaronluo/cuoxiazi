@@ -22,6 +22,9 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class UserLevelDaoImpl implements UserLevelDao {
 
+    /* (non-Javadoc)
+     * @see com.innovaee.eorder.dao.UserLevelDao#getUserLevelById(java.lang.String)
+     */
     @Override
     public UserLevel getUserLevelById(String id) {
         Session session = HibernateUtil.getSession();

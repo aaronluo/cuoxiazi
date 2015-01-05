@@ -47,18 +47,23 @@ public class SecurityMetadataSourceService extends BaseService implements
     @Resource
     private UserDao userDao;
 
+    /** 功能数据访问对象 */
     @Resource
     private FunctionDao functionDao;
 
+    /** 角色数据访问对象 */
     @Resource
     private RoleDao roleDao;
 
+    /** 用户角色数据访问对象 */
     @Resource
     private UserRoleDao userRoleDao;
 
+    /** 角色功能数据访问对象 */
     @Resource
     private RoleFunctionDao roleFunctionDao;
 
+    /** 安全元数据服务类对象 */
     @Resource
     private SecurityMetadataSourceService securityMetadataSourceService;
 

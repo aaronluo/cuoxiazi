@@ -23,6 +23,9 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class CategoryDaoImpl implements CategoryDao {
 
+    /* (non-Javadoc)
+     * @see com.innovaee.eorder.dao.CategoryDao#getAllCategories()
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Category> getAllCategories() {

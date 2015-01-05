@@ -24,6 +24,9 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class DishDaoImpl implements DishDao {
 
+    /* (non-Javadoc)
+     * @see com.innovaee.eorder.dao.DishDao#getDishesByCategoryId(java.lang.Integer)
+     */
     @Override
     @SuppressWarnings("unchecked")
     public List<Dish> getDishesByCategoryId(Integer categoryId) {

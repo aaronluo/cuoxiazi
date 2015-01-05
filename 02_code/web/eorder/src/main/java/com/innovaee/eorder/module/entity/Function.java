@@ -91,19 +91,22 @@ public class Function extends BaseEntity {
         this.functionName = functionName;
     }
 
-    public Integer getFunctionId() {
-        return functionId;
-    }
-
-    public void setFunctionId(Integer functionId) {
-        this.functionId = functionId;
-    }
-
-    public Function(String functionName) {
-        super();
-        this.functionName = functionName;
-    }
-
+    /**
+     * 构造函数
+     * 
+     * @param functionName
+     *            功能名称
+     * @param functionDesc
+     *            功能描述
+     * @param functionPath
+     *            功能路径
+     * @param functionParent
+     *            父功能ID
+     * @param functionOrder
+     *            功能排序
+     * @param functionStatus
+     *            功能状态
+     */
     public Function(String functionName, String functionDesc,
             String functionPath, Integer functionParent, String functionOrder,
             Boolean functionStatus) {
@@ -116,17 +119,12 @@ public class Function extends BaseEntity {
         this.functionStatus = functionStatus;
     }
 
-    public Function(Integer functionId, String functionName,
-            String functionDesc, String functionPath, Integer functionParent,
-            String functionOrder, Boolean functionStatus) {
-        super();
+    public Integer getFunctionId() {
+        return functionId;
+    }
+
+    public void setFunctionId(Integer functionId) {
         this.functionId = functionId;
-        this.functionName = functionName;
-        this.functionDesc = functionDesc;
-        this.functionPath = functionPath;
-        this.functionParent = functionParent;
-        this.functionOrder = functionOrder;
-        this.functionStatus = functionStatus;
     }
 
     public String getFunctionName() {
