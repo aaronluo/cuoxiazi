@@ -28,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Dish extends BaseEntity {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 168429325729656547L;
+
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return dishId;
@@ -119,6 +127,9 @@ public class Dish extends BaseEntity {
         this.misc = misc;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "Dish [dishId=" + dishId + ", categoryId=" + categoryId

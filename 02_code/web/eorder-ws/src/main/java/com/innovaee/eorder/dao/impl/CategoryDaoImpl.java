@@ -23,8 +23,10 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class CategoryDaoImpl implements CategoryDao {
 
-    /* (non-Javadoc)
-     * @see com.innovaee.eorder.dao.CategoryDao#getAllCategories()
+    /**
+     * 获取所有分类
+     * 
+     * @return 所有分类列表
      */
     @SuppressWarnings("unchecked")
     @Override

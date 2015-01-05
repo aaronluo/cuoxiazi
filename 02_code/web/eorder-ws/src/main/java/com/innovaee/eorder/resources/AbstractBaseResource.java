@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * @Description: 资源基类
  * @version V1.0
  */
-public abstract class AbstractBaseResource {
+public class AbstractBaseResource {
 
     /** 日志对象 */
     protected static final Logger LOGGER = LoggerFactory

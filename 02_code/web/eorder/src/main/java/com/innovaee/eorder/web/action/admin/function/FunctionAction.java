@@ -34,6 +34,9 @@ import javax.servlet.http.HttpSession;
  */
 public class FunctionAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -5184755551662453454L;
+
     /** 功能ID */
     private String functionId;
 

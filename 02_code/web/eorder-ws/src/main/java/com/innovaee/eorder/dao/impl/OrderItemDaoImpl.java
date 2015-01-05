@@ -23,8 +23,12 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class OrderItemDaoImpl implements OrderItemDao {
 
-    /* (non-Javadoc)
-     * @see com.innovaee.eorder.dao.OrderItemDao#getOrderItemsByOrderId(java.lang.Integer)
+    /**
+     * 根据订单ID得到订单明细列表
+     * 
+     * @param orderId
+     *            订单ID
+     * @return 订单明细列表
      */
     @SuppressWarnings("unchecked")
     @Override

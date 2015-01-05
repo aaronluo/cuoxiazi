@@ -22,8 +22,12 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class UserDaoImpl implements UserDao {
 
-    /* (non-Javadoc)
-     * @see com.innovaee.eorder.dao.UserDao#getUserByCellphone(java.lang.String)
+    /**
+     * 根据手机号码得到用户
+     * 
+     * @param cellphone
+     *            手机号码
+     * @return 用户
      */
     @Override
     public User getUserByCellphone(String cellphone) {

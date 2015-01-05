@@ -41,10 +41,6 @@ public class UserRoleService extends BaseService {
     @Resource
     private UserDao userDao;
 
-    /** 用户角色服务对象 */
-    @Resource
-    private UserRoleService userRoleService;
-
     /**
      * 查找所有用户角色
      * 
@@ -61,8 +57,10 @@ public class UserRoleService extends BaseService {
      * 通过用户ID和角色ID查找用户角色
      * 
      * @param userId
+     *            用户ID
      * @param roleId
-     * @return
+     *            角色ID
+     * @return 用户角色
      */
     public UserRole findUserRoleByIds(Integer userId, Integer roleId) {
         if (LOGGER.isDebugEnabled()) {

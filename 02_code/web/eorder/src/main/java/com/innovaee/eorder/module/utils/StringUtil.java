@@ -73,7 +73,9 @@ public class StringUtil {
 
         StringBuffer stringBuffer = new StringBuffer();
         for (Integer integer : list) {
-            stringBuffer.append(integer.toString() + Constants.REGEX);
+            String integerStr = integer.toString();
+            stringBuffer.append(integerStr);
+            stringBuffer.append(Constants.REGEX);
         }
 
         // 去掉末尾的逗号

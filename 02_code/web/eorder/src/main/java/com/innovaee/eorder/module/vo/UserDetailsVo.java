@@ -28,6 +28,9 @@ import java.util.Set;
  */
 public class UserDetailsVo extends BaseVo implements UserDetails {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -8100868011194735627L;
+
     /** 角色名称集合 */
     private Set<String> rolesName = new HashSet<String>();
 
@@ -54,8 +57,10 @@ public class UserDetailsVo extends BaseVo implements UserDetails {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
+    /**
+     * 获得所有授权
+     * 
+     * @return 授权信息集合
      */
     public Collection<GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();

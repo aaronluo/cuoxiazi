@@ -19,6 +19,9 @@ import com.innovaee.eorder.module.entity.User;
  */
 public class UserFunctionVo extends BaseVo {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -6837897041052541070L;
+
     /** 用户实体 */
     private User user;
 

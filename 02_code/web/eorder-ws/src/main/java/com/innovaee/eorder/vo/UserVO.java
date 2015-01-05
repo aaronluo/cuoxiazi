@@ -22,39 +22,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserVO implements Serializable {
 
-    /**
-     * 用户id, 不能为空, 必须唯一
-     */
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 8193278769466852242L;
+
+    /** 用户id, 不能为空, 必须唯一 */
     private Integer userId;
 
-    /**
-     * 名称
-     */
+    /** 名称 */
     private String userName;
 
-    /**
-     * 手机号码
-     */
+    /** 手机号码 */
     private String cellphone;
 
-    /**
-     * 用户积分
-     */
+    /** 用户积分 */
     private Integer userScore;
 
-    /**
-     * 用户等级ID
-     */
+    /** 用户等级ID */
     private Integer levelId;
 
-    /**
-     * 用户等级名称
-     */
+    /** 用户等级名称 */
     private String levelName;
 
-    /**
-     * 折扣
-     */
+    /** 折扣 */
     private float discount;
 
     public Integer getUserId() {
@@ -111,6 +100,17 @@ public class UserVO implements Serializable {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    /**
+     * @return 返回该对象的字符串表示
+     */
+    @Override
+    public String toString() {
+        return "UserVO [userId=" + userId + ", userName=" + userName
+                + ", cellphone=" + cellphone + ", userScore=" + userScore
+                + ", levelId=" + levelId + ", levelName=" + levelName
+                + ", discount=" + discount + "]";
     }
 
 }

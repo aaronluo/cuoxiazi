@@ -182,7 +182,7 @@ public class UserService extends BaseService {
     }
 
     /**
-     * 根据用户ID移除用户信息（先删除角色，在删除用户）
+     * 根据用户ID移除用户信息（先删除用户与角色的关联，再删除用户）
      * 
      * @param userId
      *            用户ID

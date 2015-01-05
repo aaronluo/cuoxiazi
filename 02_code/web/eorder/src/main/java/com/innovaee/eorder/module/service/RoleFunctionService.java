@@ -41,10 +41,6 @@ public class RoleFunctionService extends BaseService {
     @Resource
     private FunctionDao functionDao;
 
-    /** 角色功能服务对象 */
-    @Resource
-    private RoleFunctionService roleFunctionService;
-
     /**
      * 根据功能ID查找角色功能
      * 
@@ -233,7 +229,9 @@ public class RoleFunctionService extends BaseService {
      * 先删除已有的，后增加最新的
      * 
      * @param roleId
+     *            角色ID
      * @param myFunctions
+     *            功能数组字符串
      */
     public void updateRoleFunction(Integer roleId, String myFunctionIds) {
         if (LOGGER.isDebugEnabled()) {

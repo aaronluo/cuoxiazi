@@ -60,6 +60,7 @@ public class AuthenticationService extends BaseService implements
      * 
      * @param username
      *            用户名
+     * @return 用户详细信息
      */
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException, DataAccessException {

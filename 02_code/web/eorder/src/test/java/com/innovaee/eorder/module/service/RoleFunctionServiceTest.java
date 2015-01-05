@@ -23,11 +23,6 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
     @Autowired
     private RoleFunctionService roleFunctionService;
 
-    // /** 角色ID */
-    // private Integer roleId = 2;
-    // /** 功能ID */
-    // private Integer functionId = 2;
-
     /** 功能服务类对象 */
     @Autowired
     private FunctionService functionService;
@@ -81,8 +76,11 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
     /** 角色状态 */
     private Boolean roleStatus = true;
 
+    /**
+     * 根据角色ID查找剩余的功能列表
+     */
     @Test
-    public void findLeftFunctionsByRoleId_01() {
+    public void findLeftFunctionsByRoleIdOne() {
         List<Function> functions = roleFunctionService
                 .findLeftFunctionsByRoleId(1);
         Assert.assertNotNull(functions);
@@ -92,8 +90,11 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
 
     }
 
+    /**
+     * 根据角色ID查找剩余的功能列表
+     */
     @Test
-    public void findLeftFunctionsByRoleId_02() {
+    public void findLeftFunctionsByRoleIdTwo() {
         List<Function> functions = roleFunctionService
                 .findLeftFunctionsByRoleId(2);
         Assert.assertNotNull(functions);
@@ -103,20 +104,28 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
 
     }
 
+    /**
+     * 根据功能ID查找角色功能
+     */
     @Test
-    public void findRoleFunctionsByFunctionId_01() {
+    public void findRoleFunctionsByFunctionIdOne() {
+        Integer functionId = 1;
         List<RoleFunction> roleFunctions = roleFunctionService
-                .findRoleFunctionsByFunctionId(1);
+                .findRoleFunctionsByFunctionId(functionId);
         Assert.assertNotNull(roleFunctions);
         for (RoleFunction roleFunction : roleFunctions) {
             LOGGER.debug(roleFunction);
         }
     }
 
+    /**
+     * 根据功能ID查找角色功能
+     */
     @Test
-    public void findRoleFunctionsByFunctionId_02() {
+    public void findRoleFunctionsByFunctionIdTwo() {
+        Integer functionId = 2;
         List<RoleFunction> roleFunctions = roleFunctionService
-                .findRoleFunctionsByFunctionId(2);
+                .findRoleFunctionsByFunctionId(functionId);
         Assert.assertNotNull(roleFunctions);
         for (RoleFunction roleFunction : roleFunctions) {
             LOGGER.debug(roleFunction);
@@ -127,7 +136,7 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
      * 先增加，再查找，再删除，再查找
      */
     @Test
-    public void operateFunction_01() {
+    public void operateFunctionOne() {
         // 先新增一个角色对象
         Role role = new Role(roleName, roleDesc, roleStatus);
         // 1. 保存
@@ -173,7 +182,7 @@ public class RoleFunctionServiceTest extends BaseSpringTestCase {
      * 先增加，再查找，再删除，再查找
      */
     @Test
-    public void operateFunction_02() {
+    public void operateFunctionTwo() {
         // 先新增一个角色对象
         Role role = new Role(roleName, roleDesc, roleStatus);
         // 1. 保存

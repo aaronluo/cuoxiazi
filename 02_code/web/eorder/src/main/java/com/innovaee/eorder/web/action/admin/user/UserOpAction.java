@@ -37,6 +37,9 @@ import javax.servlet.http.HttpSession;
  */
 public class UserOpAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -2838975297968337050L;
+
     /** 用户ID */
     private String userId;
 
@@ -72,10 +75,8 @@ public class UserOpAction extends BaseAction {
     /** 剩余的角色数组 */
     private String leftRolesArray;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.opensymphony.xwork2.ActionSupport#validate()
+    /**
+     * 验证
      */
     public void validate() {
         refreshData();

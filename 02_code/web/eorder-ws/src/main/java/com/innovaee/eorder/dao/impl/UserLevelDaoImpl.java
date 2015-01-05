@@ -22,8 +22,12 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class UserLevelDaoImpl implements UserLevelDao {
 
-    /* (non-Javadoc)
-     * @see com.innovaee.eorder.dao.UserLevelDao#getUserLevelById(java.lang.String)
+    /**
+     * 根据用户等级ID查找用户等级
+     * 
+     * @param id
+     *            用户等级ID
+     * @return 用户等级实体
      */
     @Override
     public UserLevel getUserLevelById(String id) {

@@ -21,43 +21,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OrderVO implements Serializable {
 
-	/** 订单ID */
-	private Integer orderId;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -569018728095489048L;
 
-	/** 订单时间 */
-	private Timestamp createAt;
+    /** 订单ID */
+    private Integer orderId;
 
-	/** 订单总价 */
-	private Float totalPrice;
+    /** 订单时间 */
+    private Timestamp createAt;
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    /** 订单总价 */
+    private Float totalPrice;
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
 
-	public Float getTotalPrice() {
-		return totalPrice;
-	}
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
 
-	public void setTotalPrice(Float totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public Float getTotalPrice() {
+        return totalPrice;
+    }
 
-	@Override
-	public String toString() {
-		return "OrderVO [orderId=" + orderId + ", createAt=" + createAt
-				+ ", totalPrice=" + totalPrice + "]";
-	}
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    /**
+     * @return 返回该对象的字符串表示
+     */
+    @Override
+    public String toString() {
+        return "OrderVO [orderId=" + orderId + ", createAt=" + createAt
+                + ", totalPrice=" + totalPrice + "]";
+    }
 
 }

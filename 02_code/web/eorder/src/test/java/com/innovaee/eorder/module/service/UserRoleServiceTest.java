@@ -71,7 +71,7 @@ public class UserRoleServiceTest extends BaseSpringTestCase {
      * 先增加，再查找，再删除，再查找
      */
     @Test
-    public void operateUserRole_01() {
+    public void operateUserRole() {
         User user = new User(username, password, cellphone, levelId, userStatus);
 
         // 1. 保存

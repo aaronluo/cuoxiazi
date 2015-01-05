@@ -30,10 +30,6 @@ public class FunctionService extends BaseService {
     @Resource
     private FunctionDao functionDao;
 
-    /** 功能服务对象 */
-    @Resource
-    private FunctionService functionService;
-
     /**
      * 返回所有值对象列表
      * 

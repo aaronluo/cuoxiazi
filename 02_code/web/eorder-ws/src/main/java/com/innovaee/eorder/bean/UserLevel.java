@@ -28,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserLevel extends BaseEntity {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -5670126597834842556L;
+
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return levelId;
@@ -95,6 +103,9 @@ public class UserLevel extends BaseEntity {
         this.levelStatus = levelStatus;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "UserLevel [levelId=" + getPK() + ", levelName=" + levelName

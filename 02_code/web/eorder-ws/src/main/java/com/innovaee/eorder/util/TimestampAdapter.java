@@ -18,21 +18,24 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @version V1.0
  */
 public class TimestampAdapter extends XmlAdapter<Date, Timestamp> {
-    /*
-     * (non-Javadoc)
+
+    /**
+     * 将日期格式转换成时间格式
      * 
-     * @see
-     * javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     * @param val
+     *            日期
+     * @return 时间
      */
     public Timestamp unmarshal(Date val) throws Exception {
         return new Timestamp(val.getTime());
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * 将时间格式转换成日期格式
      * 
-     * @see
-     * javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     * @param val
+     *            时间
+     * @return 日期
      */
     public Date marshal(Timestamp val) throws Exception {
         return new Date(val.getTime());

@@ -26,8 +26,14 @@ import javax.persistence.Table;
 @Table(name = "t_role_function")
 public class RoleFunction extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 268911441468082815L;
 
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return roleFunctionId;
@@ -107,6 +113,9 @@ public class RoleFunction extends BaseEntity {
         this.functionId = functionId;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "RoleFunction [roleFunctionId=" + roleFunctionId + ", roleId="

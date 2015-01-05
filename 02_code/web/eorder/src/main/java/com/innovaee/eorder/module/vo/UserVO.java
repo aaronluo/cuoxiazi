@@ -15,6 +15,9 @@ package com.innovaee.eorder.module.vo;
  */
 public class UserVO extends BaseVo {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -4133653472508296407L;
+
     /** 用户ID */
     private Integer userId;
 

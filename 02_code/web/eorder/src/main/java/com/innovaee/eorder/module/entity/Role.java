@@ -25,8 +25,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_role")
 public class Role extends BaseEntity {
-    private static final long serialVersionUID = 1L;
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 3935177845506319976L;
+
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return roleId;
@@ -115,6 +122,9 @@ public class Role extends BaseEntity {
         this.roleId = roleId;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "Role [roleId=" + roleId + ", roleName=" + roleName

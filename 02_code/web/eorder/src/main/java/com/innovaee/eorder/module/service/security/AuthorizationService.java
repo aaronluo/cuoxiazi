@@ -36,11 +36,25 @@ public class AuthorizationService extends BaseService implements
     private SecurityMetadataSourceService securityMetadataSourceService;
 
     /**
+     * <pre>
      * AccessDecisionManager 使用方法参数传递所有信息，这好像在认证评估时进行决定。
      * 特别是，在真实的安全方法期望调用的时候，传递安全Object
      * 启用那些参数。比如，让我们假设安全对象是一个MethodInvocation。很容易为任何Customer
      * 参数查询MethodInvocation，，然后在AccessDecisionManager
-     * 里实现一些有序的安全逻辑，来确认主体是否允许在那个客户上操作。 如果访问被拒绝，实现将抛 出一个AccessDeniedException 异常。
+     * 里实现一些有序的安全逻辑，来确认主体是否允许在那个客户上操作。 如果访问被拒绝，实现将抛 出
+     * 一个AccessDeniedException 异常。
+     * </pre>
+     * 
+     * @param authentication
+     *            调用者调用的方法（不能为空）
+     * 
+     * @param object
+     *            被调用的对象
+     * @param configAttributes
+     *            被调用的关联属性
+     *
+     * @throws AccessDeniedException
+     * @throws InsufficientAuthenticationException
      */
     public void decide(Authentication authentication, Object object,
             Collection<ConfigAttribute> configAttributes)
@@ -72,18 +86,11 @@ public class AuthorizationService extends BaseService implements
                 .getPrincipal();
 
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("AuthorizationService.decide()=================>Authentication Info Start");
-            LOGGER.debug("AuthorizationService.decide()=================>Name["
-                    + authentication.getName() + "]");
-            LOGGER.debug("AuthorizationService.decide()=================>Principal["
-                    + userDetailsVo + "]");
-            LOGGER.debug("AuthorizationService.decide()=================>Authorities["
-                    + authentication.getAuthorities() + "]");
-            LOGGER.debug("AuthorizationService.decide()=================>Credentials["
-                    + authentication.getCredentials() + "]");
-            LOGGER.debug("AuthorizationService.decide()=================>Details["
+            LOGGER.debug("认证信息：Name[" + authentication.getName()
+                    + "], Principal[" + userDetailsVo + "],Authorities["
+                    + authentication.getAuthorities() + "],Credentials["
+                    + authentication.getCredentials() + "],Details["
                     + authentication.getDetails() + "]");
-            LOGGER.debug("AuthorizationService.decide()=================>Authentication Info End");
         }
         for (GrantedAuthority ga : authentication.getAuthorities()) {
             if (requestUrl.equals(ga.getAuthority())) {
@@ -92,7 +99,6 @@ public class AuthorizationService extends BaseService implements
                             "attribute[%s] 被授权给：  user[%s], roles[%s]",
                             requestUrl, authentication.getName(),
                             userDetailsVo.getRolesName()));
-
                 }
                 return;
             }
@@ -105,17 +111,32 @@ public class AuthorizationService extends BaseService implements
     }
 
     /**
+     * <pre>
      * 在启动的时候被AbstractSecurityInterceptor调用， 来决定AccessDecisionManager
-     * 是否可以执行传递ConfigAttribute 。
+     * 是否可以执行传递ConfigAttribute。
+     * </pre>
+     * 
+     * @param attribute
+     *            配置属性
+     *
+     * @return 是否支持
      */
+
     public boolean supports(ConfigAttribute attribute) {
-        LOGGER.debug("AuthorizationService.supports(ConfigAttribute attribute), "
-                + "支持的属性是: " + attribute.getAttribute());
+        LOGGER.debug("支持的属性是: " + attribute.getAttribute());
         return true;
     }
 
     /**
-     * 方法被安全拦截器实现调用， 包含安全拦截器将显示的AccessDecisionManager 支持安全对象的类型。
+     * <pre>
+     * 方法被安全拦截器实现调用， 包含安全拦截器将显示的
+     * AccessDecisionManager 支持安全对象的类型。
+     * </pre>
+     * 
+     * @param clazz
+     *            查询的类
+     *
+     * @return 是否支持
      */
     public boolean supports(Class<?> clazz) {
         LOGGER.debug("AuthorizationService.supports(Class<?> clazz), 支持类是: "

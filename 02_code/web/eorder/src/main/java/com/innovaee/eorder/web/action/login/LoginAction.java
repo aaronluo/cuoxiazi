@@ -23,6 +23,9 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 6040009827802629154L;
+
     /**
      * 进入登录页面
      * 

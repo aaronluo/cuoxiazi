@@ -28,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Category extends BaseEntity {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 5028186743184310311L;
+
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return categoryId;
@@ -71,6 +79,9 @@ public class Category extends BaseEntity {
         this.categoryPicture = categoryPicture;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "Category [categoryId=" + categoryId + ", categoryName="

@@ -24,6 +24,15 @@ public class Md5Util {
     /** 日志对象 */
     private static final Logger LOGGER = Logger.getLogger(Md5Util.class);
 
+    /** 最大的两位十六进制 */
+    public static final Integer HEX_MAX = 0xFF;
+
+    /**
+     * 私有的默认构造函数
+     */
+    private Md5Util() {
+    }
+
     /**
      * 获取MD5编码
      * 
@@ -48,11 +57,11 @@ public class Md5Util {
 
         StringBuffer md5StrBuff = new StringBuffer();
         for (int i = 0; i < byteArray.length; i++) {
-            if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
+            if (Integer.toHexString(HEX_MAX & byteArray[i]).length() == 1) {
                 md5StrBuff.append("0").append(
-                        Integer.toHexString(0xFF & byteArray[i]));
+                        Integer.toHexString(HEX_MAX & byteArray[i]));
             } else {
-                md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+                md5StrBuff.append(Integer.toHexString(HEX_MAX & byteArray[i]));
             }
         }
 

@@ -28,6 +28,9 @@ import com.innovaee.eorder.util.TimestampAdapter;
  */
 public abstract class BaseEntity implements Serializable {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 5575073954535097972L;
+
     /** 创建时间 */
     @Column(name = "create_at")
     private Timestamp createAt;

@@ -37,6 +37,9 @@ import javax.servlet.http.HttpSession;
  */
 public class RoleAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -1486847780419755300L;
+
     /** 角色ID */
     private String roleId;
 

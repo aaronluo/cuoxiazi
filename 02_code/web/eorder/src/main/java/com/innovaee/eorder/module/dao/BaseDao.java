@@ -26,7 +26,7 @@ public abstract class BaseDao extends HibernateDaoSupport {
      * 
      * @param pk
      *            主键
-     * @return
+     * @return 主键
      */
     public BaseEntity get(final Serializable pk) {
         return (BaseEntity) getHibernateTemplate().get(getEntityClass(), pk);
@@ -37,7 +37,7 @@ public abstract class BaseDao extends HibernateDaoSupport {
      * 
      * @param pk
      *            主键
-     * @return
+     * @return 实体
      */
     public BaseEntity remove(final Serializable pk) {
         BaseEntity baseEntity = (BaseEntity) getHibernateTemplate().load(

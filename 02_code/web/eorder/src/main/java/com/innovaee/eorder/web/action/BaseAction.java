@@ -21,10 +21,16 @@ import java.util.List;
  */
 public class BaseAction extends ActionSupport {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 6286143366540227001L;
+
+    /** 菜单列表 */
     protected List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
+    /** 登录用户名 */
     private String loginName;
 
+    /** 操作消息 */
     private String message;
 
     public String getLoginName() {

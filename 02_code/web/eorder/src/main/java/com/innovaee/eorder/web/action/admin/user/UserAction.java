@@ -35,6 +35,9 @@ import javax.servlet.http.HttpSession;
  */
 public class UserAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 714474963089126216L;
+
     /** 用户ID */
     private String userId;
 

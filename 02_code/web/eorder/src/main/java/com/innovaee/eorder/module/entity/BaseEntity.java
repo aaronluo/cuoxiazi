@@ -26,18 +26,17 @@ import javax.persistence.Column;
  */
 public abstract class BaseEntity implements Serializable {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -7872659009526368289L;
+
     /** 日志对象 */
     protected static final Logger LOGGER = Logger.getLogger(BaseEntity.class);
 
-    /**
-     * 创建时间
-     */
+    /** 创建时间 */
     @Column(name = "CREATE_AT")
     private Timestamp createAt;
 
-    /**
-     * 更新时间
-     */
+    /** 更新时间 */
     @Column(name = "UPDATE_AT")
     private Timestamp updateAt;
 

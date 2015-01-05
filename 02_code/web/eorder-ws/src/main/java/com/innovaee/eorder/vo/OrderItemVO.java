@@ -20,66 +20,72 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OrderItemVO implements Serializable {
 
-	/** 菜品ID */
-	private Integer dishId;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 5502247930019950933L;
 
-	/** 菜品名称 */
-	private String dishName;
+    /** 菜品ID */
+    private Integer dishId;
 
-	/** 菜品ID */
-	private Float dishPrice;
+    /** 菜品名称 */
+    private String dishName;
 
-	/** 菜品数量 */
-	private Integer dishAmount;
+    /** 菜品ID */
+    private Float dishPrice;
 
-	/** 菜品图片 */
-	private String dishPicture;
+    /** 菜品数量 */
+    private Integer dishAmount;
 
-	public Integer getDishId() {
-		return dishId;
-	}
+    /** 菜品图片 */
+    private String dishPicture;
 
-	public void setDishId(Integer dishId) {
-		this.dishId = dishId;
-	}
+    public Integer getDishId() {
+        return dishId;
+    }
 
-	public String getDishName() {
-		return dishName;
-	}
+    public void setDishId(Integer dishId) {
+        this.dishId = dishId;
+    }
 
-	public void setDishName(String dishName) {
-		this.dishName = dishName;
-	}
+    public String getDishName() {
+        return dishName;
+    }
 
-	public Float getDishPrice() {
-		return dishPrice;
-	}
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
 
-	public void setDishPrice(Float dishPrice) {
-		this.dishPrice = dishPrice;
-	}
+    public Float getDishPrice() {
+        return dishPrice;
+    }
 
-	public Integer getDishAmount() {
-		return dishAmount;
-	}
+    public void setDishPrice(Float dishPrice) {
+        this.dishPrice = dishPrice;
+    }
 
-	public void setDishAmount(Integer dishAmount) {
-		this.dishAmount = dishAmount;
-	}
+    public Integer getDishAmount() {
+        return dishAmount;
+    }
 
-	public String getDishPicture() {
-		return dishPicture;
-	}
+    public void setDishAmount(Integer dishAmount) {
+        this.dishAmount = dishAmount;
+    }
 
-	public void setDishPicture(String dishPicture) {
-		this.dishPicture = dishPicture;
-	}
+    public String getDishPicture() {
+        return dishPicture;
+    }
 
-	@Override
-	public String toString() {
-		return "OrderItemVO [dishId=" + dishId + ", dishName=" + dishName
-				+ ", dishPrice=" + dishPrice + ", dishAmount=" + dishAmount
-				+ ", dishPicture=" + dishPicture + "]";
-	}
+    public void setDishPicture(String dishPicture) {
+        this.dishPicture = dishPicture;
+    }
+
+    /**
+     * @return 返回该对象的字符串表示
+     */
+    @Override
+    public String toString() {
+        return "OrderItemVO [dishId=" + dishId + ", dishName=" + dishName
+                + ", dishPrice=" + dishPrice + ", dishAmount=" + dishAmount
+                + ", dishPicture=" + dishPicture + "]";
+    }
 
 }

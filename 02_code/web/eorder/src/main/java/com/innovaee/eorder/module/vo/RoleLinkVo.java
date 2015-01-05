@@ -19,7 +19,8 @@ import java.util.List;
 
 public class RoleLinkVo extends BaseVo {
 
-    private static final long serialVersionUID = 1L;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 736234576556777192L;
 
     /** 菜单项排序号 */
     private String order;
@@ -35,7 +36,7 @@ public class RoleLinkVo extends BaseVo {
 
     /** 链接地址 */
     private String link;
-    
+
     /** 菜单等级，1为父节点，2为子节点 */
     private String flag;
 

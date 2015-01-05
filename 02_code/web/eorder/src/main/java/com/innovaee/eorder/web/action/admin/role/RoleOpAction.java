@@ -33,6 +33,9 @@ import javax.annotation.Resource;
  */
 public class RoleOpAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -7196226011458199861L;
+
     /** 角色ID */
     private String roleId;
 
@@ -69,10 +72,8 @@ public class RoleOpAction extends BaseAction {
     /** 剩余的功能数组 */
     private String leftFunctionsArray;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.opensymphony.xwork2.ActionSupport#validate()
+    /**
+     * 验证
      */
     public void validate() {
         refreshData();

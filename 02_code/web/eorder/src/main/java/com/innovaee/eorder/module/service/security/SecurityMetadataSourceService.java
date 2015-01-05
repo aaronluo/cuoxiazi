@@ -160,17 +160,19 @@ public class SecurityMetadataSourceService extends BaseService implements
         return userFunctions;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * 根据传入对象查找属性
      * 
-     * @see
-     * org.springframework.security.access.SecurityMetadataSource#getAttributes
-     * (java.lang.Object)
+     * @param object
+     *            传入对象
+     * 
+     * @return 属性集合
+     *
      */
     public Collection<ConfigAttribute> getAttributes(Object object)
             throws IllegalArgumentException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("查找所有属性");
+            LOGGER.debug("查找属性");
         }
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         Collection<ConfigAttribute> calist = new ArrayList<ConfigAttribute>();
@@ -178,11 +180,11 @@ public class SecurityMetadataSourceService extends BaseService implements
         return calist;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * 得到所有配置属性集合
      * 
-     * @see org.springframework.security.access.SecurityMetadataSource#
-     * getAllConfigAttributes()
+     * @return 属性集合
+     *
      */
     public Collection<ConfigAttribute> getAllConfigAttributes() {
         if (LOGGER.isDebugEnabled()) {
@@ -204,18 +206,20 @@ public class SecurityMetadataSourceService extends BaseService implements
         return allConfigAttributes;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * <pre>
+     * 方法被安全拦截器实现调用， 包含安全拦截器将显示的
+     * AccessDecisionManager 支持安全对象的类型。
+     * </pre>
      * 
-     * @see
-     * org.springframework.security.access.SecurityMetadataSource#supports(java
-     * .lang.Class)
+     * @param clazz
+     *            查询的类
+     *
+     * @return 是否支持
      */
     public boolean supports(Class<?> clazz) {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("SecurityMetadataSourceService.supports(Class<?> clazz), supported class is: "
-                    + clazz.getName());
-        }
+        LOGGER.debug("AuthorizationService.supports(Class<?> clazz), 支持类是: "
+                + clazz.getName());
         return true;
     }
 }

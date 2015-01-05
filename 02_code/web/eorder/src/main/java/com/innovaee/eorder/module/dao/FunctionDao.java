@@ -43,7 +43,8 @@ public class FunctionDao extends BaseDao {
      * 根据功能ID查找功能
      * 
      * @param functionId
-     * @return
+     *            功能ID
+     * @return 功能
      */
     public Function loadFunction(final Integer functionId) {
         return (Function) get(functionId);

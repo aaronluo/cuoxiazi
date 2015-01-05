@@ -28,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OrderItem extends BaseEntity {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 7501199115527593716L;
+
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return orderItemId;
@@ -83,6 +91,9 @@ public class OrderItem extends BaseEntity {
         this.dishAmount = dishAmount;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "OrderItem [orderItemId=" + orderItemId + ", orderId=" + orderId

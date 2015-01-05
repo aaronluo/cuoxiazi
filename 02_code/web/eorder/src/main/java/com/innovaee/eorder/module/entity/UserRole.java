@@ -26,30 +26,30 @@ import javax.persistence.Table;
 @Table(name = "t_user_role")
 public class UserRole extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -4019552792618763692L;
 
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return userRoleId;
     }
 
-    /**
-     * 用户角色ID
-     */
+    /** 用户角色ID */
     @Id
     @Column(name = "USER_ROLE_ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userRoleId;
 
-    /**
-     * 用户ID
-     */
+    /** 用户ID */
     @Column(name = "user_id")
     private Integer userId;
 
-    /**
-     * 角色ID
-     */
+    /** 角色ID */
     @Column(name = "role_id")
     private Integer roleId;
 
@@ -108,6 +108,9 @@ public class UserRole extends BaseEntity {
         this.roleId = roleId;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "UserRole [userRoleId=" + userRoleId + ", userId=" + userId

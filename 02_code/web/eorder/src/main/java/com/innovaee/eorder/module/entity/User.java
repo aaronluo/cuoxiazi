@@ -26,48 +26,42 @@ import javax.persistence.Table;
 @Table(name = "t_user")
 public class User extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -2911066252145689038L;
 
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
     @Override
     public Serializable getPK() {
         return userId;
     }
 
-    /**
-     * 用户ID
-     */
+    /** 用户ID */
     @Id
     @Column(name = "USER_ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
-    /**
-     * 用户名
-     */
+    /** 用户名 */
     @Column(name = "USERNAME")
     private String username;
 
-    /**
-     * 密码
-     */
+    /** 密码 */
     @Column(name = "PASSWORD")
     private String password;
 
-    /**
-     * 手机号码
-     */
+    /** 手机号码 */
     @Column(name = "CELLPHONE")
     private String cellphone;
 
-    /**
-     * 等级ID
-     */
+    /** 等级ID */
     @Column(name = "LEVEL_ID")
     private Integer levelId;
 
-    /**
-     * 用户状态
-     */
+    /** 用户状态 */
     @Column(name = "USER_STATUS")
     private Boolean userStatus;
 
@@ -157,6 +151,9 @@ public class User extends BaseEntity {
         this.userStatus = userStatus;
     }
 
+    /**
+     * @return 返回该对象的字符串表示
+     */
     @Override
     public String toString() {
         return "User [userId=" + userId + ", username=" + username

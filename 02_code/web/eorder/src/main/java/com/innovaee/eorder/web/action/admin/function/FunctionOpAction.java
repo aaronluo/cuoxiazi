@@ -33,6 +33,9 @@ import javax.servlet.http.HttpSession;
  */
 public class FunctionOpAction extends BaseAction {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = -5564486716612554064L;
+
     /** 功能ID */
     private String functionId;
 
@@ -80,10 +83,8 @@ public class FunctionOpAction extends BaseAction {
         this.setLoginName(userDetail.getUser().getUsername());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.opensymphony.xwork2.ActionSupport#validate()
+    /**
+     * 验证
      */
     public void validate() {
         refreshData();
