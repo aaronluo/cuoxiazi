@@ -1,0 +1,25 @@
+Work Product Name:	ws code
+Date & Time:		2015-01-05
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+1. 无用的main函数
+	OrderItemDaoImpl.java
+	OrderDaoImpl.java
+	CategoryDaoImpl.java
+
+2. 成员变量采用/* */单行注释
+	OrderVO.java
+	OrderItemVo.java
+	OrderItemDaoImpl.java
+
+5. System.out.println 用 logger代替
+	CategoryDaoImpl.java
+	OrderDaoImpl.java
+	OrderItemDaoImpl.java
+
+6. 注释不完整
+	OrderItemDaoImpl.java
+	OrderDaoImpl.java
+	CategoryDaoImpl.java
