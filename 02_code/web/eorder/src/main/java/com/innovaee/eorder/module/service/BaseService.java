@@ -16,6 +16,6 @@ import org.apache.log4j.Logger;
  * @version V1.0
  */
 public abstract class BaseService {
-	/** 日志对象 */
-	protected static final Logger LOGGER = Logger.getLogger(BaseService.class);
+    /** 日志对象 */
+    protected static final Logger LOGGER = Logger.getLogger(BaseService.class);
 }

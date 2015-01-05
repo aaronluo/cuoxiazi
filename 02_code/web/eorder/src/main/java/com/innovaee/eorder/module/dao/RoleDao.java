@@ -22,86 +22,86 @@ import java.util.List;
  */
 public class RoleDao extends BaseDao {
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	protected Class getEntityClass() {
-		return Role.class;
-	}
+    @SuppressWarnings("rawtypes")
+    @Override
+    protected Class getEntityClass() {
+        return Role.class;
+    }
 
-	/**
-	 * 根据角色ID查找角色
-	 * 
-	 * @param roleId
-	 *            角色ID
-	 * @return 角色
-	 */
-	public Role loadRole(final Integer roleId) {
-		return (Role) get(roleId);
-	}
+    /**
+     * 根据角色ID查找角色
+     * 
+     * @param roleId
+     *            角色ID
+     * @return 角色
+     */
+    public Role loadRole(final Integer roleId) {
+        return (Role) get(roleId);
+    }
 
-	/**
-	 * 根据角色名称查找角色
-	 * 
-	 * @param roleName
-	 *            角色名称
-	 * @return 角色
-	 */
-	@SuppressWarnings("unchecked")
-	public Role findRoleByRoleName(final String roleName) {
-		final List<Role> list = (List<Role>) super.getHibernateTemplate().find(
-				"FROM Role f WHERE f.roleName=?", roleName);
-		if (null != list && list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
-	}
+    /**
+     * 根据角色名称查找角色
+     * 
+     * @param roleName
+     *            角色名称
+     * @return 角色
+     */
+    @SuppressWarnings("unchecked")
+    public Role findRoleByRoleName(final String roleName) {
+        final List<Role> list = (List<Role>) super.getHibernateTemplate().find(
+                "FROM Role f WHERE f.roleName=?", roleName);
+        if (null != list && list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
 
-	/**
-	 * 查找所有角色
-	 * 
-	 * @return 角色列表
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Role> findAllRoles() {
-		return (List<Role>) super.getHibernateTemplate().find("FROM Role");
-	}
+    /**
+     * 查找所有角色
+     * 
+     * @return 角色列表
+     */
+    @SuppressWarnings("unchecked")
+    public List<Role> findAllRoles() {
+        return (List<Role>) super.getHibernateTemplate().find("FROM Role");
+    }
 
-	/**
-	 * 保存角色
-	 * 
-	 * @param role
-	 *            待保存的角色
-	 * @return 已保存的角色
-	 */
-	public Role saveRole(final Role role) {
-		Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
-				.getTime()));
-		role.setCreateAt(createAt);
-		return (Role) save(role);
-	}
+    /**
+     * 保存角色
+     * 
+     * @param role
+     *            待保存的角色
+     * @return 已保存的角色
+     */
+    public Role saveRole(final Role role) {
+        Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+                .getTime()));
+        role.setCreateAt(createAt);
+        return (Role) save(role);
+    }
 
-	/**
-	 * 更新角色
-	 * 
-	 * @param role
-	 *            待更新的角色
-	 */
-	public void updateRole(Role role) {
-		final Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
-				.getTime()));
-		role.setUpdateAt(updateAt);
-		update(role);
-	}
+    /**
+     * 更新角色
+     * 
+     * @param role
+     *            待更新的角色
+     */
+    public void updateRole(Role role) {
+        final Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
+                "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+                .getTime()));
+        role.setUpdateAt(updateAt);
+        update(role);
+    }
 
-	/**
-	 * 移除角色
-	 * 
-	 * @param role
-	 *            待移除的角色
-	 */
-	public void removeRole(final Role role) {
-		super.getHibernateTemplate().delete(role);
-	}
+    /**
+     * 移除角色
+     * 
+     * @param role
+     *            待移除的角色
+     */
+    public void removeRole(final Role role) {
+        super.getHibernateTemplate().delete(role);
+    }
 }

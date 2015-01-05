@@ -21,63 +21,63 @@ import java.io.Serializable;
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseDao extends HibernateDaoSupport {
-	/**
-	 * 获取实体
-	 * 
-	 * @param pk
-	 *            主键
-	 * @return
-	 */
-	public BaseEntity get(final Serializable pk) {
-		return (BaseEntity) getHibernateTemplate().get(getEntityClass(), pk);
-	}
+    /**
+     * 获取实体
+     * 
+     * @param pk
+     *            主键
+     * @return
+     */
+    public BaseEntity get(final Serializable pk) {
+        return (BaseEntity) getHibernateTemplate().get(getEntityClass(), pk);
+    }
 
-	/**
-	 * 删除实体
-	 * 
-	 * @param pk
-	 *            主键
-	 * @return
-	 */
-	public BaseEntity remove(final Serializable pk) {
-		BaseEntity baseEntity = (BaseEntity) getHibernateTemplate().load(
-				getEntityClass(), pk);
-		getHibernateTemplate().delete(baseEntity);
+    /**
+     * 删除实体
+     * 
+     * @param pk
+     *            主键
+     * @return
+     */
+    public BaseEntity remove(final Serializable pk) {
+        BaseEntity baseEntity = (BaseEntity) getHibernateTemplate().load(
+                getEntityClass(), pk);
+        getHibernateTemplate().delete(baseEntity);
 
-		return baseEntity;
-	}
+        return baseEntity;
+    }
 
-	/**
-	 * 更新实体
-	 * 
-	 * @param entity
-	 *            实体
-	 * @return 更新后的实体
-	 */
-	public BaseEntity update(final BaseEntity entity) {
-		getHibernateTemplate().update(entity);
+    /**
+     * 更新实体
+     * 
+     * @param entity
+     *            实体
+     * @return 更新后的实体
+     */
+    public BaseEntity update(final BaseEntity entity) {
+        getHibernateTemplate().update(entity);
 
-		return entity;
-	}
+        return entity;
+    }
 
-	/**
-	 * 保存实体
-	 * 
-	 * @param entity
-	 *            实体
-	 * @return 新增的实体
-	 */
-	public BaseEntity save(BaseEntity entity) {
-		getHibernateTemplate().save(entity);
+    /**
+     * 保存实体
+     * 
+     * @param entity
+     *            实体
+     * @return 新增的实体
+     */
+    public BaseEntity save(BaseEntity entity) {
+        getHibernateTemplate().save(entity);
 
-		return entity;
-	}
+        return entity;
+    }
 
-	/**
-	 * 返回实体的类对象
-	 * 
-	 * @return 实体的类对象
-	 */
-	@SuppressWarnings("rawtypes")
-	protected abstract Class getEntityClass();
+    /**
+     * 返回实体的类对象
+     * 
+     * @return 实体的类对象
+     */
+    @SuppressWarnings("rawtypes")
+    protected abstract Class getEntityClass();
 }

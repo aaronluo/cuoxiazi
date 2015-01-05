@@ -15,55 +15,55 @@ package com.innovaee.eorder.module.vo;
  */
 public class RoleVO extends BaseVo {
 
-	/** 角色ID */
-	private Integer roleId;
+    /** 角色ID */
+    private Integer roleId;
 
-	/** 角色描述 */
-	private String roleDesc;
+    /** 角色描述 */
+    private String roleDesc;
 
-	/** 角色名称 */
-	private String roleName;
+    /** 角色名称 */
+    private String roleName;
 
-	/** 功能名称 */
-	private String functionName;
+    /** 功能名称 */
+    private String functionName;
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+    public Integer getRoleId() {
+        return roleId;
+    }
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 
-	public String getRoleDesc() {
-		return roleDesc;
-	}
+    public String getRoleDesc() {
+        return roleDesc;
+    }
 
-	public void setRoleDesc(String roleDesc) {
-		this.roleDesc = roleDesc;
-	}
+    public void setRoleDesc(String roleDesc) {
+        this.roleDesc = roleDesc;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
-	public String getFunctionName() {
-		return functionName;
-	}
+    public String getFunctionName() {
+        return functionName;
+    }
 
-	public void setFunctionName(String functionName) {
-		this.functionName = functionName;
-	}
+    public void setFunctionName(String functionName) {
+        this.functionName = functionName;
+    }
 
-	@Override
-	public String toString() {
-		return "RoleVO [roleId=" + roleId + ", roleDesc=" + roleDesc
-				+ ", roleName=" + roleName + ", functionName=" + functionName
-				+ "]";
-	}
+    @Override
+    public String toString() {
+        return "RoleVO [roleId=" + roleId + ", roleDesc=" + roleDesc
+                + ", roleName=" + roleName + ", functionName=" + functionName
+                + "]";
+    }
 
 }

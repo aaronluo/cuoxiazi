@@ -7,16 +7,16 @@
 
 package com.innovaee.eorder.module.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
-import javax.persistence.Column;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
 
 /**
  * @Title: BaseEntity
@@ -26,55 +26,55 @@ import org.apache.log4j.Logger;
  */
 public abstract class BaseEntity implements Serializable {
 
-	/** 日志对象 */
-	protected static final Logger LOGGER = Logger.getLogger(BaseEntity.class);
+    /** 日志对象 */
+    protected static final Logger LOGGER = Logger.getLogger(BaseEntity.class);
 
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "CREATE_AT")
-	private Timestamp createAt;
+    /**
+     * 创建时间
+     */
+    @Column(name = "CREATE_AT")
+    private Timestamp createAt;
 
-	/**
-	 * 更新时间
-	 */
-	@Column(name = "UPDATE_AT")
-	private Timestamp updateAt;
+    /**
+     * 更新时间
+     */
+    @Column(name = "UPDATE_AT")
+    private Timestamp updateAt;
 
-	/**
-	 * 返回主键
-	 * 
-	 * @return 主键
-	 */
-	public abstract Serializable getPK();
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
+    public abstract Serializable getPK();
 
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.SIMPLE_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
+    }
 
-	public boolean equals(Object object) {
-		return EqualsBuilder.reflectionEquals(this, object);
-	}
+    public boolean equals(Object object) {
+        return EqualsBuilder.reflectionEquals(this, object);
+    }
 
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
 
-	public void setCreateAt(final Timestamp createAt) {
-		this.createAt = createAt;
-	}
+    public void setCreateAt(final Timestamp createAt) {
+        this.createAt = createAt;
+    }
 
-	public Timestamp getUpdateAt() {
-		return updateAt;
-	}
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
 
-	public void setUpdateAt(final Timestamp updateAt) {
-		this.updateAt = updateAt;
-	}
+    public void setUpdateAt(final Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
 
 }

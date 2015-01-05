@@ -19,43 +19,43 @@ import com.innovaee.eorder.module.entity.User;
  */
 public class UserFunctionVo extends BaseVo {
 
-	/** 用户实体 */
-	private User user;
+    /** 用户实体 */
+    private User user;
 
-	/** 角色实体 */
-	private Role role;
+    /** 角色实体 */
+    private Role role;
 
-	/** 功能实体 */
-	private Function function;
+    /** 功能实体 */
+    private Function function;
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public Role getRole() {
+        return role;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-	public Function getFunction() {
-		return function;
-	}
+    public Function getFunction() {
+        return function;
+    }
 
-	public void setFunction(Function function) {
-		this.function = function;
-	}
+    public void setFunction(Function function) {
+        this.function = function;
+    }
 
-	@Override
-	public String toString() {
-		return "UserFunctionVo [user=" + user + ", role=" + role
-				+ ", function=" + function + "]";
-	}
+    @Override
+    public String toString() {
+        return "UserFunctionVo [user=" + user + ", role=" + role
+                + ", function=" + function + "]";
+    }
 
 }

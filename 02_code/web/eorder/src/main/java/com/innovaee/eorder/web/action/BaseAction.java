@@ -7,11 +7,11 @@
 
 package com.innovaee.eorder.web.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.opensymphony.xwork2.ActionSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Title: BaseAction
@@ -21,34 +21,34 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class BaseAction extends ActionSupport {
 
-	protected List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
+    protected List<RoleLinkVo> menulist = new ArrayList<RoleLinkVo>();
 
-	private String loginName;
+    private String loginName;
 
-	private String message;
+    private String message;
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public List<RoleLinkVo> getMenulist() {
-		return menulist;
-	}
+    public List<RoleLinkVo> getMenulist() {
+        return menulist;
+    }
 
-	public void setMenulist(List<RoleLinkVo> menulist) {
-		this.menulist = menulist;
-	}
+    public void setMenulist(List<RoleLinkVo> menulist) {
+        this.menulist = menulist;
+    }
 
 }
