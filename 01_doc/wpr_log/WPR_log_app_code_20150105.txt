@@ -1,0 +1,36 @@
+Work Product Name:	app Source Codes
+Date & Time:		2015-01-05
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+
+
+1. e.printStackTrace()而是用log记录错误信息
+	DownloadService.java
+	FileUtils.java
+	ImageDataManager.java
+	OrderActivity.java
+	SettingsActivity.java
+
+
+2. 变量名不符合编码规范，不要使用短命名，例如View v建议定义为View view
+	MainViewActivity.java
+	ImageDataManager.java
+	ForegroundAdapter.java
+	FileUtils.java
+	DownloadService.java
+	DataManager.java
+
+3. 空的catch{}语句块应该移除或者添加处理语句
+	ImageDataManager.java Line 280, 282, 293, 402, 432, 680
+	FileUtils.java
+	DisplayUtil.java
+
+4. 空的{}语句
+	ImageDataManager.java 289, 300, 688
+	FileUtils.java 77, 152, 
+	DisplayUtil.java 69, 121, 48
+
+5. 错误的参数解释
+	FeedTypeAdapter.java line 77
