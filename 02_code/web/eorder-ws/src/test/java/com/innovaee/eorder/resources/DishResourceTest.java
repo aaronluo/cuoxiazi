@@ -1,3 +1,4 @@
+
 package com.innovaee.eorder.resources;
 
 import org.junit.Test;
@@ -9,15 +10,15 @@ import org.junit.Test;
  */
 public class DishResourceTest extends BaseTestCase {
 
-	/**
-	 * 根据categoryId查询
-	 */
-	@Test
-	public void getDishesById() {
-		target = client.target(SERVER_URI + "/dishes/mydishes/6");
-		response = target.request().get();
-		String dishes = response.readEntity(String.class);
-		LOGGER.debug("dishes: " + dishes);
-	}
+    /**
+     * 根据categoryId查询
+     */
+    @Test
+    public void getDishesById() {
+        target = client.target(SERVER_URI + "/dishes/mydishes/6");
+        response = target.request().get();
+        String dishes = response.readEntity(String.class);
+        LOGGER.debug("dishes: " + dishes);
+    }
 
 }

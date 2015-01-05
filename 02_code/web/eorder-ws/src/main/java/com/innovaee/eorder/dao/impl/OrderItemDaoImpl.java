@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: OrderItemDaoImpl.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : OrderItemDaoImpl.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
+
 package com.innovaee.eorder.dao.impl;
 
 import java.util.List;
@@ -22,27 +23,27 @@ import com.innovaee.eorder.util.HibernateUtil;
  */
 public class OrderItemDaoImpl implements OrderItemDao {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<OrderItem> getOrderItemsByOrderId(Integer orderId) {
-		Session session = HibernateUtil.getSession();
-		HibernateUtil.beginTransaction();
-		String hql = "from OrderItem as OI where OI.orderId=?";
-		List<OrderItem> orderItems = session.createQuery(hql)
-				.setInteger(0, orderId).list();
-		HibernateUtil.commitTransaction();
-		HibernateUtil.closeSession();
-		return orderItems;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<OrderItem> getOrderItemsByOrderId(Integer orderId) {
+        Session session = HibernateUtil.getSession();
+        HibernateUtil.beginTransaction();
+        String hql = "from OrderItem as OI where OI.orderId=?";
+        List<OrderItem> orderItems = session.createQuery(hql)
+                .setInteger(0, orderId).list();
+        HibernateUtil.commitTransaction();
+        HibernateUtil.closeSession();
+        return orderItems;
+    }
 
-	public static void main(String[] args) {
-		Integer orderId = 1;
-		OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
-		List<OrderItem> categories = orderItemDaoImpl
-				.getOrderItemsByOrderId(orderId);
-		for (OrderItem orderItem : categories) {
-			System.out.println("OrderItem: " + orderItem);
-		}
-		System.exit(0);
-	}
+    public static void main(String[] args) {
+        Integer orderId = 1;
+        OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
+        List<OrderItem> categories = orderItemDaoImpl
+                .getOrderItemsByOrderId(orderId);
+        for (OrderItem orderItem : categories) {
+            System.out.println("OrderItem: " + orderItem);
+        }
+        System.exit(0);
+    }
 }

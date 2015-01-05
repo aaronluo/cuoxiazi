@@ -1,3 +1,4 @@
+
 package com.innovaee.eorder.resources;
 
 import org.junit.Test;
@@ -9,15 +10,15 @@ import org.junit.Test;
  */
 public class OrderItemResourceTest extends BaseTestCase {
 
-	/**
-	 * 
-	 */
-	@Test
-	public void getOrderItemsByOrderId() {
-		target = client.target(SERVER_URI + "/orders/myorders/13912340003");
-		response = target.request().get();
-		String orderitems = response.readEntity(String.class);
-		LOGGER.debug("orderitems: " + orderitems);
-	}
+    /**
+     * 
+     */
+    @Test
+    public void getOrderItemsByOrderId() {
+        target = client.target(SERVER_URI + "/orders/myorders/13912340003");
+        response = target.request().get();
+        String orderitems = response.readEntity(String.class);
+        LOGGER.debug("orderitems: " + orderitems);
+    }
 
 }

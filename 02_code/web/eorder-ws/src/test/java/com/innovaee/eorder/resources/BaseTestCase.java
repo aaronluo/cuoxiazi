@@ -1,3 +1,4 @@
+
 package com.innovaee.eorder.resources;
 
 import javax.ws.rs.client.Client;
@@ -18,35 +19,35 @@ import org.slf4j.LoggerFactory;
  */
 public class BaseTestCase {
 
-	/** 日志对象 */
-	protected static final Logger LOGGER = LoggerFactory
-			.getLogger(BaseTestCase.class);
+    /** 日志对象 */
+    protected static final Logger LOGGER = LoggerFactory
+            .getLogger(BaseTestCase.class);
 
-	/** 链接 */
-	protected static String SERVER_URI = "http://localhost:8080/eorder-ws/rest";
+    /** 链接 */
+    protected static String SERVER_URI = "http://localhost:8080/eorder-ws/rest";
 
-	/** 客户端 */
-	protected Client client;
+    /** 客户端 */
+    protected Client client;
 
-	/** 请求的目标 */
-	protected WebTarget target;
+    /** 请求的目标 */
+    protected WebTarget target;
 
-	/** 返回的响应 */
-	protected Response response;
+    /** 返回的响应 */
+    protected Response response;
 
-	/**
-	 * 初始化客户端
-	 */
-	@Before
-	public void setUp() {
-		client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-	}
+    /**
+     * 初始化客户端
+     */
+    @Before
+    public void setUp() {
+        client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
+    }
 
-	/**
-	 * 关闭返回的响应流
-	 */
-	@After
-	public void tearDown() {
-		response.close();
-	}
+    /**
+     * 关闭返回的响应流
+     */
+    @After
+    public void tearDown() {
+        response.close();
+    }
 }

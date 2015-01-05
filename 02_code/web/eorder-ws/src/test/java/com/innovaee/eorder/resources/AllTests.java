@@ -1,3 +1,4 @@
+
 package com.innovaee.eorder.resources;
 
 import java.net.URI;
@@ -19,37 +20,37 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ CategoryResourceTest.class, DishResourceTest.class,
-		OrderItemResourceTest.class, OrderResourceTest.class,
-		UserResourceTest.class })
+        OrderItemResourceTest.class, OrderResourceTest.class,
+        UserResourceTest.class })
 public class AllTests {
 
-	/** RESTful的基本URI */
-	public static final String BASE_URI = "http://localhost:8080/eorder-ws/rest";
+    /** RESTful的基本URI */
+    public static final String BASE_URI = "http://localhost:8080/eorder-ws/rest";
 
-	/** 服务器 */
-	public static HttpServer server;
+    /** 服务器 */
+    public static HttpServer server;
 
-	/**
-	 * 启动服务器
-	 */
-	@BeforeClass
-	public static void startServer() {
-		final ResourceConfig rc = new ResourceConfig();
-		// 服务类所在的包路径
-		rc.packages("com.innovaee.eorder.resources");
-		// 注册JSON转换器
-		rc.register(JacksonJsonProvider.class);
+    /**
+     * 启动服务器
+     */
+    @BeforeClass
+    public static void startServer() {
+        final ResourceConfig rc = new ResourceConfig();
+        // 服务类所在的包路径
+        rc.packages("com.innovaee.eorder.resources");
+        // 注册JSON转换器
+        rc.register(JacksonJsonProvider.class);
 
-		server = GrizzlyHttpServerFactory.createHttpServer(
-				URI.create(BASE_URI), rc);
-	}
+        server = GrizzlyHttpServerFactory.createHttpServer(
+                URI.create(BASE_URI), rc);
+    }
 
-	/**
-	 * 关闭服务器
-	 */
-	@AfterClass
-	public static void shutdownServer() {
-		server.shutdownNow();
-	}
+    /**
+     * 关闭服务器
+     */
+    @AfterClass
+    public static void shutdownServer() {
+        server.shutdownNow();
+    }
 
 }

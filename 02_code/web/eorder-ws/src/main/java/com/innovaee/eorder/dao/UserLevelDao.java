@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: UserLevelDao.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : UserLevelDao.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
+
 package com.innovaee.eorder.dao;
 
 import com.innovaee.eorder.bean.UserLevel;
@@ -16,13 +17,13 @@ import com.innovaee.eorder.bean.UserLevel;
  */
 public interface UserLevelDao {
 
-	/**
-	 * 根据用户等级ID查找用户等级
-	 * 
-	 * @param id
-	 *            用户等级ID
-	 * @return 用户等级实体
-	 */
-	public UserLevel getUserLevelById(String id);
+    /**
+     * 根据用户等级ID查找用户等级
+     * 
+     * @param id
+     *            用户等级ID
+     * @return 用户等级实体
+     */
+    public UserLevel getUserLevelById(String id);
 
 }

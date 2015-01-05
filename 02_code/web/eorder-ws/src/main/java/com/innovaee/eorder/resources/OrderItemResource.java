@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: OrderItemResource.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : OrderItemResource.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
+
 package com.innovaee.eorder.resources;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,53 +35,53 @@ import com.innovaee.eorder.vo.OrderItemVO;
 @Path("/orderitems")
 public class OrderItemResource extends AbstractBaseResource {
 
-	/** 订单明细数据访问实现类对象 */
-	private OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
+    /** 订单明细数据访问实现类对象 */
+    private OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
 
-	/** 菜品数据访问实现类对象 */
-	private DishDaoImpl dishDaoImpl = new DishDaoImpl();
+    /** 菜品数据访问实现类对象 */
+    private DishDaoImpl dishDaoImpl = new DishDaoImpl();
 
-	/**
-	 * 根据orderId查询订单明细
-	 * 
-	 * @param orderId
-	 *            订单ID
-	 * @return 订单明细
-	 */
-	@GET
-	@Path("/myorderitems/{orderId}")
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
-			@PathParam("orderId") Integer orderId) {
-		List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
-		Dish dish = null;
-		OrderItemVO orderItemVO = null;
-		List<OrderItem> orderItems = orderItemDaoImpl
-				.getOrderItemsByOrderId(orderId);
-		for (OrderItem orderItem : orderItems) {
+    /**
+     * 根据orderId查询订单明细
+     * 
+     * @param orderId
+     *            订单ID
+     * @return 订单明细
+     */
+    @GET
+    @Path("/myorderitems/{orderId}")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
+            @PathParam("orderId") Integer orderId) {
+        List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
+        Dish dish = null;
+        OrderItemVO orderItemVO = null;
+        List<OrderItem> orderItems = orderItemDaoImpl
+                .getOrderItemsByOrderId(orderId);
+        for (OrderItem orderItem : orderItems) {
 
-			orderItemVO = new OrderItemVO();
-			try {
-				BeanUtils.copyProperties(orderItemVO, orderItem);
-			} catch (IllegalAccessException e) {
-				LOGGER.error(e.getMessage());
-			} catch (InvocationTargetException e) {
-				LOGGER.error(e.getMessage());
-			}
+            orderItemVO = new OrderItemVO();
+            try {
+                BeanUtils.copyProperties(orderItemVO, orderItem);
+            } catch (IllegalAccessException e) {
+                LOGGER.error(e.getMessage());
+            } catch (InvocationTargetException e) {
+                LOGGER.error(e.getMessage());
+            }
 
-			if (null != orderItem) {
-				dish = dishDaoImpl.getDishById(orderItem.getDishId());
-				orderItemVO.setDishName(dish.getDishName());
-				orderItemVO.setDishPicture(dish.getDishPicture());
-				orderItemVO.setDishPrice(dish.getDishPrice());
-				orderItemVOs.add(orderItemVO);
-			}
-		}
+            if (null != orderItem) {
+                dish = dishDaoImpl.getDishById(orderItem.getDishId());
+                orderItemVO.setDishName(dish.getDishName());
+                orderItemVO.setDishPicture(dish.getDishPicture());
+                orderItemVO.setDishPrice(dish.getDishPrice());
+                orderItemVOs.add(orderItemVO);
+            }
+        }
 
-		Map<String, List<OrderItemVO>> result = new HashMap<String, List<OrderItemVO>>();
-		result.put("orderitems", orderItemVOs);
+        Map<String, List<OrderItemVO>> result = new HashMap<String, List<OrderItemVO>>();
+        result.put("orderitems", orderItemVOs);
 
-		return result;
-	}
+        return result;
+    }
 
 }

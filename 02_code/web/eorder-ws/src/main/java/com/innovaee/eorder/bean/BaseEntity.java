@@ -1,9 +1,10 @@
 /***********************************************
- * Filename		: BaseEntity.java																									: DishService.java
- * Copyright  	: Copyright (c) 2014
- * Company    	: Innovaee
- * Created	    : 11/27/2014
+ * Filename        : BaseEntity.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
  ************************************************/
+
 package com.innovaee.eorder.bean;
 
 import java.io.Serializable;
@@ -27,50 +28,50 @@ import com.innovaee.eorder.util.TimestampAdapter;
  */
 public abstract class BaseEntity implements Serializable {
 
-	/** 创建时间 */
-	@Column(name = "create_at")
-	private Timestamp createAt;
+    /** 创建时间 */
+    @Column(name = "create_at")
+    private Timestamp createAt;
 
-	/** 更新时间 */
-	@Column(name = "update_at")
-	private Timestamp updateAt;
+    /** 更新时间 */
+    @Column(name = "update_at")
+    private Timestamp updateAt;
 
-	/**
-	 * 返回主键
-	 * 
-	 * @return 主键
-	 */
-	public abstract Serializable getPK();
+    /**
+     * 返回主键
+     * 
+     * @return 主键
+     */
+    public abstract Serializable getPK();
 
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.SIMPLE_STYLE);
-	}
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
+    }
 
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	@XmlJavaTypeAdapter(TimestampAdapter.class)
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
 
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
 
-	@XmlJavaTypeAdapter(TimestampAdapter.class)
-	public Timestamp getUpdateAt() {
-		return updateAt;
-	}
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
 
-	public void setUpdateAt(Timestamp updateAt) {
-		this.updateAt = updateAt;
-	}
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
 
 }

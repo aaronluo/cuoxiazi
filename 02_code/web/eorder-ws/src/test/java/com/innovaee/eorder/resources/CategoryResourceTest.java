@@ -1,3 +1,4 @@
+
 package com.innovaee.eorder.resources;
 
 import org.junit.Test;
@@ -9,12 +10,12 @@ import org.junit.Test;
  */
 public class CategoryResourceTest extends BaseTestCase {
 
-	@Test
-	public void getAllCategories() {
-		target = client.target(SERVER_URI + "/categories");
-		response = target.request().get();
-		String categories = response.readEntity(String.class);
-		LOGGER.debug("categories: " + categories);
-	}
+    @Test
+    public void getAllCategories() {
+        target = client.target(SERVER_URI + "/categories");
+        response = target.request().get();
+        String categories = response.readEntity(String.class);
+        LOGGER.debug("categories: " + categories);
+    }
 
 }
