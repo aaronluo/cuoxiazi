@@ -156,7 +156,6 @@ public class UserRoleService extends BaseService {
      * 
      * @param userRole
      *            待保存的用户角色
-     * 
      */
     public void saveUserRole(UserRole userRole) {
         if (LOGGER.isDebugEnabled()) {

@@ -70,7 +70,6 @@ public class UserRoleDao extends BaseDao {
      * 
      * @param userRole
      *            待更新的用户角色
-     * 
      */
     public void updateUserRole(UserRole userRole) {
         Timestamp updateAt = Timestamp.valueOf(new SimpleDateFormat(
