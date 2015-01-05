@@ -32,10 +32,10 @@ public class HibernateUtil {
 	private static String CONFIG_FILE_LOCATION = "hibernate.cfg.xml";
 
 	/** 单例 Session */
-	private static final ThreadLocal<Session> threadLocal = new ThreadLocal<Session>();
+	private static final ThreadLocal<Session> THREAD_LOCAL = new ThreadLocal<Session>();
 
 	/** 单例 Transaction */
-	private static final ThreadLocal<Transaction> threadTransaction = new ThreadLocal<Transaction>();
+	private static final ThreadLocal<Transaction> THREAD_TRANSACTION = new ThreadLocal<Transaction>();
 
 	/** 单例 SessionFactory */
 	private static SessionFactory sessionFactory;
@@ -47,7 +47,7 @@ public class HibernateUtil {
 	 * @throws HibernateException
 	 */
 	public static Session getSession() throws HibernateException {
-		Session session = (Session) threadLocal.get();
+		Session session = (Session) THREAD_LOCAL.get();
 
 		if (session == null) {
 			if (sessionFactory == null) {
@@ -67,7 +67,7 @@ public class HibernateUtil {
 			if (null != sessionFactory) {
 				session = sessionFactory.openSession();
 			}
-			threadLocal.set(session);
+			THREAD_LOCAL.set(session);
 		}
 		return session;
 	}
@@ -78,8 +78,8 @@ public class HibernateUtil {
 	 * @throws HibernateException
 	 */
 	public static void closeSession() throws HibernateException {
-		Session session = (Session) threadLocal.get();
-		threadLocal.set(null);
+		Session session = (Session) THREAD_LOCAL.get();
+		THREAD_LOCAL.set(null);
 		if (session != null) {
 			HibernateUtil.closeSession();
 		}
@@ -97,11 +97,11 @@ public class HibernateUtil {
 	 * @throws HibernateException
 	 */
 	public static void beginTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) threadTransaction.get();
+		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
 		try {
 			if (transaction == null) {
 				transaction = getSession().beginTransaction();
-				threadTransaction.set(transaction);
+				THREAD_TRANSACTION.set(transaction);
 			}
 		} catch (HibernateException ex) {
 			LOGGER.error("开始事务失败： " + ex.getMessage());
@@ -115,13 +115,13 @@ public class HibernateUtil {
 	 * @throws HibernateException
 	 */
 	public static void commitTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) threadTransaction.get();
+		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
 		try {
 			if (transaction != null && !transaction.wasCommitted()
 					&& !transaction.wasRolledBack()) {
 				transaction.commit();
 			}
-			threadTransaction.set(null);
+			THREAD_TRANSACTION.set(null);
 		} catch (HibernateException ex) {
 			LOGGER.error("提交事务失败： " + ex.getMessage());
 			rollbackTransaction();
@@ -135,9 +135,9 @@ public class HibernateUtil {
 	 * @throws HibernateException
 	 */
 	public static void rollbackTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) threadTransaction.get();
+		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
 		try {
-			threadTransaction.set(null);
+			THREAD_TRANSACTION.set(null);
 			if (transaction != null && !transaction.wasCommitted()
 					&& !transaction.wasRolledBack()) {
 				transaction.rollback();

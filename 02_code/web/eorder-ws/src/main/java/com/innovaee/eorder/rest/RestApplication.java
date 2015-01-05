@@ -21,8 +21,8 @@ public class RestApplication extends ResourceConfig {
      * 构造函数
      */
     public RestApplication() {
+        super();
         // 服务类所在的包路径
-        
         packages("com.innovaee.eorder.resources");
         // 注册JSON转换器
         register(JacksonJsonProvider.class);
