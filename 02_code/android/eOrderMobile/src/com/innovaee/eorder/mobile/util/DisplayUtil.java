@@ -7,16 +7,6 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 
 /**
  * 显示工具集
@@ -38,7 +28,7 @@ public class DisplayUtil {
             opts.inDither = false; 
             opts.inPurgeable = true; 
             opts.inInputShareable = true; 
-            		
+                    
             // 3.0以下系统，压缩图片质量
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
                 opts.inPreferredConfig = Bitmap.Config.RGB_565;

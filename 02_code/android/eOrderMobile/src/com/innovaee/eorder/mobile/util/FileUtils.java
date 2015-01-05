@@ -7,14 +7,6 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import android.graphics.Bitmap;
-import android.os.Environment;
-import android.util.Log;
 
 /**
  * 文件操作工具集
@@ -59,8 +51,8 @@ public final class FileUtils {
         } catch (FileNotFoundException e) {
             Log.d("saveBitmap", e.toString());
         } catch (IOException e) {
-        	Log.d("saveBitmap", e.toString());
-        }	
+            Log.d("saveBitmap", e.toString());
+        }    
     }
 
     /**
@@ -102,28 +94,28 @@ public final class FileUtils {
         if (destFileName.endsWith(File.separator)) {
             Log.d("createFile:", "创建单个文件失败，目标不能是目录" + destFileName);
             return false;
-        }	
+        }    
         if (!file.getParentFile().exists()) {
             if (!file.getParentFile().mkdirs()) {
                 Log.d("createFile:", "创建目录文件所在的目录失败！");
                 return false;
             }
         }
-        	
+            
         //创建目标文件
         try {
             if (file.createNewFile()) {
                 Log.d("createFile:", "创建单个文件成功！" + destFileName);
                 return true;
             } else {
-            	Log.d("createFile:", "创建单个文件失败！" + destFileName);
+                Log.d("createFile:", "创建单个文件失败！" + destFileName);
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("createFile:", "创建单个文件失败！" + destFileName);
             return false;
-        }	
+        }    
     }
 
     /**

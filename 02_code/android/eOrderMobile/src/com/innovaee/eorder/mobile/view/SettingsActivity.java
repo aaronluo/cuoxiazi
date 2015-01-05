@@ -7,18 +7,6 @@
 
 package com.innovaee.eorder.mobile.view;
 
-import com.innovaee.eorder.R;
-import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * 设置界面
@@ -26,7 +14,7 @@ import android.widget.Toast;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class SettingsActivity extends Activity {
-	//服务器地址编辑器
+    //服务器地址编辑器
     EditText serviceUrl;
     
     //确认按钮

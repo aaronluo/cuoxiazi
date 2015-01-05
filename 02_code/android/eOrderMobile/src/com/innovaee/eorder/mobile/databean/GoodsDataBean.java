@@ -7,14 +7,13 @@
 
 package com.innovaee.eorder.mobile.databean;
 
-import java.io.Serializable;
 
 /**
  * 商品信息数据Bean
  * 
  */
 public class GoodsDataBean implements Serializable {
-	//序列化id
+    //序列化id
     private static final long serialVersionUID = 1L;
 
     //表单名定义
@@ -46,7 +45,7 @@ public class GoodsDataBean implements Serializable {
     
     //图片url地址
     private String bitmapUrl;
-    	
+        
     //购买数量
     private int count;
 

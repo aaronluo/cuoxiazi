@@ -7,15 +7,6 @@
 
 package com.innovaee.eorder.mobile.view;
 
-import com.innovaee.eorder.R;
-
-import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
 
 /**
  * 关于界面
@@ -23,7 +14,7 @@ import android.widget.TextView;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AboutActivity extends Activity {
-	//显示文本编辑器
+    //显示文本编辑器
     TextView aboutText;
     
     //窗口ActionBar

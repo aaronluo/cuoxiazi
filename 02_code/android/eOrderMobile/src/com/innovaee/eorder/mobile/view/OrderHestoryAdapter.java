@@ -7,20 +7,7 @@
 
 package com.innovaee.eorder.mobile.view;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 /**
  * 订单历史查询界面数据适配器

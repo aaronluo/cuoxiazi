@@ -7,25 +7,19 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import com.innovaee.eorder.R;
-
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-	
+    
 /**
  * 类描述: 蒙版显示控制器 功能详细描述: 根据触屏状态下的调整蒙版显示效果
  * 
  * @date [2014年10月21日]
  */
 public class ForegroundAdapter {
-	//蒙版显示兼容接口
+    //蒙版显示兼容接口
     private IForeground ifCoverState;
     
     //资源对象
     private Drawable coverDrawable;
-    	
+        
     /**
      * 构造函数
      * @param context 调用者Context

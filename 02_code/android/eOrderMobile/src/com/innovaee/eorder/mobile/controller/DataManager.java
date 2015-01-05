@@ -7,15 +7,12 @@
 
 package com.innovaee.eorder.mobile.controller;
 
-import java.util.List;
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.service.DownloadService;
 import com.innovaee.eorder.mobile.service.ICallback;
-
-import android.content.Context;
 
 /**
  * 数据管理器 通过该类获取相关的数据，分类列表，某分类菜品列表，会员信息等

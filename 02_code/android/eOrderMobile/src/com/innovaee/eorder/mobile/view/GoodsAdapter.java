@@ -7,26 +7,15 @@
 
 package com.innovaee.eorder.mobile.view;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.util.RemoteImageView;
-
-import android.content.Context;
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 /**
  * 菜品数据适配器
  *
  */
 public class GoodsAdapter extends BaseAdapter {
-	//绑定数据
+    //绑定数据
     private List<GoodsDataBean> listItemsData;
     
     //调用者Context

@@ -7,16 +7,6 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.util.List;
-
-import com.innovaee.eorder.R;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 /**
  * 分类数据Adapter
@@ -25,7 +15,7 @@ import android.widget.TextView;
 public class FeedTypeAdapter extends BaseAdapter {    
     //布局文件获取类
     private LayoutInflater inflater;
-    	
+        
     //绑定数据
     private List<FeedType> feedTypeList;
 

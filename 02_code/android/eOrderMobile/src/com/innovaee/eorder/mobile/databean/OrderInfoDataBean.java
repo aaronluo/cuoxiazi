@@ -7,14 +7,13 @@
 
 package com.innovaee.eorder.mobile.databean;
 
-import java.io.Serializable;
 
 /**
  * 订单详情数据Bean
  * 
  */
 public class OrderInfoDataBean implements Serializable {
-	//序列化id
+    //序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义

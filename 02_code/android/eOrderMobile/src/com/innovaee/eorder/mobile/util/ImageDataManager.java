@@ -7,40 +7,8 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FilterInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-
-import android.graphics.Bitmap;
-import android.os.Environment;
-import android.os.StatFs;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.SparseArray;
-
-import com.innovaee.eorder.mobile.util.LruImageCache;
+import com.google.zxing.common.Comparator;
+import com.innovaee.eorder.mobile.util.ImageDataManager.ThreadPoolType;
 
 /**
  * 图片管理器 管理图片，存储图片到缓存和sdcard,使用时从缓存或者sdcard读取图片
@@ -50,7 +18,7 @@ import com.innovaee.eorder.mobile.util.LruImageCache;
 public class ImageDataManager {
     //线程池类型
     public static enum ThreadPoolType {
-    	//用于加载本地图片
+        //用于加载本地图片
         TYPE_LOCAL, 
         
         //用于下载远程图片
@@ -284,7 +252,7 @@ public class ImageDataManager {
                 }
             }
         } catch (Exception e) {
-        	Log.e("downloadBitmapSync", "error!");
+            Log.e("downloadBitmapSync", "error!");
         } finally {
             if (contentLength > 0 && readCount != contentLength) {
             } else {
@@ -366,7 +334,7 @@ public class ImageDataManager {
      * 把图片加到缓存
      * @param url 图片地址
      * @param bitmap 图片对象
-     */	
+     */    
     public void addBitmapToCache(String url, Bitmap bitmap) {
         if (bitmap == null) {
             return;
@@ -401,8 +369,8 @@ public class ImageDataManager {
             outStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
         } catch (FileNotFoundException e) {
-        	Log.e("saveBmpToSd", "error!");
-        } finally {	
+            Log.e("saveBmpToSd", "error!");
+        } finally {    
             if (outStream != null) {
                 try {
                     outStream.flush();
@@ -432,7 +400,7 @@ public class ImageDataManager {
             try {
                 file.createNewFile();
             } catch (Exception e) {
-            	Log.e("hideMedia", "error!");
+                Log.e("hideMedia", "error!");
             }
         }
         file = null;
@@ -441,7 +409,7 @@ public class ImageDataManager {
     /**
      * 自动清除缓存 
      * @param dirPath 地址
-     */	
+     */    
     private void autoCleanCache(String dirPath) {
         if (!isSdExits()) {
             return;

@@ -7,14 +7,13 @@
 
 package com.innovaee.eorder.mobile.databean;
 
-import java.io.Serializable;
 
 /**
  * 会员信息数据Bean
  * 
  */
 public class UserInfoDataBean implements Serializable {
-	//序列化id
+    //序列化id
     private static final long serialVersionUID = 1L;
 
     // 表单名定义
@@ -166,4 +165,4 @@ public class UserInfoDataBean implements Serializable {
     public void setCount(Double discount) {
         this.discount = discount;
     }
-}	
+}    

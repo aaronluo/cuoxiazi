@@ -7,34 +7,15 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.concurrent.RejectedExecutionException;
-
-import com.innovaee.eorder.R;
+import com.google.zxing.common.Collections;
 import com.innovaee.eorder.mobile.util.ImageDataManager.OnImageLoaderListener;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 /**
  * RemoteImageView继续自ImageView
  * 可以自动从url下载图片
  */
 public class RemoteImageView extends ImageView implements IForeground {
-	//下载消息
+    //下载消息
     private static final int STATE_LOADING = 0x01;
     
     //成功消息
@@ -42,10 +23,10 @@ public class RemoteImageView extends ImageView implements IForeground {
     
     //错误消息
     private static final int STATE_ERROR = 0x03;
-    	
+        
     //状态
     private int state;
-    	
+        
     //对应图片数据
     private final Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new WeakHashMap<ImageView, String>());

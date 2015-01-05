@@ -7,7 +7,6 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import android.os.Environment;
 
 /**
  * 环境，服务器的相关静态定义

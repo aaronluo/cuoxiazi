@@ -7,13 +7,6 @@
 
 package com.innovaee.eorder.mobile.util;
 
-import java.lang.ref.SoftReference;
-import java.util.concurrent.ConcurrentHashMap;
-
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.text.TextUtils;
-import android.util.LruCache;
 
 /**
  * 类描述:LRU图片缓存器 功能详细描述:
@@ -32,7 +25,7 @@ public class LruImageCache implements IImageCache {
 
     // 弱引用缓存
     private ConcurrentHashMap<String, SoftReference<Bitmap>> softCache 
-    	= new ConcurrentHashMap<String, SoftReference<Bitmap>>();
+        = new ConcurrentHashMap<String, SoftReference<Bitmap>>();
 
     /**
      * 构造函数
