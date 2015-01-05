@@ -183,7 +183,8 @@ public class SecurityMetadataSourceService extends BaseService implements
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("查找所有配置属性");
         }
-        if (!allConfigAttributes.isEmpty()) {
+
+        if (null != allConfigAttributes) {
             return allConfigAttributes;
         }
 
