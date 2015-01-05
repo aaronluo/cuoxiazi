@@ -22,10 +22,10 @@ public class RoleServiceTest extends BaseSpringTestCase {
 
     /** 角色名称 */
     private String roleName = "RoleName1";
-    
+
     /** 角色描述 */
     private String roleDesc = "RoleDesc1";
-    
+
     /** 角色状态 */
     private Boolean roleStatus = true;
 
@@ -52,9 +52,6 @@ public class RoleServiceTest extends BaseSpringTestCase {
         // 1. 保存
         Role roleNew = roleService.saveRole(role);
 
-        // 得到新增后的ID
-        Integer newRoleId = roleNew.getRoleId();
-
         // 更新属性
         String newRoleName = "RoleName2";
         String newRoleDesc = "RoleDesc2";
@@ -74,6 +71,8 @@ public class RoleServiceTest extends BaseSpringTestCase {
         roleService.removeRole(roleNew.getRoleId());
 
         // 3.2 通过角色ID查找角色
+        // 得到新增后的ID
+        Integer newRoleId = roleNew.getRoleId();
         roleDB = roleService.loadRole(newRoleId);
         Assert.assertNull(roleDB);
     }

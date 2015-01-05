@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.util;
 
-import java.util.Date;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;

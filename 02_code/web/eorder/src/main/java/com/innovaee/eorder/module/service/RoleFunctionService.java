@@ -230,7 +230,7 @@ public class RoleFunctionService extends BaseService {
      * 
      * @param roleId
      *            角色ID
-     * @param myFunctions
+     * @param myFunctionIds
      *            功能数组字符串
      */
     public void updateRoleFunction(Integer roleId, String myFunctionIds) {

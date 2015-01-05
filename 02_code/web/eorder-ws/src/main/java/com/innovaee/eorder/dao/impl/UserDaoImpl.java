@@ -14,6 +14,7 @@ import com.innovaee.eorder.bean.User;
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.util.HibernateUtil;
 
+
 /**
  * @Title: UserDaoImpl
  * @Description: 用户数据访问对象实现类

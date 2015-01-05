@@ -44,6 +44,12 @@ public class UserDetailsVo extends BaseVo implements UserDetails {
         return userFunctions;
     }
 
+    /**
+     * 设置用户功能列表
+     * 
+     * @param userFunctions
+     *            用户功能列表
+     */
     public void setUserFunctions(List<UserFunctionVo> userFunctions) {
         this.userFunctions = userFunctions;
 
