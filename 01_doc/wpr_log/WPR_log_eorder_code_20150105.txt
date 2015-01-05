@@ -1,0 +1,29 @@
+Work Product Name:	eOrder Source Codes
+Date & Time:		2015-01-05
+Reviewer:			LUO ZHI
+========================================================
+Review Records:
+--------------------------------------------------------
+1. 注释不完整
+	UserDetailsVo.java
+	BaseVo.java
+	SecurityMetadataSourceService.java
+	Function.java
+
+2. BaseService 是个没有任何抽象方法的抽象类，没有必要存在，如果是你想把Logger放在这个类里面，那么这个类不要定义为抽象类
+
+4. UserService.java Line185 ‘先删除角色’是否应该为‘先删除用户与角色的关联’
+5. 日志格式不统一，AuthenticationService.java Line54 AuthorizationService.java Line 73 - 84
+6. AuthorizationService.java Line 103 - 114， 这两个函数里面仅仅是logger输出信息，有什么具体用处吗？ Call Hierarchy里面也没有其他地方调用
+7. SecurityMetadataSourceService.java Line146 这个函数也是输出日志，有什么具体作用？Call Hierarchy里面也没有其他地方调用
+
+
+11. 直接中文字符不利于国际化
+	UserAction.java Line 135
+	UserOpAction.java Line 101, Line 110, 133, 143, 151, 165, 185, 204, 213, 223, 
+
+12. LoginAction.java Line 35: 未被使用的变量
+
+13. 函数命名不合法
+	UserRoleServiceTest.java Line 33, 44
+	RoleFunctionServiceTest.java Line 117, 85, 130, 96, 107
