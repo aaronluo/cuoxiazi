@@ -174,7 +174,7 @@ public class DownloadService implements GoodService, CategoryService {
                 goods.add(good);
             }
         } catch (JSONException error) {
-            Log.d("DownloadService", "error=" + error.toString());
+            Log.e("DownloadService", error.toString());
         }	
         return goods;
     }
@@ -251,7 +251,7 @@ public class DownloadService implements GoodService, CategoryService {
                     (Double) obj.getDouble("discount"));
             goods.add(userInfo);
         } catch (JSONException error) {
-        	Log.d("DownloadService", "error=" + error.toString());
+        	Log.e("DownloadService", error.toString());
         }
         return goods;
     }
@@ -332,7 +332,7 @@ public class DownloadService implements GoodService, CategoryService {
                 categoryList.add(category);
             }
         } catch (JSONException error) {
-        	Log.d("DownloadService", "error=" + error.toString());
+        	Log.e("DownloadService", error.toString());
         }
         return categoryList;
     }
@@ -413,7 +413,7 @@ public class DownloadService implements GoodService, CategoryService {
                 categoryList.add(category);
             }
         } catch (JSONException error) {
-        	Log.d("DownloadService", "error=" + error.toString());
+        	Log.e("DownloadService", error.toString());
         }
         return categoryList;
     }
@@ -492,7 +492,7 @@ public class DownloadService implements GoodService, CategoryService {
                 OrderInfoList.add(orderInfo);
             }
         } catch (JSONException error) {
-        	Log.d("DownloadService", "error=" + error.toString());
+        	Log.e("DownloadService", error.toString());
         }
         return OrderInfoList;
     }
@@ -596,7 +596,7 @@ public class DownloadService implements GoodService, CategoryService {
 
             object.put("dishList", array);
         } catch (JSONException error) {
-        	Log.d("DownloadService", error.toString());
+        	Log.e("DownloadService", error.toString());
         }	
 
         return object;

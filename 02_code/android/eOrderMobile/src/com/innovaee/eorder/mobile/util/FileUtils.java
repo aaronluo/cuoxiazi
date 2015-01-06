@@ -41,20 +41,20 @@ public final class FileUtils {
     /**
      * 保存Bitmap到缓存文件夹中
      * 
-     * @param mBitmap
+     * @param bitmap
      *            需要保存的图片对象
-     * @param mName
+     * @param name
      *            保持的图片名字
      */
-    public static void saveBitmap(Bitmap mBitmap, String mName) {
-        File file = new File(Env.Path.PHOTO_PATH, mName);
+    public static void saveBitmap(Bitmap bitmap, String name) {
+        File file = new File(Env.Path.PHOTO_PATH, name);
 
         if (file.exists()) {
             file.delete();
         }
         try {
             FileOutputStream out = new FileOutputStream(file);
-            mBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.flush();
             out.close();
         } catch (FileNotFoundException error) {

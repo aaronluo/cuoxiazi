@@ -30,12 +30,12 @@ public class ForegroundAdapter {
     /**
      * 构造函数
      * @param context 调用者Context
-     * @param iCoverState  蒙版显示兼容接口
+     * @param coverState  蒙版显示兼容接口
      */
-    public ForegroundAdapter(Context context, IForeground iCoverState) {
-        ifCoverState = iCoverState;
+    public ForegroundAdapter(Context context, IForeground coverState) {
+        ifCoverState = coverState;
         if (ifCoverState == null) {
-            throw new RuntimeException("iCoverState must not null!");
+            throw new RuntimeException("coverState must not null!");
         }
         coverDrawable = context.getResources().getDrawable(
                 R.drawable.themestore_common_foreground);

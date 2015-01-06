@@ -353,9 +353,9 @@ public class ImageDataManager {
                 if (bytesSkipped == 0L) {
                     int b = read();
                     if (b < 0) {
-                        break; // we reached EOF
+                        break; 
                     } else {
-                        bytesSkipped = 1; // we read one byte
+                        bytesSkipped = 1; 
                     }
                 }
                 totalBytesSkipped += bytesSkipped;
@@ -630,31 +630,31 @@ public class ImageDataManager {
      * 类描述: 功能详细描述:
      */
     private class ImageDownloadTask implements Runnable {
-        private SparseArray<OnImageLoaderListener> mListeners;
-        private String mUrl;
-        private File mFile;
-        private DownloadTaskType mTaskType;
+        private SparseArray<OnImageLoaderListener> listeners;
+        private String url;
+        private File file;
+        private DownloadTaskType taskType;
 
-        private ImageDownloadTask(File file, String url) {
-            mUrl = url; // 回调函数需要用到url
-            mFile = file;
-            mTaskType = DownloadTaskType.TASKTYPE_FILE;
-            mListeners = new SparseArray<ImageDataManager.OnImageLoaderListener>();
+        private ImageDownloadTask(File Downloadfile, String urlStr) {
+            url = urlStr; // 回调函数需要用到url
+            file = Downloadfile;
+            taskType = DownloadTaskType.TASKTYPE_FILE;
+            listeners = new SparseArray<ImageDataManager.OnImageLoaderListener>();
         }
 
-        private ImageDownloadTask(String url) {
-            mUrl = url;
-            mTaskType = DownloadTaskType.TASKTYPE_URL;
-            mListeners = new SparseArray<ImageDataManager.OnImageLoaderListener>();
+        private ImageDownloadTask(String urlStr) {
+            url = urlStr;
+            taskType = DownloadTaskType.TASKTYPE_URL;
+            listeners = new SparseArray<ImageDataManager.OnImageLoaderListener>();
         }
 
         public DownloadTaskType getTaskType() {
-            return mTaskType;
+            return taskType;
         }
 
         public void addListener(int hashCode, OnImageLoaderListener listener) {
-            if (mListeners.get(hashCode) == null) {
-                mListeners.put(hashCode, listener);
+            if (listeners.get(hashCode) == null) {
+                listeners.put(hashCode, listener);
             }
         }
 
@@ -663,39 +663,38 @@ public class ImageDataManager {
          * @return true listener列表为空，可以移除整个task
          */
         public boolean removeListener(int hashCode) {
-            mListeners.delete(hashCode);
-            return mListeners.size() == 0;
+            listeners.delete(hashCode);
+            return listeners.size() == 0;
         }
 
         @Override
         public void run() {
-            // Bitmap bitmap = getBitmapFromSdcard(mUrl);
             Bitmap bitmap = null;
-            if (mTaskType == DownloadTaskType.TASKTYPE_FILE) {
-                if (mFile.exists()) {
-                    bitmap = DisplayUtil.decodeBitmap(mFile.getAbsolutePath());
+            if (taskType == DownloadTaskType.TASKTYPE_FILE) {
+                if (file.exists()) {
+                    bitmap = DisplayUtil.decodeBitmap(file.getAbsolutePath());
                 }
-            } else if (mTaskType == DownloadTaskType.TASKTYPE_URL) {
-                File file = getBitmapSaveFile(mUrl);
+            } else if (taskType == DownloadTaskType.TASKTYPE_URL) {
+                File file = getBitmapSaveFile(url);
                 if (file.exists()) {
                     bitmap = DisplayUtil.decodeBitmap(file.getAbsolutePath());
                 }
                 if (bitmap == null || bitmap.isRecycled()) {
                     file.delete();
-                    bitmap = downloadBitmapSync(mUrl);
+                    bitmap = downloadBitmapSync(url);
                 }
                 if (bitmap != null) {
-                    addBitmapToCache(mUrl, bitmap);
-                    saveBmpToSd(mUrl, bitmap);
+                    addBitmapToCache(url, bitmap);
+                    saveBmpToSd(url, bitmap);
                 }	 
             }	
-            for (int i = 0; i < mListeners.size(); i++) {
-                OnImageLoaderListener listener = mListeners.valueAt(i);
+            for (int i = 0; i < listeners.size(); i++) {
+                OnImageLoaderListener listener = listeners.valueAt(i);
                 if (listener != null) {
-                    listener.onImageLoader(bitmap, mUrl);
+                    listener.onImageLoader(bitmap, url);
                 }
             }
-            activeQueue.remove(mUrl);
+            activeQueue.remove(url);
         }
 
     }
