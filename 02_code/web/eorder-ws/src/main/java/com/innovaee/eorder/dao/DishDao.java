@@ -26,9 +26,27 @@ public class DishDao {
     /**
      * 根据菜品ID查找菜品
      * 
-     * @param id
+     * @param dishId
      *            菜品ID
      * @return 菜品实体
+     */
+    public Dish getDishById(Integer dishId) {
+        Session session = HibernateUtil.getSession();
+        HibernateUtil.beginTransaction();
+        String hql = "from Dish where dishId=?";
+        Query query = session.createQuery(hql).setInteger(0, dishId);
+        Dish dish = (Dish) query.uniqueResult();
+        HibernateUtil.commitTransaction();
+        HibernateUtil.closeSession();
+        return dish;
+    }
+
+    /**
+     * 根据分类ID得到菜品列表
+     * 
+     * @param categoryId
+     *            分类ID
+     * @return 菜品列表
      */
     @SuppressWarnings("unchecked")
     public List<Dish> getDishesByCategoryId(Integer categoryId) {
@@ -41,23 +59,5 @@ public class DishDao {
         HibernateUtil.commitTransaction();
         HibernateUtil.closeSession();
         return dishes;
-    }
-
-    /**
-     * 根据分类ID得到菜品列表
-     * 
-     * @param categoryId
-     *            分类ID
-     * @return 菜品列表
-     */
-    public Dish getDishById(Integer dishId) {
-        Session session = HibernateUtil.getSession();
-        HibernateUtil.beginTransaction();
-        String hql = "from Dish where dishId=?";
-        Query query = session.createQuery(hql).setInteger(0, dishId);
-        Dish dish = (Dish) query.uniqueResult();
-        HibernateUtil.commitTransaction();
-        HibernateUtil.closeSession();
-        return dish;
     }
 }
