@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.innovaee.eorder.bean.Order;
-import com.innovaee.eorder.bean.User;
-import com.innovaee.eorder.dao.impl.OrderDaoImpl;
-import com.innovaee.eorder.dao.impl.UserDaoImpl;
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.service.OrderService;
+import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.OrderVO;
 
 /**
@@ -36,10 +36,10 @@ import com.innovaee.eorder.vo.OrderVO;
 public class OrderResource extends AbstractBaseResource {
 
     /** 订单数据访问实现类对象 */
-    private OrderDaoImpl orderDaoImpl = new OrderDaoImpl();
+    private OrderService orderService = new OrderService();
 
     /** 用户数据访问实现类对象 */
-    private UserDaoImpl userDaoImpl = new UserDaoImpl();
+    private UserService userService = new UserService();
 
     /**
      * 根据手机号码查询该用户的订单信息
@@ -54,10 +54,10 @@ public class OrderResource extends AbstractBaseResource {
     public Map<String, List<OrderVO>> getOrderesById(
             @PathParam("cellphone") String cellphone) {
         // 1. 通过手机号码查找用户信息
-        User user = userDaoImpl.getUserByCellphone(cellphone);
+        User user = userService.getUserByCellphone(cellphone);
         List<OrderVO> orderVOs = new ArrayList<OrderVO>();
         // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = orderDaoImpl.getOrdersByMemberId(user.getUserId());
+        List<Order> orders = orderService.getOrdersByMemberId(user.getUserId());
         for (Order order : orders) {
             OrderVO orderVO = new OrderVO();
             try {

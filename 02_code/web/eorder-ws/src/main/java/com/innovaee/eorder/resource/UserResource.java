@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -19,10 +19,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.innovaee.eorder.bean.User;
-import com.innovaee.eorder.bean.UserLevel;
-import com.innovaee.eorder.dao.impl.UserDaoImpl;
-import com.innovaee.eorder.dao.impl.UserLevelDaoImpl;
+import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.service.UserLevelService;
+import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.UserVO;
 
 /**
@@ -34,10 +34,10 @@ import com.innovaee.eorder.vo.UserVO;
 public class UserResource extends AbstractBaseResource {
 
     /** 用户数据访问实现类对象 */
-    private UserDaoImpl userDaoImpl = new UserDaoImpl();
+    private UserService userService = new UserService();
 
     /** 用户等级数据访问实现类对象 */
-    private UserLevelDaoImpl userLevelDaoImpl = new UserLevelDaoImpl();
+    private UserLevelService userLevelService = new UserLevelService();
 
     /**
      * 根据手机号码查询用户信息
@@ -51,7 +51,7 @@ public class UserResource extends AbstractBaseResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Map<String, UserVO> getUseresById(
             @PathParam("cellphone") String cellphone) {
-        User user = userDaoImpl.getUserByCellphone(cellphone);
+        User user = userService.getUserByCellphone(cellphone);
         UserVO userVO = new UserVO();
 
         if (null != user) {
@@ -63,7 +63,7 @@ public class UserResource extends AbstractBaseResource {
                 LOGGER.error(e.getMessage());
             }
             UserLevel userLevel = null;
-            userLevel = userLevelDaoImpl.getUserLevelById(user.getLevelId()
+            userLevel = userLevelService.getUserLevelById(user.getLevelId()
                     .toString());
             userVO.setDiscount(userLevel.getDiscount());
             userVO.setLevelName(userLevel.getLevelName());

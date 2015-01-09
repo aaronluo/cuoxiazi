@@ -7,15 +7,19 @@
 
 package com.innovaee.eorder.dao;
 
-import com.innovaee.eorder.bean.UserLevel;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.util.HibernateUtil;
 
 /**
  * @Title: UserLevelDao
- * @Description: 用户等级数据访问对象接口
+ * @Description: 用户等级数据访问对象
  * 
  * @version V1.0
  */
-public interface UserLevelDao {
+public class UserLevelDao {
 
     /**
      * 根据用户等级ID查找用户等级
@@ -24,6 +28,15 @@ public interface UserLevelDao {
      *            用户等级ID
      * @return 用户等级实体
      */
-    public UserLevel getUserLevelById(String id);
+    public UserLevel getUserLevelById(String id) {
+        Session session = HibernateUtil.getSession();
+        HibernateUtil.beginTransaction();
+        String hql = "from UserLevel where levelId=" + id;
+        Query query = session.createQuery(hql);
+        UserLevel userLevel = (UserLevel) query.uniqueResult();
+        HibernateUtil.commitTransaction();
+        HibernateUtil.closeSession();
+        return userLevel;
+    }
 
 }

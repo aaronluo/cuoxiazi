@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.bean;
+package com.innovaee.eorder.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

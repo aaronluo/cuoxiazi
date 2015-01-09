@@ -37,7 +37,7 @@ public class AllTests {
     public static void startServer() {
         final ResourceConfig rc = new ResourceConfig();
         // 服务类所在的包路径
-        rc.packages("com.innovaee.eorder.resources");
+        rc.packages("com.innovaee.eorder.resource");
         // 注册JSON转换器
         rc.register(JacksonJsonProvider.class);
 

@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

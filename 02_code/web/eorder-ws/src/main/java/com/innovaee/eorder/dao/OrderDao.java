@@ -9,15 +9,18 @@ package com.innovaee.eorder.dao;
 
 import java.util.List;
 
-import com.innovaee.eorder.bean.Order;
+import org.hibernate.Session;
+
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.util.HibernateUtil;
 
 /**
  * @Title: OrderDao
- * @Description: 订单数据访问对象接口
+ * @Description: 订单数据访问对象
  * 
  * @version V1.0
  */
-public interface OrderDao {
+public class OrderDao {
 
     /**
      * 根据用户ID得到订单列表
@@ -26,6 +29,16 @@ public interface OrderDao {
      *            用户ID
      * @return 订单列表
      */
-    public List<Order> getOrdersByMemberId(Integer memberId);
+    @SuppressWarnings("unchecked")
+    public List<Order> getOrdersByMemberId(Integer memberId) {
+        Session session = HibernateUtil.getSession();
+        HibernateUtil.beginTransaction();
+        String hql = "from Order as O where O.memberId = ?";
+        List<Order> orders = session.createQuery(hql).setInteger(0, memberId)
+                .list();
+        HibernateUtil.commitTransaction();
+        HibernateUtil.closeSession();
+        return orders;
+    }
 
 }

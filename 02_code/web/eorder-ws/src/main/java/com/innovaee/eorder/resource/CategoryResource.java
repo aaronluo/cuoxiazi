@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +17,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.innovaee.eorder.bean.Category;
-import com.innovaee.eorder.dao.impl.CategoryDaoImpl;
+import com.innovaee.eorder.entity.Category;
+import com.innovaee.eorder.service.CategoryService;
 
 /**
  * @Title: CategoryResource
@@ -30,7 +30,7 @@ import com.innovaee.eorder.dao.impl.CategoryDaoImpl;
 public class CategoryResource extends AbstractBaseResource {
 
     /** 菜品分类数据访问实现类对象 */
-    private CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
+    private CategoryService categoryService = new CategoryService();
 
     /**
      * 查询所有菜品分类
@@ -41,7 +41,7 @@ public class CategoryResource extends AbstractBaseResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Map<String, List<Category>> getAllCategories() {
         List<Category> categories = new ArrayList<Category>();
-        categories = categoryDaoImpl.getAllCategories();
+        categories = categoryService.getAllCategories();
         Map<String, List<Category>> result = new HashMap<String, List<Category>>();
         result.put("categories", categories);
         return result;

@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.innovaee.eorder.bean.Dish;
-import com.innovaee.eorder.bean.OrderItem;
-import com.innovaee.eorder.dao.impl.DishDaoImpl;
-import com.innovaee.eorder.dao.impl.OrderItemDaoImpl;
+import com.innovaee.eorder.entity.Dish;
+import com.innovaee.eorder.entity.OrderItem;
+import com.innovaee.eorder.service.DishService;
+import com.innovaee.eorder.service.OrderItemService;
 import com.innovaee.eorder.vo.OrderItemVO;
 
 /**
@@ -36,10 +36,10 @@ import com.innovaee.eorder.vo.OrderItemVO;
 public class OrderItemResource extends AbstractBaseResource {
 
     /** 订单明细数据访问实现类对象 */
-    private OrderItemDaoImpl orderItemDaoImpl = new OrderItemDaoImpl();
+    private OrderItemService orderItemService = new OrderItemService();
 
     /** 菜品数据访问实现类对象 */
-    private DishDaoImpl dishDaoImpl = new DishDaoImpl();
+    private DishService dishService = new DishService();
 
     /**
      * 根据orderId查询订单明细
@@ -56,7 +56,7 @@ public class OrderItemResource extends AbstractBaseResource {
         List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
         Dish dish = null;
         OrderItemVO orderItemVO = null;
-        List<OrderItem> orderItems = orderItemDaoImpl
+        List<OrderItem> orderItems = orderItemService
                 .getOrderItemsByOrderId(orderId);
         for (OrderItem orderItem : orderItems) {
 
@@ -70,7 +70,7 @@ public class OrderItemResource extends AbstractBaseResource {
             }
 
             if (null != orderItem) {
-                dish = dishDaoImpl.getDishById(orderItem.getDishId());
+                dish = dishService.getDishById(orderItem.getDishId());
                 orderItemVO.setDishName(dish.getDishName());
                 orderItemVO.setDishPicture(dish.getDishPicture());
                 orderItemVO.setDishPrice(dish.getDishPrice());

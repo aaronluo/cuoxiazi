@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.resources;
+package com.innovaee.eorder.resource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +17,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.innovaee.eorder.bean.Dish;
-import com.innovaee.eorder.dao.impl.DishDaoImpl;
+import com.innovaee.eorder.entity.Dish;
+import com.innovaee.eorder.service.DishService;
 
 /**
  * @Title: DishResource
@@ -29,7 +29,7 @@ import com.innovaee.eorder.dao.impl.DishDaoImpl;
 public class DishResource extends AbstractBaseResource {
 
     /** 菜品数据访问实现类对象 */
-    private DishDaoImpl dishDaoImpl = new DishDaoImpl();
+    private DishService dishService = new DishService();
 
     /**
      * 根据categoryId查询
@@ -43,7 +43,7 @@ public class DishResource extends AbstractBaseResource {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Map<String, List<Dish>> getDishesById(
             @PathParam("categoryId") Integer categoryId) {
-        List<Dish> dishes = dishDaoImpl.getDishesByCategoryId(categoryId);
+        List<Dish> dishes = dishService.getDishesByCategoryId(categoryId);
 
         Map<String, List<Dish>> result = new HashMap<String, List<Dish>>();
         result.put("dishes", dishes);
