@@ -29,7 +29,7 @@ import com.innovaee.eorder.service.CategoryService;
 @Path("/categories")
 public class CategoryResource extends AbstractBaseResource {
 
-    /** 菜品分类数据访问实现类对象 */
+    /** 菜品分类服务类对象 */
     private CategoryService categoryService = new CategoryService();
 
     /**

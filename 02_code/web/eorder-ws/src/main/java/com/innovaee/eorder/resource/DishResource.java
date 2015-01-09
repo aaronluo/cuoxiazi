@@ -28,7 +28,7 @@ import com.innovaee.eorder.service.DishService;
 @Path("/dishes")
 public class DishResource extends AbstractBaseResource {
 
-    /** 菜品数据访问实现类对象 */
+    /** 菜品服务类对象 */
     private DishService dishService = new DishService();
 
     /**

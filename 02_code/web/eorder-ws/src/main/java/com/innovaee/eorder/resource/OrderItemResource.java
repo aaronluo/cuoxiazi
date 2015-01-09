@@ -35,10 +35,10 @@ import com.innovaee.eorder.vo.OrderItemVO;
 @Path("/orderitems")
 public class OrderItemResource extends AbstractBaseResource {
 
-    /** 订单明细数据访问实现类对象 */
+    /** 订单明细服务类对象 */
     private OrderItemService orderItemService = new OrderItemService();
 
-    /** 菜品数据访问实现类对象 */
+    /** 菜品服务类对象 */
     private DishService dishService = new DishService();
 
     /**

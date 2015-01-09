@@ -35,10 +35,10 @@ import com.innovaee.eorder.vo.OrderVO;
 @Path("/orders")
 public class OrderResource extends AbstractBaseResource {
 
-    /** 订单数据访问实现类对象 */
+    /** 订单服务类对象 */
     private OrderService orderService = new OrderService();
 
-    /** 用户数据访问实现类对象 */
+    /** 用户服务类对象 */
     private UserService userService = new UserService();
 
     /**

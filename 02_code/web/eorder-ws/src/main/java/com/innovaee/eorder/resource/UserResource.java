@@ -33,10 +33,10 @@ import com.innovaee.eorder.vo.UserVO;
 @Path("/users")
 public class UserResource extends AbstractBaseResource {
 
-    /** 用户数据访问实现类对象 */
+    /** 用户服务类对象 */
     private UserService userService = new UserService();
 
-    /** 用户等级数据访问实现类对象 */
+    /** 用户等级服务类对象 */
     private UserLevelService userLevelService = new UserLevelService();
 
     /**
