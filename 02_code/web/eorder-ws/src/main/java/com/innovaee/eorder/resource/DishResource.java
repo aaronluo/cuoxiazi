@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.resource;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.service.DishService;
+import com.innovaee.eorder.vo.DishVO;
+import com.innovaee.eorder.vo.OrderVO;
 
 /**
  * @Title: DishResource
@@ -32,21 +38,30 @@ public class DishResource extends AbstractBaseResource {
     private DishService dishService = new DishService();
 
     /**
-     * 根据categoryId查询
+     * 根据菜品ID查找菜品
      * 
-     * @param categoryId
-     *            菜品分类ID
-     * @return 菜品列表
+     * @param dishId
+     *            菜品ID
+     * @return 菜品实体
      */
     @GET
-    @Path("/mydishes/{categoryId}")
+    @Path("/{dishId}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Map<String, List<Dish>> getDishesById(
-            @PathParam("categoryId") Integer categoryId) {
-        List<Dish> dishes = dishService.getDishesByCategoryId(categoryId);
+    public Map<String, DishVO> getDishById(@PathParam("dishId") Integer dishId) {
+        Dish dish = dishService.getDishById(dishId);
 
-        Map<String, List<Dish>> result = new HashMap<String, List<Dish>>();
-        result.put("dishes", dishes);
+        DishVO dishVO = new DishVO();
+        try {
+            // 将菜品对象的信息复制到菜品值对象中，用于返回给客户端
+            BeanUtils.copyProperties(dishVO, dish);
+        } catch (IllegalAccessException e) {
+            LOGGER.error(e.getMessage());
+        } catch (InvocationTargetException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        Map<String, DishVO> result = new HashMap<String, DishVO>();
+        result.put("dishes", dishVO);
 
         return result;
     }

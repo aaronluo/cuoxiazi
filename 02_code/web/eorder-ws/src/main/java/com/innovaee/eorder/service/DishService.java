@@ -25,20 +25,9 @@ public class DishService extends BaseService {
     /**
      * 根据菜品ID查找菜品
      * 
-     * @param id
+     * @param dishId
      *            菜品ID
      * @return 菜品实体
-     */
-    public List<Dish> getDishesByCategoryId(Integer categoryId) {
-        return dishDao.getDishesByCategoryId(categoryId);
-    }
-
-    /**
-     * 根据分类ID得到菜品列表
-     * 
-     * @param categoryId
-     *            分类ID
-     * @return 菜品列表
      */
     public Dish getDishById(Integer dishId) {
         return dishDao.getDishById(dishId);

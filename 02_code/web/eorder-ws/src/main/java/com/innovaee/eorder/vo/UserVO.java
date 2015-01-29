@@ -34,12 +34,6 @@ public class UserVO implements Serializable {
     /** 手机号码 */
     private String cellphone;
 
-    /** 用户积分 */
-    private Integer userScore;
-
-    /** 用户等级ID */
-    private Integer levelId;
-
     /** 用户等级名称 */
     private String levelName;
 
@@ -70,22 +64,6 @@ public class UserVO implements Serializable {
         this.cellphone = cellphone;
     }
 
-    public Integer getUserScore() {
-        return userScore;
-    }
-
-    public void setUserScore(Integer userScore) {
-        this.userScore = userScore;
-    }
-
-    public Integer getLevelId() {
-        return levelId;
-    }
-
-    public void setLevelId(Integer levelId) {
-        this.levelId = levelId;
-    }
-
     public String getLevelName() {
         return levelName;
     }
@@ -108,8 +86,7 @@ public class UserVO implements Serializable {
     @Override
     public String toString() {
         return "UserVO [userId=" + userId + ", userName=" + userName
-                + ", cellphone=" + cellphone + ", userScore=" + userScore
-                + ", levelId=" + levelId + ", levelName=" + levelName
+                + ", cellphone=" + cellphone + ", levelName=" + levelName
                 + ", discount=" + discount + "]";
     }
 

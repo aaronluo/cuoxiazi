@@ -8,6 +8,7 @@
 package com.innovaee.eorder.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: OrderItem
@@ -59,6 +63,14 @@ public class OrderItem extends BaseEntity {
     @Column(name = "dish_amount")
     private Integer dishAmount;
 
+    /** 创建时间 */
+    @Column(name = "create_at")
+    private Timestamp createAt;
+
+    /** 更新时间 */
+    @Column(name = "update_at")
+    private Timestamp updateAt;
+
     public Integer getOrderItemId() {
         return orderItemId;
     }
@@ -91,6 +103,24 @@ public class OrderItem extends BaseEntity {
         this.dishAmount = dishAmount;
     }
 
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
+
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
+
     /**
      * @return 返回该对象的字符串表示
      */
@@ -98,8 +128,7 @@ public class OrderItem extends BaseEntity {
     public String toString() {
         return "OrderItem [orderItemId=" + orderItemId + ", orderId=" + orderId
                 + ", dishId=" + dishId + ", dishAmount=" + dishAmount
-                + ", createAt=" + this.getCreateAt() + ", updateAt="
-                + this.getUpdateAt() + "]";
+                + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
     }
 
 }

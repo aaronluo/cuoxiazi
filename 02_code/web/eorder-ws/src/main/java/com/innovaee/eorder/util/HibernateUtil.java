@@ -24,129 +24,130 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUtil {
 
-	/** 日志对象 */
-	protected static final Logger LOGGER = LoggerFactory
-			.getLogger(HibernateUtil.class);
+    /** 日志对象 */
+    protected static final Logger LOGGER = LoggerFactory
+            .getLogger(HibernateUtil.class);
 
-	/** Hibernate配置文件 */
-	private static String CONFIG_FILE_LOCATION = "hibernate.cfg.xml";
+    /** Hibernate配置文件 */
+    private static String CONFIG_FILE_LOCATION = "hibernate.cfg.xml";
 
-	/** 单例 Session */
-	private static final ThreadLocal<Session> THREAD_LOCAL = new ThreadLocal<Session>();
+    /** 单例 Session */
+    private static final ThreadLocal<Session> THREAD_LOCAL = new ThreadLocal<Session>();
 
-	/** 单例 Transaction */
-	private static final ThreadLocal<Transaction> THREAD_TRANSACTION = new ThreadLocal<Transaction>();
+    /** 单例 Transaction */
+    private static final ThreadLocal<Transaction> THREAD_TRANSACTION = new ThreadLocal<Transaction>();
 
-	/** 单例 SessionFactory */
-	private static SessionFactory sessionFactory;
+    /** 单例 SessionFactory */
+    private static SessionFactory sessionFactory;
 
-	/**
-	 * 返回本地线程中的Session实例，如果需要，延迟加载SessionFactory。
-	 * 
-	 * @return Session
-	 * @throws HibernateException
-	 */
-	public static Session getSession() throws HibernateException {
-		Session session = (Session) THREAD_LOCAL.get();
+    /**
+     * 返回本地线程中的Session实例，如果需要，延迟加载SessionFactory。
+     * 
+     * @return Session
+     * @throws HibernateException
+     */
+    public static Session getSession() throws HibernateException {
+        Session session = (Session) THREAD_LOCAL.get();
+        try {
+            if (session == null) {
+                if (sessionFactory == null) {
 
-		if (session == null) {
-			if (sessionFactory == null) {
-				try {
-					Configuration configuration = new Configuration()
-							.configure(CONFIG_FILE_LOCATION);
-					StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-							.applySettings(configuration.getProperties());
-					StandardServiceRegistryImpl serviceRegistry = (StandardServiceRegistryImpl) builder
-							.build();
-					sessionFactory = configuration
-							.buildSessionFactory(serviceRegistry);
-				} catch (Exception e) {
-					LOGGER.error("创建Session工厂失败： " + e.getMessage());
-				}
-			}
-			if (null != sessionFactory) {
-				session = sessionFactory.openSession();
-			}
-			THREAD_LOCAL.set(session);
-		}
-		return session;
-	}
+                    Configuration configuration = new Configuration()
+                            .configure(CONFIG_FILE_LOCATION);
+                    StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                            .applySettings(configuration.getProperties());
+                    StandardServiceRegistryImpl serviceRegistry = (StandardServiceRegistryImpl) builder
+                            .build();
+                    sessionFactory = configuration
+                            .buildSessionFactory(serviceRegistry);
 
-	/**
-	 * 关闭单例的Hibernate Session实例
-	 * 
-	 * @throws HibernateException
-	 */
-	public static void closeSession() throws HibernateException {
-		Session session = (Session) THREAD_LOCAL.get();
-		THREAD_LOCAL.set(null);
-		if (session != null) {
-			HibernateUtil.closeSession();
-		}
-	}
+                }
+                if (null != sessionFactory) {
+                    session = sessionFactory.openSession();
+                }
+                THREAD_LOCAL.set(session);
+            }
+        } catch (Exception e) {
+            LOGGER.error("创建Session工厂失败： " + e.getMessage());
+        }
+        return session;
+    }
 
-	/**
-	 * 默认构造函数
-	 */
-	private HibernateUtil() {
-	}
+    /**
+     * 关闭单例的Hibernate Session实例
+     * 
+     * @throws HibernateException
+     */
+    public static void closeSession() throws HibernateException {
+        Session session = (Session) THREAD_LOCAL.get();
+        THREAD_LOCAL.set(null);
+        if (session != null) {
+            HibernateUtil.closeSession();
+        }
+    }
 
-	/**
-	 * 开始事务
-	 * 
-	 * @throws HibernateException
-	 */
-	public static void beginTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
-		try {
-			if (transaction == null) {
-				transaction = getSession().beginTransaction();
-				THREAD_TRANSACTION.set(transaction);
-			}
-		} catch (HibernateException ex) {
-			LOGGER.error("开始事务失败： " + ex.getMessage());
-			throw new HibernateException(ex.toString());
-		}
-	}
+    /**
+     * 默认构造函数
+     */
+    private HibernateUtil() {
+    }
 
-	/**
-	 * 提交事务
-	 * 
-	 * @throws HibernateException
-	 */
-	public static void commitTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
-		try {
-			if (transaction != null && !transaction.wasCommitted()
-					&& !transaction.wasRolledBack()) {
-				transaction.commit();
-			}
-			THREAD_TRANSACTION.set(null);
-		} catch (HibernateException ex) {
-			LOGGER.error("提交事务失败： " + ex.getMessage());
-			rollbackTransaction();
-			throw new HibernateException(ex.toString());
-		}
-	}
+    /**
+     * 开始事务
+     * 
+     * @throws HibernateException
+     */
+    public static void beginTransaction() throws HibernateException {
+        Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
+        try {
+            if (transaction == null) {
+                transaction = getSession().beginTransaction();
+                THREAD_TRANSACTION.set(transaction);
+            }
+        } catch (HibernateException ex) {
+            LOGGER.error("开始事务失败： " + ex.getMessage());
+            throw new HibernateException(ex.toString());
+        }
+    }
 
-	/**
-	 * 回滚事务
-	 * 
-	 * @throws HibernateException
-	 */
-	public static void rollbackTransaction() throws HibernateException {
-		Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
-		try {
-			THREAD_TRANSACTION.set(null);
-			if (transaction != null && !transaction.wasCommitted()
-					&& !transaction.wasRolledBack()) {
-				transaction.rollback();
-			}
-		} catch (HibernateException ex) {
-			LOGGER.error("回滚事务失败： " + ex.getMessage());
-			throw new HibernateException(ex.toString());
-		} finally {
-			closeSession();
-		}
-	}
+    /**
+     * 提交事务
+     * 
+     * @throws HibernateException
+     */
+    public static void commitTransaction() throws HibernateException {
+        Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
+        try {
+            if (transaction != null && !transaction.wasCommitted()
+                    && !transaction.wasRolledBack()) {
+                transaction.commit();
+            }
+            THREAD_TRANSACTION.set(null);
+        } catch (HibernateException ex) {
+            LOGGER.error("提交事务失败： " + ex.getMessage());
+            rollbackTransaction();
+            throw new HibernateException(ex.toString());
+        }
+    }
+
+    /**
+     * 回滚事务
+     * 
+     * @throws HibernateException
+     */
+    public static void rollbackTransaction() throws HibernateException {
+        Transaction transaction = (Transaction) THREAD_TRANSACTION.get();
+        try {
+            THREAD_TRANSACTION.set(null);
+            if (transaction != null && !transaction.wasCommitted()
+                    && !transaction.wasRolledBack()) {
+                transaction.rollback();
+            }
+        } catch (HibernateException ex) {
+            LOGGER.error("回滚事务失败： " + ex.getMessage());
+            throw new HibernateException(ex.toString());
+        } finally {
+            closeSession();
+        }
+    }
 }

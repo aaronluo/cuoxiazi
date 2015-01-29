@@ -1,4 +1,3 @@
-
 package com.innovaee.eorder.resources;
 
 import java.net.URI;
@@ -20,8 +19,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ CategoryResourceTest.class, DishResourceTest.class,
-        OrderItemResourceTest.class, OrderResourceTest.class,
-        UserResourceTest.class })
+        OrderResourceTest.class, UserResourceTest.class })
 public class AllTests {
 
     /** RESTful的基本URI */

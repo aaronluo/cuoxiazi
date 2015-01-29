@@ -8,6 +8,7 @@
 package com.innovaee.eorder.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: Order
@@ -78,6 +82,14 @@ public class Order extends BaseEntity {
     /** 收银员ID */
     @Column(name = "casher_id")
     private Integer casherId;
+
+    /** 创建时间 */
+    @Column(name = "create_at")
+    private Timestamp createAt;
+
+    /** 更新时间 */
+    @Column(name = "update_at")
+    private Timestamp updateAt;
 
     public Integer getOrderId() {
         return orderId;
@@ -151,18 +163,35 @@ public class Order extends BaseEntity {
         this.casherId = casherId;
     }
 
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
+
+    @XmlJavaTypeAdapter(TimestampAdapter.class)
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
+
     /**
      * @return 返回该对象的字符串表示
      */
     @Override
     public String toString() {
-        return "Order [orderId=" + getPK() + ", orderSeq=" + orderSeq
+        return "Order [orderId=" + orderId + ", orderSeq=" + orderSeq
                 + ", tableNumber=" + tableNumber + ", attendeeNumber="
                 + attendeeNumber + ", totalPrice=" + totalPrice
                 + ", cellphone=" + cellphone + ", serventId=" + serventId
                 + ", memberId=" + memberId + ", casherId=" + casherId
-                + ", createAt=" + this.getCreateAt() + ", updateAt="
-                + this.getUpdateAt() + "]";
+                + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
     }
 
 }

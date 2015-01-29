@@ -31,13 +31,7 @@ public abstract class BaseEntity implements Serializable {
     /** 对象序列化ID */
     private static final long serialVersionUID = 5575073954535097972L;
 
-    /** 创建时间 */
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    /** 更新时间 */
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+   
 
     /**
      * 返回主键
@@ -57,24 +51,6 @@ public abstract class BaseEntity implements Serializable {
 
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
     }
 
 }

@@ -21,11 +21,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.entity.Dish;
+import com.innovaee.eorder.entity.OrderItem;
+import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.service.UserService;
-import com.innovaee.eorder.vo.OrderVO;
+import com.innovaee.eorder.vo.OrderItemVO;
 
 /**
  * @Title: OrderResource
@@ -38,42 +38,49 @@ public class OrderResource extends AbstractBaseResource {
     /** 订单服务类对象 */
     private OrderService orderService = new OrderService();
 
-    /** 用户服务类对象 */
-    private UserService userService = new UserService();
+    /** 菜品服务类对象 */
+    private DishService dishService = new DishService();
 
     /**
-     * 根据手机号码查询该用户的订单信息
+     * 根据orderId查询订单明细
      * 
-     * @param cellphone
-     *            手机号码
-     * @return 订单值对象
+     * @param orderId
+     *            订单ID
+     * @return 订单明细列表
      */
     @GET
-    @Path("/myorders/{cellphone}")
+    @Path("/{orderId}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Map<String, List<OrderVO>> getOrderesById(
-            @PathParam("cellphone") String cellphone) {
-        // 1. 通过手机号码查找用户信息
-        User user = userService.getUserByCellphone(cellphone);
-        List<OrderVO> orderVOs = new ArrayList<OrderVO>();
-        // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = orderService.getOrdersByMemberId(user.getUserId());
-        for (Order order : orders) {
-            OrderVO orderVO = new OrderVO();
+    public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
+            @PathParam("orderId") Integer orderId) {
+        List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
+        Dish dish = null;
+        OrderItemVO orderItemVO = null;
+        List<OrderItem> orderItems = orderService
+                .getOrderItemsByOrderId(orderId);
+        for (OrderItem orderItem : orderItems) {
+
+            orderItemVO = new OrderItemVO();
             try {
-                // 将用户对象的信息复制到用户值对象中，用于返回给客户端
-                BeanUtils.copyProperties(orderVO, order);
-                orderVOs.add(orderVO);
+                BeanUtils.copyProperties(orderItemVO, orderItem);
             } catch (IllegalAccessException e) {
                 LOGGER.error(e.getMessage());
             } catch (InvocationTargetException e) {
                 LOGGER.error(e.getMessage());
             }
+
+            if (null != orderItem) {
+                dish = dishService.getDishById(orderItem.getDishId());
+                orderItemVO.setDishName(dish.getDishName());
+                orderItemVO.setDishPicture(dish.getDishPicture());
+                orderItemVO.setDishPrice(dish.getDishPrice());
+                orderItemVOs.add(orderItemVO);
+            }
         }
 
-        // 构造返回Map
-        Map<String, List<OrderVO>> result = new HashMap<String, List<OrderVO>>();
-        result.put("orders", orderVOs);
+        Map<String, List<OrderItemVO>> result = new HashMap<String, List<OrderItemVO>>();
+        result.put("orderitems", orderItemVOs);
+
         return result;
     }
 

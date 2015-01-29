@@ -11,14 +11,14 @@ import org.junit.Test;
 public class DishResourceTest extends BaseTestCase {
 
     /**
-     * 根据categoryId查询
+     * 根据菜品ID查找菜品
      */
     @Test
-    public void getDishesById() {
-        target = client.target(SERVER_URI + "/dishes/mydishes/6");
+    public void getDishById() {
+        target = client.target(SERVER_URI + "/dishes/6");
         response = target.request().get();
-        String dishes = response.readEntity(String.class);
-        LOGGER.debug("dishes: " + dishes);
+        String dishVO = response.readEntity(String.class);
+        LOGGER.debug("dish: " + dishVO);
     }
 
 }
