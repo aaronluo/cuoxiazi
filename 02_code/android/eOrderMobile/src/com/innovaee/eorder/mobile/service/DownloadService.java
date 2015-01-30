@@ -328,9 +328,9 @@ public class DownloadService implements GoodService, CategoryService {
                 CategoryDataBean category = new CategoryDataBean(
                         obj.getInt("categoryId"),
                         obj.getString("categoryName"),
-                        getBitmapUrl(obj.getString("categoryPicture")));
+                        getBitmapUrl(""));
                 categoryList.add(category);
-            }
+            }	
         } catch (JSONException error) {
         	Log.e("DownloadService", error.toString());
         }
@@ -486,8 +486,8 @@ public class DownloadService implements GoodService, CategoryService {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
                 OrderInfoDataBean orderInfo = new OrderInfoDataBean(
-                        obj.getInt("dishId"), obj.getString("createAt"),
-                        obj.getDouble("totalPrice"), obj.getInt("dishAmount"),
+                        obj.getInt("dishId"), obj.getString("dishName"),
+                        obj.getDouble("dishPrice"), obj.getInt("dishAmount"),
                         getBitmapUrl(obj.getString("dishPicture")));
                 OrderInfoList.add(orderInfo);
             }
