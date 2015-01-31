@@ -47,7 +47,7 @@ public class CategoryResource extends AbstractBaseResource {
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Map<String, List<CategoryVO>> getAllCategorys() {
+    public Map<String, List<CategoryVO>> getAllCategories() {
         List<CategoryVO> categorieVOs = new ArrayList<CategoryVO>();
         List<Category> categories = new ArrayList<Category>();
         categories = categoryService.getAllCategories();
@@ -79,7 +79,7 @@ public class CategoryResource extends AbstractBaseResource {
     @GET
     @Path("/{categoryId}/dishes")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Map<String, List<DishVO>> getDishesByCategoy(
+    public Map<String, List<DishVO>> getDishesByCategoryId(
             @PathParam("categoryId") Integer categoryId) {
         List<Dish> dishes = categoryService.getDishesByCategoryId(categoryId);
 
