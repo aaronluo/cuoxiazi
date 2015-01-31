@@ -41,7 +41,7 @@ public final class Env {
         /**
          * 获取会员信息URL地址
          */
-        public static final String SERVER_GET_USERINFO = "/eorder-ws/rest/users/myuser/";
+        public static final String SERVER_GET_USERINFO = "/eorder-ws/rest/users/";
 
         /**
          * 获取分类列表URL地址
@@ -51,17 +51,17 @@ public final class Env {
         /**
          * 获取某分类下菜品列表URL地址
          */
-        public static final String SERVIE_GET_DISH = "/eorder-ws/rest/dishes/mydishes/";
-
+        public static final String SERVIE_GET_DISH = "/eorder-ws/rest/categories/";
+        
         /**
          * 获取某个会员的订餐记录URL地址
          */
-        public static final String SERVIE_GET_ORDERHESTORY = "/eorder-ws/rest/orders/myorders/";
+        public static final String SERVIE_GET_ORDERHESTORY = "/eorder-ws/rest/users/";
 
         /**
          * 获取某个订单的详情URL地址
          */
-        public static final String SERVIE_GET_ORDERINFO = "/eorder-ws/rest/ordertitems/myordertitems/";
+        public static final String SERVIE_GET_ORDERINFO = "/eorder-ws/rest/orders/";
 
         /**
          * 提交订单的URL地址

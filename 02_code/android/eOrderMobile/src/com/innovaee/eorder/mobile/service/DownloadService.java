@@ -113,8 +113,8 @@ public class DownloadService implements GoodService, CategoryService {
 
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVIE_GET_DISH
-                + String.valueOf(id);
-
+                + String.valueOf(id) + "/dishes";
+        	
         try {
             // 创建请求的对象
             HttpGet get = new HttpGet(new URI(url));
@@ -328,7 +328,7 @@ public class DownloadService implements GoodService, CategoryService {
                 CategoryDataBean category = new CategoryDataBean(
                         obj.getInt("categoryId"),
                         obj.getString("categoryName"),
-                        getBitmapUrl(""));
+                        getBitmapUrl(obj.getString("categoryPicture")));
                 categoryList.add(category);
             }	
         } catch (JSONException error) {
@@ -351,7 +351,7 @@ public class DownloadService implements GoodService, CategoryService {
 
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERHESTORY
-                + userId;
+                + userId + "/orders";
 
         try {
             // 创建请求的对象
