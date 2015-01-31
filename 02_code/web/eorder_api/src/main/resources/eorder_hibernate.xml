@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/eorder" />
+        <property name="user" value="root" />
+        <property name="password" value="1234" />
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="30" />
+        <property name="maxIdleTime" value="60" />
+        <property name="idleConnectionTestPeriod" value="30" />
+        <property name="maxStatements" value="50" />
+        <property name="initialPoolSize" value="10" />
+    </bean>
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.innovaee.eorder.model.Category</value>
+                <value>com.innovaee.eorder.model.Dish</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+                <prop key="hibernate.autoReconnect">true</prop>
+                <prop key="hibernate.connection.release_mode">auto</prop>
+                <!-- <prop key="hibernate.cache.use_query_cache">true</prop> <prop 
+                    key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> <prop 
+                    key="hibernate.format_sql">true</prop> <prop key="hibernate.show_sql">true</prop> -->
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Dao配置 -->
+    <bean id="categoryDao" class="com.innovaee.eorder.dao.hibernate.HibernateCategoryDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="dishDao" class="com.innovaee.eorder.dao.hibernate.HibernateDishDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+</beans>
