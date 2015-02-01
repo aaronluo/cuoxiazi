@@ -29,7 +29,7 @@ public class DishVO implements Serializable {
     /** 菜品名称 */
     private String dishName;
 
-    /** 菜品ID */
+    /** 菜品价格 */
     private Float dishPrice;
 
     /** 菜品图片 */

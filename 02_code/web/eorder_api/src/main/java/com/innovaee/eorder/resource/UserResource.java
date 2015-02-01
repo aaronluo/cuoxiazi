@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename        : UserResource.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.resource;
 
 import java.util.ArrayList;
@@ -21,13 +27,26 @@ import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.OrderVO;
 import com.innovaee.eorder.vo.UserVO;
 
+/**
+ * @Title: UserResource
+ * @Description: 用户资源
+ * @version V1.0
+ */
 @Path("/users")
 public class UserResource {
 
     private Logger logger = Logger.getLogger(this.getClass());
 
+    /** 用户服务类对象 */
     private UserService userService;
 
+    /**
+     * 根据手机号码查询用户信息
+     * 
+     * @param cellphone
+     *            手机号码
+     * @return 用户值对象
+     */
     @GET
     @Path("/{cellphone}")
     @Scope("request")

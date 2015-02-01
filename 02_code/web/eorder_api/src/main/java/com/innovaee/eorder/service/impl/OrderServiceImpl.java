@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename       : OrderServiceImpl.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.service.impl;
 
 import java.util.List;
@@ -6,10 +12,23 @@ import com.innovaee.eorder.dao.OrderDao;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.service.OrderService;
 
+/**
+ * @Title: OrderServiceImpl
+ * @Description: 订单服务实现类
+ * @version V1.0
+ */
 public class OrderServiceImpl implements OrderService {
 
+    /** 订单数据访问实现类对象 */
     private OrderDao orderDao;
 
+    /**
+     * 根据订单ID得到订单
+     * 
+     * @param orderId
+     *            订单ID
+     * @return 订单
+     */
     @Override
     public Order getOrderById(Integer orderId) {
         return orderDao.get(orderId);

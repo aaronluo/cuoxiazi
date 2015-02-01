@@ -8,9 +8,7 @@
 package com.innovaee.eorder.resource;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
@@ -24,7 +22,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.vo.DishVO;
-import com.innovaee.eorder.vo.OrderVO;
 
 /**
  * @Title: DishResource

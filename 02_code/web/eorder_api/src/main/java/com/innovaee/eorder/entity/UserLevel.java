@@ -1,6 +1,13 @@
+/***********************************************
+ * Filename       : UserLevel.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
+ ************************************************/
+
 package com.innovaee.eorder.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,24 +16,50 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * @Title: UserLevel
+ * @Description: 用户等级
+ * 
+ * @version V1.0
+ */
 @Entity
 @Table(name = "T_USER_LEVEL")
 public class UserLevel extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
+    /** 名称 */
     private String levelName;
 
+    /** 折扣 */
     private Float discount;
 
+    /** 等级积分 */
     private Integer levelScore;
 
+    /** 用户状态 */
     private boolean levelStatus;
 
-    private Set<User> users;
+    /** 用户列表 */
+    private List<User> users;
 
+    /**
+     * 默认构造函数
+     */
     public UserLevel() {
     }
 
+    /**
+     * 构造函数
+     * 
+     * @param levelName
+     *            名称
+     * @param discount
+     *            折扣
+     * @param levelScore
+     *            等级积分
+     * @param levelStatus
+     *            用户状态
+     */
     public UserLevel(String levelName, Float discount, Integer levelScore,
             boolean levelStatus) {
         super();
@@ -77,11 +110,11 @@ public class UserLevel extends BaseEntity {
     }
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "userLevel")
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

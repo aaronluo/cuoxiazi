@@ -1,3 +1,9 @@
+/***********************************************
+ * Filename        : OrderResource.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
+ ************************************************/
 package com.innovaee.eorder.resource;
 
 import java.util.ArrayList;
@@ -19,13 +25,26 @@ import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.service.OrderService;
 import com.innovaee.eorder.vo.OrderItemVO;
 
+/**
+ * @Title: OrderResource
+ * @Description: 订单资源
+ * @version V1.0
+ */
 @Path("/orders")
 public class OrderResource {
-    
+
     private Logger logger = Logger.getLogger(this.getClass());
-    
+
+    /** 订单服务类对象 */
     private OrderService orderService;
 
+    /**
+     * 根据orderId查询订单明细
+     * 
+     * @param orderId
+     *            订单ID
+     * @return 订单明细列表
+     */
     @GET
     @Path("/{orderId}")
     @Scope("request")

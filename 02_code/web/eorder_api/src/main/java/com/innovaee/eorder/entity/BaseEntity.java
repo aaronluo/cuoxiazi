@@ -1,3 +1,10 @@
+/***********************************************
+ * Filename        : BaseEntity.java
+ * Copyright      : Copyright (c) 2014
+ * Company        : Innovaee
+ * Created        : 11/27/2014
+ ************************************************/
+
 package com.innovaee.eorder.entity;
 
 import java.io.Serializable;
@@ -8,11 +15,15 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-@MappedSuperclass
+/**
+ * @Title: BaseEntity
+ * @Description: 实体类的基类
+ * 
+ * @version V1.0
+ */
 public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @XmlElement

@@ -24,7 +24,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.service.CategoryService;
-import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.vo.CategoryVO;
 import com.innovaee.eorder.vo.DishVO;
 
