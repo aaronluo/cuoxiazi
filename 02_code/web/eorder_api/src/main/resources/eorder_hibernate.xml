@@ -25,12 +25,12 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.innovaee.eorder.model.Category</value>
-                <value>com.innovaee.eorder.model.Dish</value>
-                <value>com.innovaee.eorder.model.Order</value>
-                <value>com.innovaee.eorder.model.OrderItem</value>
-                <value>com.innovaee.eorder.model.User</value>
-                <value>com.innovaee.eorder.model.UserLevel</value>
+                <value>com.innovaee.eorder.entity.Category</value>
+                <value>com.innovaee.eorder.entity.Dish</value>
+                <value>com.innovaee.eorder.entity.Order</value>
+                <value>com.innovaee.eorder.entity.OrderItem</value>
+                <value>com.innovaee.eorder.entity.User</value>
+                <value>com.innovaee.eorder.entity.UserLevel</value>
             </list>
         </property>
         <property name="hibernateProperties">

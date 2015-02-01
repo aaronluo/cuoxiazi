@@ -1,7 +1,7 @@
 package com.innovaee.eorder.service;
 
-import com.innovaee.eorder.model.Category;
-import com.innovaee.eorder.model.Dish;
+import com.innovaee.eorder.entity.Category;
+import com.innovaee.eorder.entity.Dish;
 
 import java.util.List;
 

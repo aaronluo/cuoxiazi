@@ -1,6 +1,6 @@
 package com.innovaee.eorder.dao;
 
-import com.innovaee.eorder.model.OrderItem;
+import com.innovaee.eorder.entity.OrderItem;
 
 public interface OrderItemDao extends BaseDao<OrderItem> {
 

@@ -5,7 +5,7 @@
          http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context.xsd">
-    <!-- <context:annotation-config /> <context:component-scan base-package="com.innovaee.eorder.api.resource" 
+    <!-- <context:annotation-config /> <context:component-scan base-package="com.innovaee.eorder.resource" 
         /> -->
 
     <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl">
@@ -28,19 +28,19 @@
         <property name="userLevelDao" ref="userLevelDao" />
     </bean>
 
-    <bean id="categoryResource" class="com.innovaee.eorder.api.resource.CategoryResource">
+    <bean id="categoryResource" class="com.innovaee.eorder.resource.CategoryResource">
         <property name="categoryService" ref="categoryService" />
     </bean>
 
-    <bean id="dishResource" class="com.innovaee.eorder.api.resource.DishResource">
+    <bean id="dishResource" class="com.innovaee.eorder.resource.DishResource">
         <property name="dishService" ref="dishService" />
     </bean>
 
-    <bean id="orderResource" class="com.innovaee.eorder.api.resource.OrderResource">
+    <bean id="orderResource" class="com.innovaee.eorder.resource.OrderResource">
         <property name="orderService" ref="orderService" />
     </bean>
 
-    <bean id="userResource" class="com.innovaee.eorder.api.resource.UserResource">
+    <bean id="userResource" class="com.innovaee.eorder.resource.UserResource">
         <property name="userService" ref="userService" />
         <property name="userLevelService" ref="userLevelService" />
         <property name="orderService" ref="orderService" />

@@ -2,7 +2,7 @@ package com.innovaee.eorder.service;
 
 import java.util.List;
 
-import com.innovaee.eorder.model.Order;
+import com.innovaee.eorder.entity.Order;
 
 public interface OrderService {
 

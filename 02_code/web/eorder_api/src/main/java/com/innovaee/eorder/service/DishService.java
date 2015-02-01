@@ -1,6 +1,6 @@
 package com.innovaee.eorder.service;
 
-import com.innovaee.eorder.model.Dish;
+import com.innovaee.eorder.entity.Dish;
 
 public interface DishService {
 

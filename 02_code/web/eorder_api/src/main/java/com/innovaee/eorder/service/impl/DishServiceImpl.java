@@ -1,7 +1,7 @@
 package com.innovaee.eorder.service.impl;
 
 import com.innovaee.eorder.dao.DishDao;
-import com.innovaee.eorder.model.Dish;
+import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.service.DishService;
 
 public class DishServiceImpl implements DishService {

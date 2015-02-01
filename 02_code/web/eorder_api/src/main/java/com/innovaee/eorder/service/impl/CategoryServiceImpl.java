@@ -1,8 +1,8 @@
 package com.innovaee.eorder.service.impl;
 
 import com.innovaee.eorder.dao.CategoryDao;
-import com.innovaee.eorder.model.Category;
-import com.innovaee.eorder.model.Dish;
+import com.innovaee.eorder.entity.Category;
+import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.service.CategoryService;
 
 import java.util.ArrayList;

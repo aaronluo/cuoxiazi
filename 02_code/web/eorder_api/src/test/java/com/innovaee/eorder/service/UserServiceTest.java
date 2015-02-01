@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.innovaee.eorder.model.User;
+import com.innovaee.eorder.entity.User;
 
 public class UserServiceTest extends BaseSpringTestCase {
 

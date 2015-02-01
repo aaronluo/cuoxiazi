@@ -1,6 +1,6 @@
 package com.innovaee.eorder.service;
 
-import com.innovaee.eorder.model.User;
+import com.innovaee.eorder.entity.User;
 
 public interface UserService {
 

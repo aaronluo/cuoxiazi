@@ -3,7 +3,7 @@ package com.innovaee.eorder.service.impl;
 import java.util.List;
 
 import com.innovaee.eorder.dao.OrderDao;
-import com.innovaee.eorder.model.Order;
+import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.service.OrderService;
 
 public class OrderServiceImpl implements OrderService {
@@ -24,10 +24,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<Order> getOrdersByMemberId(Integer memberId) {
-        String hql = "from Order as order where order.member.id = ?";
-        Object[] paras = { memberId };
-        List<Order> users = orderDao.getPage(0, 99, hql, paras);
-        return users;
+        return orderDao.getOrdersByMemberId(memberId);
     }
 
     public void setOrderDao(OrderDao orderDao) {

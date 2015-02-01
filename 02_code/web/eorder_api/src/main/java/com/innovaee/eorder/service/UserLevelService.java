@@ -1,6 +1,6 @@
 package com.innovaee.eorder.service;
 
-import com.innovaee.eorder.model.UserLevel;
+import com.innovaee.eorder.entity.UserLevel;
 
 public interface UserLevelService {
 
