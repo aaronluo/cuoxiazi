@@ -5,8 +5,6 @@
          http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context.xsd">
-    <!-- <context:annotation-config /> <context:component-scan base-package="com.innovaee.eorder.resource" 
-        /> -->
 
     <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl">
         <property name="categoryDao" ref="categoryDao" />
@@ -42,8 +40,6 @@
 
     <bean id="userResource" class="com.innovaee.eorder.resource.UserResource">
         <property name="userService" ref="userService" />
-        <property name="userLevelService" ref="userLevelService" />
-        <property name="orderService" ref="orderService" />
     </bean>
 
 </beans>

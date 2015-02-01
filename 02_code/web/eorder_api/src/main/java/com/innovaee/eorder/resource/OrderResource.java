@@ -21,7 +21,9 @@ import com.innovaee.eorder.vo.OrderItemVO;
 
 @Path("/orders")
 public class OrderResource {
+    
     private Logger logger = Logger.getLogger(this.getClass());
+    
     private OrderService orderService;
 
     @GET
@@ -36,8 +38,10 @@ public class OrderResource {
         List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
         Order order = orderService.getOrderById(orderId);
         List<OrderItem> orderItems = order.getOrderItems();
-        OrderItemVO orderItemVO = new OrderItemVO();
+        OrderItemVO orderItemVO = null;
         for (OrderItem orderItem : orderItems) {
+            orderItemVO = new OrderItemVO();
+            orderItemVO.setId(orderItem.getId());
             orderItemVO.setDishId(orderItem.getDish().getId());
             orderItemVO.setDishName(orderItem.getDish().getName());
             orderItemVO.setDishPrice(orderItem.getDish().getPrice());

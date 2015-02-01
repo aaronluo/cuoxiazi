@@ -1,6 +1,6 @@
 package com.innovaee.eorder.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ public class User extends BaseEntity {
 
     private UserLevel userLevel;
 
-    private Set<Order> orders;
+    private List<Order> orders;
 
     public User() {
     }
@@ -104,11 +104,11 @@ public class User extends BaseEntity {
     }
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER, mappedBy = "member")
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 

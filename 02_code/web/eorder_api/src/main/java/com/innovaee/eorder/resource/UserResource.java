@@ -17,8 +17,6 @@ import org.springframework.context.annotation.Scope;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
-import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.service.UserLevelService;
 import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.OrderVO;
 import com.innovaee.eorder.vo.UserVO;
@@ -30,10 +28,6 @@ public class UserResource {
 
     private UserService userService;
 
-    private UserLevelService userLevelService;
-
-    private OrderService orderService;
-
     @GET
     @Path("/{cellphone}")
     @Scope("request")
@@ -42,13 +36,8 @@ public class UserResource {
             @PathParam("cellphone") String cellphone) {
         logger.info("[REST_CALL= getUserById, cellphone=" + cellphone + "]");
         User user = userService.getUserByCellphone(cellphone);
-       // TODO
-        UserLevel userLevel = null;
-        if (null != user) {
-            userLevel = userLevelService.getUserLevelById(user.getId());
-        }
+        UserLevel userLevel = user.getUserLevel();
         UserVO userVO = new UserVO();
-
         if (null != user) {
             userVO.setId(user.getId());
             userVO.setUsername(user.getUsername());
@@ -85,7 +74,7 @@ public class UserResource {
         User user = userService.getUserByCellphone(cellphone);
         List<OrderVO> orderVOs = new ArrayList<OrderVO>();
         // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = orderService.getOrdersByMemberId(user.getId());
+        List<Order> orders = user.getOrders();
         for (Order order : orders) {
             OrderVO orderVO = new OrderVO();
             // 将订单对象的信息复制到订单值对象中，用于返回给客户端
@@ -108,22 +97,6 @@ public class UserResource {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    public UserLevelService getUserLevelService() {
-        return userLevelService;
-    }
-
-    public void setUserLevelService(UserLevelService userLevelService) {
-        this.userLevelService = userLevelService;
-    }
-
-    public OrderService getOrderService() {
-        return orderService;
-    }
-
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
     }
 
     public UserResource() {

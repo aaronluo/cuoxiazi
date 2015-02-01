@@ -13,13 +13,13 @@ public class UserResourceTest extends BaseTestCase {
     /**
      * 根据手机号码查询用户信息
      */
-//    @Test
-//    public void getUserByCellphone() {
-//        String cellphone = "13912345671";
-//        target = client.resource(SERVER_URI + "/users/" + cellphone);
-//        String user = target.get(String.class);
-//        LOGGER.debug("user: " + user);
-//    }
+    @Test
+    public void getUserByCellphone() {
+        String cellphone = "13912345671";
+        target = client.resource(SERVER_URI + "/users/" + cellphone);
+        String user = target.get(String.class);
+        LOGGER.debug("user: " + user);
+    }
 
     /**
      * 根据手机号码查询该用户的订单信息
