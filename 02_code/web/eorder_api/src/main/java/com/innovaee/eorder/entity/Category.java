@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -34,11 +34,22 @@ public class Category extends BaseEntity {
     private String picPath;
 
     /** 菜品列表 */
-    private List<Dish> dishes;
+    private Set<Dish> dishes;
 
+    /**
+     * 默认构造函数
+     */
     public Category() {
     }
 
+    /**
+     * 构造函数
+     * 
+     * @param name
+     *            分类名称
+     * @param picPath
+     *            分类图片地址
+     */
     public Category(String name, String picPath) {
         this.name = name;
         this.picPath = picPath;
@@ -64,12 +75,12 @@ public class Category extends BaseEntity {
         this.picPath = picPath;
     }
 
-    @OneToMany(targetEntity = Dish.class, fetch = FetchType.LAZY, mappedBy = "category")
-    public List<Dish> getDishes() {
+    @OneToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, mappedBy = "category")
+    public Set<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
     }
 

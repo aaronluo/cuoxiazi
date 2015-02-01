@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -40,7 +40,7 @@ public class UserLevel extends BaseEntity {
     private boolean levelStatus;
 
     /** 用户列表 */
-    private List<User> users;
+    private Set<User> users;
 
     /**
      * 默认构造函数
@@ -110,11 +110,11 @@ public class UserLevel extends BaseEntity {
     }
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "userLevel")
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

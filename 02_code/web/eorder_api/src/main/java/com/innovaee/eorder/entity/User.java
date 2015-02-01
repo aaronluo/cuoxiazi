@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -48,7 +48,7 @@ public class User extends BaseEntity {
     private UserLevel userLevel;
 
     /** 用户订单列表 */
-    private List<Order> orders;
+    private Set<Order> orders;
 
     /**
      * 默认构造函数
@@ -141,11 +141,11 @@ public class User extends BaseEntity {
     }
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER, mappedBy = "member")
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 

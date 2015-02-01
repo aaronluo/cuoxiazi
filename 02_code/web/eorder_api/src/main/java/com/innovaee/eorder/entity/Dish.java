@@ -117,7 +117,7 @@ public class Dish extends BaseEntity {
         this.misc = misc;
     }
 
-    @ManyToOne(targetEntity = com.innovaee.eorder.entity.Category.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Category.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     public Category getCategory() {
         return category;

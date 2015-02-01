@@ -56,7 +56,8 @@ public class OrderResource {
 
         List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
         Order order = orderService.getOrderById(orderId);
-        List<OrderItem> orderItems = order.getOrderItems();
+        List<OrderItem> orderItems = new ArrayList<OrderItem>(
+                order.getOrderItems());
         OrderItemVO orderItemVO = null;
         for (OrderItem orderItem : orderItems) {
             orderItemVO = new OrderItemVO();

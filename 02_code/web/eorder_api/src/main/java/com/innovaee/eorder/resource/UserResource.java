@@ -93,7 +93,7 @@ public class UserResource {
         User user = userService.getUserByCellphone(cellphone);
         List<OrderVO> orderVOs = new ArrayList<OrderVO>();
         // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = user.getOrders();
+        List<Order> orders = new ArrayList<Order>(user.getOrders());
         for (Order order : orders) {
             OrderVO orderVO = new OrderVO();
             // 将订单对象的信息复制到订单值对象中，用于返回给客户端
