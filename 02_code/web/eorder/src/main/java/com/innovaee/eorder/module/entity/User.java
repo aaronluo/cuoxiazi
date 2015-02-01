@@ -58,7 +58,7 @@ public class User extends BaseEntity {
     private String cellphone;
 
     /** 等级ID */
-    @Column(name = "LEVEL_ID")
+    @Column(name = "USER_LEVEL_ID")
     private Integer levelId;
 
     /** 用户状态 */
