@@ -41,7 +41,7 @@ public class Function extends BaseEntity {
 
     /** 功能ID */
     @Id
-    @Column(name = "FUNCTION_ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer functionId;
 

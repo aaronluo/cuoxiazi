@@ -27,6 +27,10 @@
             <list>
                 <value>com.innovaee.eorder.model.Category</value>
                 <value>com.innovaee.eorder.model.Dish</value>
+                <value>com.innovaee.eorder.model.Order</value>
+                <value>com.innovaee.eorder.model.OrderItem</value>
+                <value>com.innovaee.eorder.model.User</value>
+                <value>com.innovaee.eorder.model.UserLevel</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -54,6 +58,22 @@
     </bean>
 
     <bean id="dishDao" class="com.innovaee.eorder.dao.hibernate.HibernateDishDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="orderDao" class="com.innovaee.eorder.dao.hibernate.HibernateOrderDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="orderItemDao" class="com.innovaee.eorder.dao.hibernate.HibernateOrderItemDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="userDao" class="com.innovaee.eorder.dao.hibernate.HibernateUserDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="userLevelDao" class="com.innovaee.eorder.dao.hibernate.HibernateUserLevelDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 

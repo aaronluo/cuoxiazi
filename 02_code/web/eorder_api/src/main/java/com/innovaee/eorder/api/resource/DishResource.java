@@ -2,7 +2,7 @@ package com.innovaee.eorder.api.resource;
 
 import com.innovaee.eorder.model.Dish;
 import com.innovaee.eorder.service.DishService;
-import com.innovaee.eroder.vo.DishVO;
+import com.innovaee.eorder.vo.DishVO;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;

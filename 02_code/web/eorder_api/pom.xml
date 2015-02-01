@@ -20,21 +20,25 @@
         <log4j.version>1.2.17</log4j.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-dbcp.version>1.3</commons-dbcp.version>
+
         <jersey.version>1.18.3</jersey.version>
+        <!-- <jersey.version>2.14</jersey.version> <jackson.jaxrs.version>1.9.13</jackson.jaxrs.version> -->
         <jsr.version>1.1.1</jsr.version>
         <asm.version>3.3.1</asm.version>
         <mysql.jdbc.version>5.1.18</mysql.jdbc.version>
         <c3p0.version>0.9.1.2</c3p0.version>
         <ehcache.version>2.9.0</ehcache.version>
         <jpa.version>1.0.2</jpa.version>
-        <junit.version>3.8.1</junit.version>
+        <junit.version>4.11</junit.version>
+        <grizzly.http.server.version>2.3.17</grizzly.http.server.version>
+        <jersey.container.grizzly2.http.version>2.14</jersey.container.grizzly2.http.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- ========Hibernate依赖======== -->
@@ -50,10 +54,13 @@
             <version>${jpa.version}</version>
         </dependency>
         <!-- ========Log4j 日志组件依赖======== -->
+        <!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+            <version>${log4j.version}</version> </dependency> -->
+
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
         </dependency>
         <!-- ========common-lang 组件依赖======== -->
         <dependency>
@@ -121,7 +128,15 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- ========Spring-TEST依赖======== -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
         <!-- ========Jersey依赖======== -->
+        <!-- -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-core</artifactId>
@@ -166,11 +181,33 @@
             </exclusions>
         </dependency>
 
+        <!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-jaxrs</artifactId> 
+            <version>${jackson.jaxrs.version}</version> </dependency> <dependency> <groupId>org.glassfish.jersey.core</groupId> 
+            <artifactId>jersey-server</artifactId> <version>${jersey.version}</version> </dependency> 
+            <dependency> <groupId>org.glassfish.jersey.core</groupId> <artifactId>jersey-client</artifactId> 
+            <version>${jersey.version}</version> </dependency> <dependency> <groupId>org.glassfish.jersey.containers</groupId> 
+            <artifactId>jersey-container-servlet</artifactId> <version>${jersey.version}</version> 
+            </dependency> -->
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>${jsr.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>asm</groupId>
@@ -183,7 +220,12 @@
             <artifactId>javassist</artifactId>
             <version>3.18.1-GA</version>
         </dependency>
-        
+
+        <!-- <dependency> <groupId>org.glassfish.grizzly</groupId> <artifactId>grizzly-http-server</artifactId> 
+            <version>${grizzly.http.server.version}</version> </dependency> <dependency> <groupId>org.glassfish.jersey.containers</groupId> 
+            <artifactId>jersey-container-grizzly2-http</artifactId> <version>${jersey.container.grizzly2.http.version}</version> 
+            </dependency> -->
+
     </dependencies>
 
     <build>
@@ -211,6 +253,15 @@
                     <source>1.7</source>
                     <target>1.7</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>

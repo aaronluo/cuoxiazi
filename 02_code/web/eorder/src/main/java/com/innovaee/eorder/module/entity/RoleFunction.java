@@ -43,7 +43,7 @@ public class RoleFunction extends BaseEntity {
      * 角色功能ID
      */
     @Id
-    @Column(name = "ROLE_FUNCTION_ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roleFunctionId;
 

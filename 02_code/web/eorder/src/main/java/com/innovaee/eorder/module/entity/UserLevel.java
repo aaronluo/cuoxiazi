@@ -41,7 +41,7 @@ public class UserLevel extends BaseEntity {
 
     /** 等级ID */
     @Id
-    @Column(name = "LEVEL_ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer levelId;
 

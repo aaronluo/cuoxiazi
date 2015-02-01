@@ -41,7 +41,7 @@ public class UserRole extends BaseEntity {
 
     /** 用户角色ID */
     @Id
-    @Column(name = "USER_ROLE_ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userRoleId;
 

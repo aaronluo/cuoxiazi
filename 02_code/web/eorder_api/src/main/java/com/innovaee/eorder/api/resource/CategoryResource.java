@@ -1,14 +1,5 @@
 package com.innovaee.eorder.api.resource;
 
-import com.innovaee.eorder.model.Category;
-import com.innovaee.eorder.model.Dish;
-import com.innovaee.eorder.service.CategoryService;
-import com.innovaee.eroder.vo.CategoryVO;
-import com.innovaee.eroder.vo.DishVO;
-
-import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Scope;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +10,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+
+import com.innovaee.eorder.model.Category;
+import com.innovaee.eorder.model.Dish;
+import com.innovaee.eorder.service.CategoryService;
+import com.innovaee.eorder.vo.CategoryVO;
+import com.innovaee.eorder.vo.DishVO;
 
 @Path("/categories")
 public class CategoryResource {

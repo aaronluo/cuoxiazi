@@ -8,7 +8,6 @@
 package com.innovaee.eorder.vo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
