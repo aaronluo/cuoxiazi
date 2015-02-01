@@ -29,7 +29,7 @@ public class OrderItem extends BaseEntity {
         this.dishAccount = dishAccount;
     }
 
-    @ManyToOne(targetEntity = com.innovaee.eorder.model.Order.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Order.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
