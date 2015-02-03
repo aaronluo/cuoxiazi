@@ -5,7 +5,7 @@
     <artifactId>eorder-ws</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>eorder_api Maven Webapp</name>
+    <name>eorder-ws Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <!-- ========构建项目时候用的属性配置======= -->

@@ -22,7 +22,7 @@ public class BaseTestCase {
             .getLogger(BaseTestCase.class);
 
     /** 链接 */
-    public static String SERVER_URI = "http://localhost:8080/eorder_api/rest";
+    public static String SERVER_URI = "http://localhost:8080/eorder-ws/rest";
 
     /** 客户端 */
     protected Client client;
