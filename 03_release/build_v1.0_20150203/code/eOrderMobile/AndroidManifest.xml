@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.innovaee.eorder"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="21" />
+ 
+    <!--往sdcard中写入数据的权限 -->
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+  <!--在sdcard中创建/删除文件的权限 -->
+ <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <!-- 此权限用于访问Internet功能 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 此权限用于获取关于网络状态信息的功能 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取WIFI状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+    <!-- 允许访问振动设备 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 允许访问相机 -->
+ <uses-permission android:name="android.permission.CAMERA" />  
+ 
+ <!-- 允许没有相机硬件设备的手机使用 -->
+ <uses-feature android:name="android.hardware.camera" android:required="false" />
+ <!-- 允许相机没有自动对焦功能的手机使用 -->  
+ <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />           
+                                    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_logo"
+        android:label="@string/app_name"
+        android:name="com.innovaee.eorder.mobile.application.MyApplication"           
+        android:theme="@style/CustomActivityTheme">
+        <activity        
+            android:name="com.innovaee.eorder.mobile.view.MainViewActivity"
+            android:logo="@drawable/ic_logo" 
+            android:label="@string/app_name" >
+            <intent-filter>         
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+                     
+     <activity android:name="com.innovaee.eorder.mobile.view.MyOrderActivity" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/myorder_activity_text_label" 
+         android:screenOrientation="portrait"/> 
+                                
+       <activity android:name="com.innovaee.eorder.mobile.view.SettingsActivity" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/setting_activity_text_label"
+         android:screenOrientation="portrait"/>
+                             
+        <activity android:name="com.innovaee.eorder.mobile.view.OrderActivity" 
+                    android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/order_activity_text_label"
+                    android:screenOrientation="portrait"/>
+                                
+        <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryActivity" 
+                android:label="@string/app_name"
+                    android:screenOrientation="portrait"/>
+                       
+        <activity android:name="com.innovaee.eorder.mobile.view.AboutActivity" 
+                android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/about_activity_text_label" 
+                    android:screenOrientation="portrait"/>
+            
+        <activity android:name="com.innovaee.eorder.mobile.zxing.activity.CaptureActivity" 
+                android:label="@string/app_name"
+                    android:screenOrientation="portrait"/>
+                                    
+    </application>
+
+</manifest>

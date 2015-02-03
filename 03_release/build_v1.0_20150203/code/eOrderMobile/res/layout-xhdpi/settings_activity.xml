@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/service_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/setting_activity_text_service"
+            android:textColor="#4d4d4d"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/service_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/service_text" >
+
+        <EditText
+            android:id="@+id/service_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="#ffeeeeee"
+            android:gravity="left|center_vertical"
+            android:hint="@string/setting_activity_text_input"
+            android:textColor="#fe3c3c"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/service_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/service_edittext" >
+
+        <Button
+            android:id="@+id/service_btn"
+            android:layout_width="121dp"
+            android:layout_height="43dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/myorder_btn_order_bg"
+            android:text="@string/order_text_btn_ok"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

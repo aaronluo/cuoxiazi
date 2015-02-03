@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_myorderhestory"
+        android:icon="@drawable/ic_action_myorder"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/optionmenu_item1"/>
+    <item
+        android:id="@+id/item_setting"
+        android:orderInCategory="1"
+        android:showAsAction="collapseActionView"
+        android:title="@string/optionmenu_item1"/>
+    <item
+        android:id="@+id/item_about"
+        android:orderInCategory="2"
+        android:showAsAction="collapseActionView"
+        android:title="@string/optionmenu_item2"/>
+    <item
+        android:id="@+id/item_refresh"
+        android:orderInCategory="3"
+        android:showAsAction="collapseActionView"
+        android:title="@string/optionmenu_item3"/>
+    <item
+        android:id="@+id/menu_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:showAsAction="collapseActionView|always"
+        android:title="Search"/>
+
+</menu>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:layout_gravity="center"
+    android:descendantFocusability="blocksDescendants"
+    android:background="#ffeeeeee">        
+    <RelativeLayout 
+        android:id="@+id/goods_layout_text"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <RelativeLayout
+            android:id="@+id/order_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/order_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#ffeeeeee"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="20dp"
+                android:text="@string/orderhestory_item_text_order"
+                android:textColor="#4d4d4d"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/order_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:background="#ffeeeeee"
+                android:gravity="right|center_vertical"
+                android:text="@string/orderhestory_item_text_time"
+                android:textColor="#4d4d4d"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/order_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true" >
+
+            <TextView
+                android:id="@+id/order_totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="#ffeeeeee"
+                android:gravity="right|center_vertical"
+                android:text="@string/orderhestory_item_text_totalprice"
+                android:textColor="#fe3c3c"
+                android:textSize="20dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

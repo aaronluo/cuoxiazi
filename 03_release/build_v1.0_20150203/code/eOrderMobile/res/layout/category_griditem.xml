@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical" >
+
+    <com.innovaee.eorder.mobile.util.RemoteImageView
+        android:id="@+id/category_image"
+        android:layout_width="232dp"
+        android:layout_height="232dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop" >
+    </com.innovaee.eorder.mobile.util.RemoteImageView>
+
+    <TextView
+        android:id="@+id/category_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="left"
+        android:background="#ffeeeeee"
+        android:gravity="left"
+        android:paddingLeft="20dp"
+        android:text="分类名１"
+        android:textColor="#000000"
+        android:textSize="20dp" >
+    </TextView>
+
+</RelativeLayout>
