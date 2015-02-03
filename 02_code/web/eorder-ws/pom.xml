@@ -30,8 +30,6 @@
         <jpa.version>1.0.2</jpa.version>
         <junit.version>4.11</junit.version>
         <javassist.version>3.18.1-GA</javassist.version>
-        <grizzly.http.server.version>2.3.17</grizzly.http.server.version>
-        <jersey.container.grizzly2.http.version>2.14</jersey.container.grizzly2.http.version>
     </properties>
 
     <dependencies>
