@@ -1,5 +1,5 @@
 /***********************************************
- * Filename        : UserLevel.java
+ * Filename       : UserLevel.java
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 11/27/2014
@@ -7,19 +7,14 @@
 
 package com.innovaee.eorder.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: UserLevel
@@ -28,61 +23,54 @@ import com.innovaee.eorder.util.TimestampAdapter;
  * @version V1.0
  */
 @Entity
-@Table(name = "t_user_level")
-@XmlRootElement
+@Table(name = "T_USER_LEVEL")
 public class UserLevel extends BaseEntity {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = -5670126597834842556L;
-
-    /**
-     * 返回主键
-     * 
-     * @return 主键
-     */
-    @Override
-    public Serializable getPK() {
-        return levelId;
-    }
-
-    /** 用户id, 不能为空, 必须唯一 */
-    @Id
-    @Column(name = "level_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer levelId;
+    private static final long serialVersionUID = 1L;
 
     /** 名称 */
-    @Column(name = "level_name")
     private String levelName;
 
     /** 折扣 */
-    @Column(name = "discount")
-    private float discount;
+    private Float discount;
 
     /** 等级积分 */
-    @Column(name = "level_score")
     private Integer levelScore;
 
     /** 用户状态 */
-    @Column(name = "level_status")
-    private Boolean levelStatus;
+    private boolean levelStatus;
 
-    /** 创建时间 */
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    /** 用户列表 */
+    private Set<User> users;
 
-    /** 更新时间 */
-    @Column(name = "update_at")
-    private Timestamp updateAt;
-
-    public Integer getLevelId() {
-        return levelId;
+    /**
+     * 默认构造函数
+     */
+    public UserLevel() {
     }
 
-    public void setLevelId(Integer levelId) {
-        this.levelId = levelId;
+    /**
+     * 构造函数
+     * 
+     * @param levelName
+     *            名称
+     * @param discount
+     *            折扣
+     * @param levelScore
+     *            等级积分
+     * @param levelStatus
+     *            用户状态
+     */
+    public UserLevel(String levelName, Float discount, Integer levelScore,
+            boolean levelStatus) {
+        super();
+        this.levelName = levelName;
+        this.discount = discount;
+        this.levelScore = levelScore;
+        this.levelStatus = levelStatus;
     }
 
+    @Basic
+    @Column(name = "LEVEL_NAME")
     public String getLevelName() {
         return levelName;
     }
@@ -91,14 +79,18 @@ public class UserLevel extends BaseEntity {
         this.levelName = levelName;
     }
 
-    public float getDiscount() {
+    @Basic
+    @Column(name = "DISCOUNT")
+    public Float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(float discount) {
+    public void setDiscount(Float discount) {
         this.discount = discount;
     }
 
+    @Basic
+    @Column(name = "LEVEL_SCORE")
     public Integer getLevelScore() {
         return levelScore;
     }
@@ -107,41 +99,30 @@ public class UserLevel extends BaseEntity {
         this.levelScore = levelScore;
     }
 
-    public Boolean getLevelStatus() {
+    @Basic
+    @Column(name = "LEVEL_STATUS")
+    public boolean isLevelStatus() {
         return levelStatus;
     }
 
-    public void setLevelStatus(Boolean levelStatus) {
+    public void setLevelStatus(boolean levelStatus) {
         this.levelStatus = levelStatus;
     }
 
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getCreateAt() {
-        return createAt;
+    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "userLevel")
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    /**
-     * @return 返回该对象的字符串表示
-     */
     @Override
     public String toString() {
-        return "UserLevel [levelId=" + levelId + ", levelName=" + levelName
-                + ", discount=" + discount + ", levelScore=" + levelScore
-                + ", levelStatus=" + levelStatus + ", createAt=" + createAt
-                + ", updateAt=" + updateAt + "]";
+        return "UserLevel [levelName=" + levelName + ", discount=" + discount
+                + ", levelScore=" + levelScore + ", levelStatus=" + levelStatus
+                + "]";
     }
 
 }

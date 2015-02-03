@@ -15,9 +15,8 @@ public class OrderResourceTest extends BaseTestCase {
     @Test
     public void getOrderItemsByOrderIdOne() {
         String orderId = "1";
-        target = client.target(SERVER_URI + "/orders/" + orderId);
-        response = target.request().get();
-        String orderitems = response.readEntity(String.class);
+        target = client.resource(SERVER_URI + "/orders/" + orderId);
+        String orderitems = target.get(String.class);
         LOGGER.debug("orderitems: " + orderitems);
     }
 
@@ -27,9 +26,8 @@ public class OrderResourceTest extends BaseTestCase {
     @Test
     public void getOrderItemsByOrderIdTwo() {
         String orderId = "2";
-        target = client.target(SERVER_URI + "/orders/" + orderId);
-        response = target.request().get();
-        String orderitems = response.readEntity(String.class);
+        target = client.resource(SERVER_URI + "/orders/" + orderId);
+        String orderitems = target.get(String.class);
         LOGGER.debug("orderitems: " + orderitems);
     }
 

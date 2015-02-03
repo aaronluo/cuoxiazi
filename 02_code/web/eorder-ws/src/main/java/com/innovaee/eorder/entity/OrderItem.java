@@ -7,19 +7,14 @@
 
 package com.innovaee.eorder.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: OrderItem
@@ -28,107 +23,56 @@ import com.innovaee.eorder.util.TimestampAdapter;
  * @version V1.0
  */
 @Entity
-@Table(name = "t_order_item")
-@XmlRootElement
+@Table(name = "T_ORDER_ITEM")
 public class OrderItem extends BaseEntity {
 
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 7501199115527593716L;
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * 返回主键
-     * 
-     * @return 主键
-     */
-    @Override
-    public Serializable getPK() {
-        return orderItemId;
-    }
+    /** 订单 */
+    private Order order;
 
-    /** 订单id, 不能为空, 必须唯一 */
-    @Id
-    @Column(name = "order_item_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer orderItemId;
-
-    /** 订单ID */
-    @Column(name = "order_id")
-    private Integer orderId;
-
-    /** 菜品ID */
-    @Column(name = "dish_id")
-    private Integer dishId;
+    /** 菜品 */
+    private Dish dish;
 
     /** 菜品数量 */
-    @Column(name = "dish_amount")
     private Integer dishAmount;
 
-    /** 创建时间 */
-    @Column(name = "create_at")
-    private Timestamp createAt;
-
-    /** 更新时间 */
-    @Column(name = "update_at")
-    private Timestamp updateAt;
-
-    public Integer getOrderItemId() {
-        return orderItemId;
+    public OrderItem() {
     }
 
-    public void setOrderItemId(Integer orderItemId) {
-        this.orderItemId = orderItemId;
+    public OrderItem(Integer dishAmount) {
+        super();
+        this.dishAmount = dishAmount;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    @ManyToOne(targetEntity = Order.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ORDER_ID")
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Integer getDishId() {
-        return dishId;
+    @OneToOne(targetEntity = Dish.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DISH_ID")
+    public Dish getDish() {
+        return dish;
     }
 
-    public void setDishId(Integer dishId) {
-        this.dishId = dishId;
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
+    @Basic
+    @Column(name = "DISH_AMOUNT")
     public Integer getDishAmount() {
         return dishAmount;
     }
 
     public void setDishAmount(Integer dishAmount) {
         this.dishAmount = dishAmount;
-    }
-
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    /**
-     * @return 返回该对象的字符串表示
-     */
-    @Override
-    public String toString() {
-        return "OrderItem [orderItemId=" + orderItemId + ", orderId=" + orderId
-                + ", dishId=" + dishId + ", dishAmount=" + dishAmount
-                + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
     }
 
 }

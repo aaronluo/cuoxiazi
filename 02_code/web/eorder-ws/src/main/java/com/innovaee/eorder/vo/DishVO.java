@@ -7,8 +7,6 @@
 
 package com.innovaee.eorder.vo;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,63 +16,81 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version V1.0
  */
 @XmlRootElement
-public class DishVO implements Serializable {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 9116536950254258889L;
-
-    /** 菜品ID */
-    private Integer dishId;
+public class DishVO extends BaseVO {
 
     /** 菜品名称 */
-    private String dishName;
+    private String name;
 
     /** 菜品价格 */
-    private Float dishPrice;
+    private float price;
 
     /** 菜品图片 */
-    private String dishPicture;
+    private String picPath;
 
-    public Integer getDishId() {
-        return dishId;
-    }
+    /** 在售状态 */
+    private boolean onSell;
 
-    public void setDishId(Integer dishId) {
-        this.dishId = dishId;
-    }
-
-    public String getDishName() {
-        return dishName;
-    }
-
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    public Float getDishPrice() {
-        return dishPrice;
-    }
-
-    public void setDishPrice(Float dishPrice) {
-        this.dishPrice = dishPrice;
-    }
-
-    public String getDishPicture() {
-        return dishPicture;
-    }
-
-    public void setDishPicture(String dishPicture) {
-        this.dishPicture = dishPicture;
+    /**
+     * 默认构造函数
+     */
+    public DishVO() {
+        super();
     }
 
     /**
-     * @return 返回该对象的字符串表示
+     * 构造函数
+     * 
+     * @param id
+     *            ID
+     * @param name
+     *            菜品名称
+     * @param price
+     *            菜品价格
+     * @param picPath
+     *            菜品图片
+     * @param onSell
+     *            在售状态
      */
-    @Override
-    public String toString() {
-        return "DishVO [dishId=" + dishId + ", dishName=" + dishName
-                + ", dishPrice=" + dishPrice + ", dishPicture=" + dishPicture
-                + "]";
+    public DishVO(Integer id, String name, float price, String picPath,
+            boolean onSell) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.picPath = picPath;
+        this.onSell = onSell;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
+    }
+
+    public boolean isOnSell() {
+        return onSell;
+    }
+
+    public void setOnSell(boolean onSell) {
+        this.onSell = onSell;
     }
 
 }

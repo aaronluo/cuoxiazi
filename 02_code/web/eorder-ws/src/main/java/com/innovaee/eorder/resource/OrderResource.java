@@ -4,10 +4,16 @@
  * Company        : Innovaee
  * Created        : 11/27/2014
  ************************************************/
-
 package com.innovaee.eorder.resource;
 
-import java.lang.reflect.InvocationTargetException;
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.OrderItem;
+import com.innovaee.eorder.service.OrderService;
+import com.innovaee.eorder.vo.OrderItemVO;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,27 +25,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-import com.innovaee.eorder.entity.Dish;
-import com.innovaee.eorder.entity.OrderItem;
-import com.innovaee.eorder.service.DishService;
-import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.vo.OrderItemVO;
-
 /**
  * @Title: OrderResource
  * @Description: 订单资源
  * @version V1.0
  */
 @Path("/orders")
-public class OrderResource extends AbstractBaseResource {
+public class OrderResource {
+
+    private Logger logger = Logger.getLogger(this.getClass());
 
     /** 订单服务类对象 */
-    private OrderService orderService = new OrderService();
-
-    /** 菜品服务类对象 */
-    private DishService dishService = new DishService();
+    private OrderService orderService;
 
     /**
      * 根据orderId查询订单明细
@@ -50,38 +47,44 @@ public class OrderResource extends AbstractBaseResource {
      */
     @GET
     @Path("/{orderId}")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Scope("request")
+    @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
             @PathParam("orderId") Integer orderId) {
+        logger.info("[REST_CALL= getOrderItemsByOrderId, orderId=" + orderId
+                + "]");
+
         List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
-        Dish dish = null;
+        Order order = orderService.getOrderById(orderId);
+        List<OrderItem> orderItems = new ArrayList<OrderItem>(
+                order.getOrderItems());
         OrderItemVO orderItemVO = null;
-        List<OrderItem> orderItems = orderService
-                .getOrderItemsByOrderId(orderId);
         for (OrderItem orderItem : orderItems) {
-
             orderItemVO = new OrderItemVO();
-            try {
-                BeanUtils.copyProperties(orderItemVO, orderItem);
-            } catch (IllegalAccessException e) {
-                LOGGER.error(e.getMessage());
-            } catch (InvocationTargetException e) {
-                LOGGER.error(e.getMessage());
-            }
-
-            if (null != orderItem) {
-                dish = dishService.getDishById(orderItem.getDishId());
-                orderItemVO.setDishName(dish.getDishName());
-                orderItemVO.setDishPicture(dish.getDishPicture());
-                orderItemVO.setDishPrice(dish.getDishPrice());
-                orderItemVOs.add(orderItemVO);
-            }
+            orderItemVO.setId(orderItem.getId());
+            orderItemVO.setDishId(orderItem.getDish().getId());
+            orderItemVO.setDishName(orderItem.getDish().getName());
+            orderItemVO.setDishPrice(orderItem.getDish().getPrice());
+            orderItemVO.setDishPicture(orderItem.getDish().getPicPath());
+            orderItemVO.setDishAmount(orderItem.getDishAmount());
+            orderItemVOs.add(orderItemVO);
         }
 
         Map<String, List<OrderItemVO>> result = new HashMap<String, List<OrderItemVO>>();
-        result.put("orderitems", orderItemVOs);
+        result.put("orders", orderItemVOs);
 
         return result;
     }
 
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public OrderResource() {
+        super();
+    }
 }

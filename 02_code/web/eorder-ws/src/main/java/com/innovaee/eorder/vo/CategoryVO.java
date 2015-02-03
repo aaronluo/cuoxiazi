@@ -1,12 +1,10 @@
 /***********************************************
- * Filename        : CategoryVO.java
+ * Filename       : CategoryVO.java
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 11/27/2014
  ************************************************/
 package com.innovaee.eorder.vo;
-
-import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,42 +15,52 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version V1.0
  */
 @XmlRootElement
-public class CategoryVO implements Serializable {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 6233142152909758256L;
-
-    /** 分类ID */
-    private Integer categoryId;
+public class CategoryVO extends BaseVO {
 
     /** 分类名称 */
-    private String categoryName;
+    private String name;
 
     /** 分类图片 */
-    private String categoryPicture;
+    private String picPath;
 
-    public Integer getCategoryId() {
-        return categoryId;
+    /**
+     * 默认构造函数
+     */
+    public CategoryVO() {
+        super();
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    /**
+     * 构造函数
+     * 
+     * @param id
+     *            ID
+     * @param name
+     *            分类名称
+     * @param picPath
+     *            分类图片
+     */
+    public CategoryVO(Integer id, String name, String picPath) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.picPath = picPath;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryPicture() {
-        return categoryPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setCategoryPicture(String categoryPicture) {
-        this.categoryPicture = categoryPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
 }

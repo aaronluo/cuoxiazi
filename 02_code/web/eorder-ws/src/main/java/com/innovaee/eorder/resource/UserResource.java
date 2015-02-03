@@ -4,10 +4,18 @@
  * Company        : Innovaee
  * Created        : 11/27/2014
  ************************************************/
-
 package com.innovaee.eorder.resource;
 
-import java.lang.reflect.InvocationTargetException;
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.vo.OrderVO;
+import com.innovaee.eorder.vo.UserVO;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,33 +27,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.entity.UserLevel;
-import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.service.UserLevelService;
-import com.innovaee.eorder.service.UserService;
-import com.innovaee.eorder.vo.OrderVO;
-import com.innovaee.eorder.vo.UserVO;
-
 /**
  * @Title: UserResource
  * @Description: 用户资源
  * @version V1.0
  */
 @Path("/users")
-public class UserResource extends AbstractBaseResource {
+public class UserResource {
+
+    private Logger logger = Logger.getLogger(this.getClass());
 
     /** 用户服务类对象 */
-    private UserService userService = new UserService();
-
-    /** 用户等级服务类对象 */
-    private UserLevelService userLevelService = new UserLevelService();
-
-    /** 订单服务类对象 */
-    private OrderService orderService = new OrderService();
+    private UserService userService;
 
     /**
      * 根据手机号码查询用户信息
@@ -56,29 +49,30 @@ public class UserResource extends AbstractBaseResource {
      */
     @GET
     @Path("/{cellphone}")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Map<String, UserVO> getUserById(
+    @Scope("request")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, UserVO> getUserByCellphone(
             @PathParam("cellphone") String cellphone) {
+        logger.info("[REST_CALL= getUserById, cellphone=" + cellphone + "]");
         User user = userService.getUserByCellphone(cellphone);
+        UserLevel userLevel = user.getUserLevel();
         UserVO userVO = new UserVO();
-
         if (null != user) {
-            try {
-                BeanUtils.copyProperties(userVO, user);
-            } catch (IllegalAccessException e) {
-                LOGGER.error(e.getMessage());
-            } catch (InvocationTargetException e) {
-                LOGGER.error(e.getMessage());
-            }
-            UserLevel userLevel = null;
-            userLevel = userLevelService.getUserLevelById(user.getLevelId()
-                    .toString());
-            userVO.setDiscount(userLevel.getDiscount());
+            userVO.setId(user.getId());
+            userVO.setUsername(user.getUsername());
+            userVO.setCellphone(user.getCellphone());
+        }
+
+        if (null != userLevel) {
+            // 设置用户等级名称
             userVO.setLevelName(userLevel.getLevelName());
+            // 设置用户折扣信息
+            userVO.setDiscount(userLevel.getDiscount());
         }
 
         Map<String, UserVO> result = new HashMap<String, UserVO>();
         result.put("user", userVO);
+
         return result;
     }
 
@@ -91,25 +85,23 @@ public class UserResource extends AbstractBaseResource {
      */
     @GET
     @Path("/{cellphone}/orders")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Scope("request")
+    @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<OrderVO>> getOrderesByCellphone(
             @PathParam("cellphone") String cellphone) {
         // 1. 通过手机号码查找用户信息
         User user = userService.getUserByCellphone(cellphone);
         List<OrderVO> orderVOs = new ArrayList<OrderVO>();
         // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = orderService.getOrdersByMemberId(user.getUserId());
+        List<Order> orders = new ArrayList<Order>(user.getOrders());
         for (Order order : orders) {
             OrderVO orderVO = new OrderVO();
-            try {
-                // 将订单对象的信息复制到订单值对象中，用于返回给客户端
-                BeanUtils.copyProperties(orderVO, order);
-                orderVOs.add(orderVO);
-            } catch (IllegalAccessException e) {
-                LOGGER.error(e.getMessage());
-            } catch (InvocationTargetException e) {
-                LOGGER.error(e.getMessage());
-            }
+            // 将订单对象的信息复制到订单值对象中，用于返回给客户端
+            // BeanUtils.copyProperties(orderVO, order);
+            orderVO.setId(order.getId());
+            orderVO.setTotalPrice(order.getTotalPrice());
+            orderVO.setCreateAt(order.getCreateDate());
+            orderVOs.add(orderVO);
         }
 
         // 构造返回Map
@@ -118,4 +110,15 @@ public class UserResource extends AbstractBaseResource {
         return result;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public UserResource() {
+        super();
+    }
 }

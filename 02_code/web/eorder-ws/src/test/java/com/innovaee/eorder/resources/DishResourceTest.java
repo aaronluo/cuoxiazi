@@ -1,4 +1,3 @@
-
 package com.innovaee.eorder.resources;
 
 import org.junit.Test;
@@ -15,9 +14,8 @@ public class DishResourceTest extends BaseTestCase {
      */
     @Test
     public void getDishById() {
-        target = client.target(SERVER_URI + "/dishes/6");
-        response = target.request().get();
-        String dishVO = response.readEntity(String.class);
+        target = client.resource(SERVER_URI + "/dishes/6");
+        String dishVO = target.get(String.class);
         LOGGER.debug("dish: " + dishVO);
     }
 

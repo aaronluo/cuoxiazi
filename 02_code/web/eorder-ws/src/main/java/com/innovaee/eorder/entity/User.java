@@ -7,19 +7,16 @@
 
 package com.innovaee.eorder.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: User
@@ -28,77 +25,73 @@ import com.innovaee.eorder.util.TimestampAdapter;
  * @version V1.0
  */
 @Entity
-@Table(name = "t_user")
-@XmlRootElement
+@Table(name = "T_USER")
 public class User extends BaseEntity {
+    private static final long serialVersionUID = 1L;
 
-    /** 对象序列化ID */
-    private static final long serialVersionUID = -2664000365511234450L;
-
-    /**
-     * 返回主键
-     * 
-     * @return 主键
-     */
-    @Override
-    public Serializable getPK() {
-        return userId;
-    }
-
-    /** 用户id, 不能为空, 必须唯一 */
-    @Id
-    @Column(name = "user_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer userId;
-
-    /** 名称 */
-    @Column(name = "username")
-    private String userName;
+    /** 用户名称 */
+    private String username;
 
     /** 密码 */
-    @Column(name = "password")
     private String password;
 
     /** 手机号码 */
-    @Column(name = "cellphone")
     private String cellphone;
 
     /** 用户积分 */
-    @Column(name = "user_score")
     private Integer userScore;
 
-    /** 用户等级ID */
-    @Column(name = "level_id")
-    private Integer levelId;
-
     /** 用户状态 */
-    @Column(name = "user_status")
-    private String userStatus;
+    private boolean userStatus;
 
-    /** 创建时间 */
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    /** 用户等级ID */
+    private UserLevel userLevel;
 
-    /** 更新时间 */
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+    /** 用户订单列表 */
+    private Set<Order> orders;
 
-    public Integer getUserId() {
-        return userId;
+    /**
+     * 默认构造函数
+     */
+    public User() {
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    /**
+     * 构造函数
+     * 
+     * @param username
+     *            用户名称
+     * @param password
+     *            密码
+     * @param cellphone
+     *            手机号码
+     * @param userScore
+     *            用户积分
+     * @param userStatus
+     *            用户状态
+     */
+    public User(String username, String password, String cellphone,
+            Integer userScore, boolean userStatus) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.cellphone = cellphone;
+        this.userScore = userScore;
+        this.userStatus = userStatus;
     }
 
-    public String getUserName() {
-        return userName;
+    @Basic
+    @Column(name = "USERNAME")
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    @Basic
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -107,6 +100,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "CELLPHONE")
     public String getCellphone() {
         return cellphone;
     }
@@ -115,6 +110,8 @@ public class User extends BaseEntity {
         this.cellphone = cellphone;
     }
 
+    @Basic
+    @Column(name = "USER_SCORE")
     public Integer getUserScore() {
         return userScore;
     }
@@ -123,50 +120,41 @@ public class User extends BaseEntity {
         this.userScore = userScore;
     }
 
-    public Integer getLevelId() {
-        return levelId;
-    }
-
-    public void setLevelId(Integer levelId) {
-        this.levelId = levelId;
-    }
-
-    public String getUserStatus() {
+    @Basic
+    @Column(name = "USER_STATUS")
+    public boolean isUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
+    public void setUserStatus(boolean userStatus) {
         this.userStatus = userStatus;
     }
 
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getCreateAt() {
-        return createAt;
+    @OneToOne(targetEntity = UserLevel.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_LEVEL_ID")
+    public UserLevel getUserLevel() {
+        return userLevel;
     }
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
     }
 
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getUpdateAt() {
-        return updateAt;
+    @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER, mappedBy = "member")
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
-    /**
-     * @return 返回该对象的字符串表示
-     */
     @Override
     public String toString() {
-        return "User [userId=" + userId + ", userName=" + userName
-                + ", password=" + password + ", cellphone=" + cellphone
-                + ", userScore=" + userScore + ", levelId=" + levelId
-                + ", userStatus=" + userStatus + ", createAt=" + createAt
-                + ", updateAt=" + updateAt + "]";
+        return "User [username=" + username + ", password=" + password
+                + ", cellphone=" + cellphone + ", userScore=" + userScore
+                + ", userStatus=" + userStatus + ", userLevel=" + userLevel
+                + ", orders=" + orders + "]";
     }
 
 }

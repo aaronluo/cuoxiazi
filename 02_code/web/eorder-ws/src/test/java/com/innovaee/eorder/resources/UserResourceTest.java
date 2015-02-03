@@ -16,9 +16,8 @@ public class UserResourceTest extends BaseTestCase {
     @Test
     public void getUserByCellphone() {
         String cellphone = "13912345671";
-        target = client.target(SERVER_URI + "/users/" + cellphone);
-        response = target.request().get();
-        String user = response.readEntity(String.class);
+        target = client.resource(SERVER_URI + "/users/" + cellphone);
+        String user = target.get(String.class);
         LOGGER.debug("user: " + user);
     }
 
@@ -28,9 +27,9 @@ public class UserResourceTest extends BaseTestCase {
     @Test
     public void getOrderesByCellphone() {
         String cellphone = "13912340003";
-        target = client.target(SERVER_URI + "/users/" + cellphone + "/orders");
-        response = target.request().get();
-        String orders = response.readEntity(String.class);
+        target = client
+                .resource(SERVER_URI + "/users/" + cellphone + "/orders");
+        String orders = target.get(String.class);
         LOGGER.debug("orders: " + orders);
     }
 

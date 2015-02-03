@@ -4,53 +4,72 @@
  * Company        : Innovaee
  * Created        : 11/27/2014
  ************************************************/
-
 package com.innovaee.eorder.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
-import com.innovaee.eorder.util.TimestampAdapter;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @Title: BaseEntity
- * @Description: 实体类的基类
+ * @Description: 实体基类
  * 
  * @version V1.0
  */
-public abstract class BaseEntity implements Serializable {
+@MappedSuperclass
+public class BaseEntity implements Serializable {
 
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 5575073954535097972L;
+    private static final long serialVersionUID = 1L;
 
-   
+    /** ID */
+    @XmlElement
+    protected Integer id;
 
-    /**
-     * 返回主键
-     * 
-     * @return 主键
-     */
-    public abstract Serializable getPK();
+    /** 创建日期 */
+    @XmlTransient
+    protected Date createDate;
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.SIMPLE_STYLE);
+    /** 更新日期 */
+    @XmlTransient
+    protected Date updateDate;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    public Integer getId() {
+        return id;
     }
 
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+    @Basic
+    @Column(name = "CREATE_AT")
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    @Basic
+    @Column(name = "UPDATE_AT")
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
 }

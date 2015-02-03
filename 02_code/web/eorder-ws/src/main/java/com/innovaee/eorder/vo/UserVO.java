@@ -7,9 +7,6 @@
 
 package com.innovaee.eorder.vo;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,18 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @version V1.0
  */
-@Entity
 @XmlRootElement
-public class UserVO implements Serializable {
+public class UserVO extends BaseVO {
 
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 8193278769466852242L;
-
-    /** 用户id, 不能为空, 必须唯一 */
-    private Integer userId;
-
-    /** 名称 */
-    private String userName;
+    /** 用户名称 */
+    private String username;
 
     /** 手机号码 */
     private String cellphone;
@@ -38,22 +28,42 @@ public class UserVO implements Serializable {
     private String levelName;
 
     /** 折扣 */
-    private float discount;
+    private Float discount;
 
-    public Integer getUserId() {
-        return userId;
+    /**
+     * 构造函数
+     */
+    public UserVO() {
+        super();
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    /**
+     * 构造函数
+     * 
+     * @param username
+     *            用户名称
+     * @param cellphone
+     *            手机号码
+     * @param levelName
+     *            用户等级名称
+     * @param discount
+     *            折扣
+     */
+    public UserVO(String username, String cellphone, String levelName,
+            Float discount) {
+        super();
+        this.username = username;
+        this.cellphone = cellphone;
+        this.levelName = levelName;
+        this.discount = discount;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCellphone() {
@@ -72,22 +82,18 @@ public class UserVO implements Serializable {
         this.levelName = levelName;
     }
 
-    public float getDiscount() {
+    public Float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(float discount) {
+    public void setDiscount(Float discount) {
         this.discount = discount;
     }
 
-    /**
-     * @return 返回该对象的字符串表示
-     */
     @Override
     public String toString() {
-        return "UserVO [userId=" + userId + ", userName=" + userName
-                + ", cellphone=" + cellphone + ", levelName=" + levelName
-                + ", discount=" + discount + "]";
+        return "UserVO [username=" + username + ", cellphone=" + cellphone
+                + ", levelName=" + levelName + ", discount=" + discount + "]";
     }
 
 }

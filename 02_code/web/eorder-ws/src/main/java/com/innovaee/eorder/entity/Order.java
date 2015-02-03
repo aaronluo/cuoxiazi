@@ -7,19 +7,16 @@
 
 package com.innovaee.eorder.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.innovaee.eorder.util.TimestampAdapter;
 
 /**
  * @Title: Order
@@ -28,77 +25,69 @@ import com.innovaee.eorder.util.TimestampAdapter;
  * @version V1.0
  */
 @Entity
-@Table(name = "t_order")
-@XmlRootElement
+@Table(name = "T_ORDER")
 public class Order extends BaseEntity {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 387041723125665410L;
-
-    /**
-     * 返回主键
-     * 
-     * @return 主键
-     */
-    @Override
-    public Serializable getPK() {
-        return orderId;
-    }
-
-    /** 订单id, 不能为空, 必须唯一 */
-    @Id
-    @Column(name = "order_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer orderId;
+    private static final long serialVersionUID = 1L;
 
     /** 订单序列号 */
-    @Column(name = "orderSeq")
     private String orderSeq;
 
     /** 桌号 */
-    @Column(name = "table_number")
     private Integer tableNumber;
 
     /** 就餐人数 */
-    @Column(name = "attendee_number")
     private Integer attendeeNumber;
 
-    /** 密码 */
-    @Column(name = "total_price")
-    private float totalPrice;
+    /** 订单总价 */
+    private Float totalPrice;
 
-    /** 手机号码 */
-    @Column(name = "cellphone")
-    private String cellphone;
+    /** 订单状态 */
+    private String orderStatus;
 
-    /** 点餐员ID */
-    @Column(name = "servent_id")
-    private Integer serventId;
+    /** 点餐员 */
+    private User servent;
 
-    /** 用户ID（会员） */
-    @Column(name = "member_id")
-    private Integer memberId;
+    /** 用户（会员） */
+    private User member;
 
-    /** 收银员ID */
-    @Column(name = "casher_id")
-    private Integer casherId;
+    /** 收银员 */
+    private User casher;
 
-    /** 创建时间 */
-    @Column(name = "create_at")
-    private Timestamp createAt;
+    /** 订单明细 */
+    private Set<OrderItem> orderItems;
 
-    /** 更新时间 */
-    @Column(name = "update_at")
-    private Timestamp updateAt;
-
-    public Integer getOrderId() {
-        return orderId;
+    /**
+     * 默认构造函数
+     */
+    public Order() {
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    /**
+     * 构造函数
+     * 
+     * @param orderSeq
+     *            订单序列号
+     * @param tableNumber
+     *            桌号
+     * @param attendeeNumber
+     *            就餐人数
+     * @param totalPrice
+     *            订单总价
+     * @param orderStatus
+     *            订单状态
+     */
+    public Order(String orderSeq, Integer tableNumber, Integer attendeeNumber,
+            Float totalPrice, String orderStatus) {
+        super();
+        this.orderSeq = orderSeq;
+        this.tableNumber = tableNumber;
+        this.attendeeNumber = attendeeNumber;
+        this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
     }
 
+    @Basic
+    @Column(name = "ORDER_SEQ")
     public String getOrderSeq() {
         return orderSeq;
     }
@@ -107,6 +96,8 @@ public class Order extends BaseEntity {
         this.orderSeq = orderSeq;
     }
 
+    @Basic
+    @Column(name = "TABLE_NUMBER")
     public Integer getTableNumber() {
         return tableNumber;
     }
@@ -115,6 +106,8 @@ public class Order extends BaseEntity {
         this.tableNumber = tableNumber;
     }
 
+    @Basic
+    @Column(name = "ATTENDEE_NUMBER")
     public Integer getAttendeeNumber() {
         return attendeeNumber;
     }
@@ -123,75 +116,63 @@ public class Order extends BaseEntity {
         this.attendeeNumber = attendeeNumber;
     }
 
-    public float getTotalPrice() {
+    @Basic
+    @Column(name = "TOTAL_PRICE")
+    public Float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(Float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public String getCellphone() {
-        return cellphone;
+    @Basic
+    @Column(name = "ORDER_STATUS")
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public Integer getServentId() {
-        return serventId;
+    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVENT_ID")
+    public User getServent() {
+        return servent;
     }
 
-    public void setServentId(Integer serventId) {
-        this.serventId = serventId;
+    public void setServent(User servent) {
+        this.servent = servent;
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "MEMBER_ID")
+    public User getMember() {
+        return member;
     }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    public void setMember(User member) {
+        this.member = member;
     }
 
-    public Integer getCasherId() {
-        return casherId;
+    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CASHER_ID")
+    public User getCasher() {
+        return casher;
     }
 
-    public void setCasherId(Integer casherId) {
-        this.casherId = casherId;
+    public void setCasher(User casher) {
+        this.casher = casher;
     }
 
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getCreateAt() {
-        return createAt;
+    @OneToMany(targetEntity = OrderItem.class, fetch = FetchType.EAGER, mappedBy = "order")
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    @XmlJavaTypeAdapter(TimestampAdapter.class)
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    /**
-     * @return 返回该对象的字符串表示
-     */
-    @Override
-    public String toString() {
-        return "Order [orderId=" + orderId + ", orderSeq=" + orderSeq
-                + ", tableNumber=" + tableNumber + ", attendeeNumber="
-                + attendeeNumber + ", totalPrice=" + totalPrice
-                + ", cellphone=" + cellphone + ", serventId=" + serventId
-                + ", memberId=" + memberId + ", casherId=" + casherId
-                + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
 }

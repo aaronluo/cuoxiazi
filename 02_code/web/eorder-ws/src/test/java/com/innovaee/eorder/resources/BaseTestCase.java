@@ -1,16 +1,14 @@
-
 package com.innovaee.eorder.resources;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ws.rs.core.Response;
 
 /**
  * @Title: BaseTestCase
@@ -24,13 +22,13 @@ public class BaseTestCase {
             .getLogger(BaseTestCase.class);
 
     /** 链接 */
-    protected static String SERVER_URI = "http://localhost:8080/eorder-ws/rest";
+    public static String SERVER_URI = "http://localhost:8080/eorder_api/rest";
 
     /** 客户端 */
     protected Client client;
 
     /** 请求的目标 */
-    protected WebTarget target;
+    protected WebResource target;
 
     /** 返回的响应 */
     protected Response response;
@@ -40,7 +38,9 @@ public class BaseTestCase {
      */
     @Before
     public void setUp() {
-        client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
+        client = Client.create();
+        // client =
+        // ClientBuilder.newClient().register(JacksonJsonProvider.class);
     }
 
     /**
@@ -48,6 +48,6 @@ public class BaseTestCase {
      */
     @After
     public void tearDown() {
-        response.close();
+        // response.close();
     }
 }

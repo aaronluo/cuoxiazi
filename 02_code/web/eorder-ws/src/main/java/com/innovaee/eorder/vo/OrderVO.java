@@ -7,8 +7,7 @@
 
 package com.innovaee.eorder.vo;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -19,51 +18,49 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version V1.0
  */
 @XmlRootElement
-public class OrderVO implements Serializable {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = -569018728095489048L;
-
-    /** 订单ID */
-    private Integer orderId;
-
-    /** 订单时间 */
-    private Timestamp createAt;
+public class OrderVO extends BaseVO {
 
     /** 订单总价 */
-    private Float totalPrice;
+    private float totalPrice;
 
-    public Integer getOrderId() {
-        return orderId;
-    }
+    /** 订单时间 */
+    private Date createAt;
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public Float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Float totalPrice) {
-        this.totalPrice = totalPrice;
+    /**
+     * 默认构造函数
+     */
+    public OrderVO() {
+        super();
     }
 
     /**
-     * @return 返回该对象的字符串表示
+     * 构造函数
+     * 
+     * @param totalPrice
+     *            订单总价
+     * @param createAt
+     *            订单时间
      */
-    @Override
-    public String toString() {
-        return "OrderVO [orderId=" + orderId + ", createAt=" + createAt
-                + ", totalPrice=" + totalPrice + "]";
+    public OrderVO(float totalPrice, Date createAt) {
+        super();
+        this.totalPrice = totalPrice;
+        this.createAt = createAt;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
 }

@@ -7,8 +7,6 @@
 
 package com.innovaee.eorder.vo;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -18,10 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version V1.0
  */
 @XmlRootElement
-public class OrderItemVO implements Serializable {
-
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 5502247930019950933L;
+public class OrderItemVO extends BaseVO {
 
     /** 菜品ID */
     private Integer dishId;
@@ -78,9 +73,6 @@ public class OrderItemVO implements Serializable {
         this.dishPicture = dishPicture;
     }
 
-    /**
-     * @return 返回该对象的字符串表示
-     */
     @Override
     public String toString() {
         return "OrderItemVO [dishId=" + dishId + ", dishName=" + dishName
