@@ -127,6 +127,13 @@ public class UserOpAction extends BaseAction {
             // 更新页面数据
             refreshData();
         }
+
+        // 校验用户角色不能为空
+        if (null == myRolesArray || "".equals(myRolesArray)) {
+            addFieldError("myrolesarray", "用户角色不能为空！");
+            // 更新页面数据
+            refreshData();
+        }
     }
 
     /**
@@ -240,7 +247,7 @@ public class UserOpAction extends BaseAction {
         }
         userService.updateUser(user);
 
-        // 更新角色信息
+        // 更新角色信息 TODO
         userRoleService.updateUserRole(Integer.parseInt(userId), myRolesArray);
 
         this.setMessage("修改成功");

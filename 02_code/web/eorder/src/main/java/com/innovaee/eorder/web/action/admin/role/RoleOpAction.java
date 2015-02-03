@@ -106,6 +106,12 @@ public class RoleOpAction extends BaseAction {
             refreshData();
         }
 
+        // 校验功能列表不能为空
+        if (null == myFunctionsArray || "".equals(myFunctionsArray)) {
+            addFieldError("myfunctionsarray", "功能列表不能为空！");
+            // 更新页面数据
+            refreshData();
+        }
     }
 
     /**
