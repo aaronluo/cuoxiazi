@@ -118,7 +118,7 @@ public class FunctionOpAction extends BaseAction {
                 .findFunctionByFunctionName(functionName);
         // 可以找到，而且和自己的名字不同，则说明已经被占用
         if (null != function2
-                && function1.getFunctionId().equals(function2.getFunctionId())) {
+                && !function1.getFunctionId().equals(function2.getFunctionId())) {
             addFieldError("functionName", "功能名称已被占用！");
             // 更新页面数据
             refreshData();
