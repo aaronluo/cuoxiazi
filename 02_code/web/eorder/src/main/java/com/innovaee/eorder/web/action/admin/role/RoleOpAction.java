@@ -7,6 +7,13 @@
 
 package com.innovaee.eorder.web.action.admin.role;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.innovaee.eorder.module.entity.Function;
 import com.innovaee.eorder.module.entity.Role;
 import com.innovaee.eorder.module.service.RoleFunctionService;
@@ -17,13 +24,6 @@ import com.innovaee.eorder.module.vo.RoleLinkVo;
 import com.innovaee.eorder.module.vo.RoleVO;
 import com.innovaee.eorder.module.vo.UserDetailsVo;
 import com.innovaee.eorder.web.action.BaseAction;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 /**
  * @Title: RoleOpAction
@@ -100,7 +100,7 @@ public class RoleOpAction extends BaseAction {
         Role role1 = roleService.loadRole(Integer.parseInt(roleId));
         Role role2 = roleService.findRoleByRoleName(roleName);
         // 可以找到，而且和自己的名字不同，则说明已经被占用
-        if (null != role2 && role1.getRoleId().equals(role2.getRoleId())) {
+        if (null != role2 && !role1.getRoleId().equals(role2.getRoleId())) {
             addFieldError("roleName", "角色名称已被占用！");
             // 更新页面数据
             refreshData();
