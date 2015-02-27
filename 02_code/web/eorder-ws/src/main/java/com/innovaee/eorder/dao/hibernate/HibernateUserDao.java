@@ -9,7 +9,10 @@ package com.innovaee.eorder.dao.hibernate;
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.User;
 
-import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 /**
  * @Title: HibernateUserDao
@@ -26,15 +29,27 @@ public class HibernateUserDao extends HibernateBaseDao<User> implements UserDao 
      *            手机号码
      * @return 用户
      */
-    public User getUserByCellphone(String cellphone) {
-        String hql = "from User as user where user.cellphone = ?";
-        Object[] paras = { cellphone };
-        List<User> users = getPage(0, 1, hql, paras);
-        if (0 != users.size()) {
-            return users.get(0);
-        }
-
-        return null;
+    public User getUserByCellphone(final String cellphone) {
+//        String hql = "from User as user where user.cellphone = ?";
+//        Object[] paras = { cellphone };
+//        List<User> users = getPage(0, 1, hql, paras);
+//        if (0 != users.size()) {
+//            return users.get(0);
+//        }
+//
+//        return null;
+        
+        return getHibernateTemplate().execute(new HibernateCallback<User>(){
+            
+            public User doInHibernate(Session session) {
+                Criteria criteria = session.createCriteria(User.class);
+                
+                criteria.add(Restrictions.eq("cellphone", cellphone));
+                
+                return (User)(criteria.list().iterator().next());
+            }
+        });
+        
     }
 
 }
