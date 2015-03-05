@@ -1,6 +1,7 @@
 package com.innovaee.eorder.service;
 
 import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.exception.UserNotFoundException;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -32,7 +33,7 @@ public class UserServiceTest extends BaseSpringTestCase {
     }
 
     @Test
-    public void getUserByCellphone() {
+    public void getUserByCellphone() throws UserNotFoundException {
         String cellphone = "13912345671";
         User user = userService.getUserByCellphone(cellphone);
         LOGGER.debug("user: " + user);

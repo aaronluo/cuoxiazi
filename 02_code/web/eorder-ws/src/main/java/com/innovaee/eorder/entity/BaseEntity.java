@@ -30,15 +30,12 @@ public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** ID */
-    @XmlElement
     protected Integer id;
 
     /** 创建日期 */
-    @XmlTransient
     protected Date createDate;
 
     /** 更新日期 */
-    @XmlTransient
     protected Date updateDate;
 
     @Id

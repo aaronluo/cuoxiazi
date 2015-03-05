@@ -33,6 +33,7 @@
     </properties>
 
     <dependencies>
+        <!-- ========Junit依赖======== -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -7,6 +7,7 @@
 package com.innovaee.eorder.service;
 
 import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.exception.UserNotFoundException;
 
 /**
  * @Title: UserService
@@ -30,6 +31,8 @@ public interface UserService {
      * @param cellphone
      *            手机号码
      * @return 用户
+     * @throws UserNotFoundException
      */
-    public User getUserByCellphone(String cellphone);
+    public User getUserByCellphone(String cellphone)
+            throws UserNotFoundException;
 }

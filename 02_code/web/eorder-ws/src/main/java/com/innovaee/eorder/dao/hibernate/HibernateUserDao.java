@@ -30,15 +30,6 @@ public class HibernateUserDao extends HibernateBaseDao<User> implements UserDao 
      * @return 用户
      */
     public User getUserByCellphone(final String cellphone) {
-//        String hql = "from User as user where user.cellphone = ?";
-//        Object[] paras = { cellphone };
-//        List<User> users = getPage(0, 1, hql, paras);
-//        if (0 != users.size()) {
-//            return users.get(0);
-//        }
-//
-//        return null;
-        
         return getHibernateTemplate().execute(new HibernateCallback<User>(){
             
             public User doInHibernate(Session session) {
@@ -46,7 +37,11 @@ public class HibernateUserDao extends HibernateBaseDao<User> implements UserDao 
                 
                 criteria.add(Restrictions.eq("cellphone", cellphone));
                 
-                return (User)(criteria.list().iterator().next());
+                if(criteria.list().iterator().hasNext()) {
+                    return (User)(criteria.list().iterator().next());
+                } else {
+                    return null;
+                }
             }
         });
         

@@ -8,6 +8,7 @@ package com.innovaee.eorder.service.impl;
 
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
 
 /**
@@ -38,10 +39,18 @@ public class UserServiceImpl implements UserService {
      * @param cellphone
      *            手机号码
      * @return 用户
+     * @throws UserNotFoundException
      */
     @Override
-    public User getUserByCellphone(String cellphone) {
-        return userDao.getUserByCellphone(cellphone);
+    public User getUserByCellphone(String cellphone)
+            throws UserNotFoundException {
+        User user = userDao.getUserByCellphone(cellphone);
+
+        if (null != user) {
+            return user;
+        } else {
+            throw new UserNotFoundException("Cellphone:" + cellphone);
+        }
     }
 
     public void setUserDao(UserDao userDao) {

@@ -9,6 +9,7 @@ package com.innovaee.eorder.resource;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.OrderVO;
 import com.innovaee.eorder.vo.UserVO;
@@ -51,27 +52,35 @@ public class UserResource {
     @Path("/{cellphone}")
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, UserVO> getUserByCellphone(
+    public Map<String, Object> getUserByCellphone(
             @PathParam("cellphone") String cellphone) {
         logger.info("[REST_CALL= getUserById, cellphone=" + cellphone + "]");
-        User user = userService.getUserByCellphone(cellphone);
-        UserLevel userLevel = user.getUserLevel();
-        UserVO userVO = new UserVO();
-        if (null != user) {
-            userVO.setId(user.getId());
-            userVO.setUsername(user.getUsername());
-            userVO.setCellphone(user.getCellphone());
-        }
 
-        if (null != userLevel) {
-            // 设置用户等级名称
-            userVO.setLevelName(userLevel.getLevelName());
-            // 设置用户折扣信息
-            userVO.setDiscount(userLevel.getDiscount());
-        }
+        Map<String, Object> result = new HashMap<String, Object>();
+        User user = null;
 
-        Map<String, UserVO> result = new HashMap<String, UserVO>();
-        result.put("user", userVO);
+        try {
+            user = userService.getUserByCellphone(cellphone);
+            UserLevel userLevel = user.getUserLevel();
+            UserVO userVO = new UserVO();
+
+            if (null != user) {
+                userVO.setId(user.getId());
+                userVO.setUsername(user.getUsername());
+                userVO.setCellphone(user.getCellphone());
+            }
+
+            if (null != userLevel) {
+                // 设置用户等级名称
+                userVO.setLevelName(userLevel.getLevelName());
+                // 设置用户折扣信息
+                userVO.setDiscount(userLevel.getDiscount());
+            }
+
+            result.put("user", userVO);
+        } catch (UserNotFoundException exception) {
+            result.put("exception", exception.getMessage());
+        }
 
         return result;
     }
@@ -87,26 +96,31 @@ public class UserResource {
     @Path("/{cellphone}/orders")
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, List<OrderVO>> getOrderesByCellphone(
+    public Map<String, Object> getOrderesByCellphone(
             @PathParam("cellphone") String cellphone) {
-        // 1. 通过手机号码查找用户信息
-        User user = userService.getUserByCellphone(cellphone);
-        List<OrderVO> orderVOs = new ArrayList<OrderVO>();
-        // 2. 根据用户ID查找用户的订单信息
-        List<Order> orders = new ArrayList<Order>(user.getOrders());
-        for (Order order : orders) {
-            OrderVO orderVO = new OrderVO();
-            // 将订单对象的信息复制到订单值对象中，用于返回给客户端
-            // BeanUtils.copyProperties(orderVO, order);
-            orderVO.setId(order.getId());
-            orderVO.setTotalPrice(order.getTotalPrice());
-            orderVO.setCreateAt(order.getCreateDate());
-            orderVOs.add(orderVO);
+
+        User user = null;
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            // 1. 通过手机号码查找用户信息
+            user = userService.getUserByCellphone(cellphone);
+            List<OrderVO> orderVOs = new ArrayList<OrderVO>();
+            // 2. 根据用户ID查找用户的订单信息
+            List<Order> orders = new ArrayList<Order>(user.getOrders());
+            for (Order order : orders) {
+                OrderVO orderVO = new OrderVO();
+                // 将订单对象的信息复制到订单值对象中，用于返回给客户端
+                orderVO.setId(order.getId());
+                orderVO.setTotalPrice(order.getTotalPrice());
+                orderVO.setCreateAt(order.getCreateDate());
+                orderVOs.add(orderVO);
+            }
+            
+            result.put("orders", orderVOs);
+        } catch (UserNotFoundException exception) {
+            result.put("exception", exception.getMessage());
         }
 
-        // 构造返回Map
-        Map<String, List<OrderVO>> result = new HashMap<String, List<OrderVO>>();
-        result.put("orders", orderVOs);
         return result;
     }
 
