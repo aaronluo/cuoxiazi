@@ -9,6 +9,10 @@ package com.innovaee.eorder.resource;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.service.OrderService;
+import com.innovaee.eorder.support.Constants;
+import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.vo.CallResult;
+import com.innovaee.eorder.vo.NewOrderVO;
 import com.innovaee.eorder.vo.OrderItemVO;
 
 import org.apache.log4j.Logger;
@@ -19,7 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -74,6 +80,20 @@ public class OrderResource {
         result.put("orders", orderItemVOs);
 
         return result;
+    }
+
+    @POST
+    @Path("/")
+    @Scope("request")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public CallResult placeOrder(NewOrderVO newOrderVO) {
+        logger.info("[REST_CALL= placeOrder]");
+
+        CallResult callResult = new CallResult(Constants.SUCCESS,
+                MessageUtil.getMessage("place_order_success"));
+
+        return callResult;
     }
 
     public OrderService getOrderService() {
