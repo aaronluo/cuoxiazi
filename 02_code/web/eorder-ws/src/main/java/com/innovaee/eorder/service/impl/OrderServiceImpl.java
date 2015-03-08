@@ -71,6 +71,15 @@ public class OrderServiceImpl implements OrderService {
         this.userDao = userDao;
     }
 
+    
+    public OrderItemDao getOrderItemDao() {
+        return orderItemDao;
+    }
+
+    public void setOrderItemDao(OrderItemDao orderItemDao) {
+        this.orderItemDao = orderItemDao;
+    }
+
     /**
      * 根据订单ID得到订单
      * 
