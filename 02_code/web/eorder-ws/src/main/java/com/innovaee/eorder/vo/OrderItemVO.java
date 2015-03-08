@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OrderItemVO extends BaseVO {
 
     /** 菜品ID */
-    private Integer dishId;
+    private Long dishId;
 
     /** 菜品名称 */
     private String dishName;
@@ -33,11 +33,11 @@ public class OrderItemVO extends BaseVO {
     /** 菜品图片 */
     private String dishPicture;
 
-    public Integer getDishId() {
+    public Long getDishId() {
         return dishId;
     }
 
-    public void setDishId(Integer dishId) {
+    public void setDishId(Long dishId) {
         this.dishId = dishId;
     }
 

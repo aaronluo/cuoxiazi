@@ -16,6 +16,9 @@
 
     <bean id="orderService" class="com.innovaee.eorder.service.impl.OrderServiceImpl">
         <property name="orderDao" ref="orderDao" />
+        <property name="dishDao" ref="dishDao" />
+        <property name="userDao" ref="userDao" />
+        <property name="orderItemDao" ref="orderItemDao" />
     </bean>
 
     <bean id="userService" class="com.innovaee.eorder.service.impl.UserServiceImpl">

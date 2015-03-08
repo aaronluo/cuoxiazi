@@ -28,9 +28,9 @@ public class NewOrderVO extends BaseVO {
     /**用餐人数**/
     private Integer attendeeNumber;
     /**服务员工号**/
-    private Integer serventId;
+    private Long serventId;
     /**会员ID**/
-    private Integer memberId;
+    private Long memberId;
     /**订单明细**/
     private List<NewOrderItemVO> items;
 
@@ -40,7 +40,7 @@ public class NewOrderVO extends BaseVO {
     }
     /**有参数构造函数**/
     public NewOrderVO(Integer tableNumber, Integer attendeeNumber,
-            Integer serventId, Integer memberId, List<NewOrderItemVO> items) {
+            Long serventId, Long memberId, List<NewOrderItemVO> items) {
         super();
         this.tableNumber = tableNumber;
         this.attendeeNumber = attendeeNumber;
@@ -67,19 +67,19 @@ public class NewOrderVO extends BaseVO {
         this.attendeeNumber = attendeeNumber;
     }
 
-    public Integer getServentId() {
+    public Long getServentId() {
         return serventId;
     }
 
-    public void setServentId(Integer serventId) {
+    public void setServentId(Long serventId) {
         this.serventId = serventId;
     }
 
-    public Integer getMemberId() {
+    public Long getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Integer memberId) {
+    public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
 

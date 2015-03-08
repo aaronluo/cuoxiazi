@@ -40,7 +40,7 @@ public class CategoryVO extends BaseVO {
      * @param picPath
      *            分类图片
      */
-    public CategoryVO(Integer id, String name, String picPath) {
+    public CategoryVO(Long id, String name, String picPath) {
         super();
         this.id = id;
         this.name = name;

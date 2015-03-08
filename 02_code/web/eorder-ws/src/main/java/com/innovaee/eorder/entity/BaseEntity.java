@@ -28,7 +28,7 @@ public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** ID */
-    protected Integer id;
+    protected Long id;
 
     /** 创建日期 */
     protected Date createDate;
@@ -39,11 +39,11 @@ public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

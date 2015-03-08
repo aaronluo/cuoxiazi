@@ -76,7 +76,7 @@ public class CategoryResource {
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<DishVO>> getDishesByCategoryId(
-            @PathParam("categoryId") Integer categoryId) {
+            @PathParam("categoryId") Long categoryId) {
 
         logger.info("[REST_CALL= getDishesByCategory, categoryId=" + categoryId
                 + "]");

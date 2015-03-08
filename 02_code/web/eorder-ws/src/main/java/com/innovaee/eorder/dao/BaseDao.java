@@ -32,7 +32,7 @@ public interface BaseDao<T> {
      *            实体ID
      * @return 实体
      */
-    public T get(Integer id);
+    public T get(Long id);
 
     /**
      * 更新实体

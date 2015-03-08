@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class NewOrderItemVO extends BaseVO {
     /**菜品id**/
-    private Integer dishId;
+    private Long dishId;
     /**菜品份数**/
     private Integer dishAmount;
 
@@ -31,17 +31,17 @@ public class NewOrderItemVO extends BaseVO {
         super();
     }
     /**有参数构造函数**/
-    public NewOrderItemVO(Integer dishId, Integer dishAmount) {
+    public NewOrderItemVO(Long dishId, Integer dishAmount) {
         super();
         this.dishId = dishId;
         this.dishAmount = dishAmount;
     }
     
     /**下面为该对象属性setter/getter函数组**/
-    public Integer getDishId() {
+    public Long getDishId() {
         return dishId;
     }
-    public void setDishId(Integer dishId) {
+    public void setDishId(Long dishId) {
         this.dishId = dishId;
     }
     public Integer getDishAmount() {

@@ -28,7 +28,7 @@ public class UserLevelServiceImpl implements UserLevelService {
      * @return 用户等级实体
      */
     @Override
-    public UserLevel getUserLevelById(Integer userLevelId) {
+    public UserLevel getUserLevelById(Long userLevelId) {
         return userLevelDao.get(userLevelId);
     }
 

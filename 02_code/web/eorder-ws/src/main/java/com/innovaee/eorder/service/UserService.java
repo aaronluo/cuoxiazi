@@ -23,7 +23,7 @@ public interface UserService {
      *            用户ID
      * @return 用户实体
      */
-    public User getUserById(Integer userId);
+    public User getUserById(Long userId);
 
     /**
      * 根据手机号码得到用户

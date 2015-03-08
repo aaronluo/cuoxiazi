@@ -45,7 +45,7 @@ public class DishResource {
     @Path("/{dishId}")
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, DishVO> getDishById(@PathParam("dishId") Integer dishId) {
+    public Map<String, DishVO> getDishById(@PathParam("dishId") Long dishId) {
         logger.info("[REST_CALL= getDishById, dishId=" + dishId + "]");
         Dish dish = dishService.getDishById(dishId);
         DishVO dishVO = new DishVO();

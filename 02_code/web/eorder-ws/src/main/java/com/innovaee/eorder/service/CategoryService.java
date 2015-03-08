@@ -33,5 +33,5 @@ public interface CategoryService {
      *            菜品ID
      * @return 菜品实体列表
      */
-    public List<Dish> getDishesByCategoryId(Integer categoryId);
+    public List<Dish> getDishesByCategoryId(Long categoryId);
 }

@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
      * @return 用户实体
      */
     @Override
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         return userDao.get(userId);
     }
 

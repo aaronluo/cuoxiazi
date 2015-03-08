@@ -24,6 +24,10 @@ public class CallResult {
     private String message;
     
     
+    public CallResult() {
+        super();
+    }
+
     /**有参数构造函数**/
     public CallResult(String result, String message) {
         super();

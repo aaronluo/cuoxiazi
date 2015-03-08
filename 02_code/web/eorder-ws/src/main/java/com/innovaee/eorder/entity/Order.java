@@ -7,6 +7,7 @@
 
 package com.innovaee.eorder.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -40,9 +41,12 @@ public class Order extends BaseEntity {
 
     /** 订单总价 */
     private Float totalPrice;
+    
+    /** 折扣总价 */
+    private Float discountPrice;
 
     /** 订单状态 */
-    private String orderStatus;
+    private Integer orderStatus;
 
     /** 点餐员 */
     private User servent;
@@ -54,7 +58,7 @@ public class Order extends BaseEntity {
     private User casher;
 
     /** 订单明细 */
-    private Set<OrderItem> orderItems;
+    private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 
     /**
      * 默认构造函数
@@ -77,7 +81,7 @@ public class Order extends BaseEntity {
      *            订单状态
      */
     public Order(String orderSeq, Integer tableNumber, Integer attendeeNumber,
-            Float totalPrice, String orderStatus) {
+            Float totalPrice, Integer orderStatus) {
         super();
         this.orderSeq = orderSeq;
         this.tableNumber = tableNumber;
@@ -127,12 +131,22 @@ public class Order extends BaseEntity {
     }
 
     @Basic
+    @Column(name="DISCOUNT_PRICE")
+    public Float getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Float discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    @Basic
     @Column(name = "ORDER_STATUS")
-    public String getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 

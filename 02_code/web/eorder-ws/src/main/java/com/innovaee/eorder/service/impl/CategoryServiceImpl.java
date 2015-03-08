@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 菜品实体列表
      */
     @Override
-    public List<Dish> getDishesByCategoryId(Integer categoryId) {
+    public List<Dish> getDishesByCategoryId(Long categoryId) {
         List<Dish> result = new ArrayList<Dish>();
 
         Category category = categoryDao.get(categoryId);

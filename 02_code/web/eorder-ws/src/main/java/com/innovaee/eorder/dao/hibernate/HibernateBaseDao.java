@@ -83,8 +83,8 @@ public class HibernateBaseDao<T> extends HibernateDaoSupport implements
      * @return 实体
      */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
-    public T get(Integer id) {
-        return (T) getHibernateTemplate().get(entityClass, (Integer) id);
+    public T get(Long id) {
+        return (T) getHibernateTemplate().get(entityClass, (Long) id);
     }
 
     /**

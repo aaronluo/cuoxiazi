@@ -8,6 +8,9 @@ package com.innovaee.eorder.resource;
 
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.OrderItem;
+import com.innovaee.eorder.exception.DishNotFoundException;
+import com.innovaee.eorder.exception.UserNotFoundException;
+import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
 import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.support.MessageUtil;
@@ -56,7 +59,7 @@ public class OrderResource {
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
-            @PathParam("orderId") Integer orderId) {
+            @PathParam("orderId") Long orderId) {
         logger.info("[REST_CALL= getOrderItemsByOrderId, orderId=" + orderId
                 + "]");
 
@@ -90,8 +93,17 @@ public class OrderResource {
     public CallResult placeOrder(NewOrderVO newOrderVO) {
         logger.info("[REST_CALL= placeOrder]");
 
-        CallResult callResult = new CallResult(Constants.SUCCESS,
-                MessageUtil.getMessage("place_order_success"));
+        CallResult callResult = new CallResult();
+        
+        try {
+            Long orderId = orderService.placeOrder(newOrderVO);
+            Order order = orderService.getOrderById(orderId);
+            callResult.setResult(Constants.SUCCESS);
+            callResult.setMessage(MessageUtil.getMessage("place_order_success", order.getOrderSeq()));
+        } catch (UserNotFoundException | ZeroOrderItemException | DishNotFoundException exception) {
+            callResult.setResult(Constants.FALSE);
+            callResult.setMessage(exception.getMessage());
+        }
 
         return callResult;
     }

@@ -23,5 +23,5 @@ public interface DishService {
      *            菜品ID
      * @return 菜品实体
      */
-    public Dish getDishById(Integer dishId);
+    public Dish getDishById(Long dishId);
 }

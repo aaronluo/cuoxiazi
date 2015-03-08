@@ -51,7 +51,7 @@ public class DishVO extends BaseVO {
      * @param onSell
      *            在售状态
      */
-    public DishVO(Integer id, String name, float price, String picPath,
+    public DishVO(Long id, String name, float price, String picPath,
             boolean onSell) {
         super();
         this.id = id;

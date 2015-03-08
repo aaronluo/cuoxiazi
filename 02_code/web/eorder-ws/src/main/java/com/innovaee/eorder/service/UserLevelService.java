@@ -22,5 +22,5 @@ public interface UserLevelService {
      *            用户等级ID
      * @return 用户等级实体
      */
-    public UserLevel getUserLevelById(Integer userLevelId);
+    public UserLevel getUserLevelById(Long userLevelId);
 }

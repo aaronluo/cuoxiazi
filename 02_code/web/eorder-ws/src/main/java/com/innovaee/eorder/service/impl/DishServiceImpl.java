@@ -28,7 +28,7 @@ public class DishServiceImpl implements DishService {
      * @return 菜品实体
      */
     @Override
-    public Dish getDishById(Integer dishId) {
+    public Dish getDishById(Long dishId) {
         return dishDao.get(dishId);
     }
 
