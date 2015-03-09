@@ -154,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
         order = orderDao.get(orderId);
         // 3. 创建订单详情
         Float totalPrice = 0.0f;
-        if (null != newOrder.getItems()) {
+        if (null != newOrder.getItems() && newOrder.getItems().size() > 0) {
             OrderItem orderItem = new OrderItem();
 
             for (NewOrderItemVO item : newOrder.getItems()) {
@@ -182,6 +182,7 @@ public class OrderServiceImpl implements OrderService {
             
             orderDao.update(order);
         } else {
+            //当订单中没有菜品明细的时候，抛出异常
             throw new ZeroOrderItemException();
         }
         
