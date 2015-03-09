@@ -13,7 +13,9 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * @Title: ApplicationConextProvider
- * @Description: 为获取Spring ApplicationContext对象定义的助手类
+ * @Description: 为获取Spring ApplicationContext对象定义的助手类。
+ * 实现ApplicationContextAware接口的类，在Spring完成初始化后，
+ * 会由Spring框架自动将ApplicationContext对象实例传入
  * 
  * @version V1.0
  */
