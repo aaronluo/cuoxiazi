@@ -10,10 +10,14 @@ package com.innovaee.eorder.mobile.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
+import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
+import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
+import com.innovaee.eorder.mobile.databean.TableInfoDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.service.DownloadService;
 import com.innovaee.eorder.mobile.service.ICallback;
@@ -76,13 +80,13 @@ public class DataManager {
                 if (success) {
                     listener.onRequestSuccess(response);
                 } else {
-                    listener.onRequestFailed();
+                    listener.onRequestFailed("error");
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                listener.onRequestFailed();
+                listener.onRequestFailed(error);
             }
 
             @Override
@@ -123,13 +127,13 @@ public class DataManager {
                 if (success) {
                     listener.onRequestSuccess(response);
                 } else {
-                    listener.onRequestFailed();
+                    listener.onRequestFailed("error");
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                listener.onRequestFailed();
+                listener.onRequestFailed(error);
             }
 
             @Override
@@ -152,8 +156,8 @@ public class DataManager {
         if (dataRequestListener == null) {
             // 无回调，也就没有实际意义
             return;
-        }
-
+        }	
+        
         // 获取DownloadService实例
         DownloadService downloadService = DownloadService.getInstance(context);
 
@@ -166,26 +170,29 @@ public class DataManager {
 
             @Override
             public void onSuccess(List<UserInfoDataBean> response) {
+            	Log.d("DataManager:", "onSuccess");
                 boolean success = response != null && response.size() > 0;
                 if (success) {
                     dataRequestListener.onRequestSuccess(response);
                 } else {
-                    dataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed("error");
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                dataRequestListener.onRequestFailed();
+            	Log.d("DataManager:", "onFailed");
+                dataRequestListener.onRequestFailed(error);
             }
 
             @Override
             public void onSuccessT(UserInfoDataBean response) {
+            	Log.d("DataManager:", "onSuccessT");
                 boolean success = response != null;
                 if (success) {
                     dataRequestListener.onRequestSuccess(response);
-                } else {
-                    dataRequestListener.onRequestFailed();
+                } else {		
+                    dataRequestListener.onRequestFailed("error");
                 }
             }
 
@@ -195,51 +202,55 @@ public class DataManager {
     /**
      * 下单到服务器
      * 
-     * @param selectOrderGoods
+     * @param tableInfo
+     * 			  下单的台信息
+     * @param dataBeanList
      *            下单的菜品数据list
      * @param dataRequestListener
      *            回调监听器
      */
-    public void orderToService(List<GoodsDataBean> selectOrderGoods,
-            final IDataRequestListener<String> dataRequestListener) {
+    public void orderToService(TableInfoDataBean tableInfo, List<GoodsDataBean> dataBeanList,
+            final IDataRequestListener<OrderReturnDataBean> dataRequestListener) {
         if (dataRequestListener == null) {
             // 无回调，也就没有实际意义
             return;
         }
-
-        String id = "";
+        			
         // 获取DownloadService实例
         DownloadService downloadService = DownloadService.getInstance(context);
 
         // 下单到服务器
-        downloadService.getUserDiscountData(id, new ICallback<String>() {
-            @Override
+        downloadService.postOrderInfo(tableInfo, dataBeanList, new ICallback<OrderReturnDataBean>() {
+            @Override	
             public void onStarted() {
                 dataRequestListener.onRequestStart();
             }
-
+            
             @Override
-            public void onSuccess(List<String> response) {
+            public void onSuccess(List<OrderReturnDataBean> response) {
                 boolean success = response != null && response.size() > 0;
-                if (success) {
+                Log.d("onSuccess:", "result =" + response.get(0).getResult());
+                Log.d("onSuccess:", "message =" + response.get(0).getMessage());
+                if (success) {	
                     dataRequestListener.onRequestSuccess(response);
                 } else {
-                    dataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed("error");
                 }
             }
 
-            @Override
+            @Override	
             public void onFailed(String error) {
-                dataRequestListener.onRequestFailed();
+            	Log.d("error", "error =" + error);
+                dataRequestListener.onRequestFailed(error);
             }
-
+            
             @Override
-            public void onSuccessT(String response) {
+            public void onSuccessT(OrderReturnDataBean response) {
                 boolean success = response != null;
                 if (success) {
                     dataRequestListener.onRequestSuccess(response);
                 } else {
-                    dataRequestListener.onRequestFailed();
+                    dataRequestListener.onRequestFailed("error");
                 }
             }
 
@@ -277,13 +288,13 @@ public class DataManager {
                 if (success) {
                     listener.onRequestSuccess(response);
                 } else {
-                    listener.onRequestFailed();
+                    listener.onRequestFailed("error");
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                listener.onRequestFailed();
+                listener.onRequestFailed(error);
             }
 
             @Override
@@ -292,7 +303,7 @@ public class DataManager {
                 if (success) {
                     listener.onRequestSuccess(response);
                 } else {
-                    listener.onRequestFailed();
+                    listener.onRequestFailed("error");
                 }
             }
 
@@ -329,7 +340,7 @@ public class DataManager {
         /**
          * 功能简述: 数据请求失败回调接口 功能详细描述: 注意:
          */
-        public void onRequestFailed();
-    }
+        public void onRequestFailed(String error);
+    }	
 
 }

@@ -39,6 +39,8 @@ import com.innovaee.eorder.R;
 import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
+import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
+import com.innovaee.eorder.mobile.databean.TableInfoDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
 
@@ -68,7 +70,10 @@ public class OrderActivity extends Activity {
 
     // 下单成功消息
     public static final int MSG_ORDER_SUCCESS = 10005;
-
+    
+    // 下单失败消息
+    public static final int MSG_ORDER_FAIL = 10006;    
+    	
     // 已经选择菜品list
     private List<GoodsDataBean> selectOrderGoods;
 
@@ -83,13 +88,22 @@ public class OrderActivity extends Activity {
 
     // 输入桌号文本编辑器
     private EditText inputTableId;
+    
+    // 输入人数文本编辑器
+    private EditText inputPeopleCount;
 
     // 输入会员号文本编辑器
     private EditText inputUserId;
 
     // 输入员工号文本编辑器
     private EditText inputEmployeeId;
-
+    
+    // 会员存储id
+    private String saveUserId;
+    
+    // 员工号存储id
+    private String saveEmployeeId;	
+    	
     // 二维码扫描按钮
     private Button qrcodeBtn;
 
@@ -113,6 +127,9 @@ public class OrderActivity extends Activity {
 
     // 折扣
     private Double discount;
+    
+    //下单台信息
+    private TableInfoDataBean tableInfo;
 
     // 消息handler
     private Handler handler = new Handler(Looper.getMainLooper()) {
@@ -165,7 +182,13 @@ public class OrderActivity extends Activity {
                 sendBroadcastToMainActivity();
                 finish();
                 break;
-
+                	
+            // 下单失败消息
+            case MSG_ORDER_FAIL:
+            	String message = (String) msg.obj;
+            	Toast.makeText(OrderActivity.this, message, Toast.LENGTH_SHORT).show();
+            	break;			
+            	
             default:
                 break;
             }
@@ -205,7 +228,9 @@ public class OrderActivity extends Activity {
         actionBar = getActionBar();
 
         inputTableId = (EditText) findViewById(R.id.table_input_id);
-
+        
+        inputPeopleCount = (EditText) findViewById(R.id.table_input_people_count);
+        
         inputUserId = (EditText) findViewById(R.id.user_input_id);
 
         inputEmployeeId = (EditText) findViewById(R.id.employee_input_id);
@@ -231,7 +256,14 @@ public class OrderActivity extends Activity {
     private void initData() {
         // 默认折扣为10
         discount = 10.0;
-
+        	
+        // 默认员工号为1
+        saveEmployeeId = "1";
+        inputEmployeeId.setText("1");
+        						
+        // 默认会员号为0
+        saveUserId = "0";	
+        		
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                     long arg3) {
@@ -271,17 +303,26 @@ public class OrderActivity extends Activity {
 
         okBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View paramAnonymousView) {
+            	Log.d(TAG, "okBtn!");
                 String tableId = inputTableId.getText().toString();
+                String peopleCount = inputPeopleCount.getText().toString();
                 String employeeId = inputEmployeeId.getText().toString();
                 String userId = inputUserId.getText().toString();
-
+                
                 if (tableId.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             R.string.order_toast_please_input_tableId,
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                
+                if (peopleCount.equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.order_toast_please_input_people_count,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }	
+                
                 if (employeeId.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             R.string.order_toast_please_input_employeeId,
@@ -296,8 +337,8 @@ public class OrderActivity extends Activity {
                     return;
                 }
 
-                orderToService(selectOrderGoods);
-            }
+                orderToService();
+            }	
         });
 
         displayPrice();
@@ -315,7 +356,8 @@ public class OrderActivity extends Activity {
 
             if (isNumeric(scanResult)) {
                 inputEmployeeId.setText(scanResult);
-            } else {
+                getEmployeeData(scanResult);									
+            } else {			
                 Toast.makeText(OrderActivity.this,
                         R.string.order_toast_scanresult_fail,
                         Toast.LENGTH_SHORT).show();
@@ -428,6 +470,16 @@ public class OrderActivity extends Activity {
     }
 
     /**
+     * 下单失败更新ui
+     */
+    private void orderFail(String message) {
+        Message msg = Message.obtain();
+        msg.what = MSG_ORDER_FAIL;
+        msg.obj = message;
+        handler.sendMessage(msg);
+    }			
+
+    /**
      * 获取某个会员号的信息
      * 
      * @param userId
@@ -452,6 +504,8 @@ public class OrderActivity extends Activity {
                                                 .get(0);
                                         discount = userInfoDataBean
                                                 .getDiscount();
+                                        saveUserId = String.valueOf(userInfoDataBean.getId());
+                                        
                                         updateDiscountUi();
                                     }
 
@@ -462,13 +516,80 @@ public class OrderActivity extends Activity {
 
                                     // 获取失败回调函数
                                     @Override
-                                    public void onRequestFailed() {
+                                    public void onRequestFailed(String error) {
+                                    	orderFail(error); 
+                                    }	
+                                    
+                                    // 获取成功回调函数，返回单个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                            UserInfoDataBean data) {
+                                    	Log.d(TAG, "onRequestSuccess");
+                                    	if (data == null) {
+                                            return;
+                                        }				
+                                        discount = data
+                                                .getDiscount();
+                                        saveUserId = String.valueOf(data.getId());
+                                        Log.d(TAG, "discount =" + discount);	
+                                        Log.d(TAG, "saveUserId =" + saveUserId);
+                                        updateDiscountUi();
                                     }
+                                });
+                handler.sendEmptyMessage(0);
+            }
+        }.start();
+    }
+    			
+    /**
+     * 获取某个员工号的信息
+     * 
+     * @param userId
+     *            会员id
+     */
+    private void getEmployeeData(final String employeeId) {
+        // DataManager必须在子线程里面调用
+        new Thread() {	
+            @Override
+            public void run() {
+                DataManager.getInstance(OrderActivity.this)
+                        .getUserDiscountData(employeeId,
+                                new IDataRequestListener<UserInfoDataBean>() {
+                                    // 获取成功回调函数，返回多个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                            final List<UserInfoDataBean> data) {
+                                    	Log.d(TAG, "onRequestSuccess");
+                                        if (data == null) {
+                                            return;
+                                        }	
+                                        UserInfoDataBean userInfoDataBean = data
+                                                .get(0);
+                                        saveEmployeeId = String.valueOf(userInfoDataBean.getId());                                       
+                                    }	
+                                    				
+                                    // 获取开始回调函数
+                                    @Override
+                                    public void onRequestStart() {
+                                    	Log.d(TAG, "onRequestStart");
+                                    }
+
+                                    // 获取失败回调函数
+                                    @Override
+                                    public void onRequestFailed(String error) {
+                                    	Log.d(TAG, "onRequestFailed");
+                                    	orderFail(error); 	
+                                    }	
 
                                     // 获取成功回调函数，返回单个数据
                                     @Override
                                     public void onRequestSuccess(
                                             UserInfoDataBean data) {
+                                    	Log.d(TAG, "onRequestSuccessT");
+                                    	if (data == null) {
+                                            return;
+                                        }					
+                                        saveEmployeeId = String.valueOf(data.getId());   
                                     }
                                 });
                 handler.sendEmptyMessage(0);
@@ -524,8 +645,65 @@ public class OrderActivity extends Activity {
      * 
      * @param selectOrderGoods
      *            下订单数据
-     */
-    private void orderToService(final List<GoodsDataBean> selectOrderGoods) {
-        orderSuccessful();
+     */	
+    private void orderToService() {
+    	Log.d(TAG, "orderToService");
+    	saveEmployeeId = inputEmployeeId.getText().toString();
+    	tableInfo = new TableInfoDataBean(); 		
+    	tableInfo.setAttendeeNumber(Integer.valueOf(inputPeopleCount.getText().toString()));	
+    	tableInfo.setCellphone(saveUserId);				
+    	tableInfo.setDishPrice(allPriceTxt.getText().toString());		
+    	tableInfo.setServantId(saveEmployeeId);											
+    	tableInfo.setTableId(Integer.valueOf(inputTableId.getText().toString()));	    					
+        							
+        // DataManager必须在子线程里面调用
+        new Thread() {
+            @Override	
+            public void run() {	
+                DataManager.getInstance(OrderActivity.this)
+                        .orderToService(tableInfo, selectOrderGoods,
+                                new IDataRequestListener<OrderReturnDataBean>() {
+                                    // 获取成功回调函数，返回多个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                            final List<OrderReturnDataBean> data) {
+                                    	Log.d(TAG, "onRequestSuccess");
+                                        if (data == null) {
+                                            return;
+                                        }
+                                        OrderReturnDataBean result = data
+                                                .get(0);
+                                        
+                                        if(result.getResult().equals("success")) {
+                                        	orderSuccessful();
+                                        } else {                                       
+                                        	orderFail(result.getMessage());
+                                        }			
+                                    }
+                                    	
+                                    // 获取开始回调函数
+                                    @Override
+                                    public void onRequestStart() {
+                                    	Log.d(TAG, "onRequestStart");
+                                    }
+
+                                    // 获取失败回调函数
+                                    @Override
+                                    public void onRequestFailed(String error) {
+                                    	Log.d(TAG, "onRequestFailed");
+                                    	orderFail(error); 
+                                    }	
+
+                                    // 获取成功回调函数，返回单个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                    		OrderReturnDataBean data) {
+                                    	Log.d(TAG, "onRequestSuccess 1");
+                                    }
+                                });	
+                handler.sendEmptyMessage(0);
+            }
+        }.start();        	
     }
+    
 }

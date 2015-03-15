@@ -716,7 +716,7 @@ public class MainViewActivity extends Activity {
 
                             // 请求失败的回调处理函数
                             @Override
-                            public void onRequestFailed() {
+                            public void onRequestFailed(String error) {
                             }
 
                             // 请求成功的回调处理函数，返回单个情况
@@ -760,7 +760,7 @@ public class MainViewActivity extends Activity {
 
                             // 请求失败的回调处理函数
                             @Override
-                            public void onRequestFailed() {
+                            public void onRequestFailed(String error) {
                                 updateFailUi();
                             }
 

@@ -30,11 +30,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
 import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
+import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
+import com.innovaee.eorder.mobile.databean.ReturnResultDataBean;
 import com.innovaee.eorder.mobile.databean.TableInfoDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.util.Env;
@@ -96,7 +99,7 @@ public class DownloadService implements GoodService, CategoryService {
 
         // 如果没有设置地址，则返回默认值
         if (url.equals("")) {
-            url = "http://192.168.1.11:8080";
+            url = "http://192.168.1.13:8080";
         }
 
         return url;
@@ -217,18 +220,24 @@ public class DownloadService implements GoodService, CategoryService {
                 if (entity != null) {
                     // 获取服务器响应的json字符串
                     String json = EntityUtils.toString(entity, "UTF-8");
-                    List<T> beans = (List<T>) parseUserDiscountDataJson(json);
-                    callback.onSuccess(beans);
-                } else {
+                    ReturnResultDataBean returnData = new ReturnResultDataBean();	
+                    UserInfoDataBean userInfo = parseUserDiscountDataJson(json, returnData);			
+                    if(returnData.getResult()) {				
+                    	Log.d("ok", "okkkkk!!!!");	
+                    	callback.onSuccessT((T)userInfo);
+                    } else {			
+                    	callback.onFailed(returnData.getMessage());
+                    }													
+                } else {		
                     // 异常信息
                     callback.onFailed("entityIsNull");
-                }
+                }	
             } else {
-                // 异常信息
+                // 异常信息	
                 callback.onFailed("getStatusCodeError");
-            }
+            }	
         } catch (Exception error) {
-            // 异常信息
+            // 异常信息	
             callback.onFailed("ExceptionError");
         }
     }
@@ -238,22 +247,36 @@ public class DownloadService implements GoodService, CategoryService {
      * 
      * @param json
      *            会员信息json数据
-     * @return 会员数据list, 默认使用0位置数据
-     */
-    private List<UserInfoDataBean> parseUserDiscountDataJson(String json) {
-        List<UserInfoDataBean> goods = new ArrayList<UserInfoDataBean>();
+     * @return 成功或者失败
+     */					
+    private UserInfoDataBean parseUserDiscountDataJson(String json, ReturnResultDataBean result) {
+    	Log.d("parseUserDiscountDataJson:", "json=" + json);	
         try {
             JSONObject obj = new JSONObject(json).getJSONObject("user");
-
+            	
             UserInfoDataBean userInfo = new UserInfoDataBean(
-                    obj.getInt("id"), obj.getString("username"),
-                    obj.getString("cellphone"), obj.getString("levelName"),
+                    obj.getInt("id"), 
+                    obj.getString("username"),
+                    obj.getString("cellphone"), 
+                    obj.getString("levelName"),
                     (Double) obj.getDouble("discount"));
-            goods.add(userInfo);
-        } catch (JSONException error) {
+            result.setMessage("ok");		
+			result.setResult(true);	
+            return userInfo;	
+        } catch (JSONException error) {		
         	Log.e("DownloadService", error.toString());
-        }
-        return goods;
+        	try {									
+				JSONObject obj = new JSONObject(json);
+				String err = obj.getString("exception");
+				result.setMessage(err);		
+				result.setResult(false);			
+				Log.d("DownloadService", "exception =" + err);
+			} catch (JSONException e) {			
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}							
+        	return null;
+        }			
     }
 
     /**
@@ -506,12 +529,12 @@ public class DownloadService implements GoodService, CategoryService {
      *            下单数据详情信息
      * @param callback
      *            回调监听器
-     */
+     */	
     public <T> void postOrderInfo(TableInfoDataBean tableInfo,
-            List<OrderInfoDataBean> dataBeanList, ICallback<T> callback) {
+            List<GoodsDataBean> dataBeanList, ICallback<T> callback) {
         // 创建请求HttpClient客户端
         HttpClient httpClient = new DefaultHttpClient();
-
+        
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVIE_POST_ORDER;
 
@@ -519,6 +542,8 @@ public class DownloadService implements GoodService, CategoryService {
             // 创建请求的对象
             HttpPost request = new HttpPost(new URI(url));
 
+            request.setHeader("Content-Type", "application/json"); 
+            	
             HttpParams params = new BasicHttpParams();
 
             // 设置连接超时
@@ -526,12 +551,15 @@ public class DownloadService implements GoodService, CategoryService {
 
             // 设置请求超时
             HttpConnectionParams.setSoTimeout(params, 20000);
+            
 
             request.setParams(params);
 
             // 先封装一个 JSON 对象
-            JSONObject object = writeJSON(tableInfo, dataBeanList);
-
+            JSONObject object = writeOrderJSON(tableInfo, dataBeanList);
+            
+            Log.d("Order Json Object:", "Json =" + object.toString());	
+            	
             // 绑定到请求 Entry
             StringEntity se = new StringEntity(object.toString());
             request.setEntity(se);
@@ -546,14 +574,15 @@ public class DownloadService implements GoodService, CategoryService {
                     // 获取服务器响应的json字符串
                     String json = EntityUtils.toString(entity, "UTF-8");
 
-                    List<T> beans = (List<T>) parseOrderInfoDataJson(json);
+                    List<T> beans = (List<T>) parseOrderDataJson(json);
                     callback.onSuccess(beans);
                 } else {
                     // 异常信息
                     callback.onFailed("entityIsNull");
                 }
             } else {
-                // 异常信息
+            	Log.d("error", "error code =" + httpResponse.getStatusLine().getStatusCode());
+                // 异常信息	
                 callback.onFailed("getStatusCodeError");
             }
         } catch (Exception error) {
@@ -571,36 +600,61 @@ public class DownloadService implements GoodService, CategoryService {
      *            下单数据详情信息
      * @return 转换后的json数据
      */
-    public JSONObject writeJSON(TableInfoDataBean tableInfo,
-            List<OrderInfoDataBean> dataBeanList) {
+    public JSONObject writeOrderJSON(TableInfoDataBean tableInfo,
+            List<GoodsDataBean> dataBeanList) {
         JSONObject object = new JSONObject();
         JSONArray array = new JSONArray();
 
-        try {
-            object.put("cellphone", tableInfo.getCellphone());
-            object.put("tableId", tableInfo.getId());
-            object.put("servantId", tableInfo.getServantId());
-            object.put("dishPrice", tableInfo.getDishPrice());
+        try {	
+            object.put("tableNumber", tableInfo.getTableId());
+            object.put("attendeeNumber", tableInfo.getAttendeeNumber());
+            object.put("serventId", tableInfo.getServantId());
+            object.put("memberId", tableInfo.getCellphone());
 
-            for (OrderInfoDataBean databean : dataBeanList) {
+            for (GoodsDataBean databean : dataBeanList) {
                 JSONObject dataInfo = new JSONObject();
 
                 dataInfo.put("dishId", databean.getId());
-                dataInfo.put("dishName", databean.getDishName());
-                dataInfo.put("price", databean.getDishPrice());
-                dataInfo.put("dishAmount", databean.getDishAmount());
-                dataInfo.put("dishPicture", databean.getDishPicture());
-
+                dataInfo.put("dishAmount", databean.getCount());
                 array.put(dataInfo);
-            }
+            }		
 
-            object.put("dishList", array);
+            object.put("items", array);
         } catch (JSONException error) {
         	Log.e("DownloadService", error.toString());
         }	
-
+        	
         return object;
     }
+    
+    /**
+     * 解析下单返回详情json数据
+     * 
+     * @param json
+     *            下单返回详情json数据
+     * @return 下单返回详情数据Bean列表list
+     */
+    private List<OrderReturnDataBean> parseOrderDataJson(String json) {
+    	List<OrderReturnDataBean> OrderResult = new ArrayList<OrderReturnDataBean>();
+    	OrderReturnDataBean dataBean = new OrderReturnDataBean();
+        String result = "false";
+        String message = "";
+    									
+        try {
+        	JSONObject obj = new JSONObject(json);
+        	
+        	result = obj.getString("result");
+        	message = obj.getString("message");  
+        			
+        	dataBean.setResult(result);
+        	dataBean.setMessage(message);
+        } catch (JSONException error) {
+        	Log.e("DownloadService", error.toString());
+        }	
+        OrderResult.add(dataBean);	
+        			
+        return OrderResult;
+    }		
     
     /**
      * 由服务器图片地址转换到真实url地址
@@ -613,5 +667,5 @@ public class DownloadService implements GoodService, CategoryService {
         String bitmapUrl = getServiceUrl() + "/eorder-ws/images" + bitmapPath;
         return bitmapUrl;
     }
-
+    	
 }

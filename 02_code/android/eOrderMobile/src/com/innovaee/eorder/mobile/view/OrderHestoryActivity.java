@@ -241,7 +241,7 @@ public class OrderHestoryActivity extends Activity {
 
                                     // 获取数据失败回调函数
                                     @Override
-                                    public void onRequestFailed() {
+                                    public void onRequestFailed(String error) {
                                         updateFailUi();
                                     }
 

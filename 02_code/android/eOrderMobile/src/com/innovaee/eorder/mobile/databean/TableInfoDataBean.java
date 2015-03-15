@@ -32,7 +32,10 @@ public class TableInfoDataBean implements Serializable {
 
     // 总价定义
     public static final String COLUM_DISHPRICE = "dishPrice";
-
+    
+    // 总人数
+    public static final String COLUM_ATTENDEENUMBER = "attendeeNumber";
+    
     // 开台id
     private int tableId;
 
@@ -43,8 +46,11 @@ public class TableInfoDataBean implements Serializable {
     private String servantId;
 
     // 总价
-    private Double dishPrice;
-
+    private String dishPrice;
+    
+    // 总人数
+    private int attendeeNumber;
+    
     //构造函数
     public TableInfoDataBean() {
     }
@@ -57,19 +63,20 @@ public class TableInfoDataBean implements Serializable {
      * @param dishPrice 总价
      */
     public TableInfoDataBean(int tableId, String cellphone, String servantId,
-            Double dishPrice) {
+    		String dishPrice, int attendeeNumber) {
         this.tableId = tableId;
         this.cellphone = cellphone;
         this.servantId = servantId;
         this.dishPrice = dishPrice;
-    }
+        this.attendeeNumber = attendeeNumber;
+    }	
 
     /**
      * 获取开台id
      * 
      * @return 开台id
      */
-    public int getId() {
+    public int getTableId() {
         return this.tableId;
     }
 
@@ -79,9 +86,9 @@ public class TableInfoDataBean implements Serializable {
      * @param tableId
      *            开台id
      */
-    public void setId(int tableId) {
+    public void setTableId(int tableId) {
         this.tableId = tableId;
-    }
+    }	
 
     /**
      * 获取开台电话号码
@@ -126,7 +133,7 @@ public class TableInfoDataBean implements Serializable {
      * 
      * @return 总价
      */
-    public Double getDishPrice() {
+    public String getDishPrice() {
         return this.dishPrice;
     }
 
@@ -136,7 +143,26 @@ public class TableInfoDataBean implements Serializable {
      * @param dishPrice
      *            总价
      */
-    public void setDishPrice(Double dishPrice) {
+    public void setDishPrice(String dishPrice) {
         this.dishPrice = dishPrice;
     }
+    
+    /**
+     * 获取总人数
+     * 
+     * @return 总人数
+     */
+    public int getAttendeeNumber() {
+        return this.attendeeNumber;
+    }
+    
+    /**
+     * 设置总人数
+     * 
+     * @param attendeeNumber
+     *            总人数
+     */
+    public void setAttendeeNumber(int attendeeNumber) {
+        this.attendeeNumber = attendeeNumber;
+    }	
 }
