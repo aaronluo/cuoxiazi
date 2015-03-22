@@ -7,7 +7,7 @@
     <constant name="struts.devMode" value="false" />
     <constant name="struts.locale" value="en_UTF-8" />
     <constant name="struts.i18n.encoding" value="UTF-8" />
-    <constant name="struts.custom.i18n.resources" value="globalMessages" />
+    <constant name="struts.custom.i18n.resources" value="messages.messages" />
 
     <package name="struts-base" namespace="/struts" extends="struts-default">
 
@@ -29,13 +29,15 @@
         </global-results>
 
         <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="exception" />
+            <exception-mapping exception="java.lang.Exception"
+                result="exception" />
         </global-exception-mappings>
+
     </package>
 
     <!-- Add packages here -->
-    <include file="com/innovaee/eorder/web/action/login/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/function/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/user/struts.xml" />
-    <include file="com/innovaee/eorder/web/action/admin/role/struts.xml" />
+    <include file="com/innovaee/eorder/action/login/struts.xml" />
+    <include file="com/innovaee/eorder/action/function/struts.xml" />
+    <include file="com/innovaee/eorder/action/user/struts.xml" />
+    <include file="com/innovaee/eorder/action/role/struts.xml" />
 </struts>

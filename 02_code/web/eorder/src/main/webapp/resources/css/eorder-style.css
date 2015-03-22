@@ -1,0 +1,28 @@
+.operatemessage {
+	float: left;
+	width: 408px;
+	height: 20px;
+	padding: 5px;
+	margin-left: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #F00;
+	font-weight: bold;
+	vertical-align: center;
+}
+
+.rightinfo {
+	width: 80%;
+}
+
+.twoinput {
+	width: 35px;
+	height: 33px;
+	line-height: 33px;
+	border-top: solid 1px #a7b5bc;
+	border-left: solid 1px #a7b5bc;
+	border-right: solid 1px #ced9df;
+	border-bottom: solid 1px #ced9df;
+	background: url(../images/inputbg.gif) repeat-x;
+	text-indent: 10px;
+}

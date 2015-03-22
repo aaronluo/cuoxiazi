@@ -8,4 +8,5 @@ http://www.springframework.org/schema/aop   http://www.springframework.org/schem
     default-autowire="byName">
     <import resource="classpath:applicationContext-total.xml" />
     <import resource="classpath:applicationContext-security.xml" />
+    <import resource="classpath:eorder-support.xml" />
 </beans>

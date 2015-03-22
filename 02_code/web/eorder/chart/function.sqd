@@ -1001,7 +1001,7 @@
                                                                 </java.beans.PropertyChangeSupport>
                                                               </listeners>
                                                               <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                                                              <name>getMenulist</name>
+                                                              <name>getMenuList</name>
                                                               <type>List&lt;RoleLinkVo&gt;</type>
                                                               <params/>
                                                               <isAbstract>false</isAbstract>
@@ -1020,11 +1020,11 @@
                                                                 </java.beans.PropertyChangeSupport>
                                                               </listeners>
                                                               <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                                                              <name>setMenulist</name>
+                                                              <name>setMenuList</name>
                                                               <type>void</type>
                                                               <params>
                                                                 <net.java.amateras.uml.classdiagram.model.Argument>
-                                                                  <name>menulist</name>
+                                                                  <name>menuLink</name>
                                                                   <type>List&lt;RoleLinkVo&gt;</type>
                                                                 </net.java.amateras.uml.classdiagram.model.Argument>
                                                               </params>
@@ -1458,7 +1458,7 @@
                                                             </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                                           </propertyDescriptors>
                                                           <stereoType></stereoType>
-                                                          <name>com.innovaee.eorder.web.action.admin.function.FunctionOpAction</name>
+                                                          <name>com.innovaee.eorder.action.function.FunctionOpAction</name>
                                                           <isAbstract>false</isAbstract>
                                                         </type>
                                                         <lifeLine reference="../.."/>
@@ -1785,7 +1785,7 @@
                                                       </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                                     </propertyDescriptors>
                                                     <stereoType></stereoType>
-                                                    <name>com.innovaee.eorder.module.service.FunctionService</name>
+                                                    <name>com.innovaee.eorder.service.FunctionService</name>
                                                     <isAbstract>false</isAbstract>
                                                   </type>
                                                   <lifeLine reference="../.."/>
@@ -2072,7 +2072,7 @@
                                           </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                         </propertyDescriptors>
                                         <stereoType></stereoType>
-                                        <name>com.innovaee.eorder.module.dao.FunctionDao</name>
+                                        <name>com.innovaee.eorder.dao.FunctionDao</name>
                                         <isAbstract>false</isAbstract>
                                       </type>
                                       <lifeLine reference="../.."/>

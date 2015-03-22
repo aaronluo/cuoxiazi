@@ -640,7 +640,7 @@
                                           </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                         </propertyDescriptors>
                                         <stereoType></stereoType>
-                                        <name>com.innovaee.eorder.module.dao.RoleFunctionDao</name>
+                                        <name>com.innovaee.eorder.dao.RoleFunctionDao</name>
                                         <isAbstract>false</isAbstract>
                                       </type>
                                       <lifeLine reference="../.."/>
@@ -978,7 +978,7 @@
                                     </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                   </propertyDescriptors>
                                   <stereoType></stereoType>
-                                  <name>com.innovaee.eorder.module.service.RoleFunctionService</name>
+                                  <name>com.innovaee.eorder.service.RoleFunctionService</name>
                                   <isAbstract>false</isAbstract>
                                 </type>
                                 <lifeLine reference="../.."/>
@@ -1847,7 +1847,7 @@
                                   </java.beans.PropertyChangeSupport>
                                 </listeners>
                                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../../../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/owner/type/children/net.java.amateras.uml.classdiagram.model.OperationModel[2]/visibility"/>
-                                <name>getMenulist</name>
+                                <name>getMenuList</name>
                                 <type>List&lt;RoleLinkVo&gt;</type>
                                 <params/>
                                 <isAbstract>false</isAbstract>
@@ -1866,11 +1866,11 @@
                                   </java.beans.PropertyChangeSupport>
                                 </listeners>
                                 <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../../../../../sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/sourceConnections/net.java.amateras.uml.sequencediagram.model.SyncMessageModel/target/ownerLine/owner/type/children/net.java.amateras.uml.classdiagram.model.OperationModel[2]/visibility"/>
-                                <name>setMenulist</name>
+                                <name>setMenuList</name>
                                 <type>void</type>
                                 <params>
                                   <net.java.amateras.uml.classdiagram.model.Argument>
-                                    <name>menulist</name>
+                                    <name>menuLink</name>
                                     <type>List&lt;RoleLinkVo&gt;</type>
                                   </net.java.amateras.uml.classdiagram.model.Argument>
                                 </params>
@@ -1960,7 +1960,7 @@
                               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                             </propertyDescriptors>
                             <stereoType></stereoType>
-                            <name>com.innovaee.eorder.web.action.admin.role.RoleOpAction</name>
+                            <name>com.innovaee.eorder.action.role.RoleOpAction</name>
                             <isAbstract>false</isAbstract>
                           </type>
                           <lifeLine reference="../.."/>

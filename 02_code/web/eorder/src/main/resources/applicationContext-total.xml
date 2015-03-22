@@ -48,8 +48,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
         <property name="packagesToScan">
             <list>
-                <value>com.innovaee.eorder.module.entity</value>
-                <value>com.innovaee.eorder.module.utils.log</value>
+                <value>com.innovaee.eorder.entity</value>
+                <value>com.innovaee.eorder.utils.log</value>
             </list>
         </property>
 
@@ -99,7 +99,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         </property>
     </bean>
 
-    <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean id="txManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
@@ -114,48 +115,31 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <aop:config proxy-target-class="false">
         <aop:pointcut id="txPointcut"
-            expression="execution(* com.innovaee.eorder.module.service..*.*(..))" />
+            expression="execution(* com.innovaee.eorder.service..*.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
     </aop:config>
 
-    <bean id="baseDao" class="com.innovaee.eorder.module.dao.BaseDao"
-        abstract="true">
+    <bean id="baseDao" class="com.innovaee.eorder.dao.BaseDao" abstract="true">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="roleFunctionDao" class="com.innovaee.eorder.module.dao.RoleFunctionDao"
+    <bean id="functionDao" class="com.innovaee.eorder.dao.hibernate.HibernateFunctionDao"
         parent="baseDao" />
-    <bean id="functionDao" class="com.innovaee.eorder.module.dao.FunctionDao"
+    <bean id="roleDao" class="com.innovaee.eorder.dao.hibernate.HibernateRoleDao"
         parent="baseDao" />
-    <bean id="roleDao" class="com.innovaee.eorder.module.dao.RoleDao" parent="baseDao" />
-    <bean id="userDao" class="com.innovaee.eorder.module.dao.UserDao" parent="baseDao" />
-    <bean id="userRoleDao" class="com.innovaee.eorder.module.dao.UserRoleDao"
+    <bean id="userDao" class="com.innovaee.eorder.dao.hibernate.HibernateUserDao"
         parent="baseDao" />
-    <bean id="userLevelDao" class="com.innovaee.eorder.module.dao.UserLevelDao"
+    <bean id="userLevelDao" class="com.innovaee.eorder.dao.hibernate.HibernateUserLevelDao"
         parent="baseDao" />
 
-    <bean id="baseService" class="com.innovaee.eorder.module.service.BaseService"
-        abstract="true" />
-
-    <bean id="authorizationService"
-        class="com.innovaee.eorder.module.service.security.AuthorizationService"
-        parent="baseService" />
-    <bean id="authenticationService"
-        class="com.innovaee.eorder.module.service.security.AuthenticationService"
-        parent="baseService" />
+    <bean id="authorizationService" class="com.innovaee.eorder.service.security.AuthorizationService" />
+    <bean id="authenticationService" class="com.innovaee.eorder.service.security.AuthenticationService" />
     <bean id="securityMetadataSourceService"
-        class="com.innovaee.eorder.module.service.security.SecurityMetadataSourceService"
-        parent="baseService" />
+        class="com.innovaee.eorder.service.security.SecurityMetadataSourceService" />
 
-    <bean id="functionService" class="com.innovaee.eorder.module.service.FunctionService"
-        parent="baseService" />
-    <bean id="userService" class="com.innovaee.eorder.module.service.UserService"
-        parent="baseService" />
-    <bean id="roleService" class="com.innovaee.eorder.module.service.RoleService"
-        parent="baseService" />
-    <bean id="roleFunctionService" class="com.innovaee.eorder.module.service.RoleFunctionService"
-        parent="baseService" />
-    <bean id="userRoleService" class="com.innovaee.eorder.module.service.UserRoleService"
-        parent="baseService" />
+    <bean id="functionService" class="com.innovaee.eorder.service.impl.FunctionServiceImpl" />
+    <bean id="userService" class="com.innovaee.eorder.service.impl.UserServiceImpl" />
+    <bean id="userLevelService" class="com.innovaee.eorder.service.impl.UserLevelServiceImpl" />
+    <bean id="roleService" class="com.innovaee.eorder.service.impl.RoleServiceImpl" />
 
 </beans>

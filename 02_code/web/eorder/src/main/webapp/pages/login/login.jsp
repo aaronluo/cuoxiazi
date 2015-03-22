@@ -11,71 +11,94 @@
 <link rel="stylesheet" href="../resources/css/style.css">
 <script src="../resources/js/jquery.min.js" /></script>
 <script src="../resources/js/bootstrap.min.js"></script>
-</head>
 
-<script type="text/javascript">
-    // 回车提交表单（登录）
-    $(function() {
-        document.onkeydown = function(e) {
-            var ev = document.all ? window.event : e;
-            if (ev.keyCode == 13) {
-                $('#loginForm').submit();//处理事件 
-            }
-        }
-    });
+<%
+    String path = request.getContextPath();
+			String basePath = request.getScheme() + "://"
+					+ request.getServerName() + ":" + request.getServerPort()
+					+ path;
+%>
+<link type="text/css" href="<%=basePath%>/resources/css/style.css"
+	rel="stylesheet" />
+<script type="text/javascript" src="<%=basePath%>/resources/js/jquery.js"></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/cloud.js"></script>
+
+<script language="javascript">
+	$(function() {
+		$('.loginbox').css({
+			'position' : 'absolute',
+			'left' : ($(window).width() - 692) / 2
+		});
+		$(window).resize(function() {
+			$('.loginbox').css({
+				'position' : 'absolute',
+				'left' : ($(window).width() - 692) / 2
+			});
+		})
+	});
 </script>
 
-<body>
-    <!--head navigation bar -->
-    <div class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <!-- 商家名称-->
-            <a class="navbar-brand">eOrder订餐系统</a>
-            <!--自适应mobile设备菜单开关, Web后台可以不管-->
-            <button class="navbar-toggle" data-toggle="collapse"
-                data-target=".navHeaderCollapse">
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-        </div>
-    </div>
+<script type="text/javascript">
+	// 回车提交表单（登录）
+	$(function() {
+		document.onkeydown = function(e) {
+			var ev = document.all ? window.event : e;
+			if (ev.keyCode == 13) {
+				$('#loginForm').submit();//处理事件 
+			}
+		}
+	});
+</script>
 
-    <!--页面主体部分-->
-    <div class="container">
-        <!-- err msg -->
-        <div class="row" style="height: 120px"></div>
-        <!-- 登录框 -->
-        <div class="row">
-            <form class="eorder-form-login" id="loginForm"
-                action="<c:url value='/j_spring_security_check'/>" method="post"
-                accept-charset="utf-8" role="form">
-                <input type="text" name="j_username" id="username" tabindex="1"
-                    class="form-control eorder-input" placeholder="用户名" required autofocus />
+</head>
 
-                <input type="password" name="j_password" id="password" tabindex="1"
-                    class="form-control eorder-input" placeholder="密  码" required /> <a
-                    href="#" onclick="javascript:loginForm.submit();"
-                    class="btn btn-default btn-block eorder-btn-login"> 登录 </a>
-            </form>
-        </div>
-        <div class="row" style="height: 120px">
-            <div class="eorder-form-login">
-                <s:actionmessage />
+<body
+	style="background-color: #ee9154; background-image: url(<%=basePath%>/resources/images/light.png); background-repeat: no-repeat; background-position: center top; overflow: hidden;">
 
-                <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
-                    <font color="red"> 登录失败，请重试.<br /> <br /> 原因:<c:out
-                            value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-                    </font>
-                </c:if>
-            </div>
-        </div>
-    </div>
+	<div id="mainBody">
+		<div id="cloud1" class="cloud"></div>
+		<div id="cloud2" class="cloud"></div>
+	</div>
 
-    <!--页面底部footer-->
-    <div class="navbar navbar-default navbar-fixed-bottom">
-        <div class="container">
-            <p class="navbar-text pull-left">Powered by Bootstrap</p>
-        </div>
-    </div>
+	<div class="logintop">
+		<span><s:text name="login_info" /></span>
+	</div>
+
+	<div class="loginbody">
+		<span class="systemlogo"></span>
+
+		<div class="loginbox">
+			<ul>
+				<form class="eorder-form-login" id="loginForm"
+					action="<c:url value='/j_spring_security_check'/>" method="post"
+					accept-charset="utf-8" role="form">
+					<li><input name="j_username" id="username" type="text"
+						class="loginuser" onclick="JavaScript:this.value=''" /></li>
+					<li><input name="j_password" id="password" type="password"
+						class="loginpwd" onclick="JavaScript:this.value=''" /></li>
+					<li><input type="submit" class="loginbtn"
+						value="<s:text name='login' />" onclick="javascript:loginForm.submit();" /><label><input
+							name="" type="checkbox" value="" checked="checked" /> <s:text
+								name="remember_password" /></label><label><a href="#">忘记密码？</a></label></li>
+					<li><div class="row" style="height: 120px">
+							<div class="eorder-form-login">
+								<s:actionmessage />
+
+								<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+									<font color="red"> <s:text name="login_failure" /><br /> <br />
+										<s:text name="login_failure_reason" /> <c:out
+											value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+									</font>
+								</c:if>
+							</div>
+						</div></li>
+				</form>
+			</ul>
+		</div>
+	</div>
+
+	<div class="loginbm">
+		版权所有 2015 <a href="http://www.innovaee.com">innovaee.com</a> 仅供学习交流，勿用于任何商业用途
+	</div>
 </body>
 </html>

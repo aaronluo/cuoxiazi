@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="layout" template="/pages/main/layout.jsp">
+        <put-attribute name="header" value="/pages/main/header.jsp" />
+        <put-attribute name="menu" value="/pages/main/menu.jsp" />
+        <put-attribute name="body" value="/pages/main/body.jsp" />
+        <put-attribute name="footer" value="/pages/main/footer.jsp" />
+    </definition>
+
+    <definition name="user" extends="layout">
+        <put-attribute name="body" value="/pages/user/user.jsp" />
+    </definition>
+
+    <definition name="role" extends="layout">
+        <put-attribute name="body" value="/pages/role/role.jsp" />
+    </definition>
+
+    <definition name="function" extends="layout">
+        <put-attribute name="body" value="/pages/function/function.jsp" />
+    </definition>
+
+    <definition name="functionEdit" extends="layout">
+        <put-attribute name="body" value="/pages/function/functionEdit.jsp" />
+    </definition>
+
+    <definition name="roleEdit" extends="layout">
+        <put-attribute name="body" value="/pages/role/roleEdit.jsp" />
+    </definition>
+
+    <definition name="userEdit" extends="layout">
+        <put-attribute name="body" value="/pages/user/userEdit.jsp" />
+    </definition>
+</tiles-definitions>

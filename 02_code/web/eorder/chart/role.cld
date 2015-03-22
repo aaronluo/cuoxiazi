@@ -974,7 +974,7 @@
                         </java.beans.PropertyChangeSupport>
                       </listeners>
                       <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                      <name>getMenulist</name>
+                      <name>getMenuList</name>
                       <type>List&lt;RoleLinkVo&gt;</type>
                       <params/>
                       <isAbstract>false</isAbstract>
@@ -995,11 +995,11 @@
                         </java.beans.PropertyChangeSupport>
                       </listeners>
                       <visibility class="net.java.amateras.uml.classdiagram.model.Visibility$1" reference="../../net.java.amateras.uml.classdiagram.model.OperationModel/visibility"/>
-                      <name>setMenulist</name>
+                      <name>setMenuList</name>
                       <type>void</type>
                       <params>
                         <net.java.amateras.uml.classdiagram.model.Argument>
-                          <name>menulist</name>
+                          <name>menuLink</name>
                           <type>List&lt;RoleLinkVo&gt;</type>
                         </net.java.amateras.uml.classdiagram.model.Argument>
                       </params>
@@ -1098,7 +1098,7 @@
                     </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                   </propertyDescriptors>
                   <stereoType></stereoType>
-                  <name>com.innovaee.eorder.web.action.admin.role.RoleOpAction</name>
+                  <name>com.innovaee.eorder.action.role.RoleOpAction</name>
                   <isAbstract>false</isAbstract>
                 </target>
                 <bendpoints/>
@@ -1377,7 +1377,7 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>com.innovaee.eorder.module.service.RoleService</name>
+            <name>com.innovaee.eorder.service.RoleService</name>
             <isAbstract>false</isAbstract>
           </target>
           <bendpoints/>
@@ -1874,7 +1874,7 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>com.innovaee.eorder.module.entity.Role</name>
+            <name>com.innovaee.eorder.entity.Role</name>
             <isAbstract>false</isAbstract>
           </target>
           <bendpoints/>
@@ -2095,7 +2095,7 @@
         </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
       </propertyDescriptors>
       <stereoType></stereoType>
-      <name>com.innovaee.eorder.module.dao.RoleDao</name>
+      <name>com.innovaee.eorder.dao.RoleDao</name>
       <isAbstract>false</isAbstract>
     </net.java.amateras.uml.classdiagram.model.ClassModel>
     <net.java.amateras.uml.classdiagram.model.ClassModel reference="../net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.DependencyModel/target"/>
