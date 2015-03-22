@@ -50,7 +50,7 @@
 
             <EditText
                 android:id="@+id/table_input_id"
-                android:layout_width="220dp"
+                android:layout_width="140dp"
                 android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/table_id"
@@ -84,7 +84,7 @@
 	
             <EditText
                 android:id="@+id/table_input_people_count"
-                android:layout_width="220dp"
+                android:layout_width="140dp"
                 android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/table_people_count"
@@ -118,7 +118,7 @@
 
             <EditText
                 android:id="@+id/employee_input_id"
-                android:layout_width="220dp"
+                android:layout_width="140dp"
                 android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/employee_id"
@@ -162,7 +162,7 @@
 
             <EditText
                 android:id="@+id/user_input_id"
-                android:layout_width="220dp"
+                android:layout_width="140dp"
                 android:layout_height="43dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/user_id"

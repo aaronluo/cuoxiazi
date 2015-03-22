@@ -50,7 +50,8 @@
             android:background="#ffffff"
             android:gravity="right|center_vertical"
             android:paddingRight="4dp"
-            android:singleLine="true"
+            android:singleLine="true" 
+			android:ellipsize="marquee" 
             android:text="@string/main_griditem_text_price"
             android:textColor="#fe3c3c"
             android:textSize="18dp" />

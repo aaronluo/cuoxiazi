@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,7 +76,10 @@ public class MainViewActivity extends Activity {
 
     // 提示失败的消息
     public static final int MSG_UPDATE_FAILUI = 20007;
-
+    
+    // 增加菜品消息
+    public static final int MSG_ADD_TO_ORDER = 20008;	
+    
     // 自定义ActionBar
     private ActionBar actionBar;
 
@@ -185,7 +189,7 @@ public class MainViewActivity extends Activity {
                     addGoodsToSelect(goodsListData.get(select));
                     int count = getMyOrderSelectCount();
                     updateMyOrderCount(count);
-                }
+                }	
                 break;
 
             // 删除所有选中菜品
@@ -326,7 +330,32 @@ public class MainViewActivity extends Activity {
 
                     int count = getMyOrderSelectCount();
                     updateMyOrderCount(count);
-                }
+                } else if (intent.getAction().equals(
+                        "com.eorder.action.addToOrder")) {
+                	Log.d(TAG, "com.eorder.action.addToOrder!");
+                		
+                	Bundle bundle = intent.getExtras();
+                														
+                	ArrayList list = bundle.getParcelableArrayList("list");
+                	List<GoodsDataBean> addToOrderGoods = (List<GoodsDataBean>) list.get(0);
+                	GoodsDataBean addGoodsData = addToOrderGoods.get(0);
+                	addGoodsData.setCount(1);
+                		
+                	GoodsDataBean addGoodsDataTemp = ifContainsIt(addGoodsData);
+                					
+                	if(addGoodsDataTemp != null) {			
+                		Log.d(TAG, "isInclude == true");
+                		//int num = goodsListData.indexOf(addGoodsData);
+                		addGoodsToSelect(addGoodsDataTemp);		
+                        int count = getMyOrderSelectCount();
+                        updateMyOrderCount(count);			
+                	} else {															
+                		Log.d(TAG, "isInclude == false");
+                		selectOrderGoods.add(addGoodsData);	
+                		int count = getMyOrderSelectCount();
+                        updateMyOrderCount(count);
+                	}										
+                }	
             }
         };
 
@@ -338,6 +367,9 @@ public class MainViewActivity extends Activity {
 
         // 改变当前显示的数量事件
         intentFilter.addAction("com.eorder.action.changeCount");
+        
+        // 增加菜品到当前订单事件
+        intentFilter.addAction("com.eorder.action.addToOrder");        	
 
         // 注册相应广播事件
         registerReceiver(receiver, intentFilter);
@@ -804,22 +836,26 @@ public class MainViewActivity extends Activity {
     private void addGoodsToSelect(GoodsDataBean dataBean) {
         boolean isAddCount = false;
 
-        for (GoodsDataBean goodsDataBean : selectOrderGoods) {
-            if (goodsDataBean.getId() == dataBean.getId()) {
-                int count = goodsDataBean.getCount() + 1;
-                goodsDataBean.setCount(count);
-                isAddCount = true;
-                break;
-            }
-        }
-
+        if(selectOrderGoods != null) {
+	        for (GoodsDataBean goodsDataBean : selectOrderGoods) {
+	            if (goodsDataBean.getId() == dataBean.getId()) {
+	                int count = goodsDataBean.getCount() + 1;
+	                goodsDataBean.setCount(count);
+	                isAddCount = true;
+	                break;
+	            }
+	        }
+        } else {
+        	selectOrderGoods = new ArrayList<GoodsDataBean>();
+        }			
+        				
         if (!isAddCount) {
             // 第一次添加到selectList需要设置该对象count=1
             dataBean.setCount(1);
             selectOrderGoods.add(dataBean);
         }
     }
-
+    	
     /**
      * 重新刷新界面
      */
@@ -851,6 +887,22 @@ public class MainViewActivity extends Activity {
                 }
             }
         }
+    }
+    	
+    /**	
+     * 判断该list是否包含该菜品
+     * 因为count可能不相等，所以用该函数判断是否包含
+     * @return 返回是否包含该菜品
+     */	
+    private GoodsDataBean ifContainsIt(GoodsDataBean databean) {
+    	
+    	for(GoodsDataBean data: goodsListData) {
+    		if(data.getId() == databean.getId() && data.getName().equals(databean.getName()) && data.getBitmapUrl().equals(databean.getBitmapUrl())) {
+    			return data;
+    		}
+    	}	
+    									
+    	return null;    	
     }
 
 }

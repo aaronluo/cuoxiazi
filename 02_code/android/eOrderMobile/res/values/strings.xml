@@ -83,11 +83,18 @@
     <string name="order_item_text_totalprice">金额:</string>
 
     <!-- OrderHestory -->
+    <string name="orderhestory_activity_text_label">历史订单</string>
     <string name="orderhestory_item_text_order">订单:</string>
     <string name="orderhestory_item_text_time">时间:</string>
     <string name="orderhestory_item_text_totalprice">金额:</string>
     <string name="order_toast_no_userid_fail">会员号不存在！</string>
-             
+      
+   	<!-- OrderHestoryDetail -->
+   	<string name="orderhestorydetail_activity_text_label">已点菜品明细</string>
+   	<string name="orderhestorydetail_item_text_name">菜品名</string>
+    <string name="orderhestorydetail_item_text_count">数量:</string>
+    <string name="orderhestorydetail_toast_to_order">添加菜品成功！</string>
+						    						
     <!-- Setting -->
     <string name="setting_activity_text_label">设置</string>
     <string name="setting_activity_text_service">服务器地址</string>

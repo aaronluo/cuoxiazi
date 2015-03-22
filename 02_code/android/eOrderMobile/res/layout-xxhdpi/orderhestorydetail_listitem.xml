@@ -37,19 +37,18 @@
                 android:background="#ffeeeeee"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="10dp"
-                android:singleLine="true" 
-				android:ellipsize="marquee" 
-                android:text="@string/main_griditem_text_name"
+                android:scrollHorizontally="true"
+                android:text="@string/orderhestorydetail_item_text_name"
                 android:textColor="#4d4d4d"
                 android:textSize="20dp" />
-										
+
             <TextView
                 android:id="@+id/goods_allprice"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="24dp"
                 android:background="#ffeeeeee"
                 android:gravity="right|center_vertical"
                 android:text="@string/main_griditem_text_price"
@@ -63,37 +62,32 @@
             android:layout_height="60dp"
             android:layout_alignParentBottom="true" >
 
-            <Button
-                android:id="@+id/count_add_button"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/myorder_btn_count_add_bg" />
-
             <TextView
                 android:id="@+id/count_text"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:gravity="right|center_vertical"
+                android:layout_marginRight="24dp"
+                android:text="@string/main_griditem_text_price"
+                android:textColor="#4d4d4d"
+                android:textSize="20dp" />
+			
+            <TextView
+                android:id="@+id/count_text_title"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="14dp"
                 android:layout_toLeftOf="@id/count_add_button"
-                android:background="#ffffff"
                 android:gravity="center"
-                android:text="@string/main_griditem_text_price"
+                android:text="@string/orderhestorydetail_item_text_count"
                 android:textColor="#4d4d4d"
                 android:textSize="20dp" />
 
-            <Button
-                android:id="@+id/count_cutdown_button"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="14dp"
-                android:layout_toLeftOf="@id/count_text"
-                android:background="@drawable/myorder_btn_count_cutdown_bg" />
         </RelativeLayout>
     </RelativeLayout>
 

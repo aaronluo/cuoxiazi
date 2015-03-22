@@ -60,9 +60,15 @@
                     android:screenOrientation="portrait"/>
                                 
         <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryActivity" 
-                	android:label="@string/app_name"
+                	android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/orderhestory_activity_text_label"
                     android:screenOrientation="portrait"/>
-                       
+
+        <activity android:name="com.innovaee.eorder.mobile.view.OrderHestoryDetailActivity" 
+                	android:logo="@drawable/ic_publish_bottom_pan_back" 
+                    android:label="@string/orderhestorydetail_activity_text_label"
+                    android:screenOrientation="portrait"/>
+        	
         <activity android:name="com.innovaee.eorder.mobile.view.AboutActivity" 
                 	android:logo="@drawable/ic_publish_bottom_pan_back" 
                     android:label="@string/about_activity_text_label" 
@@ -71,7 +77,7 @@
         <activity android:name="com.innovaee.eorder.mobile.zxing.activity.CaptureActivity" 
                 	android:label="@string/app_name"
                     android:screenOrientation="portrait"/>
-                                    
+        		                            
     </application>
 
 </manifest>

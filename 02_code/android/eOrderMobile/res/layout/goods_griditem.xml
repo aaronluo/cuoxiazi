@@ -40,7 +40,7 @@
             android:text="@string/main_griditem_text_name"
             android:textColor="#4d4d4d"
             android:textSize="20dp" />
-
+	
         <TextView
             android:id="@+id/goods_price"
             android:layout_width="wrap_content"
@@ -50,8 +50,10 @@
             android:gravity="right|center_vertical"
             android:paddingRight="10dp"
             android:text="@string/main_griditem_text_price"
+            android:singleLine="true" 
+			android:ellipsize="marquee" 
             android:textColor="#fe3c3c"
             android:textSize="20dp" />
     </LinearLayout>
-
+		
 </RelativeLayout>

@@ -30,8 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
@@ -222,8 +220,7 @@ public class DownloadService implements GoodService, CategoryService {
                     String json = EntityUtils.toString(entity, "UTF-8");
                     ReturnResultDataBean returnData = new ReturnResultDataBean();	
                     UserInfoDataBean userInfo = parseUserDiscountDataJson(json, returnData);			
-                    if(returnData.getResult()) {				
-                    	Log.d("ok", "okkkkk!!!!");	
+                    if(returnData.getResult()) {					
                     	callback.onSuccessT((T)userInfo);
                     } else {			
                     	callback.onFailed(returnData.getMessage());

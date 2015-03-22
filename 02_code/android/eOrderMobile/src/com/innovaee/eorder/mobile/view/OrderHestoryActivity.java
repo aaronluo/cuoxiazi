@@ -203,8 +203,8 @@ public class OrderHestoryActivity extends Activity {
         bundle.putParcelableArrayList("list", list);
 
         intent.putExtras(bundle);
-        intent.setClass(OrderHestoryActivity.this, MyOrderActivity.class);
-        startActivity(intent);
+        intent.setClass(OrderHestoryActivity.this, OrderHestoryDetailActivity.class);
+        startActivity(intent);	
     }
 
     /**
