@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2015-02-02 00:54:07
+Date: 2015-03-23 09:38:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_category`;
 CREATE TABLE `t_category` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(128) DEFAULT NULL,
   `category_picture` varchar(256) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
@@ -47,8 +47,8 @@ INSERT INTO `t_category` VALUES ('10', '炖品', null, '2014-12-12 12:26:53', nu
 -- ----------------------------
 DROP TABLE IF EXISTS `t_dish`;
 CREATE TABLE `t_dish` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
-  `category_id` int(32) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) DEFAULT NULL,
   `dish_name` varchar(128) DEFAULT NULL,
   `dish_picture` varchar(256) DEFAULT NULL,
   `dish_price` float(64,0) DEFAULT NULL,
@@ -127,68 +127,55 @@ INSERT INTO `t_dish` VALUES ('59', '10', '鲜奶炖鸡汤', '/09/0905.png', '25'
 -- ----------------------------
 DROP TABLE IF EXISTS `t_function`;
 CREATE TABLE `t_function` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `function_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'the name of function',
   `function_desc` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'detail information',
+  `function_picture` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   `function_path` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'the access path to this function',
-  `function_parent` int(32) DEFAULT NULL COMMENT 'parent function',
+  `function_parent` bigint(20) DEFAULT NULL COMMENT 'parent function',
   `function_order` varchar(16) COLLATE utf8_bin DEFAULT NULL COMMENT 'use to organize menu in order\r\n            the top function should be a integer as such 100000, 140000\r\n            the first 2 bit is for top function',
   `function_status` tinyint(1) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='define system functions & path';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='define system functions & path';
 
 -- ----------------------------
 -- Records of t_function
 -- ----------------------------
-INSERT INTO `t_function` VALUES ('1', '管理', 'doAdministration', '', '0', '010000', '1', null, null);
-INSERT INTO `t_function` VALUES ('2', '权限管理', 'doFunction', '/function/doFunction.action', '1', '010300', '1', null, null);
-INSERT INTO `t_function` VALUES ('3', '角色管理', 'doRole', '/role/doRole.action', '1', '010200', '1', null, null);
-INSERT INTO `t_function` VALUES ('4', '用户管理', 'doUser', '/user/doUser.action', '1', '010100', '1', null, null);
-INSERT INTO `t_function` VALUES ('7', '设置', 'doConfiguration', null, '0', '020000', '1', null, null);
-INSERT INTO `t_function` VALUES ('8', '个人设置', 'doPersonal', '/person/doPerson.action', '7', '020100', '1', null, null);
-INSERT INTO `t_function` VALUES ('9', '密码重置', 'doResetPassword', '/resetpassword/doResetPassword', '7', '020200', '1', null, null);
-INSERT INTO `t_function` VALUES ('10', '测试', 'doTest', '', '0', '030000', '1', '2014-12-03 08:43:56', null);
-INSERT INTO `t_function` VALUES ('36', '新功能', '新功能', '/test/doPerson1.action', '10', '030100', '1', null, '2014-12-15 06:20:01');
-INSERT INTO `t_function` VALUES ('43', 'bbbb', 'bbbb', 'bbbb', '1', '010500', '1', null, null);
-
--- ----------------------------
--- Table structure for `t_level`
--- ----------------------------
-DROP TABLE IF EXISTS `t_level`;
-CREATE TABLE `t_level` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_at` datetime DEFAULT NULL,
-  `cellphone` float DEFAULT NULL,
-  `levelname` varchar(255) DEFAULT NULL,
-  `level_score` int(11) DEFAULT NULL,
-  `level_status` bit(1) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_level
--- ----------------------------
+INSERT INTO `t_function` VALUES ('1', '权限管理', 'Administration', 'icon01.png', '', '0', '010000', '1', null, null);
+INSERT INTO `t_function` VALUES ('2', '权限管理', 'Function', null, '/function/function.action', '1', '010300', '1', null, null);
+INSERT INTO `t_function` VALUES ('3', '角色管理', 'Role', null, '/role/role.action', '1', '010200', '1', null, null);
+INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.action', '1', '010100', '1', null, null);
+INSERT INTO `t_function` VALUES ('7', '会员管理', 'Configuration', 'icon02.png', null, '0', '020000', '1', null, null);
+INSERT INTO `t_function` VALUES ('8', '个人设置', 'Personal', null, '/person/doPerson.action', '7', '020100', '1', null, null);
+INSERT INTO `t_function` VALUES ('9', '密码重置', 'ResetPassword', null, '/resetpassword/doResetPassword', '7', '020200', '1', null, null);
+INSERT INTO `t_function` VALUES ('10', '菜单管理', 'Test', 'icon03.png', '11', '0', '030000', '1', '2014-12-03 08:43:56', null);
+INSERT INTO `t_function` VALUES ('36', '新功能', '新功能', null, '/test/doPerson1.action', '10', '030100', '1', null, '2014-12-15 06:20:01');
+INSERT INTO `t_function` VALUES ('43', 'bbbb', 'bbbb', null, 'bbbba', '1', '010500', '1', null, null);
+INSERT INTO `t_function` VALUES ('44', '设置2', '设置2', null, '设置24', '1', '010211', '1', null, null);
+INSERT INTO `t_function` VALUES ('45', '设置3', '设置12', null, '设置12', '1', '030201', '1', null, null);
+INSERT INTO `t_function` VALUES ('47', '流水管理2', '流水管理23', null, '流水管理2', '46', '060001', '1', null, null);
+INSERT INTO `t_function` VALUES ('51', 'aggg', 'aaaa', null, 'aaaa', '7', null, '1', null, null);
+INSERT INTO `t_function` VALUES ('52', '设置23', '设置23', null, '设置23', '1', null, '1', null, null);
 
 -- ----------------------------
 -- Table structure for `t_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order`;
 CREATE TABLE `t_order` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_seq` varchar(128) DEFAULT NULL,
   `table_number` int(8) DEFAULT NULL,
   `attendee_number` int(8) DEFAULT NULL,
   `total_price` float(64,2) DEFAULT NULL,
-  `order_status` int(32) DEFAULT NULL,
-  `servent_id` int(32) DEFAULT NULL,
-  `member_id` int(32) DEFAULT NULL,
-  `casher_id` int(32) DEFAULT NULL,
+  `order_status` bigint(20) DEFAULT NULL,
+  `servent_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `casher_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
+  `discount_price` float(64,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_m_id` (`member_id`),
   KEY `fk_s_id` (`servent_id`),
@@ -201,18 +188,18 @@ CREATE TABLE `t_order` (
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO `t_order` VALUES ('1', '2014120900001', '10', '4', '150.00', '1', '1', '9', '1', '2014-12-08 19:48:34', null);
-INSERT INTO `t_order` VALUES ('2', '2014120900001', '112', '2', '100.50', '1', '1', '9', '1', '2014-12-09 20:48:44', null);
+INSERT INTO `t_order` VALUES ('1', '2014120900001', '10', '4', '150.00', '1', '1', '9', '1', '2014-12-08 19:48:34', null, '150.00');
+INSERT INTO `t_order` VALUES ('2', '2014120900001', '112', '2', '100.50', '1', '1', '9', '1', '2014-12-09 20:48:44', null, '100.50');
 
 -- ----------------------------
 -- Table structure for `t_order_item`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_item`;
 CREATE TABLE `t_order_item` (
-  `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '主键，自动增加',
-  `order_id` int(32) DEFAULT NULL,
-  `dish_id` int(32) DEFAULT NULL,
-  `dish_amount` int(32) DEFAULT '1' COMMENT '份数，最大99',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键，自动增加',
+  `order_id` bigint(20) DEFAULT NULL,
+  `dish_id` bigint(20) DEFAULT NULL,
+  `dish_amount` bigint(20) DEFAULT '1' COMMENT '份数，最大99',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -233,14 +220,14 @@ INSERT INTO `t_order_item` VALUES ('6', '2', '5', '1', null, null);
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   `role_desc` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   `role_status` tinyint(1) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role
@@ -251,24 +238,31 @@ INSERT INTO `t_role` VALUES ('3', '测试员', '测试员', '1', null, '2014-12-
 INSERT INTO `t_role` VALUES ('9', '服务员', '服务员', '1', null, '2014-12-11 08:36:40');
 INSERT INTO `t_role` VALUES ('10', '收银员', '收银员', '1', null, '2014-12-16 12:20:23');
 INSERT INTO `t_role` VALUES ('11', '菜品管理员', '菜品管理员', '1', null, '2014-12-14 11:44:36');
-INSERT INTO `t_role` VALUES ('23', '用户管理员', '用户管理员', '1', null, '2014-12-17 05:04:59');
+INSERT INTO `t_role` VALUES ('23', '用户管理员', '用户管理员6', '1', null, '2014-12-17 05:04:59');
+INSERT INTO `t_role` VALUES ('25', '收银员2', '负责收银的员工1', '1', null, null);
+INSERT INTO `t_role` VALUES ('27', '收银员6', '收银员6', '1', null, null);
+INSERT INTO `t_role` VALUES ('30', '收银员56', '收银员56', '1', null, null);
+INSERT INTO `t_role` VALUES ('31', '收银员3', '收银员3', '1', null, null);
+INSERT INTO `t_role` VALUES ('32', '收银员4', '收银员4', '1', null, null);
+INSERT INTO `t_role` VALUES ('33', '流水管理员', '流水管理员', '1', null, null);
+INSERT INTO `t_role` VALUES ('35', '收银员8', '收银员7', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `t_role_function`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_function`;
 CREATE TABLE `t_role_function` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
-  `role_id` int(32) NOT NULL DEFAULT '0',
-  `function_id` int(32) NOT NULL DEFAULT '0',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) NOT NULL DEFAULT '0',
+  `function_id` bigint(20) NOT NULL DEFAULT '0',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_functionid` (`function_id`),
   KEY `fk_role_rf` (`role_id`),
-  CONSTRAINT `fk_role_rf` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`),
-  CONSTRAINT `fk_functionid` FOREIGN KEY (`function_id`) REFERENCES `t_function` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  CONSTRAINT `fk_functionid` FOREIGN KEY (`function_id`) REFERENCES `t_function` (`id`),
+  CONSTRAINT `fk_role_rf` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role_function
@@ -294,25 +288,49 @@ INSERT INTO `t_role_function` VALUES ('150', '1', '10', '2014-12-16 08:24:15', n
 INSERT INTO `t_role_function` VALUES ('151', '1', '36', '2014-12-16 08:24:15', null);
 INSERT INTO `t_role_function` VALUES ('160', '23', '1', '2014-12-17 05:04:59', null);
 INSERT INTO `t_role_function` VALUES ('161', '23', '4', '2014-12-17 05:04:59', null);
+INSERT INTO `t_role_function` VALUES ('170', '2', '1', null, null);
+INSERT INTO `t_role_function` VALUES ('171', '2', '2', null, null);
+INSERT INTO `t_role_function` VALUES ('173', '23', '1', null, null);
+INSERT INTO `t_role_function` VALUES ('174', '23', '4', null, null);
+INSERT INTO `t_role_function` VALUES ('175', '23', '4', null, null);
+INSERT INTO `t_role_function` VALUES ('176', '23', '1', null, null);
+INSERT INTO `t_role_function` VALUES ('177', '11', '7', null, null);
+INSERT INTO `t_role_function` VALUES ('178', '11', '3', null, null);
+INSERT INTO `t_role_function` VALUES ('179', '11', '8', null, null);
+INSERT INTO `t_role_function` VALUES ('180', '11', '9', null, null);
+INSERT INTO `t_role_function` VALUES ('181', '11', '3', null, null);
+INSERT INTO `t_role_function` VALUES ('182', '11', '7', null, null);
+INSERT INTO `t_role_function` VALUES ('183', '11', '9', null, null);
+INSERT INTO `t_role_function` VALUES ('184', '11', '8', null, null);
+INSERT INTO `t_role_function` VALUES ('185', '11', '36', null, null);
+INSERT INTO `t_role_function` VALUES ('276', '30', '4', null, null);
+INSERT INTO `t_role_function` VALUES ('277', '30', '3', null, null);
+INSERT INTO `t_role_function` VALUES ('278', '32', '3', null, null);
+INSERT INTO `t_role_function` VALUES ('323', '25', '9', null, null);
+INSERT INTO `t_role_function` VALUES ('324', '25', '36', null, null);
+INSERT INTO `t_role_function` VALUES ('325', '27', '36', null, null);
+INSERT INTO `t_role_function` VALUES ('326', '33', '47', null, null);
+INSERT INTO `t_role_function` VALUES ('328', '31', '44', null, null);
+INSERT INTO `t_role_function` VALUES ('333', '35', '8', null, null);
 
 -- ----------------------------
 -- Table structure for `t_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `password` varchar(256) COLLATE utf8_bin DEFAULT NULL,
   `cellphone` varchar(16) COLLATE utf8_bin DEFAULT NULL,
-  `user_score` int(32) DEFAULT NULL,
+  `user_score` bigint(20) DEFAULT NULL,
   `user_status` tinyint(1) DEFAULT '1',
-  `user_level_id` int(32) DEFAULT NULL,
+  `user_level_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_ul_id` (`user_level_id`),
   CONSTRAINT `fk_ul_id` FOREIGN KEY (`user_level_id`) REFERENCES `t_user_level` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='user''s basic information';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='user''s basic information';
 
 -- ----------------------------
 -- Records of t_user
@@ -322,17 +340,22 @@ INSERT INTO `t_user` VALUES ('2', 'test', '889255f1c9c8f12a353be255f78a848b', '1
 INSERT INTO `t_user` VALUES ('9', '王五', 'b3ccc74de29cd6dded5bac6677923ddb', '13912340003', null, '1', '1', null, '2014-12-14 10:53:46');
 INSERT INTO `t_user` VALUES ('10', '赵六', 'b3ccc74de29cd6dded5bac6677923ddb', '13912340004', null, '1', '1', null, null);
 INSERT INTO `t_user` VALUES ('35', 'abcd', 'cf3b0ef29697910a4e5c387dfc02ba66', '1231231211', null, '1', '4', null, null);
-INSERT INTO `t_user` VALUES ('36', 'aabb', 'bb56ea90ee93af011692ead3e10e12b0', '1231231245', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('37', 'aaaa', '22c856182763372b82366410ba9cc6f0', '1231231213', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('38', 'admin1234', '6272875d5402882361f0b6736737fbd8', '1231231288', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('40', 'zhangsan', '8329902711e2630431af33cb3a94357f', '1231231234', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('44', 'admin123', '0f2bd7b70abed919d3e470eecef5285f', '12345', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('47', '111', '5e2382283ace1c150399130875a38a5e', '13925864587', null, '1', '4', null, null);
+INSERT INTO `t_user` VALUES ('50', 'aaaaa', 'e098ba26017ab7abc9b61afdf0a25b68', '13945674567', null, '1', '4', null, null);
 
 -- ----------------------------
 -- Table structure for `t_user_level`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_level`;
 CREATE TABLE `t_user_level` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `level_name` varchar(128) DEFAULT NULL,
   `discount` float(32,2) DEFAULT NULL,
-  `level_score` int(32) DEFAULT NULL,
+  `level_score` bigint(20) DEFAULT NULL,
   `level_status` tinyint(1) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
@@ -352,9 +375,9 @@ INSERT INTO `t_user_level` VALUES ('4', '普通会员', '9.50', '0', '1', null, 
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role` (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
-  `user_id` int(32) NOT NULL,
-  `role_id` int(32) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -362,13 +385,36 @@ CREATE TABLE `t_user_role` (
   KEY `fk_roleid` (`role_id`),
   CONSTRAINT `fk_roleid` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`),
   CONSTRAINT `fk_userid` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
-INSERT INTO `t_user_role` VALUES ('11', '1', '1', '2014-12-04 12:04:13', null);
-INSERT INTO `t_user_role` VALUES ('12', '1', '3', '2014-12-04 12:04:13', null);
 INSERT INTO `t_user_role` VALUES ('23', '9', '2', '2014-12-10 09:38:48', null);
 INSERT INTO `t_user_role` VALUES ('24', '10', '2', '2014-12-10 09:41:10', null);
 INSERT INTO `t_user_role` VALUES ('25', '35', '1', null, null);
+INSERT INTO `t_user_role` VALUES ('28', '2', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('56', '38', '10', null, null);
+INSERT INTO `t_user_role` VALUES ('57', '38', '30', null, null);
+INSERT INTO `t_user_role` VALUES ('58', '40', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('64', '37', '25', null, null);
+INSERT INTO `t_user_role` VALUES ('65', '37', '23', null, null);
+INSERT INTO `t_user_role` VALUES ('66', '37', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('68', '44', '3', null, null);
+INSERT INTO `t_user_role` VALUES ('76', '47', '25', null, null);
+INSERT INTO `t_user_role` VALUES ('77', '47', '11', null, null);
+INSERT INTO `t_user_role` VALUES ('78', '47', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('79', '47', '23', null, null);
+INSERT INTO `t_user_role` VALUES ('80', '47', '10', null, null);
+INSERT INTO `t_user_role` VALUES ('81', '47', '31', null, null);
+INSERT INTO `t_user_role` VALUES ('82', '47', '32', null, null);
+INSERT INTO `t_user_role` VALUES ('83', '47', '33', null, null);
+INSERT INTO `t_user_role` VALUES ('84', '47', '30', null, null);
+INSERT INTO `t_user_role` VALUES ('85', '47', '1', null, null);
+INSERT INTO `t_user_role` VALUES ('86', '47', '3', null, null);
+INSERT INTO `t_user_role` VALUES ('87', '47', '27', null, null);
+INSERT INTO `t_user_role` VALUES ('88', '47', '9', null, null);
+INSERT INTO `t_user_role` VALUES ('102', '1', '1', null, null);
+INSERT INTO `t_user_role` VALUES ('106', '50', '35', null, null);
+INSERT INTO `t_user_role` VALUES ('107', '50', '10', null, null);
+INSERT INTO `t_user_role` VALUES ('108', '50', '9', null, null);
