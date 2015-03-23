@@ -64,7 +64,7 @@
 	<div class="tools">
 		<form name="addForm" id="addForm">
 			<ul class="toolbar" onclick="add();">
-				<li><span><img src="../resources/images/t01.png"></span>添加</li>
+				<li><span><img src="../resources/images/t01.png"></span><s:text name="add" /></li>
 			</ul>
 		</form>
 	</div>

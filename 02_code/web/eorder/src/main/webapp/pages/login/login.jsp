@@ -79,7 +79,8 @@
 					<li><input type="submit" class="loginbtn"
 						value="<s:text name='login' />" onclick="javascript:loginForm.submit();" /><label><input
 							name="" type="checkbox" value="" checked="checked" /> <s:text
-								name="remember_password" /></label><label><a href="#">忘记密码？</a></label></li>
+								name="remember_password" /></label><label><a href="#"><s:text
+									name="forget_password" /></a></label></li>
 					<li><div class="row" style="height: 120px">
 							<div class="eorder-form-login">
 								<s:actionmessage />
@@ -98,7 +99,7 @@
 	</div>
 
 	<div class="loginbm">
-		版权所有 2015 <a href="http://www.innovaee.com">innovaee.com</a> 仅供学习交流，勿用于任何商业用途
+		<s:text name="copyright" /> 2015 <a href="http://www.innovaee.com">innovaee.com</a> <s:text name="copyright_info" />
 	</div>
 </body>
 </html>

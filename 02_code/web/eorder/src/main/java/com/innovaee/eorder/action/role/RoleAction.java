@@ -168,7 +168,10 @@ public class RoleAction extends BaseAction {
             Set<Function> functions = role.getFunctions();
             List<String> functionNameList = new ArrayList<String>();
             for (Function function : functions) {
-                functionNameList.add(function.getFunctionName());
+                // 如果不是根节点，则加入功能列表
+                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
+                    functionNameList.add(function.getFunctionName());
+                }
             }
             rolevo.setFunctionName(functionNameList.toString());
 
@@ -226,7 +229,6 @@ public class RoleAction extends BaseAction {
             this.setMessage(MessageUtil.getMessage("role_desc_empty"));
             return INPUT;
         }
-        
 
         // 校验功能列表不能为空
         if (null == myFunctionsArray || "".equals(myFunctionsArray)) {
@@ -266,12 +268,16 @@ public class RoleAction extends BaseAction {
 
         List<Function> leftFunctionList = roleService
                 .findLeftFunctionsByRoleId(Constants.MAX_ID);
-        leftFunctions.addAll(leftFunctionList);
+        for (Function function : leftFunctionList) {
+            if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
+                leftFunctions.add(function);
+            }
+
+        }
+
         return SUCCESS;
     }
-    
 
-    
     /**
      * 
      */
@@ -361,11 +367,22 @@ public class RoleAction extends BaseAction {
 
             // 加载用户角色信息
             Set<Function> functionSet = role.getFunctions();
-            myFunctions.addAll(functionSet);
+            for (Function function : functionSet) {
+                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
+                    myFunctions.add(function);
+                }
+
+            }
 
             List<Function> leftFunctionList = roleService
                     .findLeftFunctionsByRoleId(Long.parseLong(id));
-            leftFunctions.addAll(leftFunctionList);
+            for (Function function : leftFunctionList) {
+                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
+                    leftFunctions.add(function);
+                }
+
+            }
+
         }
         refreshPageData();
         return SUCCESS;

@@ -320,7 +320,7 @@ public class FunctionAction extends BaseAction {
         FunctionVO functionVO = null;
         FunctionVO rootFunctionVO = new FunctionVO();
         rootFunctionVO.setStringId("0");
-        rootFunctionVO.setFunctionName("根功能节点");
+        rootFunctionVO.setFunctionName(MessageUtil.getMessage("function_root"));
         functionParentVOList.add(rootFunctionVO);
         List<Function> functionList = functionService.findRootFunctionList();
         for (Function function : functionList) {
