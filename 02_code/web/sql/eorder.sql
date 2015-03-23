@@ -232,7 +232,7 @@ CREATE TABLE `t_user` (
   `username` varchar(20) NOT NULL,
   `password` varchar(256) NOT NULL,
   `cellphone` varchar(16) NOT NULL,
-  `user_score` bigint(20) NOT NULL,
+  `user_score` bigint(20) DEFAULT NULL,
   `user_status` tinyint(1) DEFAULT '1',
   `user_level_id` bigint(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
