@@ -6,7 +6,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `t_category`;
 CREATE TABLE `t_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(128) DEFAULT NULL,
+  `category_name` varchar(128) NOT NULL,
   `category_picture` varchar(256) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
@@ -34,10 +34,10 @@ INSERT INTO `t_category` VALUES ('11', '默认', null, '2014-12-12 12:26:53', nu
 DROP TABLE IF EXISTS `t_dish`;
 CREATE TABLE `t_dish` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(20) DEFAULT NULL,
-  `dish_name` varchar(128) DEFAULT NULL,
+  `category_id` bigint(20) NOT NULL,
+  `dish_name` varchar(128) NOT NULL,
   `dish_picture` varchar(256) DEFAULT NULL,
-  `dish_price` float(64,0) DEFAULT NULL,
+  `dish_price` float(64,0) NOT NULL,
   `on_sell` tinyint(1) DEFAULT NULL,
   `misc` varchar(128) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
@@ -142,15 +142,15 @@ CREATE TABLE `t_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_seq` varchar(128) NOT NULL,
   `table_number` int(8) NOT NULL,
-  `attendee_number` int(8) DEFAULT NULL,
-  `total_price` float(64,2) DEFAULT NULL,
-  `order_status` bigint(20) DEFAULT NULL,
-  `servent_id` bigint(20) DEFAULT NULL,
-  `member_id` bigint(20) DEFAULT NULL,
-  `casher_id` bigint(20) DEFAULT NULL,
+  `attendee_number` int(8) NOT NULL,
+  `total_price` float(64,2) NOT NULL,
+  `order_status` bigint(20) NOT NULL,
+  `servent_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) NOT NULL,
+  `casher_id` bigint(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  `discount_price` float(64,2) DEFAULT NULL,
+  `discount_price` float(64,2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -166,8 +166,8 @@ INSERT INTO `t_order` VALUES ('2', '2014120900001', '112', '2', '100.50', '1', '
 DROP TABLE IF EXISTS `t_order_item`;
 CREATE TABLE `t_order_item` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) DEFAULT NULL,
-  `dish_id` bigint(20) DEFAULT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `dish_id` bigint(20) NOT NULL,
   `dish_amount` bigint(20) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
@@ -190,8 +190,8 @@ INSERT INTO `t_order_item` VALUES ('6', '2', '5', '1', null, null);
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(128) DEFAULT NULL,
-  `role_desc` varchar(128) DEFAULT NULL,
+  `role_name` varchar(128) NOT NULL,
+  `role_desc` varchar(128) NOT NULL,
   `role_status` tinyint(1) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
@@ -229,12 +229,12 @@ INSERT INTO `t_role_function` VALUES ('4', '1', '4', '2014-12-16 08:24:15', null
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) DEFAULT NULL,
-  `password` varchar(256) DEFAULT NULL,
-  `cellphone` varchar(16) DEFAULT NULL,
-  `user_score` bigint(20) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `cellphone` varchar(16) NOT NULL,
+  `user_score` bigint(20) NOT NULL,
   `user_status` tinyint(1) DEFAULT '1',
-  `user_level_id` bigint(20) DEFAULT NULL,
+  `user_level_id` bigint(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -252,10 +252,10 @@ INSERT INTO `t_user` VALUES ('2', 'test', '889255f1c9c8f12a353be255f78a848b', '1
 DROP TABLE IF EXISTS `t_user_level`;
 CREATE TABLE `t_user_level` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `level_name` varchar(128) DEFAULT NULL,
-  `discount` float(32,2) DEFAULT NULL,
-  `level_score` bigint(20) DEFAULT NULL,
-  `level_status` tinyint(1) DEFAULT NULL,
+  `level_name` varchar(128) NOT NULL,
+  `discount` float(32,2) NOT NULL,
+  `level_score` bigint(20) NOT NULL,
+  `level_status` tinyint(1) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
