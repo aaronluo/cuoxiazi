@@ -22,20 +22,24 @@ import java.util.Locale;
 public class MessageUtil {
 
     private static Logger logger = Logger.getLogger(MessageUtil.class);
-    
+
     /**
      * 获取指定的消息资源
-     * @param key 消息资源键值
+     * 
+     * @param key
+     *            消息资源键值
      * @return 消息资源字符串值
      */
     public static String getMessage(final String key, final String... values) {
         try {
-            ApplicationContext context = ApplicationContextProvider.getContext();
-            
-            MessageSource messageSource = (MessageSource) context.getBean("messageSource");
-            
+            ApplicationContext context = ApplicationContextProvider
+                    .getContext();
+
+            MessageSource messageSource = (MessageSource) context
+                    .getBean("messageSource");
+
             return messageSource.getMessage(key, values, Locale.CHINA);
-        } catch (Exception exception){
+        } catch (Exception exception) {
             logger.error("[getMessageException=" + exception.getMessage() + "]");
             return key;
         }

@@ -8,46 +8,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../resources/css/style.css">
-<link rel="shortcut icon" href="../resources/images/favico_32.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="../resources/images/favico_32.ico"
+	type="image/x-icon" />
 
 <%
     String path = request.getContextPath();
-			String basePath = request.getScheme() + "://"
-					+ request.getServerName() + ":" + request.getServerPort()
-					+ path;
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path;
 %>
-<link type="text/css" href="<%=basePath%>/resources/css/style.css"
-	rel="stylesheet" />
-<script type="text/javascript" src="<%=basePath%>/resources/js/jquery.js"></script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/cloud.js"></script>
-
-<script language="javascript">
-	$(function() {
-		$('.loginbox').css({
-			'position' : 'absolute',
-			'left' : ($(window).width() - 692) / 2
-		});
-		$(window).resize(function() {
-			$('.loginbox').css({
-				'position' : 'absolute',
-				'left' : ($(window).width() - 692) / 2
-			});
-		})
-	});
-</script>
-
-<script type="text/javascript">
-	// 回车提交表单（登录）
-	$(function() {
-		document.onkeydown = function(e) {
-			var ev = document.all ? window.event : e;
-			if (ev.keyCode == 13) {
-				$('#loginForm').submit();//处理事件 
-			}
-		}
-	});
-</script>
-<title><s:text name="eorder"/></title>
+<link type="text/css" href="../resources/css/style.css" rel="stylesheet" />
+<script type="text/javascript" src="../resources/js/jquery.js"></script>
+<script type="text/javascript" src="../resources/js/cloud.js"></script>
+<script type="text/javascript" src="../resources/js/login.js"></script>
+<title><s:text name="eorder" /></title>
 </head>
 
 <body
@@ -97,7 +71,9 @@
 	</div>
 
 	<div class="loginbm">
-		<s:text name="copyright" /> 2015 <a href="http://www.innovaee.com">innovaee.com</a> <s:text name="copyright_info" />
+		<s:text name="copyright" />
+		2015 <a href="http://www.innovaee.com">innovaee.com</a>
+		<s:text name="copyright_info" />
 	</div>
 </body>
 </html>

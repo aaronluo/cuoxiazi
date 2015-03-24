@@ -2,100 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<script type="text/javascript">
-	$(function() {
-		//移到右边
-		$('#remove').click(
-				function() {
-					//获取选中的选项，删除并追加给对方
-					$('#myFunctionsSelect option:selected').appendTo(
-							'#leftFunctionsSelect');
-				});
-		//移到左边
-		$('#add').click(
-				function() {
-					$('#leftFunctionsSelect option:selected').appendTo(
-							'#myFunctionsSelect');
-				});
-		//全部移到右边
-		$('#remove_all').click(function() {
-			//获取全部的选项,删除并追加给对方
-			$('#myFunctionsSelect option').appendTo('#leftFunctionsSelect');
-		});
-		//全部移到左边
-		$('#add_all').click(function() {
-			$('#leftFunctionsSelect option').appendTo('#myFunctionsSelect');
-		});
-		//双击选项
-		$('#myFunctionsSelect').dblclick(function() { //绑定双击事件
-			//获取全部的选项,删除并追加给对方
-			$("option:selected", this).appendTo('#leftFunctionsSelect'); //追加给对方
-		});
-		//双击选项
-		$('#leftFunctionsSelect').dblclick(function() {
-			$("option:selected", this).appendTo('#myFunctionsSelect');
-		});
-	});
-
-	function save() {
-		var myList = new Array();
-
-		$("#myFunctionsSelect").each(function() {
-			$(this).children("option").each(function() {
-				myList.push($(this).val());
-			});
-		});
-
-		var leftList = new Array();
-		$("#leftFunctionsSelect").each(function() {
-			$(this).children("option").each(function() {
-				leftList.push($(this).val());
-			});
-		});
-
-		$("#myFunctionsArray").val(myList);
-		$("#leftFunctionsArray").val(leftList);
-
-		$("[name='saveForm']").attr("action", "save.action");
-		$("[name='saveForm']").attr("method", "post");
-		$("[name='saveForm']").submit();
-	}
-
-	function update() {
-		var myList = new Array();
-
-		$("#myFunctionsSelect").each(function() {
-			$(this).children("option").each(function() {
-				myList.push($(this).val());
-			});
-		});
-
-		var leftList = new Array();
-		$("#leftFunctionsSelect").each(function() {
-			$(this).children("option").each(function() {
-				leftList.push($(this).val());
-			});
-		});
-
-		$("#myFunctionsArray").val(myList);
-		$("#leftFunctionsArray").val(leftList);
-		$("[name='updateForm']").attr("action", "update.action");
-		$("[name='updateForm']").attr("method", "post");
-		$("[name='updateForm']").submit();
-	}
-
-	function updateBack() {
-		$("[name='updateForm']").attr("action", "role.action");
-		$("[name='updateForm']").attr("method", "post");
-		$("[name='updateForm']").submit();
-	}
-
-	function saveBack() {
-		$("[name='saveForm']").attr("action", "role.action");
-		$("[name='saveForm']").attr("method", "post");
-		$("[name='saveForm']").submit();
-	}
-</script>
+<script type="text/javascript" src="../resources/js/role.js"></script>
 
 <s:if test="null == id">
 	<div class="place">
@@ -186,12 +93,12 @@
 				<s:hidden id="myFunctionsArray" name="myFunctionsArray" />
 				<s:hidden id="leftFunctionsArray" name="leftFunctionsArray" />
 				<ul class="forminfo">
-					<li><label><s:text name="role_name" /></label><input
-						id="roleName" name="roleName" type="text"
-						value='<s:property value="roleName" />' class="dfinput" /></li>
-					<li><label><s:text name="role_desc" /></label><input
-						id="roleDesc" name="roleDesc" type="text"
-						value='<s:property value="roleDesc" />' class="dfinput" /></li>
+					<li><label><s:text name="role_name" /></label><input id="roleName"
+						name="roleName" type="text" value='<s:property value="roleName" />'
+						class="dfinput" /></li>
+					<li><label><s:text name="role_desc" /></label><input id="roleDesc"
+						name="roleDesc" type="text" value='<s:property value="roleDesc" />'
+						class="dfinput" /></li>
 					<li><label><s:text name="functions_allocation" /></label>
 						<div class="selectcontent">
 							<div class="rightselect">

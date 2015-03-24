@@ -7,7 +7,6 @@
 
 package com.innovaee.eorder.utils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -90,19 +89,17 @@ public class StringUtil {
         return "";
     }
 
-    public static boolean isMobileNO(String mobiles) {
-        Pattern p = Pattern
+    /**
+     * 判断是否为手机号码
+     * 
+     * @param cellphone
+     * @return
+     */
+    public static boolean isMobileNO(String cellphone) {
+        Pattern pattern = Pattern
                 .compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
-        Matcher m = p.matcher(mobiles);
-        // System.out.println(m.matches() + "---");
-        return m.matches();
+        Matcher matcher = pattern.matcher(cellphone);
+        return matcher.matches();
     }
 
-    public static void main(String[] args) throws IOException {
-
-        System.out.println(StringUtil.isMobileNO("12016155153"));
-        System.out.println(StringUtil.isMobileNO("123"));
-        System.out.println(StringUtil.isMobileNO("13861455153"));
-
-    }
 }

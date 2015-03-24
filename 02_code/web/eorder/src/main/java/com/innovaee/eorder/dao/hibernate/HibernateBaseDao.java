@@ -44,11 +44,11 @@ public class HibernateBaseDao<T> extends HibernateDaoSupport implements
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public HibernateBaseDao() {
-        Class c = getClass();
-        Type t = c.getGenericSuperclass();
-        if (t instanceof ParameterizedType) {
-            Type[] p = ((ParameterizedType) t).getActualTypeArguments();
-            entityClass = (Class<T>) p[0];
+        Class clazz = getClass();
+        Type type = clazz.getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            Type[] params = ((ParameterizedType) type).getActualTypeArguments();
+            entityClass = (Class<T>) params[0];
         }
     }
 

@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      *            待更新的用户信息
      */
-    public void updateUser(User user) {// 加密用户名密码
+    public void updateUser(User user) {
         userDao.update(user);
     }
 
@@ -170,10 +170,10 @@ public class UserServiceImpl implements UserService {
      *            角色ID
      * @return 角色列表
      */
-    public List<Role> findLeftRolesByUserId(Long userId) {
+    public List<Role> findLeftRolesByUserId(Long roleId) {
         List<Role> leftRoles = new ArrayList<Role>();
         List<Role> roles = new ArrayList<Role>();
-        User user = userDao.get(userId);
+        User user = userDao.get(roleId);
         if (null != user) {
             Set<Role> roleSet = user.getRoles();
             for (Role role : roleSet) {
@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService {
 
         return leftRoles;
     }
-    
+
     /**
      * 获得分页信息
      * 

@@ -1,51 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<script type="text/javascript">
-	function save() {
-		$("[name='saveForm']").attr("action", "save.action");
-		$("[name='saveForm']").attr("method", "post");
-		$("[name='saveForm']").submit();
-	}
 
-	function update() {
-		$("[name='updateForm']").attr("action", "update.action");
-		$("[name='updateForm']").attr("method", "post");
-		$("[name='updateForm']").submit();
-	}
-
-	function updateBack() {
-		$("[name='updateForm']").attr("action", "function.action");
-		$("[name='updateForm']").attr("method", "post");
-		$("[name='updateForm']").submit();
-	}
-
-	function saveBack() {
-		$("[name='saveForm']").attr("action", "function.action");
-		$("[name='saveForm']").attr("method", "post");
-		$("[name='saveForm']").submit();
-	}
-
-	// 回车提交表单（登录）
-	$(function() {
-		var functionParent = $("#functionParent").val();
-		$("#functionSelect").each(function() {
-			$(this).children("option").each(function() {
-				if (functionParent == $(this).val()) {
-					$(this).attr("selected", true);
-					return;
-				}
-			});
-		});
-
-		//移到左边
-		$('#functionSelect').change(function() {
-			var functionParent = $(this).children('option:selected').val();
-			$("#functionParent").val(functionParent);
-		});
-	});
-</script>
-
+<script type="text/javascript" src="../resources/js/function.js"></script>
 
 <s:if test="null == id">
 	<div class="place">

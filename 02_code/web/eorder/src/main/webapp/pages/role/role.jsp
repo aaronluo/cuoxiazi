@@ -8,45 +8,7 @@
 					+ request.getServerName() + ":" + request.getServerPort()
 					+ path;
 %>
-<script type="text/javascript">
-	function add() {
-		$("[name='addForm']").attr("action", "add.action");
-		$("[name='addForm']").attr("method", "post");
-		$("[name='addForm']").submit();
-	}
-
-	function prePage() {
-		var pageNow = $("#pageNow").val();
-		pageNow = parseInt(pageNow) - 1;
-		$("#pageNow").val(pageNow);
-
-		$("[name='pageForm']").attr("action", "role.action");
-		$("[name='pageForm']").attr("method", "post");
-		$("[name='pageForm']").submit();
-	}
-
-	function nextPage() {
-		var pageNow = $("#pageNow").val();
-		pageNow = parseInt(pageNow) + 1;
-		$("#pageNow").val(pageNow);
-
-		$("[name='pageForm']").attr("action", "role.action");
-		$("[name='pageForm']").attr("method", "post");
-		$("[name='pageForm']").submit();
-	}
-
-	function load() {
-		// 取得用户输入的页数
-		var pageNow = $("#pageInput").val();
-		// 如果没有输入，则不响应确认按钮事件
-		if ('' != pageNow) {
-			$("[name='pageForm']").attr("action", "role.action");
-			$("[name='pageForm']").attr("method", "post");
-			$("[name='pageForm']").submit();
-		}
-
-	}
-</script>
+<script type="text/javascript" src="../resources/js/role.js"></script>
 
 <div class="place">
 	<span><s:text name="place" /></span>
@@ -64,7 +26,8 @@
 	<div class="tools">
 		<form name="addForm" id="addForm">
 			<ul class="toolbar" onclick="add();">
-				<li><span><img src="../resources/images/t01.png"></span><s:text name="add" /></li>
+				<li><span><img src="../resources/images/t01.png"></span>
+				<s:text name="add" /></li>
 			</ul>
 		</form>
 	</div>

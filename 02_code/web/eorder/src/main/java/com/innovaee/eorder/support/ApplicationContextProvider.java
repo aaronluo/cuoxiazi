@@ -19,25 +19,38 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class ApplicationContextProvider implements ApplicationContextAware {
 
-    /**Spring AppliationContext对象实例 **/
+    /** Spring AppliationContext对象实例 **/
     private static ApplicationContext context;
-    
+
+    /**
+     * 设置上下文对象
+     * 
+     * @param appContext
+     *            上下文对象
+     */
     public void setApplicationContext(ApplicationContext appContext)
             throws BeansException {
 
-        if(context == null) {
+        if (context == null) {
             ApplicationContextProvider.context = appContext;
         } else {
-            throw new IllegalStateException("The application context provider has already initialized. ");
+            throw new IllegalStateException(
+                    "The application context provider has already initialized. ");
         }
 
     }
 
+    /**
+     * 得到上下文对象
+     * 
+     * @return
+     */
     public static ApplicationContext getContext() {
-        if(context != null) {
+        if (context != null) {
             return context;
         } else {
-            throw new IllegalStateException("The application context is not avaiable. ");
+            throw new IllegalStateException(
+                    "The application context is not avaiable. ");
         }
     }
 }
