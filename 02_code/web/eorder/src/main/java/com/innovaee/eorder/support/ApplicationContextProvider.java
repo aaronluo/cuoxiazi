@@ -22,7 +22,6 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     /**Spring AppliationContext对象实例 **/
     private static ApplicationContext context;
     
-    @Override
     public void setApplicationContext(ApplicationContext appContext)
             throws BeansException {
 

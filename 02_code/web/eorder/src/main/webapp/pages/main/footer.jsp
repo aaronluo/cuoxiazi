@@ -2,4 +2,3 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!--页面底部footer-->
-<p class="navbar-text pull-left">Powered by Bootstrap</p>

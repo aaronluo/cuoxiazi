@@ -11,16 +11,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><tiles:insertAttribute name="title" ignore="true" /></title>
+<tiles:insertAttribute name="title" />
 <link href="../resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="../resources/css/select.css" rel="stylesheet" type="text/css" />
 <link href="../resources/css/eorder-style.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="../resources/images/favico_32.ico" type="image/x-icon" />
 
 <script type="text/javascript" src="../resources/js/jquery.js"></script>
-<!-- 
-<script type="text/javascript" src="../resources/js/jquery.idTabs.min.js"></script>
-<script type="text/javascript" src="../resources/js/select-ui.min.js"></script>
- -->
 
 <style type="text/css">
 * {

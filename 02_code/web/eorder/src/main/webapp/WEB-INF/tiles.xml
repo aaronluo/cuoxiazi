@@ -7,6 +7,7 @@
 <tiles-definitions>
 
     <definition name="layout" template="/pages/main/layout.jsp">
+         <put-attribute name="title" value="/pages/main/title.jsp" />
         <put-attribute name="header" value="/pages/main/header.jsp" />
         <put-attribute name="menu" value="/pages/main/menu.jsp" />
         <put-attribute name="body" value="/pages/main/body.jsp" />
