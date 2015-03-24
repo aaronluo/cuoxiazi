@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.action;
 
-import com.innovaee.eorder.vo.MenuLinkVo;
+import com.innovaee.eorder.vo.MenuLinkVO;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.ArrayList;
@@ -25,10 +25,10 @@ public class BaseAction extends ActionSupport {
     private static final long serialVersionUID = 6286143366540227001L;
 
     /** 工具栏列表 */
-    protected List<MenuLinkVo> toolbarList = new ArrayList<MenuLinkVo>();
+    protected List<MenuLinkVO> toolbarList = new ArrayList<MenuLinkVO>();
 
     /** 菜单列表 */
-    protected List<MenuLinkVo> menuList = new ArrayList<MenuLinkVo>();
+    protected List<MenuLinkVO> menuList = new ArrayList<MenuLinkVO>();
 
     /** 登录用户名 */
     private String loginName;
@@ -73,19 +73,19 @@ public class BaseAction extends ActionSupport {
         this.message = message;
     }
 
-    public List<MenuLinkVo> getMenuList() {
+    public List<MenuLinkVO> getMenuList() {
         return menuList;
     }
 
-    public void setMenuList(List<MenuLinkVo> menuList) {
+    public void setMenuList(List<MenuLinkVO> menuList) {
         this.menuList = menuList;
     }
 
-    public List<MenuLinkVo> getToolbarList() {
+    public List<MenuLinkVO> getToolbarList() {
         return toolbarList;
     }
 
-    public void setToolbarList(List<MenuLinkVo> toolbarList) {
+    public void setToolbarList(List<MenuLinkVO> toolbarList) {
         this.toolbarList = toolbarList;
     }
 

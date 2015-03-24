@@ -13,7 +13,7 @@ package com.innovaee.eorder.vo;
  *
  * @version V1.0
  */
-public class RoleVO extends BaseVo {
+public class RoleVO extends BaseVO {
 
     /** 对象序列化ID */
     private static final long serialVersionUID = -3831009342301894624L;

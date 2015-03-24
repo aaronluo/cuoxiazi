@@ -23,12 +23,12 @@ import com.innovaee.eorder.entity.Role;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.service.FunctionService;
 import com.innovaee.eorder.service.RoleService;
-import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
 import com.innovaee.eorder.utils.StringUtil;
-import com.innovaee.eorder.vo.EOrderUserDetailVo;
-import com.innovaee.eorder.vo.MenuLinkVo;
+import com.innovaee.eorder.vo.EOrderUserDetailVO;
+import com.innovaee.eorder.vo.MenuLinkVO;
 import com.innovaee.eorder.vo.RoleVO;
 
 /**
@@ -102,9 +102,9 @@ public class RoleAction extends BaseAction {
      */
     public void refreshPageData() {
         // 当前用户的工具栏
-        List<MenuLinkVo> toolbarList = MenuUtil.getToolbarLinkVOList();
+        List<MenuLinkVO> toolbarList = MenuUtil.getToolbarLinkVOList();
 
-        List<MenuLinkVo> menuLink = null;
+        List<MenuLinkVO> menuLink = null;
         if (null != toolbarList && 0 < toolbarList.size()) {
             // 第一个功能对应的菜单
             menuLink = MenuUtil.getMenuLinkVOList(FUNCTION_DESC);
@@ -115,7 +115,7 @@ public class RoleAction extends BaseAction {
         this.setCurrentFunctionDesc(FUNCTION_DESC);
         this.setCurrentToolbar(MenuUtil.getParentFunctionDesc(FUNCTION_DESC));
 
-        EOrderUserDetailVo userDetail = (EOrderUserDetailVo) SecurityContextHolder
+        EOrderUserDetailVO userDetail = (EOrderUserDetailVO) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         this.setLoginName(userDetail.getUser().getUsername());
     }

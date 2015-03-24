@@ -16,9 +16,9 @@ import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
-import com.innovaee.eorder.vo.EOrderUserDetailVo;
-import com.innovaee.eorder.vo.MenuLinkVo;
-import com.innovaee.eorder.vo.UserFunctionVo;
+import com.innovaee.eorder.vo.EOrderUserDetailVO;
+import com.innovaee.eorder.vo.MenuLinkVO;
+import com.innovaee.eorder.vo.UserFunctionVO;
 
 /**
  * @Title: MenuUtil
@@ -36,24 +36,24 @@ public class MenuUtil {
      * 
      * @return 菜单列表
      */
-    public static List<MenuLinkVo> getToolbarLinkVOList() {
+    public static List<MenuLinkVO> getToolbarLinkVOList() {
         if (LOGGER.isDebugEnabled()) {
             // 找不到父节点
             LOGGER.debug("根据缓存中用户信息，获得该用户的权限列表（菜单）");
         }
-        List<MenuLinkVo> toolbarlist = new ArrayList<MenuLinkVo>();
+        List<MenuLinkVO> toolbarlist = new ArrayList<MenuLinkVO>();
 
         // 从安全框架上下文得到用户详细信息
-        EOrderUserDetailVo userDetail = (EOrderUserDetailVo) SecurityContextHolder
+        EOrderUserDetailVO userDetail = (EOrderUserDetailVO) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         Assert.notNull(userDetail);
 
         // 从授权用户获取功能列表
-        List<UserFunctionVo> userFunctions = userDetail.getUserFunctions();
+        List<UserFunctionVO> userFunctions = userDetail.getUserFunctions();
 
         // 排序功能列表
-        Collections.sort(userFunctions, new Comparator<UserFunctionVo>() {
-            public int compare(UserFunctionVo o1, UserFunctionVo o2) {
+        Collections.sort(userFunctions, new Comparator<UserFunctionVO>() {
+            public int compare(UserFunctionVO o1, UserFunctionVO o2) {
                 return o1.getFunction().getFunctionOrder()
                         .compareTo(o2.getFunction().getFunctionOrder());
             }
@@ -61,11 +61,11 @@ public class MenuUtil {
 
         // 将功能列表填充到角色链接值对列表中
         toolbarlist.clear();
-        for (final UserFunctionVo ufVo : userFunctions) {
+        for (final UserFunctionVO ufVo : userFunctions) {
             if (0 == ufVo.getFunction().getFunctionParent()) {
                 // 检查是否有重复元素
                 boolean duplicated = false;
-                for (MenuLinkVo role : toolbarlist) {
+                for (MenuLinkVO role : toolbarlist) {
                     if (ufVo.getFunction().getFunctionName()
                             .equals(role.getName())) {
                         duplicated = true;
@@ -76,7 +76,7 @@ public class MenuUtil {
                     continue;
                 }
 
-                MenuLinkVo menuLinkVo = new MenuLinkVo();
+                MenuLinkVO menuLinkVo = new MenuLinkVO();
                 menuLinkVo.setFlag("1");
                 menuLinkVo.setLink(ufVo.getFunction().getFunctionPath());
                 menuLinkVo.setId(ufVo.getFunction().getId());
@@ -89,14 +89,14 @@ public class MenuUtil {
                 menuLinkVo
                         .setFunctionDesc(ufVo.getFunction().getFunctionDesc());
                 menuLinkVo.setOrder(ufVo.getFunction().getFunctionOrder());
-                menuLinkVo.setList(new ArrayList<MenuLinkVo>());
+                menuLinkVo.setList(new ArrayList<MenuLinkVO>());
                 toolbarlist.add(menuLinkVo);
                 continue;
             }
 
             // 子菜单
-            MenuLinkVo parent = null;
-            for (MenuLinkVo menuLinkVo : toolbarlist) {
+            MenuLinkVO parent = null;
+            for (MenuLinkVO menuLinkVo : toolbarlist) {
                 if (menuLinkVo.getId().equals(
                         ufVo.getFunction().getFunctionParent())) {
                     parent = menuLinkVo;
@@ -115,7 +115,7 @@ public class MenuUtil {
 
             // 检查是否有重复
             boolean duplicated = false;
-            for (MenuLinkVo menuLinkVo : parent.getList()) {
+            for (MenuLinkVO menuLinkVo : parent.getList()) {
                 if (ufVo.getFunction().getFunctionName()
                         .equals(menuLinkVo.getName())) {
                     duplicated = true;
@@ -127,7 +127,7 @@ public class MenuUtil {
                 continue;
             }
 
-            MenuLinkVo rlVo = new MenuLinkVo();
+            MenuLinkVO rlVo = new MenuLinkVO();
             rlVo.setFlag("2");
             rlVo.setLink(ufVo.getFunction().getFunctionPath());
             rlVo.setId(ufVo.getFunction().getId());
@@ -149,14 +149,14 @@ public class MenuUtil {
      *            功能描述
      * @return 菜单列表
      */
-    public static List<MenuLinkVo> getMenuLinkVOList(String functionDesc) {
-        List<MenuLinkVo> toolbarlist = getToolbarLinkVOList();
+    public static List<MenuLinkVO> getMenuLinkVOList(String functionDesc) {
+        List<MenuLinkVO> toolbarlist = getToolbarLinkVOList();
 
         // 1、先通过功能描述找到此功能的父功能ID
         Long parentFunctionId = 0L;
-        for (MenuLinkVo menuLinkVo : toolbarlist) {
-            List<MenuLinkVo> list = menuLinkVo.getList();
-            for (MenuLinkVo menuLinkVo2 : list) {
+        for (MenuLinkVO menuLinkVo : toolbarlist) {
+            List<MenuLinkVO> list = menuLinkVo.getList();
+            for (MenuLinkVO menuLinkVo2 : list) {
                 if (null != functionDesc
                         && functionDesc.equals(menuLinkVo2.getFunctionDesc())) {
                     parentFunctionId = menuLinkVo2.getFunctionParent();
@@ -172,7 +172,7 @@ public class MenuUtil {
         }
 
         // 2、得到父功能
-        for (MenuLinkVo menuLinkVo : toolbarlist) {
+        for (MenuLinkVO menuLinkVo : toolbarlist) {
             if (parentFunctionId == menuLinkVo.getId()) {
                 // 3、得到父功能下所有的子功能列表
                 return menuLinkVo.getList();
@@ -190,13 +190,13 @@ public class MenuUtil {
      * @return 菜单列表
      */
     public static String getParentFunctionDesc(String functionDesc) {
-        List<MenuLinkVo> toolbarlist = getToolbarLinkVOList();
+        List<MenuLinkVO> toolbarlist = getToolbarLinkVOList();
 
         // 1、先通过功能描述找到此功能的父功能ID
         Long parentFunctionId = 0L;
-        for (MenuLinkVo menuLinkVo : toolbarlist) {
-            List<MenuLinkVo> list = menuLinkVo.getList();
-            for (MenuLinkVo menuLinkVo2 : list) {
+        for (MenuLinkVO menuLinkVo : toolbarlist) {
+            List<MenuLinkVO> list = menuLinkVo.getList();
+            for (MenuLinkVO menuLinkVo2 : list) {
                 if (null != functionDesc
                         && functionDesc.equals(menuLinkVo2.getFunctionDesc())) {
                     parentFunctionId = menuLinkVo2.getFunctionParent();
@@ -212,7 +212,7 @@ public class MenuUtil {
         }
 
         // 2、得到父功能
-        for (MenuLinkVo menuLinkVo : toolbarlist) {
+        for (MenuLinkVO menuLinkVo : toolbarlist) {
             if (parentFunctionId == menuLinkVo.getId()) {
                 // 3、得到父功能下所有的子功能列表
                 return menuLinkVo.getFunctionDesc();

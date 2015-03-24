@@ -27,7 +27,7 @@ import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.Function;
 import com.innovaee.eorder.entity.Role;
 import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.vo.UserFunctionVo;
+import com.innovaee.eorder.vo.UserFunctionVO;
 
 /**
  * @Title: SecurityMetadataSourceService
@@ -102,8 +102,8 @@ public class SecurityMetadataSourceService implements
      *            用户名称
      * @return 用户功能值对象列表
      */
-    public List<UserFunctionVo> getUserFunctions(String username) {
-        List<UserFunctionVo> userFunctions = new ArrayList<UserFunctionVo>();
+    public List<UserFunctionVO> getUserFunctions(String username) {
+        List<UserFunctionVO> userFunctions = new ArrayList<UserFunctionVO>();
         User user = userDao.findUserByUserName(username);
 
         Set<Role> roleList = securityMetadataSourceService
@@ -112,7 +112,7 @@ public class SecurityMetadataSourceService implements
         for (Role role : roleList) {
             Set<Function> functions = role.getFunctions();
             for (Function function : functions) {
-                UserFunctionVo userFunctionVo = new UserFunctionVo();
+                UserFunctionVO userFunctionVo = new UserFunctionVO();
                 userFunctionVo.setUser(user);
                 userFunctionVo.setRole(role);
                 userFunctionVo.setFunction(function);

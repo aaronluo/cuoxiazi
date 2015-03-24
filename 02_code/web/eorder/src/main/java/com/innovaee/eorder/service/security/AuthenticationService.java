@@ -8,8 +8,8 @@
 package com.innovaee.eorder.service.security;
 
 import com.innovaee.eorder.dao.UserDao;
-import com.innovaee.eorder.vo.EOrderUserDetailVo;
-import com.innovaee.eorder.vo.UserFunctionVo;
+import com.innovaee.eorder.vo.EOrderUserDetailVO;
+import com.innovaee.eorder.vo.UserFunctionVO;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,12 +59,12 @@ public class AuthenticationService implements UserDetailsService {
      */
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException, DataAccessException {
-        List<UserFunctionVo> userFunctions = securityMetadataSourceService
+        List<UserFunctionVO> userFunctions = securityMetadataSourceService
                 .getUserFunctions(username);
         if (null == userFunctions || 0 == userFunctions.size()) {
             throw new UsernameNotFoundException("用户[" + username + "] 不存在!");
         }
-        EOrderUserDetailVo userDetailsVo = new EOrderUserDetailVo();
+        EOrderUserDetailVO userDetailsVo = new EOrderUserDetailVO();
         userDetailsVo.setUserFunctions(userFunctions);
 
         return userDetailsVo;
