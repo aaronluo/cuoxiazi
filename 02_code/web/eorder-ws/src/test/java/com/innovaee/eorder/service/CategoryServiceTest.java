@@ -175,9 +175,10 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     /**
      * 单元测试 - 获取菜品分类分页
      * @throws PageIndexOutOfBoundExcpeiton
+     * @throws InvalidPageSizeException 
      */
     @Test
-    public void getCategoriesPageTest() throws PageIndexOutOfBoundExcpeiton {
+    public void getCategoriesPageTest() throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException {
         int currentPage = 2;
         int pageSize = 5;
         
