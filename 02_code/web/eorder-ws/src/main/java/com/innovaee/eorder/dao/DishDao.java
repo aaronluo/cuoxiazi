@@ -16,4 +16,11 @@ import com.innovaee.eorder.entity.Dish;
  */
 public interface DishDao extends BaseDao<Dish> {
 
+    /**
+     * 根据菜品名称获取菜品对象
+     * @param dishName 菜品名称
+     * @return 返回菜品对象或者null
+     */
+    public Dish getDishByName(final String dishName);
+    
 }

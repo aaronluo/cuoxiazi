@@ -8,6 +8,8 @@ package com.innovaee.eorder.dao;
 
 import com.innovaee.eorder.entity.Category;
 
+import java.util.List;
+
 /**
  * @Title: CategoryDao
  * @Description: 分类数据访问对象接口
@@ -16,4 +18,14 @@ import com.innovaee.eorder.entity.Category;
  */
 public interface CategoryDao extends BaseDao<Category> {
 
+    /**
+     * 根据指定菜品分类名称查找菜品分类
+     * 
+     * @param name
+     *            菜品分类名称
+     * @return 菜品分类对象或者null
+     */
+    public Category getCategoryByName(final String name);
+    
+   public List<Category> getPage(int startIndex, int pageSize);
 }

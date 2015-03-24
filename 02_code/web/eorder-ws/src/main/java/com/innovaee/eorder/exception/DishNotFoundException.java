@@ -26,14 +26,14 @@ public class DishNotFoundException extends BaseException {
         exceptionKey = "dish_not_found_exception";
     }
     
-    private Long dishId;
+    private String queryString;
     
-    public DishNotFoundException(Long dishId) {
-        this.dishId = dishId;
+    public DishNotFoundException(String queryString) {
+        this.queryString = queryString;
     }
     
     @Override
     public String getMessage() {
-        return MessageUtil.getMessage(exceptionKey, "dishId:" + dishId);
+        return MessageUtil.getMessage(exceptionKey,  queryString);
     }
 }

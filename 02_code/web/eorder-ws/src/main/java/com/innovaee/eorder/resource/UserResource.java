@@ -6,9 +6,9 @@
  ************************************************/
 package com.innovaee.eorder.resource;
 
+import com.innovaee.eorder.entity.MemberShip;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
 import com.innovaee.eorder.vo.OrderVO;
@@ -61,7 +61,7 @@ public class UserResource {
 
         try {
             user = userService.getUserByCellphone(cellphone);
-            UserLevel userLevel = user.getUserLevel();
+            MemberShip memberShip = user.getMemberShip();
             UserVO userVO = new UserVO();
 
             if (null != user) {
@@ -70,11 +70,11 @@ public class UserResource {
                 userVO.setCellphone(user.getCellphone());
             }
 
-            if (null != userLevel) {
+            if (null != memberShip) {
                 // 设置用户等级名称
-                userVO.setLevelName(userLevel.getLevelName());
+                userVO.setLevelName(memberShip.getLevel().getLevelName());
                 // 设置用户折扣信息
-                userVO.setDiscount(userLevel.getDiscount());
+                userVO.setDiscount(memberShip.getLevel().getDiscount());
             }
 
             result.put("user", userVO);

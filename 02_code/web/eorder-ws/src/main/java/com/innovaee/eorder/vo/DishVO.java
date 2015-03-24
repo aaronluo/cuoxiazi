@@ -8,6 +8,7 @@
 package com.innovaee.eorder.vo;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @Title: DishVO
@@ -30,6 +31,13 @@ public class DishVO extends BaseVO {
     /** 在售状态 */
     private boolean onSell;
 
+    /** 分类id */
+    @XmlTransient
+    private Long categoryId;
+    
+    /** 更多信息 */
+    @XmlTransient
+    private String misc;
     /**
      * 默认构造函数
      */
@@ -59,6 +67,23 @@ public class DishVO extends BaseVO {
         this.price = price;
         this.picPath = picPath;
         this.onSell = onSell;
+    }
+
+    
+    public String getMisc() {
+        return misc;
+    }
+
+    public void setMisc(String misc) {
+        this.misc = misc;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

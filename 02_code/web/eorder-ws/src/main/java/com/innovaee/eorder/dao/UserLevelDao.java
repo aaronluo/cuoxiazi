@@ -16,4 +16,24 @@ import com.innovaee.eorder.entity.UserLevel;
  */
 public interface UserLevelDao extends BaseDao<UserLevel> {
 
+    /**
+     * 根据指定名称查找用户等级信息
+     * @param name
+     * @return
+     */
+    UserLevel getUserLevelByName(String name);
+
+    /**
+     * 获取当前用户等级的下一个等级
+     * @param id
+     * @return
+     */
+    UserLevel getNextLevel(Long id);
+    /**
+     * 获取当前用户等级的上一个等级
+     * @param id
+     * @return
+     */
+    UserLevel getLastLevel(Long id);
+
 }

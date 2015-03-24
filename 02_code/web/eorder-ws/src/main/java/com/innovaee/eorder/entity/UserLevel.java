@@ -7,13 +7,12 @@
 
 package com.innovaee.eorder.entity;
 
-import java.util.Set;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,9 +37,6 @@ public class UserLevel extends BaseEntity {
 
     /** 用户状态 */
     private boolean levelStatus;
-
-    /** 用户列表 */
-    private Set<User> users;
 
     /**
      * 默认构造函数
@@ -109,20 +105,10 @@ public class UserLevel extends BaseEntity {
         this.levelStatus = levelStatus;
     }
 
-    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "userLevel")
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     @Override
     public String toString() {
-        return "UserLevel [levelName=" + levelName + ", discount=" + discount
-                + ", levelScore=" + levelScore + ", levelStatus=" + levelStatus
-                + "]";
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 
 }

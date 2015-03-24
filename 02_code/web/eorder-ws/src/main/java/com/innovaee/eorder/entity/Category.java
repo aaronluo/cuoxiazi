@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.entity;
 
+import org.hibernate.annotations.Where;
+
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -76,6 +78,7 @@ public class Category extends BaseEntity {
     }
 
     @OneToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, mappedBy = "category")
+    @Where(clause="ON_SELL=1")
     public Set<Dish> getDishes() {
         return dishes;
     }

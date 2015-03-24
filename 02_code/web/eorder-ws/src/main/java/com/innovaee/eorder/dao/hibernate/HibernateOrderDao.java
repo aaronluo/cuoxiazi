@@ -11,11 +11,13 @@ import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.support.DateUtil;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -45,26 +47,29 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
 
     /**
      * 获得指定日期订单最大序号，则新订单以这个序号增1
+     * 
      * @param date
      * @return 序号最大值，指定日期没有订单产生，则返回0
      */
     @Override
     public int getMaxOrderSeqofDate(final Date date) {
-       //1. 根据指定日期，组合查询条件
+        // 1. 根据指定日期，组合查询条件
         final Date beginDate = DateUtil.getFirstTimeOfDate(date);
         final Date endDate = DateUtil.getLastTimeOfDate(date);
-        //2. 通过Hibernate查询
-        return getHibernateTemplate().execute(new HibernateCallback<Integer>(){
-            
-            public Integer doInHibernate(Session session) {
+        // 2. 通过Hibernate查询
+        return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+            public Integer doInHibernate(Session session)
+                    throws HibernateException, SQLException {
                 Criteria criteria = session.createCriteria(Order.class);
-                
+
                 criteria.add(Restrictions.ge("createDate", beginDate));
                 criteria.add(Restrictions.le("createDate", endDate));
-                
-               return ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+
+                return ((Long) criteria.setProjection(Projections.rowCount())
+                        .uniqueResult()).intValue();
             }
-            
+
         });
     }
 }
