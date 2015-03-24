@@ -140,7 +140,7 @@ public class CategoryServiceTest extends BaseSpringTestCase {
         dish = dishService.getDishById(dish.getId());
         category = dish.getCategory();
 
-        assertEquals("default_category", category.getName());
+        assertEquals(Constants.DEFAULT_CATEGORY, category.getName());
 
         try {
             categoryService.deleteCategory(1L);
