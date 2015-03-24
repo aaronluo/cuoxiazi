@@ -99,12 +99,14 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         </property>
     </bean>
 
-    <bean id="txManager"
+    <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <tx:advice id="txAdvice" transaction-manager="txManager">
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
             <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
@@ -149,7 +151,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="userService" class="com.innovaee.eorder.service.impl.UserServiceImpl" />
     <bean id="userLevelService" class="com.innovaee.eorder.service.impl.UserLevelServiceImpl" />
     <bean id="roleService" class="com.innovaee.eorder.service.impl.RoleServiceImpl" />
-    
+
     <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl">
         <property name="categoryDao" ref="categoryDao" />
         <property name="dishDao" ref="dishDao" />
