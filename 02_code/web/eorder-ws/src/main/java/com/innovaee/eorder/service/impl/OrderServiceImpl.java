@@ -20,6 +20,7 @@ import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
 import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.support.DateUtil;
+import com.innovaee.eorder.support.MessageUtil;
 import com.innovaee.eorder.vo.NewOrderItemVO;
 import com.innovaee.eorder.vo.NewOrderVO;
 
@@ -62,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
         this.dishDao = dishDao;
     }
 
-    
     public UserDao getUserDao() {
         return userDao;
     }
@@ -71,7 +71,6 @@ public class OrderServiceImpl implements OrderService {
         this.userDao = userDao;
     }
 
-    
     public OrderItemDao getOrderItemDao() {
         return orderItemDao;
     }
@@ -110,13 +109,14 @@ public class OrderServiceImpl implements OrderService {
      * @param newOrder
      *            新订单信息
      * @return 如果创建成功，返回新订单id；如果失败，返回-1
-     * @throws UserNotFoundException 
-     * @throws ZeroOrderItemException 
-     * @throws DishNotFoundException 
+     * @throws UserNotFoundException
+     * @throws ZeroOrderItemException
+     * @throws DishNotFoundException
      */
     @Override
-    @Transactional(propagation=Propagation.REQUIRED, readOnly=false, rollbackFor=Exception.class)
-    public Long placeOrder(NewOrderVO newOrder) throws UserNotFoundException, ZeroOrderItemException, DishNotFoundException {
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
+    public Long placeOrder(NewOrderVO newOrder) throws UserNotFoundException,
+            ZeroOrderItemException, DishNotFoundException {
         // 1. 组合OrderSeq值，格式为yyMMdd00001
         Date currentDay = Calendar.getInstance().getTime();
         Integer maxOrderSeq = orderDao.getMaxOrderSeqofDate(currentDay);
@@ -124,8 +124,8 @@ public class OrderServiceImpl implements OrderService {
                 .format("%s%05d", DateUtil.formatDate(
                         Constants.DATE_FORMAT_YYYYMMDD, currentDay),
                         maxOrderSeq.intValue() + 1);
-        
-        //2. 创建Order对象
+
+        // 2. 创建Order对象
         Order order = new Order();
         order.setOrderSeq(curOrderSeq);
         order.setTableNumber(newOrder.getTableNumber());
@@ -134,23 +134,24 @@ public class OrderServiceImpl implements OrderService {
         order.setCreateDate(currentDay);
         order.setUpdateDate(currentDay);
         User servent = userDao.get(newOrder.getServentId());
-        
+
         if (null == servent) {
-            throw new UserNotFoundException("employeeId: " + newOrder.getServentId());
+            throw new UserNotFoundException("employeeId: "
+                    + newOrder.getServentId());
         } else {
             order.setServent(servent);
         }
-        //下单客户是会员，获取折扣信息
+        // 下单客户是会员，获取折扣信息
         float discount = 1.0f;
-        if(newOrder.getMemberId() > 0) {
+        if (newOrder.getMemberId() > 0) {
             User member = userDao.get(newOrder.getMemberId());
-            if(null != member) {
+            if (null != member) {
                 order.setMember(member);
-               discount = member.getUserLevel().getDiscount().floatValue() / 10;
+                discount = member.getMemberShip().getLevel().getDiscount().floatValue() / 10;
             }
         }
-        
-        Long orderId =  orderDao.save(order);
+
+        Long orderId = orderDao.save(order);
         order = orderDao.get(orderId);
         // 3. 创建订单详情
         Float totalPrice = 0.0f;
@@ -164,28 +165,29 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setDish(dish);
                     orderItem.setDishAmount(item.getDishAmount());
                 } else {
-                    throw new DishNotFoundException(item.getDishId());
+                    throw new DishNotFoundException(MessageUtil.getMessage(
+                            "dish_id", item.getDishId() + ""));
                 }
 
                 orderItem.setCreateDate(currentDay);
                 orderItem.setUpdateDate(currentDay);
                 orderItem.setOrder(order);
                 orderItemDao.save(orderItem);
-                
+
                 totalPrice += dish.getPrice() * orderItem.getDishAmount();
 
                 order.getOrderItems().add(orderItem);
             }
-            
+
             order.setTotalPrice(totalPrice);
             order.setDiscountPrice(totalPrice * discount);
-            
+
             orderDao.update(order);
         } else {
-            //当订单中没有菜品明细的时候，抛出异常
+            // 当订单中没有菜品明细的时候，抛出异常
             throw new ZeroOrderItemException();
         }
-        
+
         return orderId;
     }
 }
