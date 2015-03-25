@@ -310,6 +310,61 @@ public class DataManager {
         });
     }
 
+    	
+    /**
+     * 得到某个历史订单详情信息
+     * 
+     * @param id
+     *            订单id
+     * @param listener
+     *            回调监听器
+     */				
+    public void getOrderInfoData(String id,
+            final IDataRequestListener<GoodsDataBean> listener) {
+        if (listener == null) {		
+            // 无回调，也就没有实际意义
+            return;
+        }
+
+        // 获取DownloadService实例
+        DownloadService downloadService = DownloadService.getInstance(context);
+
+        // 得到某个历史订单详情信息
+        downloadService.getOrderInfo(id, new ICallback<GoodsDataBean>() {
+            @Override
+            public void onStarted() {
+                listener.onRequestStart();
+            }
+
+            @Override
+            public void onSuccess(List<GoodsDataBean> response) {
+                boolean success = response != null && response.size() > 0;
+                if (success) {
+                    listener.onRequestSuccess(response);
+                } else {
+                    listener.onRequestFailed("error");
+                }	
+            }
+            	
+            @Override
+            public void onFailed(String error) {
+                listener.onRequestFailed(error);
+            }
+
+            @Override
+            public void onSuccessT(GoodsDataBean response) {
+                boolean success = response != null;
+                if (success) {
+                    listener.onRequestSuccess(response);
+                } else {
+                    listener.onRequestFailed("error");
+                }
+            }			
+
+        });
+    }
+    
+    
     /**
      * 类描述: 数据请求监听器 功能详细描述:
      * 

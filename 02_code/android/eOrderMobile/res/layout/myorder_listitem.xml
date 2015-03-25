@@ -43,13 +43,14 @@
 
             <TextView
                 android:id="@+id/goods_allprice"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="24dp"
                 android:background="#ffeeeeee"
                 android:gravity="right|center_vertical"
+                android:singleLine="true"
                 android:text="@string/main_griditem_text_price"
                 android:textColor="#fe3c3c"
                 android:textSize="20dp" />

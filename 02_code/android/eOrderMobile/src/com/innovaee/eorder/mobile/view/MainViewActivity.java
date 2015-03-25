@@ -132,7 +132,7 @@ public class MainViewActivity extends Activity {
     private List<GoodsDataBean> selectOrderGoods;
 
     // 历史记录查询订单菜品，仅供测试
-    private List<GoodsDataBean> orderHestoryGoods;
+    //private List<GoodsDataBean> orderHestoryGoods;
 
     // 订单记录查询会员号输入编辑器
     EditText orderHestoryInput;
@@ -157,8 +157,8 @@ public class MainViewActivity extends Activity {
                 goodsAdapter = new GoodsAdapter(MainViewActivity.this,
                         goodsListData, handler);
                 gridView.setAdapter(goodsAdapter);
-
-                getOrderHestoryTestData();
+                				
+                //getOrderHestoryTestData();
             }
                 break;
 
@@ -507,10 +507,10 @@ public class MainViewActivity extends Activity {
         bundle.putString("userid", userId);
 
         // 传递历史订单记录数据
-        ArrayList list = new ArrayList();
-        list.add(orderHestoryGoods);
-        bundle.putParcelableArrayList("list", list);
-
+        //ArrayList list = new ArrayList();
+        //list.add(orderHestoryGoods);
+        //bundle.putParcelableArrayList("list", list);
+        
         intent.putExtras(bundle);
         intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);
 
@@ -875,6 +875,7 @@ public class MainViewActivity extends Activity {
     /**
      * 生成订单历史记录的测试数据
      */
+    /*
     private void getOrderHestoryTestData() {
         orderHestoryGoods = new ArrayList<GoodsDataBean>();
 
@@ -888,6 +889,7 @@ public class MainViewActivity extends Activity {
             }
         }
     }
+    */
     	
     /**	
      * 判断该list是否包含该菜品
