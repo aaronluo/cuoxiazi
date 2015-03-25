@@ -39,7 +39,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
      */
     @Override
     public List<Order> getOrdersByMemberId(final Long memberId) {
-        String hql = "from Order as order where order.member.id = ?";
+        String hql = "from Order as order where order.member.id = ? ORDER BY order.id desc";
         Object[] paras = { memberId };
         List<Order> orders = getPage(0, 999, hql, paras);
         return orders;
