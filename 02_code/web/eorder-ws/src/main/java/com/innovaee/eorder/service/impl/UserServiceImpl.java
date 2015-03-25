@@ -10,6 +10,7 @@ import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.support.MessageUtil;
 
 /**
  * @Title: UserServiceImpl
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
         if (null != user) {
             return user;
         } else {
-            throw new UserNotFoundException("Cellphone:" + cellphone);
+            throw new UserNotFoundException(MessageUtil.getMessage("cellphone_num", cellphone));
         }
     }
 
