@@ -1516,7 +1516,7 @@
                                                             </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                                           </propertyDescriptors>
                                                           <stereoType></stereoType>
-                                                          <name>com.innovaee.eorder.web.action.admin.user.UserOpAction</name>
+                                                          <name>com.innovaee.eorder.action.user.UserOpAction</name>
                                                           <isAbstract>false</isAbstract>
                                                         </type>
                                                         <lifeLine reference="../.."/>
@@ -1922,7 +1922,7 @@
                                                       </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                                     </propertyDescriptors>
                                                     <stereoType></stereoType>
-                                                    <name>com.innovaee.eorder.module.service.UserService</name>
+                                                    <name>com.innovaee.eorder.service.UserService</name>
                                                     <isAbstract>false</isAbstract>
                                                   </type>
                                                   <lifeLine reference="../.."/>
@@ -2237,7 +2237,7 @@
                                           </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                                         </propertyDescriptors>
                                         <stereoType></stereoType>
-                                        <name>com.innovaee.eorder.module.dao.UserDao</name>
+                                        <name>com.innovaee.eorder.dao.UserDao</name>
                                         <isAbstract>false</isAbstract>
                                       </type>
                                       <lifeLine reference="../.."/>

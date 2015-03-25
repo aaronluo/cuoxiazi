@@ -28,4 +28,15 @@ public class Constants {
     public final static Integer ORDER_SUBMITTED = 101;
     public final static Integer ORDER_PAID = 102;
     
+    /** 默认菜单分类 */
+    public static final String DEFAULT_CATEGORY = "默认";
+    
+    /** 默认菜单分类图片*/
+    public static final String DEFAULT_CATEGORY_PIC = "/default_catgory.png";
+    
+    /** 对用户等级进行升级操作 */
+    public static final int USER_LEVEL_UP = 1;
+    /** 对用户等级进行降级操作 */
+    public static final int USER_LEVEL_DOWN = 0;
+    
 }

@@ -7,6 +7,7 @@
 package com.innovaee.eorder.resource;
 
 import com.innovaee.eorder.entity.Dish;
+import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.vo.DishVO;
 
@@ -45,21 +46,27 @@ public class DishResource {
     @Path("/{dishId}")
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, DishVO> getDishById(@PathParam("dishId") Long dishId) {
+    public Map<String, Object> getDishById(@PathParam("dishId") Long dishId) {
         logger.info("[REST_CALL= getDishById, dishId=" + dishId + "]");
-        Dish dish = dishService.getDishById(dishId);
-        DishVO dishVO = new DishVO();
+        
+        Map<String, Object> result = new HashMap<String, Object>();
+        Dish dish = null;
+
+        try {
+            dish = dishService.getDishById(dishId);
+        } catch (DishNotFoundException exception) {
+            result.put("exception", exception.getMessage());
+        }
 
         if (null != dish) {
+            DishVO dishVO = new DishVO();
             dishVO.setId(dish.getId());
             dishVO.setName(dish.getName());
             dishVO.setPicPath(dish.getPicPath());
             dishVO.setPrice(dish.getPrice());
             dishVO.setOnSell(dish.isOnSell());
+            result.put("dish", dishVO);
         }
-
-        Map<String, DishVO> result = new HashMap<String, DishVO>();
-        result.put("dish", dishVO);
 
         return result;
     }

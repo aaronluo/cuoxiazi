@@ -10,9 +10,12 @@ import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.User;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
 
 /**
  * @Title: HibernateUserDao
@@ -30,21 +33,22 @@ public class HibernateUserDao extends HibernateBaseDao<User> implements UserDao 
      * @return 用户
      */
     public User getUserByCellphone(final String cellphone) {
-        return getHibernateTemplate().execute(new HibernateCallback<User>(){
-            
-            public User doInHibernate(Session session) {
+        return getHibernateTemplate().execute(new HibernateCallback<User>() {
+
+            public User doInHibernate(Session session)
+                    throws HibernateException, SQLException {
                 Criteria criteria = session.createCriteria(User.class);
-                
+
                 criteria.add(Restrictions.eq("cellphone", cellphone));
-                
-                if(criteria.list().iterator().hasNext()) {
-                    return (User)(criteria.list().iterator().next());
+
+                if (criteria.list().iterator().hasNext()) {
+                    return (User) (criteria.list().iterator().next());
                 } else {
                     return null;
                 }
             }
         });
-        
+
     }
 
 }

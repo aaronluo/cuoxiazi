@@ -7,13 +7,15 @@
 
 package com.innovaee.eorder.entity;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -44,9 +46,9 @@ public class User extends BaseEntity {
     /** 用户状态 */
     private boolean userStatus;
 
-    /** 用户等级ID */
-    private UserLevel userLevel;
-
+    /** 会员信息 */
+    private MemberShip memberShip;
+    
     /** 用户订单列表 */
     private Set<Order> orders;
 
@@ -130,16 +132,6 @@ public class User extends BaseEntity {
         this.userStatus = userStatus;
     }
 
-    @OneToOne(targetEntity = UserLevel.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_LEVEL_ID")
-    public UserLevel getUserLevel() {
-        return userLevel;
-    }
-
-    public void setUserLevel(UserLevel userLevel) {
-        this.userLevel = userLevel;
-    }
-
     @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER, mappedBy = "member")
     public Set<Order> getOrders() {
         return orders;
@@ -149,12 +141,18 @@ public class User extends BaseEntity {
         this.orders = orders;
     }
 
+    @OneToOne(targetEntity=MemberShip.class, fetch=FetchType.LAZY, mappedBy="user")  
+    public MemberShip getMemberShip() {
+        return memberShip;
+    }
+
+    public void setMemberShip(MemberShip memberShip) {
+        this.memberShip = memberShip;
+    }
+
     @Override
     public String toString() {
-        return "User [username=" + username + ", password=" + password
-                + ", cellphone=" + cellphone + ", userScore=" + userScore
-                + ", userStatus=" + userStatus + ", userLevel=" + userLevel
-                + ", orders=" + orders + "]";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
     }
 
 }

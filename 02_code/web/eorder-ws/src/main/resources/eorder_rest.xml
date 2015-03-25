@@ -8,10 +8,12 @@
 
     <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl">
         <property name="categoryDao" ref="categoryDao" />
+        <property name="dishDao" ref="dishDao" />
     </bean>
 
     <bean id="dishService" class="com.innovaee.eorder.service.impl.DishServiceImpl">
         <property name="dishDao" ref="dishDao" />
+        <property name="categoryDao" ref="categoryDao" />
     </bean>
 
     <bean id="orderService" class="com.innovaee.eorder.service.impl.OrderServiceImpl">
@@ -25,8 +27,10 @@
         <property name="userDao" ref="userDao" />
     </bean>
 
-    <bean id="userLevelService" class="com.innovaee.eorder.service.impl.UserLevelServiceImpl">
+    <bean id="memberShipService" class="com.innovaee.eorder.service.impl.MemberShipServiceImpl">
+        <property name="userDao" ref="userDao" />
         <property name="userLevelDao" ref="userLevelDao" />
+        <property name="memberShipDao" ref="memberShipDao" />
     </bean>
 
     <bean id="categoryResource" class="com.innovaee.eorder.resource.CategoryResource">

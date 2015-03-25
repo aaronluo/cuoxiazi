@@ -1051,7 +1051,7 @@
                     </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
                   </propertyDescriptors>
                   <stereoType></stereoType>
-                  <name>com.innovaee.eorder.web.action.admin.user.UserOpAction</name>
+                  <name>com.innovaee.eorder.action.user.UserOpAction</name>
                   <isAbstract>false</isAbstract>
                 </target>
                 <bendpoints/>
@@ -1450,7 +1450,7 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>com.innovaee.eorder.module.service.UserRoleService</name>
+            <name>com.innovaee.eorder.service.UserRoleService</name>
             <isAbstract>false</isAbstract>
           </target>
           <bendpoints/>
@@ -1877,7 +1877,7 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>com.innovaee.eorder.module.entity.UserRole</name>
+            <name>com.innovaee.eorder.entity.UserRole</name>
             <isAbstract>false</isAbstract>
           </target>
           <bendpoints/>
@@ -2154,7 +2154,7 @@
         </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
       </propertyDescriptors>
       <stereoType></stereoType>
-      <name>com.innovaee.eorder.module.dao.UserRoleDao</name>
+      <name>com.innovaee.eorder.dao.UserRoleDao</name>
       <isAbstract>false</isAbstract>
     </net.java.amateras.uml.classdiagram.model.ClassModel>
     <net.java.amateras.uml.classdiagram.model.ClassModel reference="../net.java.amateras.uml.classdiagram.model.ClassModel/sourceConnections/net.java.amateras.uml.classdiagram.model.DependencyModel/target"/>

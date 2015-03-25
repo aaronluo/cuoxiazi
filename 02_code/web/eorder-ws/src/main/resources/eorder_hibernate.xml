@@ -31,6 +31,7 @@
                 <value>com.innovaee.eorder.entity.OrderItem</value>
                 <value>com.innovaee.eorder.entity.User</value>
                 <value>com.innovaee.eorder.entity.UserLevel</value>
+                <value>com.innovaee.eorder.entity.MemberShip</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -79,4 +80,7 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="memberShipDao" class="com.innovaee.eorder.dao.hibernate.HibernateMemberShipDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>
