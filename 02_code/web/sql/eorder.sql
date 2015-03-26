@@ -299,6 +299,8 @@ CREATE TABLE `t_member_ship` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `t_member_ship` VALUES ('1', '1', '1','13912345671', 0, null, null);
+
 -- add index
 ALTER TABLE `t_function` ADD INDEX index_function_name ( `function_name` );
 ALTER TABLE `t_role` ADD INDEX index_role_name ( `role_name` );
