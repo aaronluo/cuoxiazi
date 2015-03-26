@@ -341,12 +341,18 @@ public class MainViewActivity extends Activity {
                 	GoodsDataBean addGoodsData = addToOrderGoods.get(0);
                 	addGoodsData.setCount(1);
                 		
-                	GoodsDataBean addGoodsDataTemp = ifContainsIt(addGoodsData);
-                					
-                	if(addGoodsDataTemp != null) {			
+                	boolean isInclude = ifContainsIt(addGoodsData);
+                								
+                	if(isInclude) {									
                 		Log.d(TAG, "isInclude == true");
-                		//int num = goodsListData.indexOf(addGoodsData);
-                		addGoodsToSelect(addGoodsDataTemp);		
+                		for(GoodsDataBean data: goodsListData) {
+                    		if(data.getId() == addGoodsData.getId()) {
+                    			int count = data.getCount();
+                    			data.setCount(count + 1);
+                    			break;
+                    		}				
+                    	}	
+                								
                         int count = getMyOrderSelectCount();
                         updateMyOrderCount(count);			
                 	} else {															
@@ -896,15 +902,15 @@ public class MainViewActivity extends Activity {
      * 因为count可能不相等，所以用该函数判断是否包含
      * @return 返回是否包含该菜品
      */	
-    private GoodsDataBean ifContainsIt(GoodsDataBean databean) {
-    	
+    private boolean ifContainsIt(GoodsDataBean databean) {
+    		
     	for(GoodsDataBean data: goodsListData) {
-    		if(data.getId() == databean.getId() && data.getName().equals(databean.getName()) && data.getBitmapUrl().equals(databean.getBitmapUrl())) {
-    			return data;
-    		}
-    	}	
-    									
-    	return null;    	
+    		if(data.getId() == databean.getId()) {
+    			return true;
+    		}		
+    	}					
+    		
+    	return false;    	
     }
 
 }
