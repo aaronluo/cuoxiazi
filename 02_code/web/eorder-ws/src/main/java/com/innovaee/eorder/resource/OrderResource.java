@@ -58,29 +58,34 @@ public class OrderResource {
     @Path("/{orderId}")
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, List<OrderItemVO>> getOrderItemsByOrderId(
+    public Map<String, Object> getOrderItemsByOrderId(
             @PathParam("orderId") Long orderId) {
         logger.info("[REST_CALL= getOrderItemsByOrderId, orderId=" + orderId
                 + "]");
 
+        Map<String, Object> result = new HashMap<String, Object>();
         List<OrderItemVO> orderItemVOs = new ArrayList<OrderItemVO>();
         Order order = orderService.getOrderById(orderId);
-        List<OrderItem> orderItems = new ArrayList<OrderItem>(
-                order.getOrderItems());
-        OrderItemVO orderItemVO = null;
-        for (OrderItem orderItem : orderItems) {
-            orderItemVO = new OrderItemVO();
-            orderItemVO.setId(orderItem.getId());
-            orderItemVO.setDishId(orderItem.getDish().getId());
-            orderItemVO.setDishName(orderItem.getDish().getName());
-            orderItemVO.setDishPrice(orderItem.getDish().getPrice());
-            orderItemVO.setDishPicture(orderItem.getDish().getPicPath());
-            orderItemVO.setDishAmount(orderItem.getDishAmount());
-            orderItemVOs.add(orderItemVO);
-        }
 
-        Map<String, List<OrderItemVO>> result = new HashMap<String, List<OrderItemVO>>();
-        result.put("orders", orderItemVOs);
+        if (null == order) {
+            result.put("exception", MessageUtil.getMessage("order_not_found_exception", ""+orderId));
+        } else {
+            List<OrderItem> orderItems = new ArrayList<OrderItem>(
+                    order.getOrderItems());
+            OrderItemVO orderItemVO = null;
+            for (OrderItem orderItem : orderItems) {
+                orderItemVO = new OrderItemVO();
+                orderItemVO.setId(orderItem.getId());
+                orderItemVO.setDishId(orderItem.getDish().getId());
+                orderItemVO.setDishName(orderItem.getDish().getName());
+                orderItemVO.setDishPrice(orderItem.getDish().getPrice());
+                orderItemVO.setDishPicture(orderItem.getDish().getPicPath());
+                orderItemVO.setDishAmount(orderItem.getDishAmount());
+                orderItemVOs.add(orderItemVO);
+            }
+
+            result.put("orders", orderItemVOs);
+        }
 
         return result;
     }
@@ -94,13 +99,15 @@ public class OrderResource {
         logger.info("[REST_CALL= placeOrder]");
 
         CallResult callResult = new CallResult();
-        
+
         try {
             Long orderId = orderService.placeOrder(newOrderVO);
             Order order = orderService.getOrderById(orderId);
             callResult.setResult(Constants.SUCCESS);
-            callResult.setMessage(MessageUtil.getMessage("place_order_success", order.getOrderSeq()));
-        } catch (UserNotFoundException | ZeroOrderItemException | DishNotFoundException exception) {
+            callResult.setMessage(MessageUtil.getMessage("place_order_success",
+                    order.getOrderSeq()));
+        } catch (UserNotFoundException | ZeroOrderItemException
+                | DishNotFoundException exception) {
             callResult.setResult(Constants.FALSE);
             callResult.setMessage(exception.getMessage());
         }
