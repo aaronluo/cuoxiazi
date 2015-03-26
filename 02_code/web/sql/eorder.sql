@@ -143,14 +143,14 @@ CREATE TABLE `t_order` (
   `order_seq` varchar(128) NOT NULL,
   `table_number` int(8) NOT NULL,
   `attendee_number` int(8) NOT NULL,
-  `total_price` float(64,2) NOT NULL,
+  `total_price` float(64,2) DEFAULT NULL,
   `order_status` bigint(20) NOT NULL,
   `servent_id` bigint(20) NOT NULL,
-  `member_id` bigint(20) NOT NULL,
-  `casher_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `casher_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  `discount_price` float(64,2) NOT NULL,
+  `discount_price` float(64,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
