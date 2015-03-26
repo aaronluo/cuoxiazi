@@ -98,6 +98,7 @@ public class OrderResource {
     public CallResult placeOrder(NewOrderVO newOrderVO) {
         logger.info("[REST_CALL= placeOrder]");
 
+        logger.debug(newOrderVO);
         CallResult callResult = new CallResult();
 
         try {
