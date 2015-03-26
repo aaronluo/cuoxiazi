@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
             User member = userDao.get(newOrder.getMemberId());
             if (null != member) {
                 order.setMember(member);
-                discount = member.getMemberShip().getLevel().getDiscount().floatValue() / 10;
+                discount = member.getMemberShip() == null ? 1.0f : member.getMemberShip().getLevel().getDiscount() / 10f;
             }
         }
 
@@ -156,9 +156,10 @@ public class OrderServiceImpl implements OrderService {
         // 3. 创建订单详情
         Float totalPrice = 0.0f;
         if (null != newOrder.getItems() && newOrder.getItems().size() > 0) {
-            OrderItem orderItem = new OrderItem();
+           
 
             for (NewOrderItemVO item : newOrder.getItems()) {
+                OrderItem orderItem = new OrderItem();
                 Dish dish = dishDao.get(item.getDishId());
 
                 if (null != dish) {
