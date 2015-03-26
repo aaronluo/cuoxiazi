@@ -330,12 +330,12 @@ public class OrderActivity extends Activity {
                     return;
                 }
 
-                if (userId.equals("")) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.order_toast_please_input_userid,
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                //if (userId.equals("")) {
+                //    Toast.makeText(getApplicationContext(),
+                //            R.string.order_toast_please_input_userid,
+                //            Toast.LENGTH_SHORT).show();
+                //    return;
+                //}
 
                 orderToService();
             }	

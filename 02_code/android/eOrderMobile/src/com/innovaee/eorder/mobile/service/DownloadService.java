@@ -229,14 +229,17 @@ public class DownloadService implements GoodService, CategoryService {
                     }													
                 } else {		
                     // 异常信息
+                	Log.d("getUserDiscountData", "entityIsNull");
                     callback.onFailed("entityIsNull");
                 }	
             } else {
-                // 异常信息	
+                // 异常信息
+            	Log.d("getUserDiscountData", "getStatusCodeError");
                 callback.onFailed("getStatusCodeError");
             }	
         } catch (Exception error) {
             // 异常信息	
+        	Log.d("getUserDiscountData", "ExceptionError");
             callback.onFailed("ExceptionError");
         }
     }
