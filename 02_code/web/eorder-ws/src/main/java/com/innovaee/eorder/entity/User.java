@@ -18,6 +18,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -133,6 +134,7 @@ public class User extends BaseEntity {
     }
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.EAGER, mappedBy = "member")
+    @OrderBy("id desc")
     public Set<Order> getOrders() {
         return orders;
     }
