@@ -75,6 +75,25 @@ public class GoodsDataBean implements Serializable {
     }
 
     /**
+     * 构造函数
+     * @param id 商品id
+     * @param name 商品名
+     * @param price 商品价格
+     * @param url 商品图片url地址
+     * @param count 商品数量
+     */	
+    public GoodsDataBean(int id, String name, Double price, String url, int count) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.bitmapUrl = url;
+        this.count = count;
+        
+        // count默认为1
+        this.count = 1;
+    }
+    
+    /**
      * 获取商品id
      * @return 商品id
      */

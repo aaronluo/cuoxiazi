@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +32,7 @@ import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
+import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
 
 /**
  * 订单历史查询界面
@@ -51,7 +53,7 @@ public class OrderHestoryActivity extends Activity {
     // 显示失败提示消息
     public static final int MSG_UPDATE_FAIL = 10003;
 
-    // 已经选择菜品list
+    // 历史订单记录list
     private List<OrderHestoryDataBean> orderHestoryDataList;
 
     // 列表显示listview
@@ -59,10 +61,10 @@ public class OrderHestoryActivity extends Activity {
 
     // 我的订单数据绑定器
     private OrderHestoryAdapter orderHestoryAdapter;
-
-    // 历史记录查询订单菜品，仅供测试
+    
+    // 历史记录查询订单菜品
     private List<GoodsDataBean> orderHestoryGoods;
-
+    	
     // ActionBar
     private ActionBar actionBar;
 
@@ -85,12 +87,23 @@ public class OrderHestoryActivity extends Activity {
                 break;
 
             // 显示失败消息
-            case MSG_UPDATE_FAIL:
-                Toast.makeText(OrderHestoryActivity.this,
+            case MSG_UPDATE_FAIL:	
+            	Log.d(TAG, "001");
+            	String message = (String) msg.obj;
+            	if(message.equals("orderIsNull")) {
+            		Log.d(TAG, "002");
+            		Toast.makeText(OrderHestoryActivity.this,
+                            R.string.order_toast_no_order_list_fail, Toast.LENGTH_SHORT)
+                            .show();
+            	} else {           	
+            		Log.d(TAG, "003");
+            		Toast.makeText(OrderHestoryActivity.this,
                         R.string.order_toast_no_userid_fail, Toast.LENGTH_SHORT)
                         .show();
-                finish();
-                break;
+            	}			
+            	Log.d(TAG, "004");
+                finish();		
+                break;	
 
             default:
                 break;
@@ -110,9 +123,9 @@ public class OrderHestoryActivity extends Activity {
         Bundle bundle = intent.getExtras();
         userId = bundle.getString("userid");
 
-        ArrayList list = bundle.getParcelableArrayList("list");
-        orderHestoryGoods = (List<GoodsDataBean>) list.get(0);
-
+        //ArrayList list = bundle.getParcelableArrayList("list");
+        //orderHestoryGoods = (List<GoodsDataBean>) list.get(0);
+        	
         initView();
 
         initData();
@@ -152,8 +165,9 @@ public class OrderHestoryActivity extends Activity {
         listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				openMyOrder();				
+					long arg3) {	
+				String orderId = String.valueOf(orderHestoryDataList.get(arg2).getId());
+				loadOrderInfoListData(orderId);		
 			}
         });
 
@@ -181,13 +195,14 @@ public class OrderHestoryActivity extends Activity {
 
     /**
      * 提醒失败
-     */
-    private void updateFailUi() {
+     */				
+    private void updateFailUi(String message) {
         Message msg = Message.obtain();
         msg.what = MSG_UPDATE_FAIL;
+        msg.obj = (Object) message;
         handler.sendMessage(msg);
-    }
-
+    }			
+    
     /**
      * 进入我的订单
      */
@@ -206,7 +221,7 @@ public class OrderHestoryActivity extends Activity {
         intent.setClass(OrderHestoryActivity.this, OrderHestoryDetailActivity.class);
         startActivity(intent);	
     }
-
+    
     /**
      * 获取会员的历史订单
      * 
@@ -229,11 +244,11 @@ public class OrderHestoryActivity extends Activity {
                                         if (data == null) {
                                             return;
                                         }
-
+                                        		
                                         orderHestoryDataList = data;
                                         updateUi();
                                     }
-
+                                    		
                                     // 获取数据开始回调函数
                                     @Override
                                     public void onRequestStart() {
@@ -242,9 +257,9 @@ public class OrderHestoryActivity extends Activity {
                                     // 获取数据失败回调函数
                                     @Override
                                     public void onRequestFailed(String error) {
-                                        updateFailUi();
-                                    }
-
+                                        updateFailUi(error);
+                                    }	
+                                    			
                                     // 获取数据成功回调函数，返回单个数据
                                     @Override
                                     public void onRequestSuccess(
@@ -256,4 +271,53 @@ public class OrderHestoryActivity extends Activity {
         }.start();
     }
 
+    /**
+     * 获取某个历史订单菜品信息
+     * 
+     * @param userId
+     */				
+    private void loadOrderInfoListData(final String orderId) {
+        // DataManager必须放在子线程中调用
+        new Thread() {	
+            @Override	
+            public void run() {
+                DataManager
+                        .getInstance(OrderHestoryActivity.this)
+                        .getOrderInfoData(
+                        		orderId,	
+                                new IDataRequestListener<GoodsDataBean>() {
+                                    // 获取成功回调函数，返回多个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                            final List<GoodsDataBean> data) {
+                                        if (data == null) {
+                                            return;
+                                        }	
+                                        		
+                                        orderHestoryGoods = data;                                        
+                                        openMyOrder();
+                                    }
+
+                                    // 获取数据开始回调函数
+                                    @Override
+                                    public void onRequestStart() {
+                                    }
+
+                                    // 获取数据失败回调函数
+                                    @Override
+                                    public void onRequestFailed(String error) {
+                                        updateFailUi(error);
+                                    }	
+                                    			
+                                    // 获取数据成功回调函数，返回单个数据
+                                    @Override
+                                    public void onRequestSuccess(
+                                    		GoodsDataBean data) {
+                                    }
+                                });
+                handler.sendEmptyMessage(0);
+            }
+        }.start();
+    }
+    
 }

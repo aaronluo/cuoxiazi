@@ -192,6 +192,8 @@ public class DownloadService implements GoodService, CategoryService {
         // 创建请求HttpClient客户端
         HttpClient httpClient = new DefaultHttpClient();
 
+        Log.d("getUserDiscountData", "leonwang:");
+        		
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVER_GET_USERINFO + userId;
 
@@ -396,9 +398,16 @@ public class DownloadService implements GoodService, CategoryService {
                 if (entity != null) {
                     // 获取服务器响应的json字符串
                     String json = EntityUtils.toString(entity, "UTF-8");
-
+                    Log.d("getOrderHestory", "json =" + json);
+                    
                     List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
-                    callback.onSuccess(beans);
+                    	
+                    //判断是否有订单数据，没有数据返回失败
+                    if(beans.size() > 0) {
+                    	callback.onSuccess(beans);
+                    } else {
+                    	callback.onFailed("orderIsNull");
+                    }		
                 } else {
                     // 异常信息
                     callback.onFailed("entityIsNull");
@@ -443,14 +452,17 @@ public class DownloadService implements GoodService, CategoryService {
      * 
      * @param callback
      *            回调监听器
-     */
-    public <T> void getOrderInfo(ICallback<T> callback) {
+     */								
+    public <T> void getOrderInfo(String id, ICallback<T> callback) {
         // 创建请求HttpClient客户端
         HttpClient httpClient = new DefaultHttpClient();
 
         // 创建请求的url
-        String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERINFO;
-
+        String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERINFO + id;
+        		
+        Log.d("getOrderInfo", "id=" + id);
+        Log.d("getOrderInfo", "url=" + url);	
+        
         try {
             // 创建请求的对象
             HttpGet get = new HttpGet(new URI(url));
@@ -497,20 +509,23 @@ public class DownloadService implements GoodService, CategoryService {
      * @param json
      *            订单详情json数据
      * @return 订单详情数据Bean列表list
-     */
-    private List<OrderInfoDataBean> parseOrderInfoDataJson(String json) {
-        List<OrderInfoDataBean> OrderInfoList = new ArrayList<OrderInfoDataBean>();
+     */	
+    private List<GoodsDataBean> parseOrderInfoDataJson(String json) {
+    	Log.d("parseOrderInfoDataJson", "json=" + json);	
+        List<GoodsDataBean> OrderInfoList = new ArrayList<GoodsDataBean>();
         try {
-            JSONArray array = new JSONObject(json).getJSONArray("orderitems");
+            JSONArray array = new JSONObject(json).getJSONArray("orders");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
-                OrderInfoDataBean orderInfo = new OrderInfoDataBean(
-                        obj.getInt("dishId"), obj.getString("dishName"),
-                        obj.getDouble("dishPrice"), obj.getInt("dishAmount"),
-                        getBitmapUrl(obj.getString("dishPicture")));
-                OrderInfoList.add(orderInfo);
-            }
+                GoodsDataBean orderInfo = new GoodsDataBean(
+                        obj.getInt("dishId"), 
+                        obj.getString("dishName"),
+                        obj.getDouble("dishPrice"), 
+                        getBitmapUrl(obj.getString("dishPicture")), 
+                        obj.getInt("dishAmount"));
+                OrderInfoList.add(orderInfo);		
+            }							
         } catch (JSONException error) {
         	Log.e("DownloadService", error.toString());
         }

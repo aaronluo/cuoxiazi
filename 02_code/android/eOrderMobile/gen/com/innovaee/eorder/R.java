@@ -250,11 +250,11 @@ public final class R {
         public static final int realm_properties=0x7f040001;
     }
     public static final class string {
-        public static final int about_activity_text_copyright=0x7f080052;
+        public static final int about_activity_text_copyright=0x7f080053;
         /**  About 
          */
-        public static final int about_activity_text_label=0x7f080050;
-        public static final int about_activity_text_version=0x7f080051;
+        public static final int about_activity_text_label=0x7f080051;
+        public static final int about_activity_text_version=0x7f080052;
         public static final int action_about=0x7f080004;
         public static final int action_chat=0x7f08000f;
         public static final int action_fresh=0x7f080003;
@@ -317,6 +317,7 @@ public final class R {
         public static final int order_text_title_table_people_count=0x7f080031;
         public static final int order_text_title_tableid=0x7f080030;
         public static final int order_text_title_userid=0x7f080032;
+        public static final int order_toast_no_order_list_fail=0x7f080048;
         public static final int order_toast_no_userid_fail=0x7f080047;
         public static final int order_toast_order_successful=0x7f08003e;
         public static final int order_toast_please_input_employeeId=0x7f08003d;
@@ -332,16 +333,16 @@ public final class R {
         public static final int orderhestory_item_text_totalprice=0x7f080046;
         /**  OrderHestoryDetail 
          */
-        public static final int orderhestorydetail_activity_text_label=0x7f080048;
-        public static final int orderhestorydetail_item_text_count=0x7f08004a;
-        public static final int orderhestorydetail_item_text_name=0x7f080049;
-        public static final int orderhestorydetail_toast_to_order=0x7f08004b;
-        public static final int setting_activity_text_input=0x7f08004e;
+        public static final int orderhestorydetail_activity_text_label=0x7f080049;
+        public static final int orderhestorydetail_item_text_count=0x7f08004b;
+        public static final int orderhestorydetail_item_text_name=0x7f08004a;
+        public static final int orderhestorydetail_toast_to_order=0x7f08004c;
+        public static final int setting_activity_text_input=0x7f08004f;
         /**  Setting 
          */
-        public static final int setting_activity_text_label=0x7f08004c;
-        public static final int setting_activity_text_service=0x7f08004d;
-        public static final int setting_activity_text_successful=0x7f08004f;
+        public static final int setting_activity_text_label=0x7f08004d;
+        public static final int setting_activity_text_service=0x7f08004e;
+        public static final int setting_activity_text_successful=0x7f080050;
         /**  Tab 
          */
         public static final int tab_name_goodsshop=0x7f080006;
