@@ -11,6 +11,7 @@ import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.vo.OrderVO;
 import com.innovaee.eorder.vo.UserVO;
 
@@ -75,6 +76,9 @@ public class UserResource {
                 userVO.setLevelName(memberShip.getLevel().getLevelName());
                 // 设置用户折扣信息
                 userVO.setDiscount(memberShip.getLevel().getDiscount());
+            } else {
+                userVO.setLevelName(Constants.DEFAULT_USR_LEVEL);
+                userVO.setDiscount(10f);
             }
 
             result.put("user", userVO);
