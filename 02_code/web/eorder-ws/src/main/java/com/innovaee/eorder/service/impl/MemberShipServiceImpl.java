@@ -21,6 +21,7 @@ import com.innovaee.eorder.exception.UpdateUserLevelException;
 import com.innovaee.eorder.exception.UserLevelNotFoundException;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.MemberShipServcie;
+import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.support.MessageUtil;
 import com.innovaee.eorder.vo.UserLevelVO;
 
@@ -52,7 +53,15 @@ public class MemberShipServiceImpl implements MemberShipServcie {
      */
     @Override
     public List<UserLevel> getAllUserLevels() {
-        return userLevelDao.loadAll();
+        List<UserLevel> levels = userLevelDao.loadAll();
+        
+        for(UserLevel level : levels) {
+            if(level.getLevelName().equals(Constants.DEFAULT_USR_LEVEL)) {
+                levels.remove(level);
+            }
+        }
+        
+        return levels;
     }
     /**
      * 添加新会员等级
@@ -339,6 +348,25 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         return memberShip;
     }
 
+    
+    /**
+     * 获取指定会员等级的用户分页数据
+     * @param userLevelId
+     * @param curPage
+     * @param pageSize
+     * @return
+     * @throws UserLevelNotFoundException
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     */
+    @Override
+    public List<User> getUsersbyUserLevel(Long userLevelId, int curPage,
+            int pageSize) throws UserLevelNotFoundException,
+            InvalidPageSizeException, PageIndexOutOfBoundExcpeiton {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
     public UserLevelDao getUserLevelDao() {
         return userLevelDao;
     }
