@@ -136,8 +136,8 @@ public class OrderServiceImpl implements OrderService {
         User servent = userDao.get(newOrder.getServentId());
 
         if (null == servent) {
-            throw new UserNotFoundException("employeeId: "
-                    + newOrder.getServentId());
+            throw new UserNotFoundException(
+                    MessageUtil.getMessage("employee_id", ""+newOrder.getServentId()));
         } else {
             order.setServent(servent);
         }
