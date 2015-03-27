@@ -72,7 +72,10 @@ public class OrderActivity extends Activity {
     public static final int MSG_ORDER_SUCCESS = 10005;
     
     // 下单失败消息
-    public static final int MSG_ORDER_FAIL = 10006;    
+    public static final int MSG_ORDER_FAIL = 10006;  
+    
+    // 获取员工号失败消息	
+    public static final int MSG_EMPLOY_FAIL = 10007;
     	
     // 已经选择菜品list
     private List<GoodsDataBean> selectOrderGoods;
@@ -188,6 +191,14 @@ public class OrderActivity extends Activity {
             	String message = (String) msg.obj;
             	Toast.makeText(OrderActivity.this, message, Toast.LENGTH_SHORT).show();
             	break;			
+            		
+            // 获取员工号失败消息
+            case MSG_EMPLOY_FAIL:
+            	String message1 = (String) msg.obj;	
+                saveEmployeeId = "";			
+                inputEmployeeId.setText("");			
+            	Toast.makeText(OrderActivity.this, message1, Toast.LENGTH_SHORT).show();
+            	break;							
             	
             default:
                 break;
@@ -256,12 +267,12 @@ public class OrderActivity extends Activity {
     private void initData() {
         // 默认折扣为10
         discount = 10.0;
-        	
+        							
         // 默认员工号为1
-        saveEmployeeId = "1";
-        inputEmployeeId.setText("1");
-        						
-        // 默认会员号为0
+        saveEmployeeId = "";					
+        inputEmployeeId.setText("");				
+        									
+        // 默认会员号为0	
         saveUserId = "0";	
         		
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -280,12 +291,14 @@ public class OrderActivity extends Activity {
         setListViewHeightBasedOnChildren(listView);
 
         qrcodeBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View paramAnonymousView) {
+            public void onClick(View paramAnonymousView) { 
                 Intent openCameraIntent = new Intent(OrderActivity.this,
                         CaptureActivity.class);
                 startActivityForResult(openCameraIntent, 0);
-            }
-        });
+                							
+                //getEmployeeData("13912345671");	
+            }									
+        });	
 
         discountBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View paramAnonymousView) {
@@ -307,8 +320,8 @@ public class OrderActivity extends Activity {
                 String tableId = inputTableId.getText().toString();
                 String peopleCount = inputPeopleCount.getText().toString();
                 String employeeId = inputEmployeeId.getText().toString();
-                String userId = inputUserId.getText().toString();
-                
+                //String userId = inputUserId.getText().toString();
+                														
                 if (tableId.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             R.string.order_toast_please_input_tableId,
@@ -477,7 +490,17 @@ public class OrderActivity extends Activity {
         msg.what = MSG_ORDER_FAIL;
         msg.obj = message;
         handler.sendMessage(msg);
-    }			
+    }	
+    	
+    /**
+     * 获取员工号失败更新ui
+     */
+    private void orderEmployFail(String message) {
+        Message msg = Message.obtain();
+        msg.what = MSG_EMPLOY_FAIL;
+        msg.obj = message;
+        handler.sendMessage(msg);
+    }
 
     /**
      * 获取某个会员号的信息
@@ -567,7 +590,7 @@ public class OrderActivity extends Activity {
                                                 .get(0);
                                         saveEmployeeId = String.valueOf(userInfoDataBean.getId());                                       
                                     }	
-                                    				
+                                    		
                                     // 获取开始回调函数
                                     @Override
                                     public void onRequestStart() {
@@ -578,7 +601,7 @@ public class OrderActivity extends Activity {
                                     @Override
                                     public void onRequestFailed(String error) {
                                     	Log.d(TAG, "onRequestFailed");
-                                    	orderFail(error); 	
+                                    	orderEmployFail(error); 	
                                     }	
 
                                     // 获取成功回调函数，返回单个数据
@@ -645,10 +668,9 @@ public class OrderActivity extends Activity {
      * 
      * @param selectOrderGoods
      *            下订单数据
-     */	
+     */		
     private void orderToService() {
     	Log.d(TAG, "orderToService");
-    	saveEmployeeId = inputEmployeeId.getText().toString();
     	tableInfo = new TableInfoDataBean(); 		
     	tableInfo.setAttendeeNumber(Integer.valueOf(inputPeopleCount.getText().toString()));	
     	tableInfo.setCellphone(saveUserId);				

@@ -262,21 +262,28 @@ public class DownloadService implements GoodService, CategoryService {
                     obj.getString("cellphone"), 
                     obj.getString("levelName"),
                     (Double) obj.getDouble("discount"));
-            result.setMessage("ok");		
-			result.setResult(true);	
-            return userInfo;	
+            	result.setMessage("ok");		
+            	result.setResult(true);
+            	return userInfo;
         } catch (JSONException error) {		
-        	Log.e("DownloadService", error.toString());
+        	Log.e("parseUserDiscountDataJson 1", error.toString());
         	try {									
 				JSONObject obj = new JSONObject(json);
 				String err = obj.getString("exception");
+				if(err.equals("")) {
+					err = "error";
+				}
+									
 				result.setMessage(err);		
 				result.setResult(false);			
-				Log.d("DownloadService", "exception =" + err);
+				Log.d("parseUserDiscountDataJson 2", "exception =" + err);
 			} catch (JSONException e) {			
 				// TODO Auto-generated catch block
+				Log.d("parseUserDiscountDataJson 3", "exception");
 				e.printStackTrace();
-			}							
+				result.setMessage("error");		
+				result.setResult(false);
+			}											
         	return null;
         }			
     }
@@ -403,14 +410,24 @@ public class DownloadService implements GoodService, CategoryService {
                     String json = EntityUtils.toString(entity, "UTF-8");
                     Log.d("getOrderHestory", "json =" + json);
                     
-                    List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
+                    //List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
                     	
+                    ReturnResultDataBean returnData = new ReturnResultDataBean();	
+                    List<T> beans = (List<T>) parseOrderHestoryDataJson(json, returnData);			
+                    		
                     //判断是否有订单数据，没有数据返回失败
-                    if(beans.size() > 0) {
-                    	callback.onSuccess(beans);
-                    } else {
-                    	callback.onFailed("orderIsNull");
-                    }		
+                    if(returnData.getResult()) {
+                    	if(beans.size() > 0) {
+                    		callback.onSuccess(beans);
+                    		Log.d("getOrderHestory", "callback.onSuccess(beans)");
+                    	} else {
+                    		callback.onFailed("orderIsNull");
+                    		Log.d("getOrderHestory", "callback.onFailed(orderIsNull);");
+                    	}			
+                    } else {			
+                    	callback.onFailed(returnData.getMessage());
+                    	Log.d("getOrderHestory", "callback.onFailed(returnData.getMessage());");
+                    }			
                 } else {
                     // 异常信息
                     callback.onFailed("entityIsNull");
@@ -432,9 +449,10 @@ public class DownloadService implements GoodService, CategoryService {
      *            订单历史json数据
      * @return 订单数据Bean列表list
      */
-    private List<OrderHestoryDataBean> parseOrderHestoryDataJson(String json) {
+    private List<OrderHestoryDataBean> parseOrderHestoryDataJson(String json, ReturnResultDataBean result) {
         List<OrderHestoryDataBean> categoryList = new ArrayList<OrderHestoryDataBean>();
-        try {
+        
+        try {	
             JSONArray array = new JSONObject(json).getJSONArray("orders");
 
             for (int i = 0; i < array.length(); i++) {
@@ -442,11 +460,27 @@ public class DownloadService implements GoodService, CategoryService {
                 OrderHestoryDataBean category = new OrderHestoryDataBean(
                         obj.getInt("id"), obj.getString("createAt"),
                         obj.getDouble("totalPrice"));
-                categoryList.add(category);
+                categoryList.add(category);              
             }
+            
+            Log.e("parseOrderHestoryDataJson", "result.setMessage(ok);");
+            result.setMessage("ok");				
+			result.setResult(true);	
         } catch (JSONException error) {
-        	Log.e("DownloadService", error.toString());
-        }
+        	Log.e("parseOrderHestoryDataJson", error.toString());
+        	try {									
+				JSONObject obj = new JSONObject(json);
+				String err = obj.getString("exception");
+				result.setMessage(err);		
+				result.setResult(false);			
+				Log.d("parseUserDiscountDataJson", "exception =" + err);
+			} catch (JSONException e) {			
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result.setMessage("error");		
+				result.setResult(false);
+			}				
+        }	
         return categoryList;
     }
 
@@ -530,7 +564,7 @@ public class DownloadService implements GoodService, CategoryService {
                 OrderInfoList.add(orderInfo);		
             }							
         } catch (JSONException error) {
-        	Log.e("DownloadService", error.toString());
+        	Log.e("parseOrderInfoDataJson", error.toString());
         }
         return OrderInfoList;
     }
@@ -664,7 +698,7 @@ public class DownloadService implements GoodService, CategoryService {
         	dataBean.setResult(result);
         	dataBean.setMessage(message);
         } catch (JSONException error) {
-        	Log.e("DownloadService", error.toString());
+        	Log.e("parseOrderDataJson", error.toString());
         }	
         OrderResult.add(dataBean);	
         			
