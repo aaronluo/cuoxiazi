@@ -8,6 +8,7 @@
 package com.innovaee.eorder.service;
 
 import com.innovaee.eorder.entity.MemberShip;
+import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
@@ -164,4 +165,17 @@ public interface MemberShipServcie {
      */
     public MemberShip updateUserLevelOfUser(Long userId, int downOrUp)
             throws UserNotFoundException, UpdateUserLevelException;
+    
+    /**
+     * 获取指定会员等级的用户分页数据
+     * @param userLevelId
+     * @param curPage
+     * @param pageSize
+     * @return
+     * @throws UserLevelNotFoundException
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     */
+    public List<User> getUsersbyUserLevel(Long userLevelId, int curPage, int pageSize)
+            throws UserLevelNotFoundException, InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
 }
