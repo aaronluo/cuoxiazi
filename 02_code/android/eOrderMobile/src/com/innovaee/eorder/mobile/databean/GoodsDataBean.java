@@ -88,11 +88,8 @@ public class GoodsDataBean implements Serializable {
         this.price = price;
         this.bitmapUrl = url;
         this.count = count;
-        
-        // count默认为1
-        this.count = 1;
-    }
-    
+    }						
+    	
     /**
      * 获取商品id
      * @return 商品id
