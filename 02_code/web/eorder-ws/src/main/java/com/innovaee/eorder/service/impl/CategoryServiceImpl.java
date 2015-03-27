@@ -47,7 +47,15 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<Category> getAllCategories() {
-        return categoryDao.loadAll();
+        List<Category> categories = categoryDao.loadAll();
+        
+        for(Category category : categories) {
+            if (category.getName().equals(Constants.DEFAULT_CATEGORY)) {
+                categories.remove(category);
+            }
+        }
+        
+        return categories;
     }
 
     /**
