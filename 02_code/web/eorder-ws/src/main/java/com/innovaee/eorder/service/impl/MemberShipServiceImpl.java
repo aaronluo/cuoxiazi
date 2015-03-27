@@ -58,6 +58,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         for(UserLevel level : levels) {
             if(level.getLevelName().equals(Constants.DEFAULT_USR_LEVEL)) {
                 levels.remove(level);
+                break;
             }
         }
         
@@ -347,23 +348,33 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         
         return memberShip;
     }
-
-    
     /**
      * 获取指定会员等级的用户分页数据
-     * @param userLevelId
-     * @param curPage
-     * @param pageSize
-     * @return
-     * @throws UserLevelNotFoundException
-     * @throws InvalidPageSizeException
-     * @throws PageIndexOutOfBoundExcpeiton
+     * @param userLevelId 会员等级ID
+     * @param curPage 当前页数
+     * @param pageSize 分页大小
+     * @return 属于指定会员等级的用户分页集合
+     * @throws UserLevelNotFoundException 会员等级不存在异常
+     * @throws InvalidPageSizeException 非法的分页大小异常
+     * @throws PageIndexOutOfBoundExcpeiton 当前页越界异常
      */
     @Override
     public List<User> getUsersbyUserLevel(Long userLevelId, int curPage,
             int pageSize) throws UserLevelNotFoundException,
             InvalidPageSizeException, PageIndexOutOfBoundExcpeiton {
-        // TODO Auto-generated method stub
+       
+        if (pageSize <= 0) {
+            throw new InvalidPageSizeException(pageSize);
+        }
+
+        if (null == userLevelDao.get(userLevelId)) {
+            throw new UserLevelNotFoundException(MessageUtil.getMessage("user_level_id", ""+userLevelId));
+        }
+        
+//       List<User> users =  userLevelDao.getUsers(userLevelId, curPage, pageSize);
+        
+        
+//        return users;
         return null;
     }
     

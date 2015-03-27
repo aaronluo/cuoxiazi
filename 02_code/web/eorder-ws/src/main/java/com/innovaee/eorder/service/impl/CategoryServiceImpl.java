@@ -52,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
         for(Category category : categories) {
             if (category.getName().equals(Constants.DEFAULT_CATEGORY)) {
                 categories.remove(category);
+                break;
             }
         }
         
