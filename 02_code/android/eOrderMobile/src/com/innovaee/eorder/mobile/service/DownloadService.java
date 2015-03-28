@@ -33,7 +33,6 @@ import android.util.Log;
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
-import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
 import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
 import com.innovaee.eorder.mobile.databean.ReturnResultDataBean;
 import com.innovaee.eorder.mobile.databean.TableInfoDataBean;

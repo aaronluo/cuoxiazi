@@ -43,7 +43,7 @@ import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
 import com.innovaee.eorder.mobile.databean.TableInfoDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
 import com.innovaee.eorder.mobile.zxing.activity.CaptureActivity;
-
+		
 /**
  * 下订单界面
  * 

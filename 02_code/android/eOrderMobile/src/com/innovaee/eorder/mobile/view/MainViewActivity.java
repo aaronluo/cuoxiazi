@@ -131,9 +131,6 @@ public class MainViewActivity extends Activity {
     // 已经选择的菜品
     private List<GoodsDataBean> selectOrderGoods;
 
-    // 历史记录查询订单菜品，仅供测试
-    //private List<GoodsDataBean> orderHestoryGoods;
-
     // 订单记录查询会员号输入编辑器
     EditText orderHestoryInput;
 
@@ -156,9 +153,7 @@ public class MainViewActivity extends Activity {
                 goodsListData = (List<GoodsDataBean>) msg.obj;
                 goodsAdapter = new GoodsAdapter(MainViewActivity.this,
                         goodsListData, handler);
-                gridView.setAdapter(goodsAdapter);
-                				
-                //getOrderHestoryTestData();
+                gridView.setAdapter(goodsAdapter);                			
             }
                 break;
 
@@ -314,6 +309,7 @@ public class MainViewActivity extends Activity {
 
         receiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
+            	//删除所有菜品广播
                 if (intent.getAction().equals("com.eorder.action.delAll")) {
                     if (selectOrderGoods != null) {
                         selectOrderGoods.clear();
@@ -321,6 +317,7 @@ public class MainViewActivity extends Activity {
 
                         updateMyOrderCount(0);
                     }
+                //改变菜品数量广播    
                 } else if (intent.getAction().equals(
                         "com.eorder.action.changeCount")) {
                     Bundle bundle = intent.getExtras();
@@ -330,33 +327,44 @@ public class MainViewActivity extends Activity {
 
                     int count = getMyOrderSelectCount();
                     updateMyOrderCount(count);
+                //增加菜品到订单广播
                 } else if (intent.getAction().equals(
                         "com.eorder.action.addToOrder")) {
                 	Log.d(TAG, "com.eorder.action.addToOrder!");
                 		
                 	Bundle bundle = intent.getExtras();
-                														
+                		
                 	ArrayList list = bundle.getParcelableArrayList("list");
                 	List<GoodsDataBean> addToOrderGoods = (List<GoodsDataBean>) list.get(0);
                 	GoodsDataBean addGoodsData = addToOrderGoods.get(0);
                 	addGoodsData.setCount(1);
-                		
-                	boolean isInclude = ifContainsIt(addGoodsData);
+                							
+                	//判断当前订单里面是否已经包含该菜品，有则直接数量加1，没有则添加该对象
+                	boolean isInclude = ifContainsIt(selectOrderGoods, addGoodsData);
                 								
                 	if(isInclude) {									
                 		Log.d(TAG, "isInclude == true");
-                		for(GoodsDataBean data: goodsListData) {
-                    		if(data.getId() == addGoodsData.getId()) {
+                		for(GoodsDataBean data: selectOrderGoods) {
+                    		Log.d(TAG, "data.getId()=" + data.getId());
+                    		Log.d(TAG, "addGoodsData.getId()=" + addGoodsData.getId());
+                    									
+                    		if(data.getId() == addGoodsData.getId()) {	
                     			int count = data.getCount();
                     			data.setCount(count + 1);
-                    			break;
-                    		}				
+                    			break;				
+                    		}							
                     	}	
-                								
+                			
                         int count = getMyOrderSelectCount();
-                        updateMyOrderCount(count);			
+                        updateMyOrderCount(count);
+                        Log.d(TAG, "count =" + count);		
+                        				
                 	} else {															
                 		Log.d(TAG, "isInclude == false");
+                		if(selectOrderGoods == null) {
+                			selectOrderGoods = new ArrayList<GoodsDataBean>();
+                		}
+                			
                 		selectOrderGoods.add(addGoodsData);	
                 		int count = getMyOrderSelectCount();
                         updateMyOrderCount(count);
@@ -511,11 +519,6 @@ public class MainViewActivity extends Activity {
         Intent intent = new Intent();
 
         bundle.putString("userid", userId);
-
-        // 传递历史订单记录数据
-        //ArrayList list = new ArrayList();
-        //list.add(orderHestoryGoods);
-        //bundle.putParcelableArrayList("list", list);
         
         intent.putExtras(bundle);
         intent.setClass(MainViewActivity.this, OrderHestoryActivity.class);
@@ -877,38 +880,21 @@ public class MainViewActivity extends Activity {
             loadCategoryData(lastFeedType.getCategoryId());
         }
     }
-
-    /**
-     * 生成订单历史记录的测试数据
-     */
-    /*
-    private void getOrderHestoryTestData() {
-        orderHestoryGoods = new ArrayList<GoodsDataBean>();
-
-        if (goodsListData != null) {
-            for (GoodsDataBean databean : goodsListData) {
-                orderHestoryGoods.add(databean);
-
-                if (orderHestoryGoods.size() >= 4) {
-                    return;
-                }
-            }
-        }
-    }
-    */
     	
     /**	
      * 判断该list是否包含该菜品
      * 因为count可能不相等，所以用该函数判断是否包含
      * @return 返回是否包含该菜品
      */	
-    private boolean ifContainsIt(GoodsDataBean databean) {
+    private boolean ifContainsIt(List<GoodsDataBean> list, GoodsDataBean databean) {
+    	if(list == null)
+    		return false;	
     		
-    	for(GoodsDataBean data: goodsListData) {
+    	for(GoodsDataBean data: list) {
     		if(data.getId() == databean.getId()) {
     			return true;
     		}		
-    	}					
+    	}							
     		
     	return false;    	
     }

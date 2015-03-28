@@ -32,7 +32,6 @@ import com.innovaee.eorder.mobile.controller.DataManager;
 import com.innovaee.eorder.mobile.controller.DataManager.IDataRequestListener;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
-import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
 
 /**
  * 订单历史查询界面
@@ -123,9 +122,6 @@ public class OrderHestoryActivity extends Activity {
         Bundle bundle = intent.getExtras();
         userId = bundle.getString("userid");
 
-        //ArrayList list = bundle.getParcelableArrayList("list");
-        //orderHestoryGoods = (List<GoodsDataBean>) list.get(0);
-        	
         initView();
 
         initData();
