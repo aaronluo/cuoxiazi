@@ -268,7 +268,7 @@ INSERT INTO `t_user_level` VALUES ('1', '钻石会员', '8.00', '10000', '1', nu
 INSERT INTO `t_user_level` VALUES ('2', '白金会员', '8.50', '7500', '1', null, null);
 INSERT INTO `t_user_level` VALUES ('3', '金牌会员', '9.00', '5000', '1', null, null);
 INSERT INTO `t_user_level` VALUES ('4', '普通会员', '9.50', '0', '1', null, null);
-
+INSERT INTO `t_user_level` VALUES ('5', '非会员', '10.00', '0', '1', null, null);
 -- ----------------------------
 -- Table structure for `t_user_role`
 -- ----------------------------
