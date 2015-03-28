@@ -133,7 +133,7 @@ public interface MemberShipServcie {
      * @return
      * @throws UserNotFoundException
      * @throws UserLevelNotFoundException
-     * @throws MeberShipAlreadyExistException 
+     * @throws MeberShipAlreadyExistException
      */
     public MemberShip addMemberShipToUser(Long userLevelId, Long userId,
             boolean forceLinkage) throws UserNotFoundException,
@@ -165,17 +165,41 @@ public interface MemberShipServcie {
      */
     public MemberShip updateUserLevelOfUser(Long userId, int downOrUp)
             throws UserNotFoundException, UpdateUserLevelException;
-    
+
     /**
      * 获取指定会员等级的用户分页数据
+     * 
      * @param userLevelId
+     *            会员等级ID
      * @param curPage
+     *            当前页数
      * @param pageSize
-     * @return
+     *            分页大小
+     * @return 属于指定会员等级的用户分页集合
      * @throws UserLevelNotFoundException
+     *             会员等级不存在异常
      * @throws InvalidPageSizeException
+     *             非法的分页大小异常
      * @throws PageIndexOutOfBoundExcpeiton
+     *             当前页越界异常
      */
-    public List<User> getUsersbyUserLevel(Long userLevelId, int curPage, int pageSize)
-            throws UserLevelNotFoundException, InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
+    public List<User> getUsersbyUserLevel(Long userLevelId, int curPage,
+            int pageSize) throws UserLevelNotFoundException,
+            InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
+
+    /**
+     * 获取指定会员等级的用户总数
+     * 
+     * @param userLevelId
+     *            会员等级ID
+     * @param pageSize
+     *            分页大小
+     * @return 用户总数
+     * @throws UserLevelNotFoundException
+     *             会员等级不存在异常
+     * @throws InvalidPageSizeException
+     *             非法的分页大小异常
+     */
+    public int getUsersByUserLevelPageCount(Long userLevelId, int pageSize)
+            throws UserLevelNotFoundException, InvalidPageSizeException;
 }

@@ -223,7 +223,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         
         int startIndex = (curPage - 1) * pageSize;
         userLevels = userLevelDao.getPage(startIndex, pageSize,
-                "FROM UserLevel WHERE UserLevel.levelStatus=1");
+                "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=true");
         
         return userLevels;
     }
@@ -368,16 +368,40 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         }
 
         if (null == userLevelDao.get(userLevelId)) {
-            throw new UserLevelNotFoundException(MessageUtil.getMessage("user_level_id", ""+userLevelId));
+            throw new UserLevelNotFoundException(
+                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
         }
         
-//       List<User> users =  userLevelDao.getUsers(userLevelId, curPage, pageSize);
+        final int totalPage = this.getUsersByUserLevelPageCount(userLevelId, pageSize);
         
+        if (curPage < 1 || curPage > totalPage) {
+            throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
+        }
         
-//        return users;
-        return null;
+      return userLevelDao.getUsers(userLevelId, curPage, pageSize);
     }
     
+    /**
+     * 获取指定会员等级的用户总数
+     * 
+     * @param userLevelId
+     *            会员等级ID
+     * @param pageSize
+     *            分页大小
+     * @return 用户总数
+     * @throws UserLevelNotFoundException
+     *             会员等级不存在异常
+     * @throws InvalidPageSizeException
+     *             非法的分页大小异常
+     */
+    @Override
+    public int getUsersByUserLevelPageCount(Long userLevelId, int pageSize)
+            throws UserLevelNotFoundException, InvalidPageSizeException {
+        int count = userLevelDao.getUsers(userLevelId, 1, Integer.MAX_VALUE).size();
+        
+        return count % pageSize == 0 ? count / pageSize
+                : count / pageSize + 1;
+    }
     public UserLevelDao getUserLevelDao() {
         return userLevelDao;
     }

@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
@@ -215,13 +216,14 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
 
     /**
      * 单元测试-删除会员等级
+     * 
      * @throws UserLevelNotFoundException
      */
     @Test
     public void deleteUserLevelTest() throws UserLevelNotFoundException {
         memberShipService.deleteUserLevel(1L);
     }
-    
+
     /**
      * 单元测试-使用非法名称获取会员等级
      * 
@@ -244,12 +246,13 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
      * @throws PageIndexOutOfBoundExcpeiton
      * 
      */
+    @Test
     public void getUserLevelByPageTest() throws PageIndexOutOfBoundExcpeiton,
             InvalidPageSizeException {
         List<UserLevel> userLevels = memberShipService
                 .getUserLevelsByPage(1, 6);
 
-        assertEquals(4, userLevels.size());
+        assertEquals(5, userLevels.size());
     }
 
     /**
@@ -260,6 +263,7 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
      * @throws UserNotFoundException
      * 
      */
+    @Test
     public void addMemberShipToUserTest() throws UserNotFoundException,
             UserLevelNotFoundException, MeberShipAlreadyExistException {
 
@@ -283,6 +287,14 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
             assertEquals(exception.getClass(),
                     MeberShipAlreadyExistException.class);
         }
+    }
 
+    @Test
+    public void getUsersByUserLevelTest() throws UserLevelNotFoundException,
+            InvalidPageSizeException, PageIndexOutOfBoundExcpeiton {
+        List<User> users = memberShipService.getUsersbyUserLevel(1L, 1, 5);
+        
+        assertNotNull(users);
+        assertEquals(users.size(), 1);
     }
 }
