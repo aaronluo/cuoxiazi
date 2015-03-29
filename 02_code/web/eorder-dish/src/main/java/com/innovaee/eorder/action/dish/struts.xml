@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="com.innovaee.eorder.action.dish" namespace="/dish"
+        extends="struts-base">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <action name="dish" class="com.innovaee.eorder.action.dish.DishAction"
+            method="dish">
+            <result name="input" type="tiles">dish</result>
+            <result type="tiles">dish</result>
+        </action>
+
+        <action name="list" class="com.innovaee.eorder.action.dish.DishAction"
+            method="list">
+            <result name="input" type="tiles">dish</result>
+            <result type="tiles">dish</result>
+        </action>
+
+
+        <action name="edit" class="com.innovaee.eorder.action.dish.DishAction"
+            method="edit">
+            <result name="input" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+        </action>
+
+        <action name="add" class="com.innovaee.eorder.action.dish.DishAction"
+            method="add">
+            <result name="input" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+        </action>
+
+        <action name="save" class="com.innovaee.eorder.action.dish.DishAction"
+            method="save">
+            <result name="input" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+        </action>
+
+        <action name="update" class="com.innovaee.eorder.action.dish.DishAction"
+            method="update">
+            <result name="input" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+        </action>
+
+        <action name="remove" class="com.innovaee.eorder.action.dish.DishAction"
+            method="remove">
+            <result name="input" type="tiles">dish</result>
+            <result type="tiles">dish</result>
+        </action>
+    </package>
+
+</struts>
