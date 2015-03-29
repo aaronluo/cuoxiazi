@@ -7,6 +7,7 @@
 package com.innovaee.eorder.dao.hibernate;
 
 import com.innovaee.eorder.dao.UserLevelDao;
+import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
 
 import org.hibernate.Criteria;
@@ -122,5 +123,25 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
         }
         
         return lastUserLevel;
+    }
+
+    @Override
+    public List<User> getUsers(final Long userLevelId, final int curPage, final int pageSize) {
+        
+        return getHibernateTemplate().execute(new HibernateCallback<List<User>>(){
+            @SuppressWarnings("unchecked")
+            public List<User> doInHibernate (Session session) {
+                Criteria criteria = session.createCriteria(User.class);
+                criteria.createAlias("memberShip", "memberShip");
+                criteria.createAlias("memberShip.level", "level");
+                criteria.add(Restrictions.eq("level.id", userLevelId));
+                criteria.addOrder(Order.desc("id"));
+                
+                criteria.setFirstResult((curPage - 1) *  pageSize);
+                criteria.setMaxResults(pageSize);
+                
+                return (List<User>)criteria.list();
+            }
+        });
     }
 }

@@ -6,7 +6,10 @@
  ************************************************/
 package com.innovaee.eorder.dao;
 
+import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
+
+import java.util.List;
 
 /**
  * @Title: UserLevelDao
@@ -35,5 +38,14 @@ public interface UserLevelDao extends BaseDao<UserLevel> {
      * @return
      */
     UserLevel getLastLevel(Long id);
+
+    /**
+     * 获取拥有指定会员等级的会员用户分页数据
+     * @param userLevelId 会员等级ID
+     * @param curPage 当前页
+     * @param pageSize 分页大小
+     * @return
+     */
+    List<User> getUsers(Long userLevelId, int curPage, int pageSize);
 
 }

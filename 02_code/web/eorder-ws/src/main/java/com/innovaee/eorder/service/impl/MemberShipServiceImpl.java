@@ -58,6 +58,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         for(UserLevel level : levels) {
             if(level.getLevelName().equals(Constants.DEFAULT_USR_LEVEL)) {
                 levels.remove(level);
+                break;
             }
         }
         
@@ -222,7 +223,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         
         int startIndex = (curPage - 1) * pageSize;
         userLevels = userLevelDao.getPage(startIndex, pageSize,
-                "FROM UserLevel WHERE UserLevel.levelStatus=1");
+                "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=true");
         
         return userLevels;
     }
@@ -347,26 +348,60 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         
         return memberShip;
     }
-
-    
     /**
      * 获取指定会员等级的用户分页数据
-     * @param userLevelId
-     * @param curPage
-     * @param pageSize
-     * @return
-     * @throws UserLevelNotFoundException
-     * @throws InvalidPageSizeException
-     * @throws PageIndexOutOfBoundExcpeiton
+     * @param userLevelId 会员等级ID
+     * @param curPage 当前页数
+     * @param pageSize 分页大小
+     * @return 属于指定会员等级的用户分页集合
+     * @throws UserLevelNotFoundException 会员等级不存在异常
+     * @throws InvalidPageSizeException 非法的分页大小异常
+     * @throws PageIndexOutOfBoundExcpeiton 当前页越界异常
      */
     @Override
     public List<User> getUsersbyUserLevel(Long userLevelId, int curPage,
             int pageSize) throws UserLevelNotFoundException,
             InvalidPageSizeException, PageIndexOutOfBoundExcpeiton {
-        // TODO Auto-generated method stub
-        return null;
+       
+        if (pageSize <= 0) {
+            throw new InvalidPageSizeException(pageSize);
+        }
+
+        if (null == userLevelDao.get(userLevelId)) {
+            throw new UserLevelNotFoundException(
+                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
+        }
+        
+        final int totalPage = this.getUsersByUserLevelPageCount(userLevelId, pageSize);
+        
+        if (curPage < 1 || curPage > totalPage) {
+            throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
+        }
+        
+      return userLevelDao.getUsers(userLevelId, curPage, pageSize);
     }
     
+    /**
+     * 获取指定会员等级的用户总数
+     * 
+     * @param userLevelId
+     *            会员等级ID
+     * @param pageSize
+     *            分页大小
+     * @return 用户总数
+     * @throws UserLevelNotFoundException
+     *             会员等级不存在异常
+     * @throws InvalidPageSizeException
+     *             非法的分页大小异常
+     */
+    @Override
+    public int getUsersByUserLevelPageCount(Long userLevelId, int pageSize)
+            throws UserLevelNotFoundException, InvalidPageSizeException {
+        int count = userLevelDao.getUsers(userLevelId, 1, Integer.MAX_VALUE).size();
+        
+        return count % pageSize == 0 ? count / pageSize
+                : count / pageSize + 1;
+    }
     public UserLevelDao getUserLevelDao() {
         return userLevelDao;
     }

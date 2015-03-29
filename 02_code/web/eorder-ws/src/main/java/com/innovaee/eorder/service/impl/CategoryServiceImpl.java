@@ -52,6 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
         for(Category category : categories) {
             if (category.getName().equals(Constants.DEFAULT_CATEGORY)) {
                 categories.remove(category);
+                break;
             }
         }
         
@@ -276,7 +277,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new InvalidPageSizeException(pageSize);
         }
 
-        int totalCategories = categoryDao.count();
+        int totalCategories = categoryDao.count() - 1;
 
         return totalCategories % pageSize == 0 ? totalCategories / pageSize
                 : totalCategories / pageSize + 1;
