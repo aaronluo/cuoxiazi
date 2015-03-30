@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="com.innovaee.eorder.action.role" namespace="/role"
+        extends="struts-base">
+
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <action name="role" class="com.innovaee.eorder.action.role.RoleAction"
+            method="role">
+            <result name="input" type="tiles">role</result>
+            <result type="tiles">role</result>
+        </action>
+
+        <action name="edit" class="com.innovaee.eorder.action.role.RoleAction"
+            method="edit">
+            <result name="input" type="tiles">roleEdit</result>
+            <result type="tiles">roleEdit</result>
+        </action>
+
+        <action name="add" class="com.innovaee.eorder.action.role.RoleAction"
+            method="add">
+            <result name="input" type="tiles">roleEdit</result>
+            <result type="tiles">roleEdit</result>
+        </action>
+
+        <action name="save" class="com.innovaee.eorder.action.role.RoleAction"
+            method="save">
+            <result name="input" type="tiles">roleEdit</result>
+            <result type="tiles">roleEdit</result>
+        </action>
+
+        <action name="update" class="com.innovaee.eorder.action.role.RoleAction"
+            method="update">
+            <result name="input" type="tiles">roleEdit</result>
+            <result type="tiles">roleEdit</result>
+        </action>
+
+        <action name="remove" class="com.innovaee.eorder.action.role.RoleAction"
+            method="remove">
+            <result name="input" type="tiles">role</result>
+            <result type="tiles">role</result>
+        </action>
+    </package>
+
+</struts>

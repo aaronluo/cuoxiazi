@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+    <constant name="struts.multipart.saveDir" value="d:\\temp" />
+    <constant name="struts.multipart.maxSize" value="1024000" />
+
+    <package name="com.innovaee.eorder.action.upload" namespace="/upload"
+        extends="struts-base">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <action name="upload" class="com.innovaee.eorder.action.upload.FileUploadAction"
+            method="upload">
+            <result name="input" type="tiles">upload</result>
+            <result type="tiles">upload</result>
+        </action>
+
+        <action name="uploadImage" class="com.innovaee.eorder.action.upload.FileUploadAction"
+            method="uploadImage">
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">10240000</param>
+                <param name="fileUpload.allowedTypes">
+                    image/gif,image/jpeg,image/png,image/bmp,image/jpg,image/x-png,
+                    image/pjpeg
+                </param>
+            </interceptor-ref>
+
+            <result name="input" type="tiles">upload</result>
+            <result type="tiles">upload</result>
+            <param name="uploadDir">/resources/images/dish</param>
+        </action>
+
+        <action name="multiFileUpload"
+            class="com.innovaee.eorder.action.upload.MultiFileUploadAction">
+            <result name="input">/multiFileUpload.jsp</result>
+            <result name="success">/multiFileSuccess.jsp</result>
+            <param name="uploadDir">/WEB-INF/UploadFiles</param>
+        </action>
+
+    </package>
+</struts>

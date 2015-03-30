@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="com.innovaee.eorder.action.function" namespace="/function"
+        extends="struts-base">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <action name="function" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="function">
+            <result name="input" type="tiles">function</result>
+            <result type="tiles">function</result>
+        </action>
+
+        <action name="edit" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="edit">
+            <result name="input" type="tiles">functionEdit</result>
+            <result type="tiles">functionEdit</result>
+        </action>
+
+        <action name="add" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="add">
+            <result name="input" type="tiles">functionEdit</result>
+            <result type="tiles">functionEdit</result>
+        </action>
+        
+        <action name="save" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="save">
+            <result name="input" type="tiles">functionEdit</result>
+            <result type="tiles">functionEdit</result>
+        </action>
+        
+        <action name="update" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="update">
+            <result name="input" type="tiles">functionEdit</result>
+            <result type="tiles">functionEdit</result>
+        </action>
+
+        <action name="remove" class="com.innovaee.eorder.action.function.FunctionAction"
+            method="remove">
+            <result name="input" type="tiles">function</result>
+            <result type="tiles">function</result>
+        </action>
+    </package>
+
+</struts>
