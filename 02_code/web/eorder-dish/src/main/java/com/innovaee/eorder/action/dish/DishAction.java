@@ -112,31 +112,6 @@ public class DishAction extends BaseAction {
     }
 
     /**
-     * 加载单个功能信息
-     * 
-     * @return
-     */
-    public String edit() {
-        try {
-            if (null != id && !"".equals(id.trim())) {
-                Dish dish = dishService.getDishById(Long.parseLong(id));
-                dishName = dish.getDishName();
-                dishPrice = dish.getDishPrice();
-                dishPicture = dish.getDishPicture();
-                onSell = dish.isOnSell();
-                categoryId = dish.getCategory().getId();
-            }
-        } catch (DishNotFoundException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
-            return INPUT;
-        }
-        // 更新页面数据
-        renewPage();
-
-        return SUCCESS;
-    }
-
-    /**
      * 刷新页面数据
      */
     public void refreshPageData() {
@@ -165,7 +140,7 @@ public class DishAction extends BaseAction {
     public void refreshDataList() {
         Long id = 0L;
         try {
-            Integer recordCount = dishService.count();
+            Integer recordCount = dishService.getDishCountById(categoryId);
             this.setCount(recordCount);
             int pageTotal = 1;
             if (0 == recordCount % Constants.PAGE_SIZE) {
@@ -231,6 +206,17 @@ public class DishAction extends BaseAction {
     }
 
     /**
+     * 新增页面
+     * 
+     * @return
+     */
+    public String add() {
+        // 更新页面数据
+        renewPage();
+        return SUCCESS;
+    }
+
+    /**
      * 保存功能
      * 
      * @return
@@ -239,15 +225,6 @@ public class DishAction extends BaseAction {
         // 更新页面数据
         renewPage();
         try {
-            // 查看用户名是否已存在
-            Dish dbdish = dishService.getDishByName(dishName);
-
-            if (null != dbdish) {
-                this.setMessage(MessageUtil.getMessage("dish_name_occupy"));
-                renewPage();
-                return INPUT;
-            }
-
             DishVO dishVO = new DishVO();
 
             if (null != dishName && !"".equals(dishName.trim())) {
@@ -298,10 +275,32 @@ public class DishAction extends BaseAction {
             this.setMessage(MessageUtil
                     .getMessage("category_not_found_exception"));
             return INPUT;
-        } catch (DishNotFoundException e1) {
-            this.setMessage(MessageUtil.getMessage("dish_not_found_exception"));
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 加载单个功能信息
+     * 
+     * @return
+     */
+    public String edit() {
+        try {
+            if (null != id && !"".equals(id.trim())) {
+                Dish dish = dishService.getDishById(Long.parseLong(id));
+                dishName = dish.getDishName();
+                dishPrice = dish.getDishPrice();
+                dishPicture = dish.getDishPicture();
+                onSell = dish.isOnSell();
+                categoryId = dish.getCategory().getId();
+            }
+        } catch (DishNotFoundException e) {
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
             return INPUT;
         }
+        // 更新页面数据
+        renewPage();
+
         return SUCCESS;
     }
 
@@ -314,15 +313,6 @@ public class DishAction extends BaseAction {
         // 更新页面数据
         renewPage();
         try {
-            Dish dish1 = dishService.getDishById(Long.parseLong(id));
-            // 查看菜品名称是否已存在
-            Dish dish2 = dishService.getDishByName(dishName);
-            // 可以找到，而且和自己的名字不同，则说明已经被占用
-            if (null != dish2 && !dish1.getId().equals(dish2.getId())) {
-                this.setMessage(MessageUtil.getMessage("dish_name_occupy"));
-                return INPUT;
-            }
-
             Dish dish = null;
             DishVO dishVO = null;
             if (null != id) {
@@ -332,6 +322,7 @@ public class DishAction extends BaseAction {
             if (null != dish) {
                 dishVO = new DishVO();
                 dishVO.setId(dish.getId());
+                dishVO.setCategoryId(categoryId);
             }
 
             if (null != dishName && !"".equals(dishName.trim())) {
@@ -345,6 +336,13 @@ public class DishAction extends BaseAction {
                 dishVO.setDishPrice(dishPrice);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_desc_empty"));
+                return INPUT;
+            }
+            
+            if (null != dishPicture && !"".equals(dishPicture.trim())) {
+                dishVO.setDishPicture(dishPicture);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
                 return INPUT;
             }
 
@@ -367,20 +365,9 @@ public class DishAction extends BaseAction {
     }
 
     /**
-     * 新增页面
-     * 
-     * @return
-     */
-    public String add() {
-        // 更新页面数据
-        renewPage();
-        return SUCCESS;
-    }
-
-    /**
      * 
      */
-    public void renewPage() {
+    private void renewPage() {
         renewCategoryVOList();
 
         if (null == dishPicture || "".equals(dishPicture)) {
@@ -391,7 +378,7 @@ public class DishAction extends BaseAction {
         refreshPageData();
     }
 
-    public void renewCategoryVOList() {
+    private void renewCategoryVOList() {
         List<CategoryVO> categoryVOList = new ArrayList<CategoryVO>();
         // 更新权限列表
         CategoryVO categoryVO = null;

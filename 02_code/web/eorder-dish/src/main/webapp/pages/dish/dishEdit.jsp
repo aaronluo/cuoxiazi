@@ -25,7 +25,7 @@
 		</div>
 
 		<div>
-			<form id="saveForm" name="saveForm" action="save">
+			<form id="saveForm" name="saveForm">
 				<s:hidden id="categoryId" name="categoryId" />
 				<s:hidden id="dishPicture" name="dishPicture" />
 				<ul class="forminfo">
@@ -76,7 +76,8 @@
 		<div>
 			<form id="updateForm" name="updateForm" action="update">
 				<s:hidden id="id" name="id" value="%{id}"></s:hidden>
-				<s:hidden id="categoryId" name="categoryId" value="%{categoryId}" />
+				<s:hidden id="categoryId" name="categoryId" />
+				<s:hidden id="dishPicture" name="dishPicture" />
 				<ul class="forminfo">
 					<li><label><s:text name="dish_name" /></label><input id="dishName"
 						name="dishName" type="text" value='<s:property value="dishName" />'

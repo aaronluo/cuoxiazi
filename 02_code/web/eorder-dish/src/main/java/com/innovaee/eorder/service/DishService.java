@@ -122,9 +122,11 @@ public interface DishService {
             throws InvalidPageSizeException, CategoryNotFoundException;
 
     /**
-     * 获得总记录条数
+     * 根据分类ID获取菜品记录条数
      * 
-     * @return 总记录条数
+     * @param categoryId
+     *            分类ID
+     * @return 返回菜品记录条数
      */
-    public Integer count();
+    public Integer getDishCountById(final Long categoryId);
 }

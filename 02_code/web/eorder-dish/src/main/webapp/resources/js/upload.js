@@ -56,18 +56,14 @@ function query() {
 
 // 上传
 function uploadFile() {
-	//alert("uploadFile #1");
 	$("[name='uploadForm']").attr("action", "uploadImage.action");
 	$("[name='uploadForm']").attr("method", "post");
 	$("[name='uploadForm']").submit();
-	//alert("uploadFile #2");
 }
 
 function closeWind(){
-	//alert("closeWind");
 	// 取得用户输入的分类
 	var newFileName = $("#newFileName").val();
-	//alert("newFileName: " + newFileName);
     parent.window.returnValue = newFileName;
     window.close();
 }
@@ -75,7 +71,6 @@ function closeWind(){
 function save() {
 	// 取得用户输入的分类
 	var categoryId = $("#categoryId").val();
-	// alert("categoryId: " + categoryId);
 
 	// 如果没有输入，则不响应确认按钮事件
 	if (null == categoryId || '' == categoryId) {

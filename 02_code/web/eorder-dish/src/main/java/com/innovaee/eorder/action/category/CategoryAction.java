@@ -9,7 +9,6 @@ package com.innovaee.eorder.action.category;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -18,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Category;
-import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.exception.CategoryNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
@@ -47,6 +45,9 @@ public class CategoryAction extends BaseAction {
 
     /** 功能名称 */
     private String categoryName;
+
+    /** 功能图片 */
+    private String categoryPicture;
 
     /** 功能值对象列表 */
     private List<CategoryVO> categoryvos = new ArrayList<CategoryVO>();
@@ -89,37 +90,39 @@ public class CategoryAction extends BaseAction {
         // 更新页面数据
         renewPage();
 
-        // 查看用户名是否已存在
-        Category dbcategory = null;
-        dbcategory = categoryService.getCategoryByName(categoryName);
-        if (null != dbcategory) {
-            this.setMessage(MessageUtil.getMessage("category_name_occupy"));
-            renewPage();
-            return INPUT;
-        }
-
-        CategoryVO categoryVO = new CategoryVO();
-        if (null != categoryName && !"".equals(categoryName.trim())) {
-            categoryVO.setCategoryName(categoryName);
-        } else {
-            this.setMessage(MessageUtil.getMessage("category_name_empty"));
-            return INPUT;
-        }
-
         // 新增成功
         Category newCategory = null;
+        CategoryVO categoryVO = null;
         try {
+            categoryVO = new CategoryVO();
+            if (null != categoryName && !"".equals(categoryName.trim())) {
+                categoryVO.setCategoryName(categoryName);
+            } else {
+                this.setMessage(MessageUtil.getMessage("category_name_empty"));
+                return INPUT;
+            }
+
+            if (null != categoryPicture && !"".equals(categoryPicture.trim())) {
+                categoryVO.setCategoryPicture(categoryPicture);
+            } else {
+                this.setMessage(MessageUtil
+                        .getMessage("category_picture_empty"));
+                return INPUT;
+            }
+
             newCategory = categoryService.addCategory(categoryVO);
+
+            if (null != newCategory) {
+                this.setMessage(MessageUtil.getMessage("add_success"));
+                this.setCategoryName("");
+                renewPage();
+            } else {
+                this.setMessage(MessageUtil.getMessage("add_failure"));
+                return INPUT;
+            }
         } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
-            return INPUT;
-        }
-        if (null != newCategory) {
-            this.setMessage(MessageUtil.getMessage("add_success"));
-            this.setCategoryName("");
-            renewPage();
-        } else {
-            this.setMessage(MessageUtil.getMessage("add_failure"));
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
+                    categoryName));
             return INPUT;
         }
 
@@ -172,21 +175,21 @@ public class CategoryAction extends BaseAction {
                 categoryVO.setId(category.getId());
             }
 
-            Category categoryDB = categoryService
-                    .getCategoryByName(categoryName);
-            // 可以找到，而且和自己的名字不同，则说明已经被占用
-            if (null != categoryDB
-                    && !category.getId().equals(categoryDB.getId())) {
-                this.setMessage(MessageUtil.getMessage("category_name_occupy"));
-                return INPUT;
-            }
-
             if (null != categoryName && !"".equals(categoryName.trim())) {
                 categoryVO.setCategoryName(categoryName);
             } else {
                 this.setMessage(MessageUtil.getMessage("category_name_empty"));
                 return INPUT;
             }
+
+            if (null != categoryPicture && !"".equals(categoryPicture.trim())) {
+                categoryVO.setCategoryPicture(categoryPicture);
+            } else {
+                this.setMessage(MessageUtil
+                        .getMessage("category_picture_empty"));
+                return INPUT;
+            }
+
             categoryService.updateCategory(categoryVO);
         } catch (DuplicateNameException e) {
             this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
@@ -194,7 +197,7 @@ public class CategoryAction extends BaseAction {
             return INPUT;
         } catch (CategoryNotFoundException e1) {
             this.setMessage(MessageUtil.getMessage(
-                    "category_not_found_exception", categoryName));
+                    "category_not_found_exception", id));
             return INPUT;
         }
 
@@ -212,33 +215,11 @@ public class CategoryAction extends BaseAction {
         refreshPageData();
 
         if (null != id) {
-            // 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
-            Category category = null;
-            try {
-                category = categoryService.getCategoryById(Long.parseLong(id));
-            } catch (CategoryNotFoundException e) {
-                this.setMessage(MessageUtil.getMessage(
-                        "category_not_found_exception", id.toString()));
-            }
-            Set<Dish> dishes = category.getDishes();
-            if (null != dishes && 0 < dishes.size()) {
-                this.setMessage(MessageUtil.getMessage("category_using"));
-
-                // 更新数据
-                refreshPageData();
-                // 更新数据列表
-                refreshDataList();
-
-                return INPUT;
-            }
-        }
-
-        if (null != id) {
             try {
                 categoryService.deleteCategory(Long.parseLong(id));
             } catch (CategoryNotFoundException e) {
                 this.setMessage(MessageUtil.getMessage(
-                        "category_not_found_exception", id.toString()));
+                        "category_not_found_exception", id));
             }
         }
 
@@ -339,6 +320,10 @@ public class CategoryAction extends BaseAction {
     private void renewPage() {
         // 更新页面数据
         refreshPageData();
+
+        if (null == categoryPicture || "".equals(categoryPicture)) {
+            this.setCategoryPicture(Constants.DEFAULT_CATEGORY_PIC);
+        }
     }
 
     public List<CategoryVO> getCategoryvos() {
@@ -363,6 +348,14 @@ public class CategoryAction extends BaseAction {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getCategoryPicture() {
+        return categoryPicture;
+    }
+
+    public void setCategoryPicture(String categoryPicture) {
+        this.categoryPicture = categoryPicture;
     }
 
 }

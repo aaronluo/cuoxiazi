@@ -11,22 +11,22 @@ CREATE TABLE `t_category` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_category
 -- ----------------------------
-INSERT INTO `t_category` VALUES ('1', '湘菜', null, '2014-12-12 12:26:45', null);
-INSERT INTO `t_category` VALUES ('2', '川菜', null, '2014-12-12 12:26:46', null);
-INSERT INTO `t_category` VALUES ('3', '粤菜', null, '2014-12-12 12:26:47', null);
-INSERT INTO `t_category` VALUES ('4', '小炒', null, '2014-12-12 12:26:48', null);
-INSERT INTO `t_category` VALUES ('5', '海鲜', null, '2014-12-12 12:26:49', null);
-INSERT INTO `t_category` VALUES ('6', '酒水', null, '2014-12-12 12:26:50', null);
-INSERT INTO `t_category` VALUES ('7', '饮料', null, '2014-12-12 12:26:51', null);
-INSERT INTO `t_category` VALUES ('8', '点心', null, '2014-12-12 12:26:52', null);
-INSERT INTO `t_category` VALUES ('9', '主食', null, '2014-12-12 12:26:53', null);
-INSERT INTO `t_category` VALUES ('10', '炖品', null, '2014-12-12 12:26:53', null);
-INSERT INTO `t_category` VALUES ('11', '默认', null, '2014-12-12 12:26:53', null);
+INSERT INTO `t_category` VALUES ('1', '湘菜', '/default_dish.png', '2014-12-12 12:26:45', null);
+INSERT INTO `t_category` VALUES ('2', '川菜', '/default_dish.png', '2014-12-12 12:26:46', null);
+INSERT INTO `t_category` VALUES ('3', '粤菜', '/default_dish.png', '2014-12-12 12:26:47', null);
+INSERT INTO `t_category` VALUES ('4', '小炒', '/default_dish.png', '2014-12-12 12:26:48', null);
+INSERT INTO `t_category` VALUES ('5', '海鲜', '/default_dish.png', '2014-12-12 12:26:49', null);
+INSERT INTO `t_category` VALUES ('6', '酒水', '/default_dish.png', '2014-12-12 12:26:50', null);
+INSERT INTO `t_category` VALUES ('7', '饮料', '/default_dish.png', '2014-12-12 12:26:51', null);
+INSERT INTO `t_category` VALUES ('8', '点心', '/default_dish.png', '2014-12-12 12:26:52', null);
+INSERT INTO `t_category` VALUES ('9', '主食', '/default_dish.png', '2014-12-12 12:26:53', null);
+INSERT INTO `t_category` VALUES ('10', '炖品', '/default_dish.png', '2014-12-12 12:26:53', null);
+INSERT INTO `t_category` VALUES ('11', '默认', '/default_dish.png', '2014-12-12 12:26:53', null);
 
 -- ----------------------------
 -- Table structure for `t_dish`
@@ -43,7 +43,7 @@ CREATE TABLE `t_dish` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dish
@@ -114,25 +114,49 @@ INSERT INTO `t_dish` VALUES ('59', '10', '鲜奶炖鸡汤', '/09/0905.png', '25'
 DROP TABLE IF EXISTS `t_function`;
 CREATE TABLE `t_function` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `function_name` varchar(128) NOT NULL,
-  `function_desc` varchar(128) DEFAULT NULL,
-  `function_picture` varchar(128) DEFAULT NULL,
-  `function_path` varchar(128) DEFAULT NULL,
+  `function_name` varchar(128) COLLATE utf8_bin NOT NULL,
+  `function_desc` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `function_picture` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `function_path` varchar(128) COLLATE utf8_bin DEFAULT NULL,
   `function_parent` bigint(20) DEFAULT NULL,
-  `function_order` varchar(16) DEFAULT NULL,
+  `function_order` varchar(16) COLLATE utf8_bin DEFAULT NULL,
   `function_status` tinyint(1) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `index_function_name` (`function_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_function
 -- ----------------------------
-INSERT INTO `t_function` VALUES ('1', '权限管理', 'Administration', 'icon01.png', '', '0', '010000', '1', null, null);
-INSERT INTO `t_function` VALUES ('2', '权限管理', 'Function', null, '/function/function.action', '1', '010300', '1', null, null);
-INSERT INTO `t_function` VALUES ('3', '角色管理', 'Role', null, '/role/role.action', '1', '010200', '1', null, null);
-INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.action', '1', '010100', '1', null, null);
+INSERT INTO `t_function` VALUES ('1', '权限管理', 'Administration', 'icon01.png', '', '0', '010000', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('2', '权限管理', 'Function', null, '/function/function.action', '1', '010300', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('3', '角色管理', 'Role', null, '/role/role.action', '1', '010200', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.action', '1', '010100', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('5', '菜单菜品', 'DishAdmin', 'icon02.png', '/category/category.action', '0', '20150329233816', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/category.action', '5', '20150329233837', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('7', '菜品管理', 'Dish', null, '/dish/dish.action', '5', '20150329233908', '1', '2014-12-12 13:26:01', null);
+
+-- ----------------------------
+-- Table structure for `t_member_ship`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_member_ship`;
+CREATE TABLE `t_member_ship` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `level_id` bigint(20) NOT NULL,
+  `member_id` varchar(20) NOT NULL,
+  `current_score` bigint(20) NOT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_member_ship
+-- ----------------------------
+INSERT INTO `t_member_ship` VALUES ('1', '1', '1', '13912345671', '0', '2014-12-12 12:26:45', null);
 
 -- ----------------------------
 -- Table structure for `t_order`
@@ -152,7 +176,7 @@ CREATE TABLE `t_order` (
   `update_at` datetime DEFAULT NULL,
   `discount_price` float(64,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order
@@ -172,17 +196,17 @@ CREATE TABLE `t_order_item` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order_item
 -- ----------------------------
-INSERT INTO `t_order_item` VALUES ('1', '1', '1', '1', null, null);
-INSERT INTO `t_order_item` VALUES ('2', '1', '2', '1', null, null);
-INSERT INTO `t_order_item` VALUES ('3', '1', '3', '2', null, null);
-INSERT INTO `t_order_item` VALUES ('4', '2', '1', '2', null, null);
-INSERT INTO `t_order_item` VALUES ('5', '2', '2', '1', null, null);
-INSERT INTO `t_order_item` VALUES ('6', '2', '5', '1', null, null);
+INSERT INTO `t_order_item` VALUES ('1', '1', '1', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_order_item` VALUES ('2', '1', '2', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_order_item` VALUES ('3', '1', '3', '2', '2014-12-12 12:26:45', null);
+INSERT INTO `t_order_item` VALUES ('4', '2', '1', '2', '2014-12-12 12:26:45', null);
+INSERT INTO `t_order_item` VALUES ('5', '2', '2', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_order_item` VALUES ('6', '2', '5', '1', '2014-12-12 12:26:45', null);
 
 -- ----------------------------
 -- Table structure for `t_role`
@@ -190,18 +214,21 @@ INSERT INTO `t_order_item` VALUES ('6', '2', '5', '1', null, null);
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(128) NOT NULL,
-  `role_desc` varchar(128) NOT NULL,
+  `role_name` varchar(128) COLLATE utf8_bin NOT NULL,
+  `role_desc` varchar(128) COLLATE utf8_bin NOT NULL,
   `role_status` tinyint(1) DEFAULT '1',
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `index_role_name` (`role_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
-INSERT INTO `t_role` VALUES ('1', '管理员', '管理员', '1', null, '2014-12-16 08:24:15');
+INSERT INTO `t_role` VALUES ('1', '管理员', '管理员', '1', '2014-12-12 12:26:45', '2014-12-16 08:24:15');
+INSERT INTO `t_role` VALUES ('2', '菜单菜品管理员', '菜单菜品管理员', '1', '2014-12-12 12:26:45', null);
+
 -- ----------------------------
 -- Table structure for `t_role_function`
 -- ----------------------------
@@ -213,7 +240,7 @@ CREATE TABLE `t_role_function` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role_function
@@ -222,6 +249,9 @@ INSERT INTO `t_role_function` VALUES ('1', '1', '1', '2014-12-16 08:24:15', null
 INSERT INTO `t_role_function` VALUES ('2', '1', '2', '2014-12-16 08:24:15', null);
 INSERT INTO `t_role_function` VALUES ('3', '1', '3', '2014-12-16 08:24:15', null);
 INSERT INTO `t_role_function` VALUES ('4', '1', '4', '2014-12-16 08:24:15', null);
+INSERT INTO `t_role_function` VALUES ('5', '2', '6', '2014-12-12 12:26:45', null);
+INSERT INTO `t_role_function` VALUES ('6', '2', '5', '2014-12-12 12:26:45', null);
+INSERT INTO `t_role_function` VALUES ('7', '2', '7', '2014-12-12 12:26:45', null);
 
 -- ----------------------------
 -- Table structure for `t_user`
@@ -229,22 +259,25 @@ INSERT INTO `t_role_function` VALUES ('4', '1', '4', '2014-12-16 08:24:15', null
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `cellphone` varchar(16) NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
+  `password` varchar(256) COLLATE utf8_bin NOT NULL,
+  `cellphone` varchar(16) COLLATE utf8_bin NOT NULL,
   `user_score` bigint(20) DEFAULT NULL,
   `user_status` tinyint(1) DEFAULT '1',
   `user_level_id` bigint(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `index_username` (`username`),
+  KEY `index_cellphone` (`cellphone`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
 INSERT INTO `t_user` VALUES ('1', 'admin', 'ceb4f32325eda6142bd65215f4c0f371', '13912345671', null, '1', '1', '2012-09-29 00:00:00', null);
 INSERT INTO `t_user` VALUES ('2', 'test', '889255f1c9c8f12a353be255f78a848b', '13912345672', null, '1', '2', '2012-09-29 00:00:00', '2014-12-14 10:45:54');
+INSERT INTO `t_user` VALUES ('3', 'dish', 'f5f1a7cb292def2c144cf671eb57c169', '13912341235', null, '1', '4', '2014-12-12 12:26:45', null);
 
 -- ----------------------------
 -- Table structure for `t_user_level`
@@ -259,16 +292,17 @@ CREATE TABLE `t_user_level` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_level
 -- ----------------------------
-INSERT INTO `t_user_level` VALUES ('1', '钻石会员', '8.00', '10000', '1', null, null);
-INSERT INTO `t_user_level` VALUES ('2', '白金会员', '8.50', '7500', '1', null, null);
-INSERT INTO `t_user_level` VALUES ('3', '金牌会员', '9.00', '5000', '1', null, null);
-INSERT INTO `t_user_level` VALUES ('4', '普通会员', '9.50', '0', '1', null, null);
-INSERT INTO `t_user_level` VALUES ('5', '非会员', '10.00', '0', '1', null, null);
+INSERT INTO `t_user_level` VALUES ('1', '钻石会员', '8.00', '10000', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('2', '白金会员', '8.50', '7500', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('3', '金牌会员', '9.00', '5000', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('4', '普通会员', '9.50', '0', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('5', '非会员', '10.00', '0', '1', '2014-12-12 12:26:45', null);
+
 -- ----------------------------
 -- Table structure for `t_user_role`
 -- ----------------------------
@@ -280,29 +314,11 @@ CREATE TABLE `t_user_role` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
-INSERT INTO `t_user_role` VALUES ('1', '1', '1', null, null);
-
-DROP TABLE IF EXISTS `t_member_ship`;
-CREATE TABLE `t_member_ship` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL,
-  `level_id` bigint(20) NOT NULL,
-  `member_id` varchar(20) NOT NULL,
-  `current_score` bigint(20) NOT NULL,
-  `create_at` datetime DEFAULT NULL,
-  `update_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `t_member_ship` VALUES ('1', '1', '1','13912345671', 0, null, null);
-
--- add index
-ALTER TABLE `t_function` ADD INDEX index_function_name ( `function_name` );
-ALTER TABLE `t_role` ADD INDEX index_role_name ( `role_name` );
-ALTER TABLE `t_user` ADD INDEX index_username ( `username` );
-ALTER TABLE `t_user` ADD INDEX index_cellphone ( `cellphone` );
+INSERT INTO `t_user_role` VALUES ('2', '1', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_role` VALUES ('3', '1', '2', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_role` VALUES ('4', '3', '2', '2014-12-12 12:26:45', null);

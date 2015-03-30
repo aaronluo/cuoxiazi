@@ -20,7 +20,7 @@
 		</div>
 
 		<div>
-			<form id="saveForm" name="saveForm" action="save">
+			<form id="saveForm" name="saveForm">
 				<ul class="forminfo">
 					<s:hidden id="functionParent" name="functionParent" />
 					<li><label><s:text name="function_name" /></label><input

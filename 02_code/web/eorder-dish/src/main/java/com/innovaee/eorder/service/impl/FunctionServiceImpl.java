@@ -6,6 +6,8 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -96,7 +98,10 @@ public class FunctionServiceImpl implements FunctionService {
                 Constants.DATE_FORMAT_YYYYMMDDHHMMSS, currentDay);
         //
         function.setFunctionOrder(functionOrder);
-
+        Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
+                .getInstance().getTime()));
+        function.setCreateDate(createAt);
         return functionDao.save(function);
     }
 

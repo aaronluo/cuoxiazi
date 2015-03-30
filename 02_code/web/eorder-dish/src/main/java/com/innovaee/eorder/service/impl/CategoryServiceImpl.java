@@ -22,7 +22,10 @@ import com.innovaee.eorder.vo.CategoryVO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -98,8 +101,10 @@ public class CategoryServiceImpl implements CategoryService {
             category = new Category();
             category.setCategoryName(categoryVO.getCategoryName());
             category.setCategoryPicture(categoryVO.getCategoryPicture());
-            category.setCreateDate(new Date());
-
+            Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+                    .getTime()));
+            category.setCreateDate(createAt);
             Long categoryId = categoryDao.save(category);
             category = categoryDao.get(categoryId);
         } else {
@@ -212,13 +217,14 @@ public class CategoryServiceImpl implements CategoryService {
      *             菜品分类对象不存在异常
      */
 
-    public Category getCategoryByName(String categoryName) {
+    public Category getCategoryByName(String categoryName)
+            throws CategoryNotFoundException {
         Category category = categoryDao.getCategoryByName(categoryName);
 
-        // if (null == category) {
-        // throw new CategoryNotFoundException(MessageUtil.getMessage(
-        // "category_name", categoryName));
-        // }
+        if (null == category) {
+            throw new CategoryNotFoundException(MessageUtil.getMessage(
+                    "category_name", categoryName));
+        }
 
         return category;
     }
@@ -247,7 +253,7 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             int startIndex = (curPage - 1) * pageSize;
             categories = categoryDao.getPage(startIndex, pageSize,
-                    "FROM Category");
+                    "FROM Category as c order by c.id desc");
         }
 
         return categories;

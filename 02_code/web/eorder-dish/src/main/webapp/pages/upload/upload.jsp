@@ -8,7 +8,7 @@
             + request.getServerName() + ":" + request.getServerPort()
             + path;
 %>
-
+<base target="_self">
 <script type="text/javascript" src="../resources/js/upload.js"></script>
 <div class="place">
 	<span><s:text name="place" /></span>

@@ -38,7 +38,6 @@ window.onload = function() {// 页面所有元素加载完毕
 
 	// 1、先通过隐藏变量找到当前的功能
 	var currentToolbar = $("#currentToolbar").val();
-	// alert('currentToolbar: ' + currentToolbar);
 	// 2、通过隐藏变量找到菜单头的div
 	var myTextObj = $("#myText" + currentToolbar).parent("li");
 	// 3、给对象加上选中的样式

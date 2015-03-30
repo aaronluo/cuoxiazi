@@ -27,7 +27,8 @@
             <interceptor-ref name="defaultStack">
                 <param name="fileUpload.maximumSize">10240000</param>
                 <param name="fileUpload.allowedTypes">
-                    image/gif,image/jpeg,image/png
+                    image/gif,image/jpeg,image/png,image/bmp,image/jpg,image/x-png,
+                    image/pjpeg
                 </param>
             </interceptor-ref>
 

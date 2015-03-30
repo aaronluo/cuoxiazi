@@ -35,6 +35,18 @@ function load() {
 	}
 }
 
+//上传
+function openUploadPage() {
+	// 接收父页面上传回的值
+	var newFileName = window
+			.showModalDialog("../upload/upload.action", null,
+					"dialogWidth=800px;dialogHeight=600px;status=no;help=no;scrollbars=no");
+	//newFileName = "" + newFileName;
+	$("#categoryPicture").val("/dish/" + newFileName);
+	// 改变图片源，实时刷新图片
+	$("#categoryPic").attr("src", "../resources/images/dish/" + newFileName);
+}
+
 function save() {
 	$("[name='saveForm']").attr("action", "save.action");
 	$("[name='saveForm']").attr("method", "post");

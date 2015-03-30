@@ -27,8 +27,8 @@
 	<div class="tools">
 		<form name="addForm" id="addForm">
 			<ul class="toolbar" onclick="add();">
-				<li><span><img src="../resources/images/t01.png"></span>
-				<s:text name="add" /></li>
+				<li><span><img src="../resources/images/t01.png"></span> <s:text
+						name="add" /></li>
 			</ul>
 		</form>
 	</div>
@@ -39,6 +39,7 @@
 			<thead>
 				<tr>
 					<th><s:text name="category_name" /></th>
+					<th><s:text name="category_picture" /></th>
 					<th width="8%"><s:text name="edit" /></th>
 					<th width="8%"><s:text name="delete" /></th>
 				</tr>
@@ -46,7 +47,10 @@
 			<tbody>
 				<s:iterator value="categoryvos">
 					<tr>
-						<td><s:property value="categoryName" /></td>
+						<td width="18%"><s:property value="categoryName" /></td>
+						<td class="imgtd"><img
+							style="height: 64px; width: 64px; padding: 5px;"
+							src='../resources/images<s:property value="categoryPicture" />'></td>
 						<td><a
 							href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'
 							class="tablelink"><s:text name="edit" /></a></td>

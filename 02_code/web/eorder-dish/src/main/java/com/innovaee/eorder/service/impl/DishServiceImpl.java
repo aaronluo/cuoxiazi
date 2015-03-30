@@ -6,7 +6,10 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -75,7 +78,10 @@ public class DishServiceImpl implements DishService {
                 dish.setOnSell(true);
                 dish.setDishPicture(dishVO.getDishPicture());
                 dish.setDishPrice(dishVO.getDishPrice());
-                dish.setCreateDate(new Date());
+                Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                        "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
+                        .getInstance().getTime()));
+                dish.setCreateDate(createAt);
 
                 dishDao.save(dish);
             }
@@ -184,10 +190,10 @@ public class DishServiceImpl implements DishService {
     public Dish getDishByName(String dishName) throws DishNotFoundException {
         Dish dish = dishDao.getDishByName(dishName);
 
-//        if (null == dish) {
-//            throw new DishNotFoundException(MessageUtil.getMessage("dish_name",
-//                    dishName));
-//        }
+        if (null == dish) {
+            throw new DishNotFoundException(MessageUtil.getMessage("dish_name",
+                    dishName));
+        }
 
         return dish;
     }
@@ -229,15 +235,6 @@ public class DishServiceImpl implements DishService {
     }
 
     /**
-     * 获得总记录条数
-     * 
-     * @return 总记录条数
-     */
-    public Integer count() {
-        return dishDao.count();
-    }
-
-    /**
      * 获得某一菜品分类下的菜品分页总数
      * 
      * @param pageSize
@@ -261,6 +258,17 @@ public class DishServiceImpl implements DishService {
 
         return totalDishes % pageSize == 0 ? totalDishes / pageSize
                 : totalDishes / pageSize + 1;
+    }
+
+    /**
+     * 根据分类ID获取菜品记录条数
+     * 
+     * @param categoryId
+     *            分类ID
+     * @return 返回菜品记录条数
+     */
+    public Integer getDishCountById(final Long categoryId) {
+        return dishDao.getDishCountById(categoryId);
     }
 
 }

@@ -280,4 +280,20 @@ public class DishServiceTest extends BaseSpringTestCase {
         assertNotNull(dishes);
         assertEquals(5, dishes.size());
     }
+
+    /**
+     * 单元测试 - 菜品分页数
+     * 
+     * @throws InvalidPageSizeException
+     * @throws CategoryNotFoundException
+     */
+    @Test
+    public void getDishCountByIdTest() throws InvalidPageSizeException,
+            CategoryNotFoundException {
+        Long categoryId = 1L;
+
+        Integer count = dishService.getDishCountById(categoryId);
+        System.out.println("count: " + count);
+    }
+
 }

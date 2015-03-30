@@ -7,7 +7,10 @@
 
 package com.innovaee.eorder.service.impl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -103,13 +106,18 @@ public class RoleServiceImpl implements RoleService {
      * @return 被保存的角色
      */
     public Role addRole(Role role) throws DuplicateNameException {
-        // 1. 检查是否有同名菜品
+        // 1. 检查是否有同名角色
         Role dbRole = roleDao.findRoleByRoleName(role.getRoleName());
 
         Long newId = 0L;
         if (null == dbRole) {
+            Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+                    .getTime()));
+            role.setCreateDate(createAt);
             newId = roleDao.save(role);
             if (0L != newId) {
+                
                 role.setId(newId);
             } else {
 

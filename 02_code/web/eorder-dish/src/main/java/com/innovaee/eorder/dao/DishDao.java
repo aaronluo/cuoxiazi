@@ -18,9 +18,20 @@ public interface DishDao extends BaseDao<Dish> {
 
     /**
      * 根据菜品名称获取菜品对象
-     * @param dishName 菜品名称
+     * 
+     * @param dishName
+     *            菜品名称
      * @return 返回菜品对象或者null
      */
     public Dish getDishByName(final String dishName);
-    
+
+    /**
+     * 根据分类ID获取菜品记录条数
+     * 
+     * @param categoryId
+     *            分类ID
+     * @return 返回菜品记录条数
+     */
+    public Integer getDishCountById(final Long categoryId);
+
 }

@@ -101,7 +101,8 @@ public interface CategoryService {
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
-    public Category getCategoryByName(final String categoryName);
+    public Category getCategoryByName(final String categoryName)
+            throws CategoryNotFoundException;
 
     /**
      * 获取菜品分类分页数据

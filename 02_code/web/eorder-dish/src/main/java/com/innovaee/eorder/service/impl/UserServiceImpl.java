@@ -7,7 +7,10 @@
 
 package com.innovaee.eorder.service.impl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -139,6 +142,10 @@ public class UserServiceImpl implements UserService {
      * @return 被保存的用户
      */
     public Long saveUser(User user) {
+        Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
+                "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
+                .getTime()));
+        user.setCreateDate(createAt);
         return userDao.save(user);
     }
 
