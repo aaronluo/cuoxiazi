@@ -55,11 +55,11 @@ public class Dish extends BaseEntity {
     /**
      * 构造函数
      * 
-     * @param name
+     * @param dishName
      *            菜品名称
-     * @param picPath
+     * @param dishPicture
      *            菜品图片地址
-     * @param price
+     * @param dishPrice
      *            菜品价格
      */
     public Dish(String dishName, String dishPicture, float dishPrice) {

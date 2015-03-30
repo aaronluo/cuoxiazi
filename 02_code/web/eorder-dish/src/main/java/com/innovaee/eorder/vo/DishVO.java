@@ -58,11 +58,11 @@ public class DishVO extends BaseVO {
      * 
      * @param id
      *            ID
-     * @param name
+     * @param dishName
      *            菜品名称
-     * @param price
+     * @param dishPrice
      *            菜品价格
-     * @param picPath
+     * @param dishPicture
      *            菜品图片
      * @param onSell
      *            在售状态

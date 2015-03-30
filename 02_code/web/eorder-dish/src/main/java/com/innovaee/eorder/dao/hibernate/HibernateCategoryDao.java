@@ -30,7 +30,7 @@ public class HibernateCategoryDao extends HibernateBaseDao<Category> implements
     /**
      * 根据指定菜品分类名称查找菜品分类
      * 
-     * @param name
+     * @param categoryName
      *            菜品分类名称
      * @return 菜品分类对象或者null
      */

@@ -262,7 +262,7 @@ public class FunctionAction extends BaseAction {
         }
 
         Function function = null;
-        if (null != id) {//
+        if (null != id) {
             function = functionService.loadFunction(Long.parseLong(id));
         }
 

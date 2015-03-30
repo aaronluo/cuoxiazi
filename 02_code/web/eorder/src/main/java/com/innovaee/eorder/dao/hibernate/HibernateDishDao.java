@@ -53,7 +53,6 @@ public class HibernateDishDao extends HibernateBaseDao<Dish> implements DishDao 
     }
 
     @SuppressWarnings("unchecked")
-    
     public List<Dish> loadAll() {
         final String hql = "FROM Dish AS dish WHERE dish.onSell=?";
         Object[] params = new Object[1];

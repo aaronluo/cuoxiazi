@@ -38,9 +38,9 @@ public class CategoryVO extends BaseVO {
      * 
      * @param id
      *            ID
-     * @param name
+     * @param categoryName
      *            分类名称
-     * @param picPath
+     * @param categoryPicture
      *            分类图片
      */
     public CategoryVO(Long id, String categoryName, String categoryPicture) {

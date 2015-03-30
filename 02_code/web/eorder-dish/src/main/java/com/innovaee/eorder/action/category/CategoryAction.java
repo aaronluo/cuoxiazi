@@ -296,7 +296,7 @@ public class CategoryAction extends BaseAction {
                 categorys = categoryService.getCategoriesByPage(pageNow,
                         Constants.PAGE_SIZE);
             }
-        } catch (PageIndexOutOfBoundExcpeiton e) {//
+        } catch (PageIndexOutOfBoundExcpeiton e) {
             this.setMessage(MessageUtil.getMessage(
                     "page_out_of_bound_exception", pageNow.toString(),
                     pageTotal.toString()));

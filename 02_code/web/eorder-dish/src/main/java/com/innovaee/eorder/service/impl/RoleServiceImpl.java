@@ -119,9 +119,7 @@ public class RoleServiceImpl implements RoleService {
             if (0L != newId) {
                 
                 role.setId(newId);
-            } else {
-
-            }
+            } 
         } else {
             // 有重名菜品，抛出异常
             throw new DuplicateNameException(role.getRoleName());

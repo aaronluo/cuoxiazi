@@ -17,6 +17,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CategoryVO extends BaseVO {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 4332034709631128295L;
+
     /** 分类名称 */
     private String name;
 

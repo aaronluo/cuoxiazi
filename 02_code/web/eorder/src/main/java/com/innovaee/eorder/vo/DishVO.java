@@ -19,6 +19,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DishVO extends BaseVO {
 
+    /** 对象序列化ID */
+    private static final long serialVersionUID = 144984591914099776L;
+
     /** 菜品名称 */
     private String name;
 
@@ -34,10 +37,11 @@ public class DishVO extends BaseVO {
     /** 分类id */
     @XmlTransient
     private Long categoryId;
-    
+
     /** 更多信息 */
     @XmlTransient
     private String misc;
+
     /**
      * 默认构造函数
      */
@@ -69,7 +73,6 @@ public class DishVO extends BaseVO {
         this.onSell = onSell;
     }
 
-    
     public String getMisc() {
         return misc;
     }

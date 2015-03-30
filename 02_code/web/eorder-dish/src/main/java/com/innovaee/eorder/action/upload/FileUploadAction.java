@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -82,7 +83,13 @@ public class FileUploadAction extends BaseAction {
         this.fileFileName = fileFileName;
     }
 
-    public String upload() throws Exception {
+    /**
+     * 进入上传页面
+     * 
+     * @return
+     * @throws Exception
+     */
+    public String upload() {
         // 更新页面数据
         refreshPageData();
         return SUCCESS;
@@ -111,7 +118,13 @@ public class FileUploadAction extends BaseAction {
         this.setLoginName(userDetail.getUser().getUsername());
     }
 
-    public String uploadImage() throws Exception {
+    /**
+     * 上传图片
+     * 
+     * @return
+     * @throws Exception
+     */
+    public String uploadImage() {
         // 更新页面数据
         refreshPageData();
 
@@ -155,6 +168,14 @@ public class FileUploadAction extends BaseAction {
                 while ((len = bis.read(buf)) != -1) {
                     bos.write(buf, 0, len);
                 }
+            } catch (FileNotFoundException e) {
+                this.setMessage(MessageUtil.getMessage(
+                        "file_not_found_fxception", fileFileName));
+                return INPUT;
+            } catch (IOException e) {
+                this.setMessage(MessageUtil.getMessage("io_exception",
+                        newFileName));
+                return INPUT;
             } finally {
                 try {
                     if (null != bis) {
@@ -169,8 +190,6 @@ public class FileUploadAction extends BaseAction {
                     return INPUT;
                 }
             }
-        } else {
-
         }
 
         return SUCCESS;

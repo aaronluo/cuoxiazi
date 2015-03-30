@@ -18,17 +18,16 @@ import com.innovaee.eorder.utils.MessageUtil;
 public class UserLevelNotFoundException extends BaseException {
     private static final long serialVersionUID = 1L;
 
-    static{
+    static {
         exceptionKey = "user_level_not_found_exception";
     }
-    
+
     private String queryString;
-    
+
     public UserLevelNotFoundException(String queryString) {
         this.queryString = queryString;
     }
-    
-    
+
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, queryString);
     }
