@@ -15,6 +15,8 @@ import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.DishNotFoundException;
+import com.innovaee.eorder.exception.InvalidPageSizeException;
+import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
@@ -30,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Title: OrderServiceImpl
@@ -136,8 +139,8 @@ public class OrderServiceImpl implements OrderService {
         User servent = userDao.get(newOrder.getServentId());
 
         if (null == servent) {
-            throw new UserNotFoundException(
-                    MessageUtil.getMessage("employee_id", ""+newOrder.getServentId()));
+            throw new UserNotFoundException(MessageUtil.getMessage(
+                    "employee_id", "" + newOrder.getServentId()));
         } else {
             order.setServent(servent);
         }
@@ -147,7 +150,8 @@ public class OrderServiceImpl implements OrderService {
             User member = userDao.get(newOrder.getMemberId());
             if (null != member) {
                 order.setMember(member);
-                discount = member.getMemberShip() == null ? 1.0f : member.getMemberShip().getLevel().getDiscount() / 10f;
+                discount = member.getMemberShip() == null ? 1.0f : member
+                        .getMemberShip().getLevel().getDiscount() / 10f;
             }
         }
 
@@ -156,7 +160,6 @@ public class OrderServiceImpl implements OrderService {
         // 3. 创建订单详情
         Float totalPrice = 0.0f;
         if (null != newOrder.getItems() && newOrder.getItems().size() > 0) {
-           
 
             for (NewOrderItemVO item : newOrder.getItems()) {
                 OrderItem orderItem = new OrderItem();
@@ -190,5 +193,72 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orderId;
+    }
+
+    /**
+     * 返回桌号和当前订单的关联关系，如果当前桌号有订单， 则在Map中取得Order；反之，则为NULL
+     * 
+     * @return
+     */
+    @Override
+    public Map<Integer, Order> getTableStatus() {
+        //1. 获取状态为New的订单
+        return null;
+    }
+
+    @Override
+    public List<Order> queryOrders(NewOrderVO orderCriteria, int curPage,
+            int pageSize) throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton {
+        int pageCount = this.queryOrdersPageCount(orderCriteria, pageSize);
+        
+        if(curPage < 1 || curPage > pageCount) {
+            throw new PageIndexOutOfBoundExcpeiton(pageCount, curPage);
+        }
+        
+        List<Order> orders = orderDao.query(orderCriteria, curPage, pageSize);
+        
+        return orders;
+    }
+    
+    /**
+     * 根据查询条件查找订单分页总数
+     * 
+     * @param orderCriteria
+     * @param pageSize
+     * @return
+     * @throws InvalidPageSizeException 
+     */
+    @Override
+    public int queryOrdersPageCount(NewOrderVO orderCriteria, int pageSize)
+            throws InvalidPageSizeException {
+
+        if (pageSize <= 0) {
+            throw new InvalidPageSizeException(pageSize);
+        }
+
+        int orderCount = this.getOrderCount(orderCriteria);
+
+        return orderCount % pageSize == 0 ? orderCount / pageSize : orderCount
+                / pageSize + 1;
+    }
+
+    /**
+     * 根据查询条件查找订单总数
+     * 
+     * @param orderCriteria
+     * @return
+     */
+    @Override
+    public int getOrderCount(NewOrderVO orderCriteria) {
+        int orderCount = 0;
+
+        if (null == orderCriteria || orderCriteria.isEmpty()) {
+            orderCount = orderDao.count();
+        } else {
+            orderCount = orderDao.count(orderCriteria);
+        }
+
+        return orderCount;
     }
 }

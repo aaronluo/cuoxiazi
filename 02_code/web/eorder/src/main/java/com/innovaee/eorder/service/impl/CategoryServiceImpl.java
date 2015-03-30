@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 根据菜品ID查找菜品列表
      * 
-     * @param id
+     * @param categoryId
      *            菜品ID
      * @return 菜品实体列表
      */

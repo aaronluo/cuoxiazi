@@ -188,13 +188,13 @@ public interface MemberShipServcie {
             InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
 
     /**
-     * 获取指定会员等级的用户总数
+     * 获取指定会员等级的用户分页总数
      * 
      * @param userLevelId
      *            会员等级ID
      * @param pageSize
      *            分页大小
-     * @return 用户总数
+     * @return 用户分页总数
      * @throws UserLevelNotFoundException
      *             会员等级不存在异常
      * @throws InvalidPageSizeException
@@ -202,4 +202,16 @@ public interface MemberShipServcie {
      */
     public int getUsersByUserLevelPageCount(Long userLevelId, int pageSize)
             throws UserLevelNotFoundException, InvalidPageSizeException;
+
+    /**
+     * 获取指定会员等级的用户总数
+     * 
+     * @param userLevleId
+     *            会员等级ID
+     * @return 用户总数
+     * @throws UserLevelNotFoundException
+     *             会员等级不存在异常
+     */
+    public int getUsersByUserLevelCount(Long userLevleId)
+            throws UserLevelNotFoundException;
 }

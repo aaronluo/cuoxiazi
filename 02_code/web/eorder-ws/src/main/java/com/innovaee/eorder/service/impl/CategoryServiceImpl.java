@@ -277,6 +277,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new InvalidPageSizeException(pageSize);
         }
 
+        //去除不需要显示的默认分类
         int totalCategories = categoryDao.count() - 1;
 
         return totalCategories % pageSize == 0 ? totalCategories / pageSize

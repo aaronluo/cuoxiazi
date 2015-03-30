@@ -16,6 +16,7 @@ import com.innovaee.eorder.exception.CategoryNotFoundException;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
+import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.vo.DishVO;
 
 import org.junit.Test;
@@ -192,6 +193,7 @@ public class DishServiceTest extends BaseSpringTestCase {
 
     /**
      * 单元测试 - 更新菜品信息
+     * 
      * @throws DishNotFoundException
      * @throws CategoryNotFoundException
      * @throws DuplicateNameException
@@ -211,7 +213,7 @@ public class DishServiceTest extends BaseSpringTestCase {
 
         dishService.updateDish(dishVO);
     }
-    
+
     /**
      * 单元测试 - 删除非法ID指定的菜品信息
      */
@@ -223,26 +225,41 @@ public class DishServiceTest extends BaseSpringTestCase {
             assertEquals(exception.getClass(), DishNotFoundException.class);
         }
     }
-    
+
     /**
      * 单元测试 - 删除菜品信息
      */
     @Test
-    public void deleteDishTest() throws DishNotFoundException {   
+    public void deleteDishTest() throws DishNotFoundException {
         dishService.deleteDish(1L);
     }
-    
+
     /**
      * 单元测试 - 菜品分页总数
+     * 
      * @throws InvalidPageSizeException
      * @throws CategoryNotFoundException
      */
     @Test
-    public void getDishPageCountTest() throws InvalidPageSizeException, CategoryNotFoundException {
-         Long categoryId = 1L;
-         
-         int pageCount = dishService.getDishPageCount(5, categoryId);
-         
-         assertEquals(2, pageCount);
+    public void getDishPageCountTest() throws InvalidPageSizeException,
+            CategoryNotFoundException {
+        Long categoryId = 1L;
+
+        int pageCount = dishService.getDishPageCount(5, categoryId);
+
+        assertEquals(2, pageCount);
+    }
+
+    /**
+     * 单元测试 - 菜品分页
+     * 
+     * @throws InvalidPageSizeException
+     * @throws CategoryNotFoundException
+     * @throws PageIndexOutOfBoundExcpeiton
+     */
+    @Test
+    public void getDishByCategoryTest() throws PageIndexOutOfBoundExcpeiton,
+            CategoryNotFoundException, InvalidPageSizeException {
+        dishService.getDishesByPage(1, 5, 1L);
     }
 }

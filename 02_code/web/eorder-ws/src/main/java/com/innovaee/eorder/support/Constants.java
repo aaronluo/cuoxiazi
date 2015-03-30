@@ -41,4 +41,6 @@ public class Constants {
     /** 对用户等级进行降级操作 */
     public static final int USER_LEVEL_DOWN = 0;
     
+    /** 最大桌号 **/
+    public static final int MAX_TABLE_NUM = 20;
 }
