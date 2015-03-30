@@ -190,8 +190,6 @@ public class DownloadService implements GoodService, CategoryService {
     public <T> void getUserDiscountData(String userId, ICallback<T> callback) {
         // 创建请求HttpClient客户端
         HttpClient httpClient = new DefaultHttpClient();
-
-        Log.d("getUserDiscountData", "leonwang:");
         		
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVER_GET_USERINFO + userId;
@@ -228,17 +226,14 @@ public class DownloadService implements GoodService, CategoryService {
                     }													
                 } else {		
                     // 异常信息
-                	Log.d("getUserDiscountData", "entityIsNull");
                     callback.onFailed("entityIsNull");
                 }	
             } else {
                 // 异常信息
-            	Log.d("getUserDiscountData", "getStatusCodeError");
                 callback.onFailed("getStatusCodeError");
             }	
         } catch (Exception error) {
             // 异常信息	
-        	Log.d("getUserDiscountData", "ExceptionError");
             callback.onFailed("ExceptionError");
         }
     }
@@ -250,8 +245,7 @@ public class DownloadService implements GoodService, CategoryService {
      *            会员信息json数据
      * @return 成功或者失败
      */					
-    private UserInfoDataBean parseUserDiscountDataJson(String json, ReturnResultDataBean result) {
-    	Log.d("parseUserDiscountDataJson:", "json=" + json);	
+    private UserInfoDataBean parseUserDiscountDataJson(String json, ReturnResultDataBean result) {	
         try {
             JSONObject obj = new JSONObject(json).getJSONObject("user");
             	
@@ -265,7 +259,6 @@ public class DownloadService implements GoodService, CategoryService {
             	result.setResult(true);
             	return userInfo;
         } catch (JSONException error) {		
-        	Log.e("parseUserDiscountDataJson 1", error.toString());
         	try {									
 				JSONObject obj = new JSONObject(json);
 				String err = obj.getString("exception");
@@ -275,10 +268,8 @@ public class DownloadService implements GoodService, CategoryService {
 									
 				result.setMessage(err);		
 				result.setResult(false);			
-				Log.d("parseUserDiscountDataJson 2", "exception =" + err);
 			} catch (JSONException e) {			
 				// TODO Auto-generated catch block
-				Log.d("parseUserDiscountDataJson 3", "exception");
 				e.printStackTrace();
 				result.setMessage("error");		
 				result.setResult(false);
@@ -407,7 +398,6 @@ public class DownloadService implements GoodService, CategoryService {
                 if (entity != null) {
                     // 获取服务器响应的json字符串
                     String json = EntityUtils.toString(entity, "UTF-8");
-                    Log.d("getOrderHestory", "json =" + json);
                     
                     //List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
                     	
@@ -418,14 +408,11 @@ public class DownloadService implements GoodService, CategoryService {
                     if(returnData.getResult()) {
                     	if(beans.size() > 0) {
                     		callback.onSuccess(beans);
-                    		Log.d("getOrderHestory", "callback.onSuccess(beans)");
                     	} else {
                     		callback.onFailed("orderIsNull");
-                    		Log.d("getOrderHestory", "callback.onFailed(orderIsNull);");
                     	}			
                     } else {			
                     	callback.onFailed(returnData.getMessage());
-                    	Log.d("getOrderHestory", "callback.onFailed(returnData.getMessage());");
                     }			
                 } else {
                     // 异常信息
@@ -462,17 +449,14 @@ public class DownloadService implements GoodService, CategoryService {
                 categoryList.add(category);              
             }
             
-            Log.e("parseOrderHestoryDataJson", "result.setMessage(ok);");
             result.setMessage("ok");				
 			result.setResult(true);	
         } catch (JSONException error) {
-        	Log.e("parseOrderHestoryDataJson", error.toString());
         	try {									
 				JSONObject obj = new JSONObject(json);
 				String err = obj.getString("exception");
 				result.setMessage(err);		
 				result.setResult(false);			
-				Log.d("parseUserDiscountDataJson", "exception =" + err);
 			} catch (JSONException e) {			
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -496,9 +480,6 @@ public class DownloadService implements GoodService, CategoryService {
         // 创建请求的url
         String url = getServiceUrl() + Env.Server.SERVIE_GET_ORDERINFO + id;
         		
-        Log.d("getOrderInfo", "id=" + id);
-        Log.d("getOrderInfo", "url=" + url);	
-        
         try {
             // 创建请求的对象
             HttpGet get = new HttpGet(new URI(url));
@@ -546,8 +527,7 @@ public class DownloadService implements GoodService, CategoryService {
      *            订单详情json数据
      * @return 订单详情数据Bean列表list
      */	
-    private List<GoodsDataBean> parseOrderInfoDataJson(String json) {
-    	Log.d("parseOrderInfoDataJson", "json=" + json);	
+    private List<GoodsDataBean> parseOrderInfoDataJson(String json) {	
         List<GoodsDataBean> OrderInfoList = new ArrayList<GoodsDataBean>();
         try {
             JSONArray array = new JSONObject(json).getJSONArray("orders");
@@ -604,9 +584,7 @@ public class DownloadService implements GoodService, CategoryService {
             request.setParams(params);
 
             // 先封装一个 JSON 对象
-            JSONObject object = writeOrderJSON(tableInfo, dataBeanList);
-            
-            Log.d("Order Json Object:", "Json =" + object.toString());	
+            JSONObject object = writeOrderJSON(tableInfo, dataBeanList);	
             	
             // 绑定到请求 Entry
             StringEntity se = new StringEntity(object.toString());
@@ -629,7 +607,6 @@ public class DownloadService implements GoodService, CategoryService {
                     callback.onFailed("entityIsNull");
                 }
             } else {
-            	Log.d("error", "error code =" + httpResponse.getStatusLine().getStatusCode());
                 // 异常信息	
                 callback.onFailed("getStatusCodeError");
             }

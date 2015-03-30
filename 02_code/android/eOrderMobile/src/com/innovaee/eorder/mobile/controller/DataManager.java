@@ -10,12 +10,9 @@ package com.innovaee.eorder.mobile.controller;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.innovaee.eorder.mobile.databean.CategoryDataBean;
 import com.innovaee.eorder.mobile.databean.GoodsDataBean;
 import com.innovaee.eorder.mobile.databean.OrderHestoryDataBean;
-import com.innovaee.eorder.mobile.databean.OrderInfoDataBean;
 import com.innovaee.eorder.mobile.databean.OrderReturnDataBean;
 import com.innovaee.eorder.mobile.databean.TableInfoDataBean;
 import com.innovaee.eorder.mobile.databean.UserInfoDataBean;
@@ -170,7 +167,6 @@ public class DataManager {
 
             @Override
             public void onSuccess(List<UserInfoDataBean> response) {
-            	Log.d("DataManager:", "onSuccess");
                 boolean success = response != null && response.size() > 0;
                 if (success) {
                     dataRequestListener.onRequestSuccess(response);
@@ -181,13 +177,11 @@ public class DataManager {
 
             @Override
             public void onFailed(String error) {
-            	Log.d("DataManager:", "onFailed");
                 dataRequestListener.onRequestFailed(error);
             }
 
             @Override
             public void onSuccessT(UserInfoDataBean response) {
-            	Log.d("DataManager:", "onSuccessT");
                 boolean success = response != null;
                 if (success) {
                     dataRequestListener.onRequestSuccess(response);
@@ -229,8 +223,6 @@ public class DataManager {
             @Override
             public void onSuccess(List<OrderReturnDataBean> response) {
                 boolean success = response != null && response.size() > 0;
-                Log.d("onSuccess:", "result =" + response.get(0).getResult());
-                Log.d("onSuccess:", "message =" + response.get(0).getMessage());
                 if (success) {	
                     dataRequestListener.onRequestSuccess(response);
                 } else {
@@ -240,7 +232,6 @@ public class DataManager {
 
             @Override	
             public void onFailed(String error) {
-            	Log.d("error", "error =" + error);
                 dataRequestListener.onRequestFailed(error);
             }
             

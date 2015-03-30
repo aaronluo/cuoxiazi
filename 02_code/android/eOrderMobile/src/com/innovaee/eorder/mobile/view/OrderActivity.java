@@ -268,7 +268,7 @@ public class OrderActivity extends Activity {
         // 默认折扣为10
         discount = 10.0;
         							
-        // 默认员工号为1
+        // 默认员工号为空
         saveEmployeeId = "";					
         inputEmployeeId.setText("");				
         									
@@ -294,9 +294,7 @@ public class OrderActivity extends Activity {
             public void onClick(View paramAnonymousView) { 
                 Intent openCameraIntent = new Intent(OrderActivity.this,
                         CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
-                							
-                //getEmployeeData("13912345671");	
+                startActivityForResult(openCameraIntent, 0);                						
             }									
         });	
 
@@ -320,7 +318,6 @@ public class OrderActivity extends Activity {
                 String tableId = inputTableId.getText().toString();
                 String peopleCount = inputPeopleCount.getText().toString();
                 String employeeId = inputEmployeeId.getText().toString();
-                //String userId = inputUserId.getText().toString();
                 														
                 if (tableId.equals("")) {
                     Toast.makeText(getApplicationContext(),
@@ -342,14 +339,7 @@ public class OrderActivity extends Activity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                //if (userId.equals("")) {
-                //    Toast.makeText(getApplicationContext(),
-                //            R.string.order_toast_please_input_userid,
-                //            Toast.LENGTH_SHORT).show();
-                //    return;
-                //}
-
+                
                 orderToService();
             }	
         });
@@ -547,15 +537,12 @@ public class OrderActivity extends Activity {
                                     @Override
                                     public void onRequestSuccess(
                                             UserInfoDataBean data) {
-                                    	Log.d(TAG, "onRequestSuccess");
                                     	if (data == null) {
                                             return;
                                         }				
                                         discount = data
                                                 .getDiscount();
                                         saveUserId = String.valueOf(data.getId());
-                                        Log.d(TAG, "discount =" + discount);	
-                                        Log.d(TAG, "saveUserId =" + saveUserId);
                                         updateDiscountUi();
                                     }
                                 });
@@ -670,7 +657,6 @@ public class OrderActivity extends Activity {
      *            下订单数据
      */		
     private void orderToService() {
-    	Log.d(TAG, "orderToService");
     	tableInfo = new TableInfoDataBean(); 		
     	tableInfo.setAttendeeNumber(Integer.valueOf(inputPeopleCount.getText().toString()));	
     	tableInfo.setCellphone(saveUserId);				
@@ -727,5 +713,5 @@ public class OrderActivity extends Activity {
             }
         }.start();        	
     }
-    
+    	
 }
