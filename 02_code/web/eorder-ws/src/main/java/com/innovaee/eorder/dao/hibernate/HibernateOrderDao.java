@@ -17,7 +17,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import java.sql.SQLException;
@@ -217,8 +219,25 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                     criteria.add(Restrictions.le("totalPrice", orderCriteria.getTotalPriceMax()));
                 }
 
+//               criteria.createAlias("orderItems", "orderItems");
                criteria.addOrder(org.hibernate.criterion.Order.desc("this.id"));
-               criteria.setProjection(Projections.projectionList().add(Projections.distinct(Projections.property("id"))));
+               criteria.setProjection(
+                       Projections.projectionList()
+                       .add(Projections.distinct(Projections.property("id")))
+                       .add(Property.forName("id").as("id"))
+                       .add(Property.forName("attendeeNumber").as("attendeeNumber"))
+                       .add(Property.forName("casher").as("casher"))
+                       .add(Property.forName("discountPrice").as("discountPrice"))
+                       .add(Property.forName("member").as("member"))
+                       .add(Property.forName("orderSeq").as("orderSeq"))
+                       .add(Property.forName("orderStatus").as("orderStatus"))
+                       .add(Property.forName("servent").as("servent"))
+                       .add(Property.forName("tableNumber").as("tableNumber"))
+                       .add(Property.forName("totalPrice").as("totalPrice"))
+                       .add(Property.forName("createDate").as("createDate"))
+                       .add(Property.forName("updateDate").as("updateDate")))
+//                       .add(Property.forName("orderItems").as("orderItems")))
+                       .setResultTransformer(new AliasToBeanResultTransformer(Order.class));
 
                 criteria.setFirstResult(startIdx);
                 criteria.setMaxResults(pageSize);

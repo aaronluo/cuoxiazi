@@ -16,6 +16,7 @@ import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
+import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
@@ -31,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,10 +90,17 @@ public class OrderServiceImpl implements OrderService {
      * @param orderId
      *            订单ID
      * @return 订单
+     * @throws OrderNotFoundException 
      */
     @Override
-    public Order getOrderById(Long orderId) {
-        return orderDao.get(orderId);
+    public Order getOrderById(Long orderId) throws OrderNotFoundException {
+        Order order = orderDao.get(orderId);
+        
+        if(order == null) {
+            throw new OrderNotFoundException(MessageUtil.getMessage("order_id", "" + orderId));
+        }
+        
+        return order;
     }
 
     /**
@@ -196,16 +205,51 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 返回桌号和当前订单的关联关系，如果当前桌号有订单， 则在Map中取得Order；反之，则为NULL
+     * 返回桌号和当前订单的关联关系，如果当前桌号有订单， 
+     * 则在Map中取得Order；反之，则为NULL
+     * 这里设定一共有20个桌子，所以Map的key值是从1到20
      * 
      * @return
      */
     @Override
     public Map<Integer, Order> getTableStatus() {
+        Map<Integer, Order> result = new HashMap<Integer, Order>();
+        
         //1. 获取状态为New的订单
-        return null;
+        NewOrderVO orderCriteria = new NewOrderVO();
+        orderCriteria.setStatus(Constants.ORDER_NEW);
+        
+        List<Order> orders = orderDao.query(orderCriteria, 1, Integer.MAX_VALUE);
+        //2. 进行桌号对比
+        for (int tableNum = 1; tableNum <= 20; tableNum++) {
+            boolean foundOrder = false;
+            for(Order order : orders) {
+                if(tableNum == order.getTableNumber()) {
+                    result.put(tableNum, order);
+                    foundOrder = true;
+                    break;
+                }
+            }
+            
+            if(!foundOrder) {
+                result.put(tableNum, null);
+            }
+            
+        }
+        
+        return result;
     }
-
+    /**
+     * 根据查询条件查找订单
+     * 
+     * @param orderCriteria
+     * @param curPage
+     * @param pageSize
+     * @return 返回订单分页数据，这里有一个issue就是订单的明细没有获取，
+     * 需要再次调用getOrderById来获取完备的明细
+     * @throws InvalidPageSizeException 
+     * @throws PageIndexOutOfBoundExcpeiton 
+     */
     @Override
     public List<Order> queryOrders(NewOrderVO orderCriteria, int curPage,
             int pageSize) throws InvalidPageSizeException,
@@ -260,5 +304,35 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orderCount;
+    }
+
+    /**
+     * 买单
+     * 
+     * @param orderId
+     *            - 订单id
+     * @param casherId
+     *            - 收银员id
+     * @return 更新过结帐状态的订单
+     * @throws OrderNotFoundException
+     *             订单未找到异常
+     * @throws UserNotFoundException
+     *             用户未找到异常
+     */
+    @Override
+    public Order payTheOrder(Long orderId, Long casherId)
+            throws OrderNotFoundException, UserNotFoundException {
+        Order order = this.getOrderById(orderId);
+        User casher = userDao.get(casherId);
+        
+        if(null == casher) {
+            throw new UserNotFoundException(MessageUtil.getMessage("user_id", "" + casherId));
+        }
+        
+        order.setCasher(casher);
+        order.setOrderStatus(Constants.ORDER_PAID);
+        orderDao.update(order);
+        
+        return order;
     }
 }

@@ -1,0 +1,65 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+
+    <style name="MMTabButton">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">@color/mm_tab_btn</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">0.70000005dip</item>
+        <item name="android:layout_marginRight">0.70000005dip</item>
+        <item name="android:layout_marginBottom">0.20000005dip</item>
+        <item name="android:layout_marginTop">0.70000005dip</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name="CustomActivityTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:titleTextStyle">@style/TextAppearance.Holo.Widget.ActionBar.Title.Own</item>
+    </style>
+
+    <style name="TextAppearance.Holo.Widget.ActionBar.Title.Own" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_light_holo</item>
+        <item name="android:titleTextStyle">@style/ActionBarTitleTextStyle</item>
+        <item name="android:subtitleTextStyle">@style/ActionBarSubTitleTextStyle</item>
+        <item name="android:indeterminateProgressStyle">@style/ActionBarProgress</item>
+    </style>
+
+    <style name="ActionButton" parent="@android:style/Widget.Holo.Light.ActionButton">
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:minWidth">40.0dip</item>
+    </style>
+
+    <style name="ActionBarProgress" parent="@android:style/Widget.Holo.Light.ProgressBar">
+        <item name="android:maxWidth">40.0dip</item>
+        <item name="android:maxHeight">30.0dip</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_medium_holo</item>
+        <item name="android:minWidth">40.0dip</item>
+        <item name="android:minHeight">30.0dip</item>
+    </style>
+
+    <style name="ActionBarSubTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">@dimen/action_bar_subtitle_text_size</item>
+        <item name="android:textColor">@color/action_bar_sub_title</item>
+    </style>
+
+    <style name="ActionBarTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textSize">@dimen/action_bar_title_text_size</item>
+        <item name="android:textColor">@color/action_bar_title</item>
+    </style>
+
+</resources>

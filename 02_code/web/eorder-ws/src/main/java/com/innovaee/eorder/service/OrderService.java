@@ -9,6 +9,7 @@ package com.innovaee.eorder.service;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
+import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
@@ -30,8 +31,9 @@ public interface OrderService {
      * @param orderId
      *            订单ID
      * @return 订单
+     * @throws OrderNotFoundException 
      */
-    public Order getOrderById(Long orderId);
+    public Order getOrderById(Long orderId) throws OrderNotFoundException;
 
     /**
      * 根据用户ID得到订单列表
@@ -70,11 +72,12 @@ public interface OrderService {
      * @param curPage
      * @param pageSize
      * @return
-     * @throws InvalidPageSizeException 
-     * @throws PageIndexOutOfBoundExcpeiton 
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
      */
     public List<Order> queryOrders(final NewOrderVO orderCriteria,
-            final int curPage, final int pageSize) throws InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
+            final int curPage, final int pageSize)
+            throws InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
 
     /**
      * 根据查询条件查找订单分页总数
@@ -82,15 +85,32 @@ public interface OrderService {
      * @param orderCriteria
      * @param pageSize
      * @return
-     * @throws InvalidPageSizeException 
+     * @throws InvalidPageSizeException
      */
     public int queryOrdersPageCount(final NewOrderVO orderCriteria,
             final int pageSize) throws InvalidPageSizeException;
-    
+
     /**
      * 根据查询条件查找订单总数
+     * 
      * @param orderCriteria
      * @return
      */
     public int getOrderCount(final NewOrderVO orderCriteria);
+
+    /**
+     * 买单
+     * 
+     * @param orderId
+     *            - 订单id
+     * @param casherId
+     *            - 收银员id
+     * @return 更新过结帐状态的订单
+     * @throws OrderNotFoundException
+     *             订单未找到异常
+     * @throws UserNotFoundException
+     *             用户未找到异常
+     */
+    public Order payTheOrder(Long orderId, Long casherId)
+            throws OrderNotFoundException, UserNotFoundException;
 }
