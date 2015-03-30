@@ -221,7 +221,7 @@ public class DishServiceImpl implements DishService {
                         .getPage(
                                 startIndex,
                                 pageSize,
-                                "FROM Dish WHERE Dish.category_id=? AND Dish.onSell=true",
+                                "FROM Dish AS dish WHERE dish.category.id=? AND dish.onSell=true",
                                 categoryId);
             }
         }

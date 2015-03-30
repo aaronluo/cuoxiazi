@@ -7,6 +7,9 @@
 
 package com.innovaee.eorder.entity;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -189,4 +192,7 @@ public class Order extends BaseEntity {
         this.orderItems = orderItems;
     }
 
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
+    }
 }
