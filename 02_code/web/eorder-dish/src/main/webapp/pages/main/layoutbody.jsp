@@ -22,7 +22,7 @@
 <script type="text/javascript" src="../resources/js/jquery.js"></script>
 </head>
 <body>
-	<div class="panel main">
+	<div class="panel onepage">
 		<tiles:insertAttribute name="body" />
 	</div>
 </body>

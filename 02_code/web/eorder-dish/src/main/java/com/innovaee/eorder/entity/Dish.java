@@ -31,7 +31,7 @@ public class Dish extends BaseEntity {
     private String dishName;
 
     /** 菜品价格 */
-    private float dishPrice;
+    private Float dishPrice;
 
     /** 菜品图片 */
     private String dishPicture;
@@ -81,11 +81,11 @@ public class Dish extends BaseEntity {
 
     @Basic
     @Column(name = "DISH_PRICE")
-    public float getDishPrice() {
+    public Float getDishPrice() {
         return dishPrice;
     }
 
-    public void setDishPrice(float dishPrice) {
+    public void setDishPrice(Float dishPrice) {
         this.dishPrice = dishPrice;
     }
 

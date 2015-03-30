@@ -60,7 +60,7 @@ public class DishServiceImpl implements DishService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
-            CategoryNotFoundException {
+            CategoryNotFoundException, NumberFormatException {
         // 1. 检查是否有同名菜品
         Dish dish = dishDao.getDishByName(dishVO.getDishName());
 
@@ -77,7 +77,7 @@ public class DishServiceImpl implements DishService {
                 dish.setDishName(dishVO.getDishName());
                 dish.setOnSell(true);
                 dish.setDishPicture(dishVO.getDishPicture());
-                dish.setDishPrice(dishVO.getDishPrice());
+                dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
                 Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
                         "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
                         .getInstance().getTime()));
@@ -109,7 +109,8 @@ public class DishServiceImpl implements DishService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Dish updateDish(DishVO dishVO) throws DishNotFoundException,
-            CategoryNotFoundException, DuplicateNameException {
+            CategoryNotFoundException, DuplicateNameException,
+            NumberFormatException {
         // 1. 检查要更新的菜品是否存在
         Dish dish = getDishById(dishVO.getId());
 
@@ -131,7 +132,7 @@ public class DishServiceImpl implements DishService {
                 dish.setMisc(dishVO.getMisc());
                 dish.setDishName(dishVO.getDishName());
                 dish.setDishPicture(dishVO.getDishPicture());
-                dish.setDishPrice(dishVO.getDishPrice());
+                dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
                 dish.setUpdateDate(new Date());
 
                 dishDao.update(dish);

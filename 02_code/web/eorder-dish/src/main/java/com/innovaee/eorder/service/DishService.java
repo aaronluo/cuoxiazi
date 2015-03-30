@@ -46,7 +46,7 @@ public interface DishService {
      *             菜品分类不存在异常
      */
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
-            CategoryNotFoundException;
+            CategoryNotFoundException, NumberFormatException;
 
     /**
      * 更新菜品信息
@@ -62,7 +62,8 @@ public interface DishService {
      *             命名重复异常
      */
     public Dish updateDish(DishVO dishVO) throws DishNotFoundException,
-            CategoryNotFoundException, DuplicateNameException;
+            CategoryNotFoundException, DuplicateNameException,
+            NumberFormatException;
 
     /**
      * 删除指定id的菜品

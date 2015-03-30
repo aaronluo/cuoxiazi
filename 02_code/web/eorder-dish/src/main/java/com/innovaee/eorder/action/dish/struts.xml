@@ -21,7 +21,6 @@
             <result type="tiles">dish</result>
         </action>
 
-
         <action name="edit" class="com.innovaee.eorder.action.dish.DishAction"
             method="edit">
             <result name="input" type="tiles">dishEdit</result>

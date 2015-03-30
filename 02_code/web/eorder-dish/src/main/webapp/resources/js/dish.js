@@ -6,7 +6,7 @@ function add() {
 	if (null == categoryId || '' == categoryId) {
 		$("#categoryId").val("1");
 	}
-	
+
 	$("[name='addForm']").attr("action", "add.action");
 	$("[name='addForm']").attr("method", "post");
 	$("[name='addForm']").submit();
@@ -68,7 +68,7 @@ function openUploadPage() {
 	var newFileName = window
 			.showModalDialog("../upload/upload.action", null,
 					"dialogWidth=800px;dialogHeight=600px;status=no;help=no;scrollbars=no");
-	//newFileName = "" + newFileName;
+	// newFileName = "" + newFileName;
 	$("#dishPicture").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片
 	$("#dishPic").attr("src", "../resources/images/dish/" + newFileName);
@@ -101,7 +101,6 @@ function remove() {
 	$("[name='saveForm']").attr("method", "post");
 	$("[name='saveForm']").submit();
 }
-
 
 function update() {
 	$("[name='updateForm']").attr("action", "update.action");
