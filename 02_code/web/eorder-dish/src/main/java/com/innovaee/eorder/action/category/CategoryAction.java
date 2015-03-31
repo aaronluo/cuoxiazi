@@ -40,24 +40,24 @@ public class CategoryAction extends BaseAction {
     /** 对象序列化ID */
     private static final long serialVersionUID = -5184755551662453454L;
 
-    /** 数据库中对应的功能描述常量 */
+    /** 数据库中对应的菜单分类描述常量 */
     public static final String FUNCTION_DESC = "Category";
 
-    /** 功能名称 */
-    private String categoryName;
+    /** 菜单分类名称 */
+    private String name;
 
-    /** 功能图片 */
-    private String categoryPicture;
+    /** 菜单分类图片 */
+    private String picPath;
 
-    /** 功能值对象列表 */
+    /** 菜单分类值对象列表 */
     private List<CategoryVO> categoryvos = new ArrayList<CategoryVO>();
 
-    /** 功能服务类对象 */
+    /** 菜单分类服务类对象 */
     @Resource
     private CategoryService categoryService;
 
     /**
-     * 进入功能页面
+     * 进入菜单分类页面
      * 
      * @return
      */
@@ -82,7 +82,7 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 保存功能
+     * 保存菜单分类
      * 
      * @return
      */
@@ -95,15 +95,15 @@ public class CategoryAction extends BaseAction {
         CategoryVO categoryVO = null;
         try {
             categoryVO = new CategoryVO();
-            if (null != categoryName && !"".equals(categoryName.trim())) {
-                categoryVO.setCategoryName(categoryName);
+            if (null != name && !"".equals(name.trim())) {
+                categoryVO.setName(name);
             } else {
                 this.setMessage(MessageUtil.getMessage("category_name_empty"));
                 return INPUT;
             }
 
-            if (null != categoryPicture && !"".equals(categoryPicture.trim())) {
-                categoryVO.setCategoryPicture(categoryPicture);
+            if (null != picPath && !"".equals(picPath.trim())) {
+                categoryVO.setPicPath(picPath);
             } else {
                 this.setMessage(MessageUtil
                         .getMessage("category_picture_empty"));
@@ -114,7 +114,8 @@ public class CategoryAction extends BaseAction {
 
             if (null != newCategory) {
                 this.setMessage(MessageUtil.getMessage("add_success"));
-                this.setCategoryName("");
+                this.setName("");
+                this.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
                 renewPage();
             } else {
                 this.setMessage(MessageUtil.getMessage("add_failure"));
@@ -122,7 +123,7 @@ public class CategoryAction extends BaseAction {
             }
         } catch (DuplicateNameException e) {
             this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    categoryName));
+                    name));
             return INPUT;
         }
 
@@ -130,7 +131,7 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 加载单个功能信息
+     * 加载单个菜单分类信息
      * 
      * @return
      */
@@ -139,7 +140,8 @@ public class CategoryAction extends BaseAction {
             Category category;
             try {
                 category = categoryService.getCategoryById(Long.parseLong(id));
-                categoryName = category.getCategoryName();
+                name = category.getName();
+                picPath = category.getPicPath();
             } catch (CategoryNotFoundException e) {
                 this.setMessage(MessageUtil.getMessage(
                         "category_not_found_exception", id.toString()));
@@ -154,7 +156,7 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 更新功能
+     * 更新菜单分类
      * 
      * @return
      */
@@ -175,15 +177,15 @@ public class CategoryAction extends BaseAction {
                 categoryVO.setId(category.getId());
             }
 
-            if (null != categoryName && !"".equals(categoryName.trim())) {
-                categoryVO.setCategoryName(categoryName);
+            if (null != name && !"".equals(name.trim())) {
+                categoryVO.setName(name);
             } else {
                 this.setMessage(MessageUtil.getMessage("category_name_empty"));
                 return INPUT;
             }
 
-            if (null != categoryPicture && !"".equals(categoryPicture.trim())) {
-                categoryVO.setCategoryPicture(categoryPicture);
+            if (null != picPath && !"".equals(picPath.trim())) {
+                categoryVO.setPicPath(picPath);
             } else {
                 this.setMessage(MessageUtil
                         .getMessage("category_picture_empty"));
@@ -193,7 +195,7 @@ public class CategoryAction extends BaseAction {
             categoryService.updateCategory(categoryVO);
         } catch (DuplicateNameException e) {
             this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    categoryName));
+                    name));
             return INPUT;
         } catch (CategoryNotFoundException e1) {
             this.setMessage(MessageUtil.getMessage(
@@ -206,7 +208,7 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 删除功能
+     * 删除菜单分类
      * 
      * @return
      */
@@ -243,7 +245,7 @@ public class CategoryAction extends BaseAction {
 
         List<MenuLinkVO> menuLink = null;
         if (null != toolbarList && 0 < toolbarList.size()) {
-            // 第一个功能对应的菜单
+            // 第一个菜单分类对应的菜单
             menuLink = MenuUtil.getMenuLinkVOList(FUNCTION_DESC);
         }
 
@@ -324,8 +326,8 @@ public class CategoryAction extends BaseAction {
         // 更新页面数据
         refreshPageData();
 
-        if (null == categoryPicture || "".equals(categoryPicture)) {
-            this.setCategoryPicture(Constants.DEFAULT_CATEGORY_PIC);
+        if (null == picPath || "".equals(picPath)) {
+            this.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
         }
     }
 
@@ -345,20 +347,20 @@ public class CategoryAction extends BaseAction {
         this.categoryService = categoryService;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryPicture() {
-        return categoryPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setCategoryPicture(String categoryPicture) {
-        this.categoryPicture = categoryPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
 }

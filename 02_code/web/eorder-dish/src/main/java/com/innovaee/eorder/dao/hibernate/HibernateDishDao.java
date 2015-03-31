@@ -29,12 +29,12 @@ public class HibernateDishDao extends HibernateBaseDao<Dish> implements DishDao 
     /**
      * 根据菜品名称获取菜品对象
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 返回菜品对象或者null
      */
 
-    public Dish getDishByName(final String dishName) {
+    public Dish getDishByName(final String name) {
         return getHibernateTemplate().execute(new HibernateCallback<Dish>() {
 
             public Dish doInHibernate(Session session)
@@ -42,7 +42,7 @@ public class HibernateDishDao extends HibernateBaseDao<Dish> implements DishDao 
                 Dish dish = null;
 
                 Criteria criteria = session.createCriteria(Dish.class);
-                criteria.add(Restrictions.eq("dishName", dishName));
+                criteria.add(Restrictions.eq("name", name));
                 criteria.add(Restrictions.eq("onSell", true));
 
                 if (!criteria.list().isEmpty()) {

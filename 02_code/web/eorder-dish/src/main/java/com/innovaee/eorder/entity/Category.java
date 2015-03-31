@@ -30,10 +30,10 @@ public class Category extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 分类名称 */
-    private String categoryName;
+    private String name;
 
     /** 分类图片地址 */
-    private String categoryPicture;
+    private String picPath;
 
     /** 菜品列表 */
     private Set<Dish> dishes;
@@ -52,33 +52,33 @@ public class Category extends BaseEntity {
      * @param picPath
      *            分类图片地址
      */
-    public Category(String categoryName, String categoryPicture) {
-        this.categoryName = categoryName;
-        this.categoryPicture = categoryPicture;
+    public Category(String name, String picPath) {
+        this.name = name;
+        this.picPath = picPath;
     }
 
     @Basic
     @Column(name = "CATEGORY_NAME")
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
     @Column(name = "CATEGORY_PICTURE")
-    public String getCategoryPicture() {
-        return categoryPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setCategoryPicture(String categoryPicture) {
-        this.categoryPicture = categoryPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
     @OneToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, mappedBy = "category")
-    @Where(clause = "ON_SELL=1")
+    @Where(clause="ON_SELL=1")
     public Set<Dish> getDishes() {
         return dishes;
     }

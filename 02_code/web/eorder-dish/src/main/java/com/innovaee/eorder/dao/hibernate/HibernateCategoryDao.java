@@ -30,12 +30,12 @@ public class HibernateCategoryDao extends HibernateBaseDao<Category> implements
     /**
      * 根据指定菜品分类名称查找菜品分类
      * 
-     * @param categoryName
+     * @param name
      *            菜品分类名称
      * @return 菜品分类对象或者null
      */
     
-    public Category getCategoryByName(final String categoryName) {
+    public Category getCategoryByName(final String name) {
 
         return getHibernateTemplate().execute(
                 new HibernateCallback<Category>() {
@@ -45,7 +45,7 @@ public class HibernateCategoryDao extends HibernateBaseDao<Category> implements
                         Criteria criteria = session
                                 .createCriteria(Category.class);
 
-                        criteria.add(Restrictions.eq("categoryName", categoryName));
+                        criteria.add(Restrictions.eq("name", name));
 
                         if (!criteria.list().isEmpty()) {
                             category = (Category) criteria.uniqueResult();

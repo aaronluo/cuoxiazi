@@ -14,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @Title: Dish
@@ -28,19 +27,18 @@ public class Dish extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 菜品名称 */
-    private String dishName;
+    private String name;
+
+    /** 菜品图片地址 */
+    private String picPath;
 
     /** 菜品价格 */
-    private Float dishPrice;
-
-    /** 菜品图片 */
-    private String dishPicture;
+    private float price;
 
     /** 在售状态 */
     private boolean onSell;
 
-    /** 更多信息 */
-    @XmlTransient
+    /** 其他信息 */
     private String misc;
 
     /** 分类 */
@@ -55,48 +53,48 @@ public class Dish extends BaseEntity {
     /**
      * 构造函数
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
-     * @param dishPicture
+     * @param picPath
      *            菜品图片地址
-     * @param dishPrice
+     * @param price
      *            菜品价格
      */
-    public Dish(String dishName, String dishPicture, float dishPrice) {
+    public Dish(String name, String picPath, float price) {
         super();
-        this.dishName = dishName;
-        this.dishPicture = dishPicture;
-        this.dishPrice = dishPrice;
+        this.name = name;
+        this.picPath = picPath;
+        this.price = price;
     }
 
     @Basic
     @Column(name = "DISH_NAME")
-    public String getDishName() {
-        return dishName;
+    public String getName() {
+        return name;
     }
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    @Basic
-    @Column(name = "DISH_PRICE")
-    public Float getDishPrice() {
-        return dishPrice;
-    }
-
-    public void setDishPrice(Float dishPrice) {
-        this.dishPrice = dishPrice;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
     @Column(name = "DISH_PICTURE")
-    public String getDishPicture() {
-        return dishPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setDishPicture(String dishPicture) {
-        this.dishPicture = dishPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
+    }
+
+    @Basic
+    @Column(name = "DISH_PRICE")
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     @Basic
@@ -128,5 +126,4 @@ public class Dish extends BaseEntity {
     public void setCategory(Category category) {
         this.category = category;
     }
-
 }

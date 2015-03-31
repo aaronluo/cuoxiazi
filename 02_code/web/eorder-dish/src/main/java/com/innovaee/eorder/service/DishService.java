@@ -78,13 +78,13 @@ public interface DishService {
     /**
      * 根据菜品名称获取菜品信息
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 菜品信息对象
      * @throws DishNotFoundException
      *             菜品不存在异常
      */
-    public Dish getDishByName(String dishName) throws DishNotFoundException;
+    public Dish getDishByName(String name) throws DishNotFoundException;
 
     /**
      * 获取菜品分页数据

@@ -47,10 +47,10 @@
 			<tbody>
 				<s:iterator value="categoryvos">
 					<tr>
-						<td width="18%"><s:property value="categoryName" /></td>
+						<td width="18%"><s:property value="name" /></td>
 						<td class="imgtd"><img
 							style="height: 64px; width: 64px; padding: 5px;"
-							src='../resources/images<s:property value="categoryPicture" />'></td>
+							src='../resources/images<s:property value="picPath" />'></td>
 						<td><a
 							href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'
 							class="tablelink"><s:text name="edit" /></a></td>

@@ -51,11 +51,11 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void addCategoryWithDuplicateNameTest() {
-        String categoryName = "湘菜";
+        String name = "湘菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setCategoryName(categoryName);
-        categoryVO.setCategoryPicture(Constants.DEFAULT_CATEGORY_PIC);
+        categoryVO.setName(name);
+        categoryVO.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
         try {
             categoryService.addCategory(categoryVO);
         } catch (Exception exception) {
@@ -68,11 +68,11 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void addValidCategoryTest() {
-        String categoryName = "汤水";
+        String name = "汤水";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setCategoryName(categoryName);
-        categoryVO.setCategoryPicture(Constants.DEFAULT_CATEGORY_PIC);
+        categoryVO.setName(name);
+        categoryVO.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
 
         try {
             Category category = categoryService.addCategory(categoryVO);
@@ -91,12 +91,12 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     @Test
     public void updateWithInvalidNameTest() throws CategoryNotFoundException {
         Category category = categoryService.getCategoryById(1L);
-        String invalidCategoryName = "川菜";
+        String invalidName = "川菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setCategoryName(invalidCategoryName);
+        categoryVO.setName(invalidName);
         categoryVO.setId(category.getId());
-        categoryVO.setCategoryPicture(category.getCategoryPicture());
+        categoryVO.setPicPath(category.getPicPath());
 
         try {
             categoryService.updateCategory(categoryVO);
@@ -115,12 +115,12 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     public void updateWithRightNameTest() throws DuplicateNameException,
             CategoryNotFoundException {
         Category category = categoryService.getCategoryById(1L);
-        String invalidCategoryName = "湘菜";
+        String invalidName = "湘菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setCategoryName(invalidCategoryName);
+        categoryVO.setName(invalidName);
         categoryVO.setId(category.getId());
-        categoryVO.setCategoryPicture(category.getCategoryPicture());
+        categoryVO.setPicPath(category.getPicPath());
 
         categoryService.updateCategory(categoryVO);
 
@@ -142,7 +142,7 @@ public class CategoryServiceTest extends BaseSpringTestCase {
         dish = dishService.getDishById(dish.getId());
         category = dish.getCategory();
 
-        assertEquals(Constants.DEFAULT_CATEGORY, category.getCategoryName());
+        assertEquals(Constants.DEFAULT_CATEGORY, category.getName());
 
         try {
             categoryService.deleteCategory(1L);

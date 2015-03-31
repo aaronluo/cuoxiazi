@@ -69,7 +69,7 @@ function openUploadPage() {
 			.showModalDialog("../upload/upload.action", null,
 					"dialogWidth=800px;dialogHeight=600px;status=no;help=no;scrollbars=no");
 	// newFileName = "" + newFileName;
-	$("#dishPicture").val("/dish/" + newFileName);
+	$("#picPath").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片
 	$("#dishPic").attr("src", "../resources/images/dish/" + newFileName);
 }

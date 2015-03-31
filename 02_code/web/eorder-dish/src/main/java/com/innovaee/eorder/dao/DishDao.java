@@ -19,11 +19,11 @@ public interface DishDao extends BaseDao<Dish> {
     /**
      * 根据菜品名称获取菜品对象
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 返回菜品对象或者null
      */
-    public Dish getDishByName(final String dishName);
+    public Dish getDishByName(final String name);
 
     /**
      * 根据分类ID获取菜品记录条数

@@ -17,14 +17,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CategoryVO extends BaseVO {
 
-    /** 对象序列化ID */
+    /**  */
     private static final long serialVersionUID = 4332034709631128295L;
 
     /** 分类名称 */
-    private String categoryName;
+    private String name;
 
-    /** 分类图片地址 */
-    private String categoryPicture;
+    /** 分类图片 */
+    private String picPath;
 
     /**
      * 默认构造函数
@@ -38,32 +38,32 @@ public class CategoryVO extends BaseVO {
      * 
      * @param id
      *            ID
-     * @param categoryName
+     * @param name
      *            分类名称
-     * @param categoryPicture
+     * @param picPath
      *            分类图片
      */
-    public CategoryVO(Long id, String categoryName, String categoryPicture) {
+    public CategoryVO(Long id, String name, String picPath) {
         super();
         this.id = id;
-        this.categoryName = categoryName;
-        this.categoryPicture = categoryPicture;
+        this.name = name;
+        this.picPath = picPath;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategoryPicture() {
-        return categoryPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setCategoryPicture(String categoryPicture) {
-        this.categoryPicture = categoryPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
 }

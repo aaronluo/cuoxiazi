@@ -95,13 +95,13 @@ public interface CategoryService {
     /**
      * 根据指定的菜品分类名字查找菜品分类
      * 
-     * @param categoryName
+     * @param name
      *            菜品分类名字
      * @return 菜品分类对象
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
-    public Category getCategoryByName(final String categoryName)
+    public Category getCategoryByName(final String name)
             throws CategoryNotFoundException;
 
     /**

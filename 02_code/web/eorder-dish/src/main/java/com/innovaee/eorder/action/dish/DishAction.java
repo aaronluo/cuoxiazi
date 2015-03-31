@@ -48,14 +48,14 @@ public class DishAction extends BaseAction {
     /** 数据库中对应的功能描述常量 */
     public static final String FUNCTION_DESC = "Dish";
 
-    /** 功能名称 */
-    private String dishName;
+    /** 菜品名称 */
+    private String name;
 
     /** 菜品价格 */
-    private String dishPrice;
+    private Float price;
 
     /** 菜品图片 */
-    private String dishPicture;
+    private String picPath;
 
     /** 在售状态 */
     private boolean onSell;
@@ -132,8 +132,8 @@ public class DishAction extends BaseAction {
         try {
             DishVO dishVO = new DishVO();
 
-            if (null != dishName && !"".equals(dishName.trim())) {
-                dishVO.setDishName(dishName);
+            if (null != name && !"".equals(name.trim())) {
+                dishVO.setName(name);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_name_empty"));
                 // 更新页面数据
@@ -141,8 +141,8 @@ public class DishAction extends BaseAction {
                 return INPUT;
             }
 
-            if (null != dishPrice && !"".equals(dishPrice)) {
-                dishVO.setDishPrice(dishPrice);
+            if (null != price &&0 != price) {
+                dishVO.setPrice(price);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_price_empty"));
                 // 更新页面数据
@@ -150,8 +150,8 @@ public class DishAction extends BaseAction {
                 return INPUT;
             }
 
-            if (null != dishPicture && !"".equals(dishPicture.trim())) {
-                dishVO.setDishPicture(dishPicture);
+            if (null != picPath && !"".equals(picPath.trim())) {
+                dishVO.setPicPath(picPath);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
                 // 更新页面数据
@@ -165,9 +165,9 @@ public class DishAction extends BaseAction {
 
             if (null != newDish) {
                 this.setMessage(MessageUtil.getMessage("add_success"));
-                this.setDishName("");
-                this.setDishPrice("");
-                this.setDishPicture("");
+                this.setName("");
+                this.setPrice(null);
+                this.setPicPath("");
                 renewPage();
             } else {
                 this.setMessage(MessageUtil.getMessage("add_failure"));
@@ -184,7 +184,7 @@ public class DishAction extends BaseAction {
             refreshPageData();
         } catch (NumberFormatException e) {
             this.setMessage(MessageUtil.getMessage("number_format_exception",
-                    dishPrice));
+                    price.toString()));
             // 更新页面数据
             refreshPageData();
             return INPUT;
@@ -201,9 +201,9 @@ public class DishAction extends BaseAction {
         try {
             if (null != id && !"".equals(id.trim())) {
                 Dish dish = dishService.getDishById(Long.parseLong(id));
-                dishName = dish.getDishName();
-                dishPrice = dish.getDishPrice().toString();
-                dishPicture = dish.getDishPicture();
+                name = dish.getName();
+                price = dish.getPrice();
+                picPath = dish.getPicPath();
                 onSell = dish.isOnSell();
                 categoryId = dish.getCategory().getId();
             }
@@ -238,22 +238,22 @@ public class DishAction extends BaseAction {
                 dishVO.setCategoryId(categoryId);
             }
 
-            if (null != dishName && !"".equals(dishName.trim())) {
-                dishVO.setDishName(dishName);
+            if (null != name && !"".equals(name.trim())) {
+                dishVO.setName(name);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_name_empty"));
                 return INPUT;
             }
 
-            if (null != dishPrice) {
-                dishVO.setDishPrice(dishPrice);
+            if (0 != price) {
+                dishVO.setPrice(price);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_price_empty"));
                 return INPUT;
             }
 
-            if (null != dishPicture && !"".equals(dishPicture.trim())) {
-                dishVO.setDishPicture(dishPicture);
+            if (null != picPath && !"".equals(picPath.trim())) {
+                dishVO.setPicPath(picPath);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
                 return INPUT;
@@ -375,14 +375,14 @@ public class DishAction extends BaseAction {
                 dishvo = new DishVO();
                 // BeanUtils.copyProperties(dish, dishvo);
                 dishvo.setId(dish.getId());
-                dishvo.setDishName(dish.getDishName());
-                dishvo.setDishPicture(dish.getDishPicture());
-                dishvo.setDishPrice(dish.getDishPrice().toString());
+                dishvo.setName(dish.getName());
+                dishvo.setPicPath(dish.getPicPath());
+                dishvo.setPrice(dish.getPrice());
                 id = dish.getCategory().getId();
                 category = categoryService.getCategoryById(id);
                 if (null != category) {
                     dishvo.setCategoryId(category.getId());
-                    dishvo.setCategoryName(category.getCategoryName());
+                    dishvo.setName(category.getName());
                 }
                 dishvos.add(dishvo);
             }
@@ -406,8 +406,8 @@ public class DishAction extends BaseAction {
     private void renewPage() {
         renewCategoryVOList();
 
-        if (null == dishPicture || "".equals(dishPicture)) {
-            this.setDishPicture(Constants.DEFAULT_DISH_PIC);
+        if (null == picPath || "".equals(picPath)) {
+            this.setPicPath(Constants.DEFAULT_DISH_PIC);
         }
 
         // 更新页面数据
@@ -420,7 +420,7 @@ public class DishAction extends BaseAction {
         CategoryVO categoryVO = null;
         // CategoryVO rootCategoryVO = new CategoryVO();
         // rootCategoryVO.setStringId("0");
-        // rootCategoryVO.setCategoryName(MessageUtil.getMessage("dish_root"));
+        // rootCategoryVO.setName(MessageUtil.getMessage("dish_root"));
         // categoryVOList.add(rootCategoryVO);
         List<Category> categoryList = categoryService.getAllCategories();
         for (Category category : categoryList) {
@@ -448,28 +448,28 @@ public class DishAction extends BaseAction {
         this.dishService = dishService;
     }
 
-    public String getDishName() {
-        return dishName;
+    public String getName() {
+        return name;
     }
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDishPrice() {
-        return dishPrice;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setDishPrice(String dishPrice) {
-        this.dishPrice = dishPrice;
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
-    public String getDishPicture() {
-        return dishPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setDishPicture(String dishPicture) {
-        this.dishPicture = dishPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
     public boolean isOnSell() {

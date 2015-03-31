@@ -20,23 +20,23 @@
 		<div>
 			<form name="saveForm" id="saveForm">
 				<s:hidden id="categoryId" name="categoryId" />
-				<s:hidden id="dishPicture" name="dishPicture" />
+				<s:hidden id="picPath" name="picPath" />
 				<ul class="forminfo">
-					<li><label><s:text name="dish_name" /></label><input id="dishName"
-						name="dishName" value="${dishName}" type="text" class="dfinput" /></li>
-					<li><label><s:text name="dish_price" /></label><input id="dishPrice"
-						name="dishPrice" value="${dishPrice}" type="text" class="dfinput" /></li>
+					<li><label><s:text name="dish_name" /></label><input id="name"
+						name="name" value="${name}" type="text" class="dfinput" /></li>
+					<li><label><s:text name="dish_price" /></label><input id="price"
+						name="price" value="${price}" type="text" class="dfinput" /></li>
 					<li><label><s:text name="upload" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="dish_picture" /></label><img id="dishPic"
 						style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images${dishPicture}'></li>
+						src='../resources/images${picPath}'></li>
 					<li><label><s:text name="category_name" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3">
 							<s:iterator value="categoryVOList" id="categoryVO">
 								<option value='<s:property value="#categoryVO.id" />'><s:property
-										value="#categoryVO.categoryName" /></option>
+										value="#categoryVO.name" /></option>
 							</s:iterator>
 					</select></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
@@ -70,25 +70,25 @@
 			<form name="updateForm">
 				<s:hidden id="id" name="id" value="%{id}"></s:hidden>
 				<s:hidden id="categoryId" name="categoryId" />
-				<s:hidden id="dishPicture" name="dishPicture" />
+				<s:hidden id="picPath" name="picPath" />
 				<ul class="forminfo">
-					<li><label><s:text name="dish_name" /></label><input id="dishName"
-						name="dishName" type="text" value='<s:property value="dishName" />'
+					<li><label><s:text name="dish_name" /></label><input id="name"
+						name="name" type="text" value='<s:property value="name" />'
 						class="dfinput" /></li>
-					<li><label><s:text name="dish_price" /></label><input id="dishPrice"
-						name="dishPrice" type="text" value='<s:property value="dishPrice" />'
+					<li><label><s:text name="dish_price" /></label><input id="price"
+						name="price" type="text" value='<s:property value="price" />'
 						class="dfinput" /></li>
 					<li><label><s:text name="upload" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="dish_picture" /></label><img id="dishPic"
 						style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images${dishPicture}'></li>
+						src='../resources/images${picPath}'></li>
 					<li><label><s:text name="category_name" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3">
 							<s:iterator value="categoryVOList" id="categoryVO">
 								<option value='<s:property value="#categoryVO.id" />'><s:property
-										value="#categoryVO.categoryName" /></option>
+										value="#categoryVO.name" /></option>
 							</s:iterator>
 					</select></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnUpdate"

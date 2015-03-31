@@ -6,6 +6,15 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.innovaee.eorder.dao.CategoryDao;
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.entity.Category;
@@ -18,18 +27,6 @@ import com.innovaee.eorder.service.CategoryService;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.vo.CategoryVO;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 /**
  * @Title: CategoryServiceImpl
@@ -97,19 +94,15 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = null;
 
         // 1. 检查是否有同名菜品分类
-        if (null == categoryDao.getCategoryByName(categoryVO.getCategoryName())) {
+        if (null == categoryDao.getCategoryByName(categoryVO.getName())) {
             category = new Category();
-            category.setCategoryName(categoryVO.getCategoryName());
-            category.setCategoryPicture(categoryVO.getCategoryPicture());
-            Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
-                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
-                    .getTime()));
-            category.setCreateDate(createAt);
+            category.setName(categoryVO.getName());
+            category.setPicPath(categoryVO.getPicPath());
+            category.setCreateDate(new Date());
             Long categoryId = categoryDao.save(category);
             category = categoryDao.get(categoryId);
         } else {
-            throw new DuplicateNameException("categoryName:"
-                    + categoryVO.getCategoryName());
+            throw new DuplicateNameException("name:" + categoryVO.getName());
         }
 
         return category;
@@ -135,16 +128,15 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = this.getCategoryById(categoryVO.getId());
 
         Category checkedCategory = categoryDao.getCategoryByName(categoryVO
-                .getCategoryName());
+                .getName());
         // 2. 检查是否有同名菜品分类
         if (checkedCategory != null
                 && checkedCategory.getId() != categoryVO.getId()) {
-            throw new DuplicateNameException("categoryName:"
-                    + categoryVO.getCategoryName());
+            throw new DuplicateNameException("name:" + categoryVO.getName());
         } else {
             // 3. 更新菜品分类
-            category.setCategoryName(categoryVO.getCategoryName());
-            category.setCategoryPicture(categoryVO.getCategoryPicture());
+            category.setName(categoryVO.getName());
+            category.setPicPath(categoryVO.getPicPath());
             category.setUpdateDate(new Date());
 
             categoryDao.update(category);
@@ -173,7 +165,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .getCategoryByName(Constants.DEFAULT_CATEGORY);
 
         if (null == defaultCategory) {
-            throw new CategoryNotFoundException("categoryName:"
+            throw new CategoryNotFoundException("name:"
                     + Constants.DEFAULT_CATEGORY);
         } else {
             for (Dish dish : category.getDishes()) {
@@ -210,20 +202,20 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 根据指定的菜品分类名字查找菜品分类
      * 
-     * @param categoryName
+     * @param name
      *            菜品分类名字
      * @return 菜品分类对象
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
 
-    public Category getCategoryByName(String categoryName)
+    public Category getCategoryByName(String name)
             throws CategoryNotFoundException {
-        Category category = categoryDao.getCategoryByName(categoryName);
+        Category category = categoryDao.getCategoryByName(name);
 
         if (null == category) {
             throw new CategoryNotFoundException(MessageUtil.getMessage(
-                    "category_name", categoryName));
+                    "category_name", name));
         }
 
         return category;

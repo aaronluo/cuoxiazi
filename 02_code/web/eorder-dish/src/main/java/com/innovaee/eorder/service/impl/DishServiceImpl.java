@@ -6,10 +6,7 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -62,7 +59,7 @@ public class DishServiceImpl implements DishService {
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
             CategoryNotFoundException, NumberFormatException {
         // 1. 检查是否有同名菜品
-        Dish dish = dishDao.getDishByName(dishVO.getDishName());
+        Dish dish = dishDao.getDishByName(dishVO.getName());
 
         if (null == dish) {
             // 2. 检查菜品添加的所属分类是否存在
@@ -75,15 +72,11 @@ public class DishServiceImpl implements DishService {
                 try {
                     dish = new Dish();
                     dish.setCategory(category);
-                    dish.setDishName(dishVO.getDishName());
+                    dish.setName(dishVO.getName());
                     dish.setOnSell(true);
-                    dish.setDishPicture(dishVO.getDishPicture());
-                    dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
-                    Timestamp createAt = Timestamp
-                            .valueOf(new SimpleDateFormat(
-                                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
-                                    .getInstance().getTime()));
-                    dish.setCreateDate(createAt);
+                    dish.setPicPath(dishVO.getPicPath());
+                    dish.setPrice(dishVO.getPrice());
+                    dish.setCreateDate(new Date());
 
                     dishDao.save(dish);
                 } catch (NumberFormatException e) {
@@ -92,7 +85,7 @@ public class DishServiceImpl implements DishService {
             }
         } else {
             // 有重名菜品，抛出异常
-            throw new DuplicateNameException(dishVO.getDishName());
+            throw new DuplicateNameException(dishVO.getName());
         }
 
         return dish;
@@ -120,10 +113,10 @@ public class DishServiceImpl implements DishService {
         Dish dish = getDishById(dishVO.getId());
 
         // 2. 检查是否有重名菜品
-        dish = dishDao.getDishByName(dishVO.getDishName());
+        dish = dishDao.getDishByName(dishVO.getName());
 
         if (null != dish && dish.getId() != dishVO.getId()) {
-            throw new DuplicateNameException(dishVO.getDishName());
+            throw new DuplicateNameException(dishVO.getName());
         } else {
             // 3. 检查待更新菜品中的菜品分类信息是否存在
             Category category = categoryDao.get(dishVO.getCategoryId());
@@ -135,9 +128,9 @@ public class DishServiceImpl implements DishService {
                 dish = dishDao.get(dishVO.getId());
                 dish.setCategory(category);
                 dish.setMisc(dishVO.getMisc());
-                dish.setDishName(dishVO.getDishName());
-                dish.setDishPicture(dishVO.getDishPicture());
-                dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
+                dish.setName(dishVO.getName());
+                dish.setPicPath(dishVO.getPicPath());
+                dish.setPrice(dishVO.getPrice());
                 dish.setUpdateDate(new Date());
 
                 dishDao.update(dish);
@@ -186,19 +179,19 @@ public class DishServiceImpl implements DishService {
     /**
      * 根据菜品名称获取菜品信息
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 菜品信息对象
      * @throws DishNotFoundException
      *             菜品不存在异常
      */
 
-    public Dish getDishByName(String dishName) throws DishNotFoundException {
-        Dish dish = dishDao.getDishByName(dishName);
+    public Dish getDishByName(String name) throws DishNotFoundException {
+        Dish dish = dishDao.getDishByName(name);
 
         if (null == dish) {
             throw new DishNotFoundException(MessageUtil.getMessage("dish_name",
-                    dishName));
+                    name));
         }
 
         return dish;
@@ -223,7 +216,7 @@ public class DishServiceImpl implements DishService {
         List<Dish> dishes = new ArrayList<Dish>();
         // 1. 计算总页数
         int totalPage = this.getDishPageCount(pageSize, categoryId);
-        // 2. 如果当前分页是一个非法的分页， 则抛出异常 TODO
+        // 2. 如果当前分页是一个非法的分页， 则抛出异常 
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         } else {

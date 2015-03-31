@@ -58,7 +58,7 @@ public class DishServiceTest extends BaseSpringTestCase {
     public void getDishByIdTest() throws DishNotFoundException {
         Dish dish = dishService.getDishById(1L);
 
-        assertEquals(dish.getDishName(), "手撕包菜");
+        assertEquals(dish.getName(), "手撕包菜");
     }
 
     /**
@@ -92,9 +92,9 @@ public class DishServiceTest extends BaseSpringTestCase {
 
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
-        dishVO.setDishName("手撕包菜");
-       // dishVO.setDishPrice(150.0f);
-        dishVO.setDishPicture("");
+        dishVO.setName("手撕包菜");
+       dishVO.setPrice(150.0f);
+        dishVO.setPicPath("");
 
         try {
             dishService.addDish(dishVO);
@@ -112,9 +112,9 @@ public class DishServiceTest extends BaseSpringTestCase {
 
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
-        dishVO.setDishName("手撕包菜1");
-       // dishVO.setDishPrice(150.0f);
-        dishVO.setDishPicture("");
+        dishVO.setName("手撕包菜1");
+       dishVO.setPrice(150.0f);
+        dishVO.setPicPath("");
 
         try {
             dishService.addDish(dishVO);
@@ -136,9 +136,9 @@ public class DishServiceTest extends BaseSpringTestCase {
 
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
-        dishVO.setDishName("手撕包菜1");
-       // dishVO.setDishPrice(150.0f);
-        dishVO.setDishPicture("");
+        dishVO.setName("手撕包菜1");
+       dishVO.setPrice(150.0f);
+        dishVO.setPicPath("");
 
         Dish dish = dishService.addDish(dishVO);
 
@@ -160,9 +160,9 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setId(dish.getId());
         dishVO.setCategoryId(dish.getCategory().getId());
         dishVO.setMisc(dish.getMisc());
-        dishVO.setDishName(duplicateName);
-        dishVO.setDishPicture(dish.getDishPicture());
-       // dishVO.setDishPrice(dish.getDishPrice());
+        dishVO.setName(duplicateName);
+        dishVO.setPicPath(dish.getPicPath());
+       dishVO.setPrice(dish.getPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -185,9 +185,9 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setId(dish.getId());
         dishVO.setCategoryId(1000L);
         dishVO.setMisc(dish.getMisc());
-        dishVO.setDishName(dish.getDishName());
-        dishVO.setDishPicture(dish.getDishPicture());
-       // dishVO.setDishPrice(dish.getDishPrice());
+        dishVO.setName(dish.getName());
+        dishVO.setPicPath(dish.getPicPath());
+       dishVO.setPrice(dish.getPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -212,9 +212,9 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setId(dish.getId());
         dishVO.setCategoryId(dish.getCategory().getId());
         dishVO.setMisc(dish.getMisc());
-        dishVO.setDishName(dish.getDishName());
-        dishVO.setDishPicture(dish.getDishPicture());
-       // dishVO.setDishPrice(dish.getDishPrice());
+        dishVO.setName(dish.getName());
+        dishVO.setPicPath(dish.getPicPath());
+       dishVO.setPrice(dish.getPrice());
 
         dishService.updateDish(dishVO);
     }

@@ -42,7 +42,10 @@ function openUploadPage() {
 			.showModalDialog("../upload/upload.action", null,
 					"dialogWidth=800px;dialogHeight=600px;status=no;help=no;scrollbars=no");
 	//newFileName = "" + newFileName;
-	$("#categoryPicture").val("/dish/" + newFileName);
+	//alert("newFileName: " + newFileName);
+	$("#picPath").val("/dish/" + newFileName);
+
+	//alert("picPath: " + $("#picPath").val());
 	// 改变图片源，实时刷新图片
 	$("#categoryPic").attr("src", "../resources/images/dish/" + newFileName);
 }

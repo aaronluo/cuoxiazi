@@ -19,17 +19,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class DishVO extends BaseVO {
 
-    /** 对象序列化ID */
+    /**  */
     private static final long serialVersionUID = 144984591914099776L;
 
     /** 菜品名称 */
-    private String dishName;
+    private String name;
 
     /** 菜品价格 */
-    private String dishPrice;
+    private float price;
 
     /** 菜品图片 */
-    private String dishPicture;
+    private String picPath;
 
     /** 在售状态 */
     private boolean onSell;
@@ -37,15 +37,10 @@ public class DishVO extends BaseVO {
     /** 分类id */
     @XmlTransient
     private Long categoryId;
-
-    /** 分类名称 */
-    @XmlTransient
-    private String categoryName;
-
+    
     /** 更多信息 */
     @XmlTransient
     private String misc;
-
     /**
      * 默认构造函数
      */
@@ -58,25 +53,26 @@ public class DishVO extends BaseVO {
      * 
      * @param id
      *            ID
-     * @param dishName
+     * @param name
      *            菜品名称
-     * @param dishPrice
+     * @param price
      *            菜品价格
-     * @param dishPicture
+     * @param picPath
      *            菜品图片
      * @param onSell
      *            在售状态
      */
-    public DishVO(Long id, String dishName, String dishPrice,
-            String dishPicture, boolean onSell) {
+    public DishVO(Long id, String name, float price, String picPath,
+            boolean onSell) {
         super();
         this.id = id;
-        this.dishName = dishName;
-        this.dishPrice = dishPrice;
-        this.dishPicture = dishPicture;
+        this.name = name;
+        this.price = price;
+        this.picPath = picPath;
         this.onSell = onSell;
     }
 
+    
     public String getMisc() {
         return misc;
     }
@@ -93,28 +89,28 @@ public class DishVO extends BaseVO {
         this.categoryId = categoryId;
     }
 
-    public String getDishName() {
-        return dishName;
+    public String getName() {
+        return name;
     }
 
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDishPrice() {
-        return dishPrice;
+    public float getPrice() {
+        return price;
     }
 
-    public void setDishPrice(String dishPrice) {
-        this.dishPrice = dishPrice;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
-    public String getDishPicture() {
-        return dishPicture;
+    public String getPicPath() {
+        return picPath;
     }
 
-    public void setDishPicture(String dishPicture) {
-        this.dishPicture = dishPicture;
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 
     public boolean isOnSell() {
@@ -123,14 +119,6 @@ public class DishVO extends BaseVO {
 
     public void setOnSell(boolean onSell) {
         this.onSell = onSell;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
 }
