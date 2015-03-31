@@ -26,7 +26,7 @@ public class DishVO extends BaseVO {
     private String dishName;
 
     /** 菜品价格 */
-    private float dishPrice;
+    private String dishPrice;
 
     /** 菜品图片 */
     private String dishPicture;
@@ -67,7 +67,7 @@ public class DishVO extends BaseVO {
      * @param onSell
      *            在售状态
      */
-    public DishVO(Long id, String dishName, float dishPrice,
+    public DishVO(Long id, String dishName, String dishPrice,
             String dishPicture, boolean onSell) {
         super();
         this.id = id;
@@ -101,11 +101,11 @@ public class DishVO extends BaseVO {
         this.dishName = dishName;
     }
 
-    public float getDishPrice() {
+    public String getDishPrice() {
         return dishPrice;
     }
 
-    public void setDishPrice(float dishPrice) {
+    public void setDishPrice(String dishPrice) {
         this.dishPrice = dishPrice;
     }
 

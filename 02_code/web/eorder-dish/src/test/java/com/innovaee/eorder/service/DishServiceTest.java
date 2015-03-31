@@ -93,7 +93,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setDishName("手撕包菜");
-        dishVO.setDishPrice(150.0f);
+       // dishVO.setDishPrice(150.0f);
         dishVO.setDishPicture("");
 
         try {
@@ -113,7 +113,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setDishName("手撕包菜1");
-        dishVO.setDishPrice(150.0f);
+       // dishVO.setDishPrice(150.0f);
         dishVO.setDishPicture("");
 
         try {
@@ -137,7 +137,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setDishName("手撕包菜1");
-        dishVO.setDishPrice(150.0f);
+       // dishVO.setDishPrice(150.0f);
         dishVO.setDishPicture("");
 
         Dish dish = dishService.addDish(dishVO);
@@ -162,7 +162,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setDishName(duplicateName);
         dishVO.setDishPicture(dish.getDishPicture());
-        dishVO.setDishPrice(dish.getDishPrice());
+       // dishVO.setDishPrice(dish.getDishPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -187,7 +187,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setDishName(dish.getDishName());
         dishVO.setDishPicture(dish.getDishPicture());
-        dishVO.setDishPrice(dish.getDishPrice());
+       // dishVO.setDishPrice(dish.getDishPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -214,7 +214,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setDishName(dish.getDishName());
         dishVO.setDishPicture(dish.getDishPicture());
-        dishVO.setDishPrice(dish.getDishPrice());
+       // dishVO.setDishPrice(dish.getDishPrice());
 
         dishService.updateDish(dishVO);
     }

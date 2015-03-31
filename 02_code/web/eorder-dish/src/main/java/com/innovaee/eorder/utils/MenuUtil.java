@@ -37,7 +37,6 @@ public class MenuUtil {
      * @return 菜单列表
      */
     public static List<MenuLinkVO> getToolbarLinkVOList() {
-        System.out.println("getToolbarLinkVOList");
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("根据缓存中用户信息，获得该用户的权限列表（菜单）");
         }
@@ -150,7 +149,6 @@ public class MenuUtil {
      * @return 菜单列表
      */
     public static List<MenuLinkVO> getMenuLinkVOList(String functionDesc) {
-        System.out.println("getMenuLinkVOList");
         List<MenuLinkVO> toolbarlist = getToolbarLinkVOList();
 
         // 1、先通过功能描述找到此功能的父功能ID
@@ -191,7 +189,6 @@ public class MenuUtil {
      * @return 菜单列表
      */
     public static String getParentFunctionDesc(String functionDesc) {
-        System.out.println("getParentFunctionDesc");
         List<MenuLinkVO> toolbarlist = getToolbarLinkVOList();
 
         // 1、先通过功能描述找到此功能的父功能ID

@@ -52,7 +52,7 @@ public class DishAction extends BaseAction {
     private String dishName;
 
     /** 菜品价格 */
-    private float dishPrice;
+    private String dishPrice;
 
     /** 菜品图片 */
     private String dishPicture;
@@ -91,7 +91,6 @@ public class DishAction extends BaseAction {
      * @return
      */
     public String dish() {
-        // refreshDataList();
         renewPage();
         // 更新页面数据
         refreshPageData();
@@ -112,9 +111,206 @@ public class DishAction extends BaseAction {
     }
 
     /**
+     * 新增页面
+     * 
+     * @return
+     */
+    public String add() {
+        // 更新页面数据
+        renewPage();
+        return SUCCESS;
+    }
+
+    /**
+     * 保存功能
+     * 
+     * @return
+     */
+    public String save() {
+        // 更新页面数据
+        renewPage();
+        try {
+            DishVO dishVO = new DishVO();
+
+            if (null != dishName && !"".equals(dishName.trim())) {
+                dishVO.setDishName(dishName);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
+                // 更新页面数据
+                refreshPageData();
+                return INPUT;
+            }
+
+            if (null != dishPrice && !"".equals(dishPrice)) {
+                dishVO.setDishPrice(dishPrice);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_price_empty"));
+                // 更新页面数据
+                refreshPageData();
+                return INPUT;
+            }
+
+            if (null != dishPicture && !"".equals(dishPicture.trim())) {
+                dishVO.setDishPicture(dishPicture);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
+                // 更新页面数据
+                refreshPageData();
+                return INPUT;
+            }
+
+            dishVO.setCategoryId(categoryId);
+            // 新增成功
+            Dish newDish = dishService.addDish(dishVO);
+
+            if (null != newDish) {
+                this.setMessage(MessageUtil.getMessage("add_success"));
+                this.setDishName("");
+                this.setDishPrice("");
+                this.setDishPicture("");
+                renewPage();
+            } else {
+                this.setMessage(MessageUtil.getMessage("add_failure"));
+                return INPUT;
+            }
+        } catch (DuplicateNameException e) {
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
+            // 更新页面数据
+            refreshPageData();
+            return INPUT;
+        } catch (CategoryNotFoundException e) {
+            this.setMessage(MessageUtil
+                    .getMessage("category_not_found_exception"));
+            // 更新页面数据
+            refreshPageData();
+        } catch (NumberFormatException e) {
+            this.setMessage(MessageUtil.getMessage("number_format_exception",
+                    dishPrice));
+            // 更新页面数据
+            refreshPageData();
+            return INPUT;
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 加载单个功能信息
+     * 
+     * @return
+     */
+    public String edit() {
+        try {
+            if (null != id && !"".equals(id.trim())) {
+                Dish dish = dishService.getDishById(Long.parseLong(id));
+                dishName = dish.getDishName();
+                dishPrice = dish.getDishPrice().toString();
+                dishPicture = dish.getDishPicture();
+                onSell = dish.isOnSell();
+                categoryId = dish.getCategory().getId();
+            }
+        } catch (DishNotFoundException e) {
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
+            return INPUT;
+        }
+        // 更新页面数据
+        renewPage();
+
+        return SUCCESS;
+    }
+
+    /**
+     * 更新功能
+     * 
+     * @return
+     */
+    public String update() {
+        // 更新页面数据
+        renewPage();
+        try {
+            Dish dish = null;
+            DishVO dishVO = null;
+            if (null != id) {
+                dish = dishService.getDishById(Long.parseLong(id));
+            }
+
+            if (null != dish) {
+                dishVO = new DishVO();
+                dishVO.setId(dish.getId());
+                dishVO.setCategoryId(categoryId);
+            }
+
+            if (null != dishName && !"".equals(dishName.trim())) {
+                dishVO.setDishName(dishName);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
+                return INPUT;
+            }
+
+            if (null != dishPrice) {
+                dishVO.setDishPrice(dishPrice);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_price_empty"));
+                return INPUT;
+            }
+
+            if (null != dishPicture && !"".equals(dishPicture.trim())) {
+                dishVO.setDishPicture(dishPicture);
+            } else {
+                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
+                return INPUT;
+            }
+
+            dishService.updateDish(dishVO);
+        } catch (DuplicateNameException e) {
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
+                    dishName));
+            return INPUT;
+        } catch (CategoryNotFoundException e) {
+            this.setMessage(MessageUtil
+                    .getMessage("category_not_found_exception"));
+            return INPUT;
+        } catch (DishNotFoundException e1) {
+            this.setMessage(MessageUtil.getMessage("dish_not_found_exception",
+                    id.toString()));
+            return INPUT;
+        }
+        this.setMessage(MessageUtil.getMessage("update_success"));
+        return SUCCESS;
+    }
+
+    /**
+     * 删除功能
+     * 
+     * @return
+     */
+    public String remove() {
+        // 更新页面数据
+        refreshPageData();
+
+        if (null != id) {
+            try {
+                dishService.deleteDish(Long.parseLong(id));
+            } catch (DishNotFoundException e1) {
+                this.setMessage(MessageUtil.getMessage(
+                        "dish_not_found_exception", id));
+                return INPUT;
+            }
+        }
+
+        this.setMessage(MessageUtil.getMessage("delete_success"));
+
+        // 更新记录列表
+        refreshDataList();
+        // 更新分类列表
+        renewCategoryVOList();
+
+        return SUCCESS;
+    }
+
+    /**
      * 刷新页面数据
      */
-    public void refreshPageData() {
+    private void refreshPageData() {
         // 当前用户的工具栏
         List<MenuLinkVO> toolbarList = MenuUtil.getToolbarLinkVOList();
 
@@ -137,7 +333,7 @@ public class DishAction extends BaseAction {
     /**
      * 刷新列表
      */
-    public void refreshDataList() {
+    private void refreshDataList() {
         Long id = 0L;
         try {
             Integer recordCount = dishService.getDishCountById(categoryId);
@@ -182,7 +378,11 @@ public class DishAction extends BaseAction {
             Category category = null;
             for (Dish dish : dishes) {
                 dishvo = new DishVO();
-                BeanUtils.copyProperties(dish, dishvo);
+                // BeanUtils.copyProperties(dish, dishvo);
+                dishvo.setId(dish.getId());
+                dishvo.setDishName(dish.getDishName());
+                dishvo.setDishPicture(dish.getDishPicture());
+                dishvo.setDishPrice(dish.getDishPrice().toString());
                 id = dish.getCategory().getId();
                 category = categoryService.getCategoryById(id);
                 if (null != category) {
@@ -203,165 +403,6 @@ public class DishAction extends BaseAction {
             this.setMessage(MessageUtil.getMessage(
                     "category_not_found_exception", id.toString()));
         }
-    }
-
-    /**
-     * 新增页面
-     * 
-     * @return
-     */
-    public String add() {
-        // 更新页面数据
-        renewPage();
-        return SUCCESS;
-    }
-
-    /**
-     * 保存功能
-     * 
-     * @return
-     */
-    public String save() {
-        // 更新页面数据
-        renewPage();
-        try {
-            DishVO dishVO = new DishVO();
-
-            if (null != dishName && !"".equals(dishName.trim())) {
-                dishVO.setDishName(dishName);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
-
-            if (0 != dishPrice) {
-                dishVO.setDishPrice(dishPrice);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_price_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
-
-            if (null != dishPicture && !"".equals(dishPicture.trim())) {
-                dishVO.setDishPicture(dishPicture);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
-
-            dishVO.setCategoryId(categoryId);
-            // 新增成功
-            Dish newDish = dishService.addDish(dishVO);
-
-            if (null != newDish) {
-                this.setMessage(MessageUtil.getMessage("add_success"));
-                this.setDishName("");
-                this.setDishPrice(0F);
-                this.setDishPicture("");
-                renewPage();
-            } else {
-                this.setMessage(MessageUtil.getMessage("add_failure"));
-                return INPUT;
-            }
-        } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
-            return INPUT;
-        } catch (CategoryNotFoundException e) {
-            this.setMessage(MessageUtil
-                    .getMessage("category_not_found_exception"));
-            return INPUT;
-        }
-        return SUCCESS;
-    }
-
-    /**
-     * 加载单个功能信息
-     * 
-     * @return
-     */
-    public String edit() {
-        try {
-            if (null != id && !"".equals(id.trim())) {
-                Dish dish = dishService.getDishById(Long.parseLong(id));
-                dishName = dish.getDishName();
-                dishPrice = dish.getDishPrice();
-                dishPicture = dish.getDishPicture();
-                onSell = dish.isOnSell();
-                categoryId = dish.getCategory().getId();
-            }
-        } catch (DishNotFoundException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
-            return INPUT;
-        }
-        // 更新页面数据
-        renewPage();
-
-        return SUCCESS;
-    }
-
-    /**
-     * 更新功能
-     * 
-     * @return
-     */
-    public String update() {
-        // 更新页面数据
-        renewPage();
-        try {
-            Dish dish = null;
-            DishVO dishVO = null;
-            if (null != id) {
-                dish = dishService.getDishById(Long.parseLong(id));
-            }
-
-            if (null != dish) {
-                dishVO = new DishVO();
-                dishVO.setId(dish.getId());
-                dishVO.setCategoryId(categoryId);
-            }
-
-            if (null != dishName && !"".equals(dishName.trim())) {
-                dishVO.setDishName(dishName);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
-                return INPUT;
-            }
-
-            if (0 != dishPrice) {
-                dishVO.setDishPrice(dishPrice);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_desc_empty"));
-                return INPUT;
-            }
-            
-            if (null != dishPicture && !"".equals(dishPicture.trim())) {
-                dishVO.setDishPicture(dishPicture);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
-                return INPUT;
-            }
-
-            dishService.updateDish(dishVO);
-        } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    dishName));
-            return INPUT;
-        } catch (CategoryNotFoundException e) {
-            this.setMessage(MessageUtil
-                    .getMessage("category_not_found_exception"));
-            return INPUT;
-        } catch (DishNotFoundException e1) {
-            this.setMessage(MessageUtil.getMessage("dish_not_found_exception",
-                    id.toString()));
-            return INPUT;
-        }
-        this.setMessage(MessageUtil.getMessage("update_success"));
-        return SUCCESS;
     }
 
     /**
@@ -396,51 +437,6 @@ public class DishAction extends BaseAction {
         this.setCategoryVOList(categoryVOList);
     }
 
-    /**
-     * 删除功能
-     * 
-     * @return
-     */
-    public String remove() {
-        // 更新页面数据
-        refreshPageData();
-
-        // if (null != id) {
-        // 先判断角色功能关联关系，如果此功能已授权给某个角色，则不能删除
-        // Dish dish = dishService.getDishById(Long.parseLong(id));
-        // Set<Role> roles = dish.getRoles();
-        // if (null != roles && 0 < roles.size()) {
-        // this.setMessage(MessageUtil.getMessage("dish_using"));
-        //
-        // // 更新数据
-        // refreshPageData();
-        // // 更新数据列表
-        // refreshDataList();
-        //
-        // return INPUT;
-        // }
-        // }
-
-        if (null != id) {
-            try {
-                dishService.deleteDish(Long.parseLong(id));
-            } catch (DishNotFoundException e1) {
-                this.setMessage(MessageUtil.getMessage(
-                        "dish_not_found_exception", id));
-                return INPUT;
-            }
-        }
-
-        this.setMessage(MessageUtil.getMessage("delete_success"));
-
-        // 更新记录列表
-        refreshDataList();
-        // 更新分类列表
-        renewCategoryVOList();
-
-        return SUCCESS;
-    }
-
     public List<DishVO> getDishvos() {
         return dishvos;
     }
@@ -465,11 +461,11 @@ public class DishAction extends BaseAction {
         this.dishName = dishName;
     }
 
-    public float getDishPrice() {
+    public String getDishPrice() {
         return dishPrice;
     }
 
-    public void setDishPrice(float dishPrice) {
+    public void setDishPrice(String dishPrice) {
         this.dishPrice = dishPrice;
     }
 

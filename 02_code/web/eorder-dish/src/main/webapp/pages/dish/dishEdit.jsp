@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path;
-%>
 <script type="text/javascript" src="../resources/js/dish.js"></script>
-
 <s:if test="null == id">
 	<div class="place">
 		<span><s:text name="place" /></span>
@@ -25,20 +18,20 @@
 		</div>
 
 		<div>
-			<form id="saveForm" name="saveForm">
+			<form name="saveForm" id="saveForm">
 				<s:hidden id="categoryId" name="categoryId" />
 				<s:hidden id="dishPicture" name="dishPicture" />
 				<ul class="forminfo">
 					<li><label><s:text name="dish_name" /></label><input id="dishName"
-						name="dishName" type="text" class="dfinput" /></li>
+						name="dishName" value="${dishName}" type="text" class="dfinput" /></li>
 					<li><label><s:text name="dish_price" /></label><input id="dishPrice"
-						name="dishPrice" type="text" class="dfinput" /></li>
+						name="dishPrice" value="${dishPrice}" type="text" class="dfinput" /></li>
 					<li><label><s:text name="upload" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="dish_picture" /></label><img id="dishPic"
 						style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images<s:property value="dishPicture" />'></li>
+						src='../resources/images${dishPicture}'></li>
 					<li><label><s:text name="category_name" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3">
 							<s:iterator value="categoryVOList" id="categoryVO">
@@ -74,7 +67,7 @@
 		</div>
 
 		<div>
-			<form id="updateForm" name="updateForm" action="update">
+			<form name="updateForm">
 				<s:hidden id="id" name="id" value="%{id}"></s:hidden>
 				<s:hidden id="categoryId" name="categoryId" />
 				<s:hidden id="dishPicture" name="dishPicture" />
@@ -90,7 +83,7 @@
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="dish_picture" /></label><img id="dishPic"
 						style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images<s:property value="dishPicture" />'></li>
+						src='../resources/images${dishPicture}'></li>
 					<li><label><s:text name="category_name" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3">
 							<s:iterator value="categoryVOList" id="categoryVO">

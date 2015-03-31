@@ -24,13 +24,14 @@
 				<s:hidden id="categoryPicture" name="categoryPicture" />
 				<ul class="forminfo">
 					<li><label><s:text name="category_name" /></label><input
-						id="categoryName" name="categoryName" type="text" class="dfinput" /></li>
+						id="categoryName" name="categoryName" value="${categoryName}" type="text"
+						class="dfinput" /></li>
 					<li><label><s:text name="upload" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="category_picture" /></label><img
 						id="categoryPic" style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images<s:property value="categoryPicture" />'></li>
+						src='../resources/images${categoryPicture}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
@@ -69,7 +70,7 @@
 						value='<s:text name="upload" />' /></li>
 					<li><label><s:text name="category_picture" /></label><img
 						id="categoryPic" style="width: 348px; height: 348px; padding: 5px;"
-						src='../resources/images<s:property value="categoryPicture" />'></li>
+						src='../resources/images${categoryPicture}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
