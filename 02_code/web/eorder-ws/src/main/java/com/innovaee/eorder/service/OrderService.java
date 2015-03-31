@@ -10,6 +10,7 @@ import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
+import com.innovaee.eorder.exception.OrderOperationException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
@@ -110,7 +111,8 @@ public interface OrderService {
      *             订单未找到异常
      * @throws UserNotFoundException
      *             用户未找到异常
+     * @throws OrderOperationException 
      */
     public Order payTheOrder(Long orderId, Long casherId)
-            throws OrderNotFoundException, UserNotFoundException;
+            throws OrderNotFoundException, UserNotFoundException, OrderOperationException;
 }

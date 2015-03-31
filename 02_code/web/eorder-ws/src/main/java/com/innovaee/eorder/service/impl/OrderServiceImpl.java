@@ -17,6 +17,7 @@ import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
+import com.innovaee.eorder.exception.OrderOperationException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
@@ -320,17 +321,25 @@ public class OrderServiceImpl implements OrderService {
      *             用户未找到异常
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Order payTheOrder(Long orderId, Long casherId)
-            throws OrderNotFoundException, UserNotFoundException {
+            throws OrderNotFoundException, UserNotFoundException, OrderOperationException {
         Order order = this.getOrderById(orderId);
-        User casher = userDao.get(casherId);
         
+        //1. 判断Order是否为非Paid状态
+        if(order.getOrderStatus() == Constants.ORDER_PAID) {
+            throw new OrderOperationException(
+                    MessageUtil.getMessage("can_not_proceed_payment", order.getOrderSeq()));
+        }
+        
+        User casher = userDao.get(casherId);
         if(null == casher) {
             throw new UserNotFoundException(MessageUtil.getMessage("user_id", "" + casherId));
         }
         
         order.setCasher(casher);
         order.setOrderStatus(Constants.ORDER_PAID);
+        order.setUpdateDate(new Date());
         orderDao.update(order);
         
         return order;
