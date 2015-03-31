@@ -220,6 +220,9 @@ public class CategoryAction extends BaseAction {
             } catch (CategoryNotFoundException e) {
                 this.setMessage(MessageUtil.getMessage(
                         "category_not_found_exception", id));
+                // 更新记录列表
+                refreshDataList();
+                return INPUT;
             }
         }
 

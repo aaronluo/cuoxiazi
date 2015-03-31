@@ -18,3 +18,11 @@
 /02_code/web/eorder-dish/.classpath
 /02_code/web/eorder-dish/.project
 /02_code/web/eorder-dish/.gitignore
+/02_code/web/eorder-member/.settings/*
+/02_code/web/eorder-member/target
+/02_code/web/eorder-member/.classpath
+/02_code/web/eorder-member/.project
+/02_code/web/eorder-user/.settings/*
+/02_code/web/eorder-user/target
+/02_code/web/eorder-user/.classpath
+/02_code/web/eorder-user/.project

@@ -68,22 +68,27 @@ public class DishServiceImpl implements DishService {
             // 2. 检查菜品添加的所属分类是否存在
             Category category = categoryDao.get(dishVO.getCategoryId());
             if (null == category) {
-                // 菜品分类不存在，抛出异常
+                // 菜品分类不存在，抛出异常 TODO
                 throw new CategoryNotFoundException(MessageUtil.getMessage(
                         "category_id", dishVO.getCategoryId() + ""));
             } else {
-                dish = new Dish();
-                dish.setCategory(category);
-                dish.setDishName(dishVO.getDishName());
-                dish.setOnSell(true);
-                dish.setDishPicture(dishVO.getDishPicture());
-                dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
-                Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
-                        "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
-                        .getInstance().getTime()));
-                dish.setCreateDate(createAt);
+                try {
+                    dish = new Dish();
+                    dish.setCategory(category);
+                    dish.setDishName(dishVO.getDishName());
+                    dish.setOnSell(true);
+                    dish.setDishPicture(dishVO.getDishPicture());
+                    dish.setDishPrice(Float.parseFloat(dishVO.getDishPrice()));
+                    Timestamp createAt = Timestamp
+                            .valueOf(new SimpleDateFormat(
+                                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar
+                                    .getInstance().getTime()));
+                    dish.setCreateDate(createAt);
 
-                dishDao.save(dish);
+                    dishDao.save(dish);
+                } catch (NumberFormatException e) {
+                    // TODO
+                }
             }
         } else {
             // 有重名菜品，抛出异常
@@ -218,7 +223,7 @@ public class DishServiceImpl implements DishService {
         List<Dish> dishes = new ArrayList<Dish>();
         // 1. 计算总页数
         int totalPage = this.getDishPageCount(pageSize, categoryId);
-        // 2. 如果当前分页不是一个非法的分页， 则抛出异常
+        // 2. 如果当前分页是一个非法的分页， 则抛出异常 TODO
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         } else {

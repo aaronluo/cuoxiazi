@@ -174,13 +174,12 @@ public class DishAction extends BaseAction {
                 return INPUT;
             }
         } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
+            this.setMessage(e.getMessage());
             // 更新页面数据
             refreshPageData();
             return INPUT;
         } catch (CategoryNotFoundException e) {
-            this.setMessage(MessageUtil
-                    .getMessage("category_not_found_exception"));
+            this.setMessage(e.getMessage());
             // 更新页面数据
             refreshPageData();
         } catch (NumberFormatException e) {
@@ -209,7 +208,7 @@ public class DishAction extends BaseAction {
                 categoryId = dish.getCategory().getId();
             }
         } catch (DishNotFoundException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception"));
+            this.setMessage(e.getMessage());
             return INPUT;
         }
         // 更新页面数据
@@ -262,16 +261,13 @@ public class DishAction extends BaseAction {
 
             dishService.updateDish(dishVO);
         } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    dishName));
+            this.setMessage(e.getMessage());
             return INPUT;
         } catch (CategoryNotFoundException e) {
-            this.setMessage(MessageUtil
-                    .getMessage("category_not_found_exception"));
+            this.setMessage(e.getMessage());
             return INPUT;
-        } catch (DishNotFoundException e1) {
-            this.setMessage(MessageUtil.getMessage("dish_not_found_exception",
-                    id.toString()));
+        } catch (DishNotFoundException e) {
+            this.setMessage(e.getMessage());
             return INPUT;
         }
         this.setMessage(MessageUtil.getMessage("update_success"));
@@ -290,9 +286,8 @@ public class DishAction extends BaseAction {
         if (null != id) {
             try {
                 dishService.deleteDish(Long.parseLong(id));
-            } catch (DishNotFoundException e1) {
-                this.setMessage(MessageUtil.getMessage(
-                        "dish_not_found_exception", id));
+            } catch (DishNotFoundException e) {
+                this.setMessage(e.getMessage());
                 return INPUT;
             }
         }
@@ -391,7 +386,7 @@ public class DishAction extends BaseAction {
                 }
                 dishvos.add(dishvo);
             }
-        } catch (PageIndexOutOfBoundExcpeiton e) {
+        } catch (PageIndexOutOfBoundExcpeiton e) { // TODO
             this.setMessage(MessageUtil.getMessage(
                     "page_out_of_bound_exception", pageNow.toString(),
                     pageTotal.toString()));
