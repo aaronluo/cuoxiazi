@@ -6,15 +6,6 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.innovaee.eorder.dao.CategoryDao;
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.entity.Category;
@@ -27,6 +18,15 @@ import com.innovaee.eorder.service.CategoryService;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.vo.CategoryVO;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
 
 /**
  * @Title: CategoryServiceImpl
@@ -50,7 +50,16 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 所有分类列表
      */
     public List<Category> getAllCategories() {
-        return categoryDao.loadAll();
+        List<Category> categories = categoryDao.loadAll();
+        
+        for(Category category : categories) {
+            if (category.getName().equals(Constants.DEFAULT_CATEGORY)) {
+                categories.remove(category);
+                break;
+            }
+        }
+        
+        return categories;
     }
 
     /**
@@ -102,7 +111,8 @@ public class CategoryServiceImpl implements CategoryService {
             Long categoryId = categoryDao.save(category);
             category = categoryDao.get(categoryId);
         } else {
-            throw new DuplicateNameException("name:" + categoryVO.getName());
+            throw new DuplicateNameException(
+                    MessageUtil.getMessage("category_name", categoryVO.getName()));
         }
 
         return category;
@@ -132,7 +142,8 @@ public class CategoryServiceImpl implements CategoryService {
         // 2. 检查是否有同名菜品分类
         if (checkedCategory != null
                 && checkedCategory.getId() != categoryVO.getId()) {
-            throw new DuplicateNameException("name:" + categoryVO.getName());
+            throw new DuplicateNameException(
+                    MessageUtil.getMessage("category_name", categoryVO.getName()));
         } else {
             // 3. 更新菜品分类
             category.setName(categoryVO.getName());
@@ -165,8 +176,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .getCategoryByName(Constants.DEFAULT_CATEGORY);
 
         if (null == defaultCategory) {
-            throw new CategoryNotFoundException("name:"
-                    + Constants.DEFAULT_CATEGORY);
+            throw new CategoryNotFoundException(
+                    MessageUtil.getMessage("category_name", Constants.DEFAULT_CATEGORY));
         } else {
             for (Dish dish : category.getDishes()) {
                 dish.setCategory(defaultCategory);
