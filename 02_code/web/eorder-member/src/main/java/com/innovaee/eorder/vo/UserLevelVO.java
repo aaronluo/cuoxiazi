@@ -14,6 +14,12 @@ package com.innovaee.eorder.vo;
  * @version V1.0
  */
 public class UserLevelVO extends BaseVO {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+
     private String name;
     
     private Integer levelScore;
