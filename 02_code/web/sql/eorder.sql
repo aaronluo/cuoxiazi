@@ -147,7 +147,7 @@ CREATE TABLE `t_member_ship` (
   `user_id` bigint(20) NOT NULL,
   `level_id` bigint(20) NOT NULL,
   `member_id` varchar(20) NOT NULL,
-  `current_score` bigint(20) NOT NULL,
+  `current_score` int(20) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -287,7 +287,7 @@ CREATE TABLE `t_user_level` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `level_name` varchar(128) NOT NULL,
   `discount` float(32,2) NOT NULL,
-  `level_score` bigint(20) NOT NULL,
+  `level_score` int(20) NOT NULL,
   `level_status` tinyint(1) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,

@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -40,12 +41,12 @@ public class User extends BaseEntity {
     /** 手机号码 */
     private String cellphone;
 
-    /** 等级ID */
-    private Long levelId;
-
     /** 用户状态 */
     private Boolean userStatus;
 
+    /** 会员信息 */
+    private MemberShip memberShip;
+    
     /** 角色列表 */
     private Set<Role> roles;
 
@@ -69,13 +70,11 @@ public class User extends BaseEntity {
      * @param userStatus
      *            用户状态
      */
-    public User(String username, String password, String cellphone,
-            Long levelId, Boolean userStatus) {
+    public User(String username, String password, String cellphone, Boolean userStatus) {
         super();
         this.username = username;
         this.password = password;
         this.cellphone = cellphone;
-        this.levelId = levelId;
         this.userStatus = userStatus;
     }
 
@@ -112,15 +111,14 @@ public class User extends BaseEntity {
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
-
-    @Basic
-    @Column(name = "USER_LEVEL_ID")
-    public Long getLevelId() {
-        return levelId;
+    
+    @OneToOne(targetEntity=MemberShip.class, fetch=FetchType.LAZY, mappedBy="user")  
+    public MemberShip getMemberShip() {
+        return memberShip;
     }
 
-    public void setLevelId(Long levelId) {
-        this.levelId = levelId;
+    public void setMemberShip(MemberShip memberShip) {
+        this.memberShip = memberShip;
     }
 
     @Basic

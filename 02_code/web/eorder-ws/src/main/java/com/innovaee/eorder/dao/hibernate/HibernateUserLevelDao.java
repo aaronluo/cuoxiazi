@@ -13,7 +13,9 @@ import com.innovaee.eorder.entity.UserLevel;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
@@ -136,6 +138,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                 criteria.createAlias("memberShip.level", "level");
                 criteria.add(Restrictions.eq("level.id", userLevelId));
                 criteria.addOrder(Order.desc("id"));
+
                 
                 criteria.setFirstResult((curPage - 1) *  pageSize);
                 criteria.setMaxResults(pageSize);

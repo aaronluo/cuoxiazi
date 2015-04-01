@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:applicationContext-security.xml",
-        "classpath:applicationContext-total.xml", })
+        "classpath:applicationContext-total.xml",  "classpath:eorder-support.xml"})
 public class BaseSpringTestCase extends AbstractTransactionalJUnit4SpringContextTests{
 
     /** 日志对象 */

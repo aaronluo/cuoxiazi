@@ -28,7 +28,7 @@ public class UserLevelNotFoundException extends BaseException {
         this.queryString = queryString;
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, queryString);
     }

@@ -29,7 +29,7 @@ public class DuplicateNameException extends BaseException {
         duplicateName = name;
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, this.duplicateName);
     }

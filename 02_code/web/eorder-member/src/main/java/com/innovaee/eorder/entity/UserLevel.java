@@ -1,11 +1,14 @@
 /***********************************************
- * Filename        : UserLevel.java 
+ * Filename       : UserLevel.java
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 11/27/2014
  ************************************************/
 
 package com.innovaee.eorder.entity;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,28 +17,53 @@ import javax.persistence.Table;
 
 /**
  * @Title: UserLevel
- * @Description: 用户等级实体
- *
+ * @Description: 用户等级
+ * 
  * @version V1.0
  */
 @Entity
-@Table(name = "t_user_level")
+@Table(name = "T_USER_LEVEL")
 public class UserLevel extends BaseEntity {
+    private static final long serialVersionUID = 1L;
 
-    /** 对象序列化ID */
-    private static final long serialVersionUID = 2189941376177920282L;
-
-    /** 等级名称 */
+    /** 名称 */
     private String levelName;
 
     /** 折扣 */
     private Float discount;
 
     /** 等级积分 */
-    private Long levelScore;
+    private Integer levelScore;
 
-    /** 等级状态 */
-    private Boolean levelStatus;
+    /** 用户状态 */
+    private boolean levelStatus;
+
+    /**
+     * 默认构造函数
+     */
+    public UserLevel() {
+    }
+
+    /**
+     * 构造函数
+     * 
+     * @param levelName
+     *            名称
+     * @param discount
+     *            折扣
+     * @param levelScore
+     *            等级积分
+     * @param levelStatus
+     *            用户状态
+     */
+    public UserLevel(String levelName, Float discount, Integer levelScore,
+            boolean levelStatus) {
+        super();
+        this.levelName = levelName;
+        this.discount = discount;
+        this.levelScore = levelScore;
+        this.levelStatus = levelStatus;
+    }
 
     @Basic
     @Column(name = "LEVEL_NAME")
@@ -58,23 +86,29 @@ public class UserLevel extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "level_score")
-    public Long getLevelScore() {
+    @Column(name = "LEVEL_SCORE")
+    public Integer getLevelScore() {
         return levelScore;
     }
 
-    public void setLevelScore(Long levelScore) {
+    public void setLevelScore(Integer levelScore) {
         this.levelScore = levelScore;
     }
 
     @Basic
-    @Column(name = "Level_STATUS")
-    public Boolean getLevelStatus() {
+    @Column(name = "LEVEL_STATUS")
+    public boolean isLevelStatus() {
         return levelStatus;
     }
 
-    public void setLevelStatus(Boolean levelStatus) {
+    public void setLevelStatus(boolean levelStatus) {
         this.levelStatus = levelStatus;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 
 }

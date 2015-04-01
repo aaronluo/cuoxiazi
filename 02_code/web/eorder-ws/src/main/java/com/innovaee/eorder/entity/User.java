@@ -73,13 +73,11 @@ public class User extends BaseEntity {
      * @param userStatus
      *            用户状态
      */
-    public User(String username, String password, String cellphone,
-            Integer userScore, boolean userStatus) {
+    public User(String username, String password, String cellphone, boolean userStatus) {
         super();
         this.username = username;
         this.password = password;
         this.cellphone = cellphone;
-        this.userScore = userScore;
         this.userStatus = userStatus;
     }
 

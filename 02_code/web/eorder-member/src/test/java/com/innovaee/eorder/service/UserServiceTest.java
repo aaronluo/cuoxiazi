@@ -57,7 +57,7 @@ public class UserServiceTest extends BaseSpringTestCase {
     @Test
     public void operateUser() {
         // 先新增一个对象
-        User user = new User(username, password, cellphone, levelId, userStatus);
+        User user = new User(username, password, cellphone, userStatus);
 
         // 1. 保存
         Long userId = userService.saveUser(user);

@@ -29,7 +29,7 @@ public class CategoryNotFoundException extends BaseException {
         this.queryCriteria = queryCriteria;
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, queryCriteria);
     }
