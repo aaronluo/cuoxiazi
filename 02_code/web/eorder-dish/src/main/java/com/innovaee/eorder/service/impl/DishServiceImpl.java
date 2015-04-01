@@ -57,7 +57,7 @@ public class DishServiceImpl implements DishService {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
-            CategoryNotFoundException, NumberFormatException {
+            CategoryNotFoundException {
         // 1. 检查是否有同名菜品
         Dish dish = dishDao.getDishByName(dishVO.getName());
 
@@ -69,19 +69,14 @@ public class DishServiceImpl implements DishService {
                 throw new CategoryNotFoundException(MessageUtil.getMessage(
                         "category_id", dishVO.getCategoryId() + ""));
             } else {
-                try {
-                    dish = new Dish();
-                    dish.setCategory(category);
-                    dish.setName(dishVO.getName());
-                    dish.setOnSell(true);
-                    dish.setPicPath(dishVO.getPicPath());
-                    dish.setPrice(dishVO.getPrice());
-                    dish.setCreateDate(new Date());
-
-                    dishDao.save(dish);
-                } catch (NumberFormatException e) {
-                    // TODO
-                }
+                dish = new Dish();
+                dish.setCategory(category);
+                dish.setName(dishVO.getName());
+                dish.setOnSell(true);
+                dish.setPicPath(dishVO.getPicPath());
+                dish.setPrice(dishVO.getPrice());
+                dish.setCreateDate(new Date());
+                dishDao.save(dish);
             }
         } else {
             // 有重名菜品，抛出异常
@@ -216,7 +211,7 @@ public class DishServiceImpl implements DishService {
         List<Dish> dishes = new ArrayList<Dish>();
         // 1. 计算总页数
         int totalPage = this.getDishPageCount(pageSize, categoryId);
-        // 2. 如果当前分页是一个非法的分页， 则抛出异常 
+        // 2. 如果当前分页是一个非法的分页， 则抛出异常
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         } else {

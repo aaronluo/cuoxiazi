@@ -121,6 +121,18 @@ public class DishAction extends BaseAction {
         return SUCCESS;
     }
 
+    // public void validateSave() {
+    // System.out.println("validateSave");
+    // if (null != price &&0 != price) {
+    // //dishVO.setPrice(price);
+    //
+    // addFieldError("functionName", "功能名称已被占用！");
+    // this.setMessage(MessageUtil.getMessage("dish_price_empty"));
+    // // 更新页面数据
+    // refreshPageData();
+    // }
+    // }
+
     /**
      * 保存功能
      * 
@@ -141,7 +153,7 @@ public class DishAction extends BaseAction {
                 return INPUT;
             }
 
-            if (null != price &&0 != price) {
+            if (null != price && 0 != price) {
                 dishVO.setPrice(price);
             } else {
                 this.setMessage(MessageUtil.getMessage("dish_price_empty"));
@@ -182,12 +194,6 @@ public class DishAction extends BaseAction {
             this.setMessage(e.getMessage());
             // 更新页面数据
             refreshPageData();
-        } catch (NumberFormatException e) {
-            this.setMessage(MessageUtil.getMessage("number_format_exception",
-                    price.toString()));
-            // 更新页面数据
-            refreshPageData();
-            return INPUT;
         }
         return SUCCESS;
     }

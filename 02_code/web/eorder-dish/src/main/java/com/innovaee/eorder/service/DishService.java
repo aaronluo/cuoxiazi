@@ -46,7 +46,7 @@ public interface DishService {
      *             菜品分类不存在异常
      */
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
-            CategoryNotFoundException, NumberFormatException;
+            CategoryNotFoundException;
 
     /**
      * 更新菜品信息
