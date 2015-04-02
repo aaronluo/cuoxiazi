@@ -34,11 +34,11 @@ INSERT INTO `t_category` VALUES ('11', '默认', '/default_dish.png', '2014-12-1
 DROP TABLE IF EXISTS `t_dish`;
 CREATE TABLE `t_dish` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(20) NOT NULL,
+  `category_id` bigint(20) DEFAULT NULL,
   `dish_name` varchar(128) NOT NULL,
   `dish_picture` varchar(256) DEFAULT NULL,
-  `dish_price` float(64,0) NOT NULL,
-  `on_sell` tinyint(1) DEFAULT NULL,
+  `dish_price` float(64,0) DEFAULT 0.0,
+  `on_sell` tinyint(1) DEFAULT 1,
   `misc` varchar(128) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE `t_member_ship` (
   `user_id` bigint(20) NOT NULL,
   `level_id` bigint(20) NOT NULL,
   `member_id` varchar(20) NOT NULL,
-  `current_score` int(20) NOT NULL,
+  `current_score` int(20) DEFAULT 0,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -262,9 +262,9 @@ CREATE TABLE `t_user` (
   `username` varchar(20) COLLATE utf8_bin NOT NULL,
   `password` varchar(256) COLLATE utf8_bin NOT NULL,
   `cellphone` varchar(16) COLLATE utf8_bin NOT NULL,
-  `user_score` bigint(20) DEFAULT NULL,
+  `user_score` bigint(20) DEFAULT 0,
   `user_status` tinyint(1) DEFAULT '1',
-  `user_level_id` bigint(20) NOT NULL,
+  `user_level_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -286,9 +286,9 @@ DROP TABLE IF EXISTS `t_user_level`;
 CREATE TABLE `t_user_level` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `level_name` varchar(128) NOT NULL,
-  `discount` float(32,2) NOT NULL,
-  `level_score` int(20) NOT NULL,
-  `level_status` tinyint(1) NOT NULL,
+  `discount` float(32,2) DEFAULT 10.0,
+  `level_score` int(20) DEFAULT 0,
+  `level_status` tinyint(1) DEFAULT 1,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
