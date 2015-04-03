@@ -32,7 +32,7 @@ public class UserLevel extends BaseEntity {
     private Float discount;
 
     /** 等级积分 */
-    private Long levelScore;
+    private Integer levelScore;
 
     /** 等级状态 */
     private Boolean levelStatus;
