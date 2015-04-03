@@ -61,11 +61,9 @@ public class DishAction extends BaseAction {
     private boolean onSell;
 
     /** 分类id */
-    @XmlTransient
     private Long categoryId;
 
     /** 更多信息 */
-    @XmlTransient
     private String misc;
 
     /** 菜品分类列表 */
