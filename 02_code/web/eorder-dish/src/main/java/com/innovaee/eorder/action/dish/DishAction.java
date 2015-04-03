@@ -7,15 +7,6 @@
 
 package com.innovaee.eorder.action.dish;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
@@ -33,6 +24,14 @@ import com.innovaee.eorder.vo.CategoryVO;
 import com.innovaee.eorder.vo.DishVO;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
 
 /**
  * @Title: DishAction
