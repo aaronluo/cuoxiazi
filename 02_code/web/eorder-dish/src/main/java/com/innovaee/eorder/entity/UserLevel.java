@@ -59,11 +59,11 @@ public class UserLevel extends BaseEntity {
 
     @Basic
     @Column(name = "level_score")
-    public Long getLevelScore() {
+    public Integer getLevelScore() {
         return levelScore;
     }
 
-    public void setLevelScore(Long levelScore) {
+    public void setLevelScore(Integer levelScore) {
         this.levelScore = levelScore;
     }
 
