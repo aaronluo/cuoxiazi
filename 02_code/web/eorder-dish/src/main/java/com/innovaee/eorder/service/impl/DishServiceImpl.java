@@ -185,7 +185,8 @@ public class DishServiceImpl implements DishService {
         Dish dish = dishDao.getDishByName(name);
 
         if (null == dish) {
-            throw new DishNotFoundException(MessageUtil.getMessage("dish_name",
+            throw new DishNotFoundException(
+                    MessageUtil.getMessage("dish_name_msg",
                     name));
         }
 

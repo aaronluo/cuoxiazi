@@ -112,7 +112,7 @@ public class CategoryServiceImpl implements CategoryService {
             category = categoryDao.get(categoryId);
         } else {
             throw new DuplicateNameException(
-                    MessageUtil.getMessage("category_name", categoryVO.getName()));
+                    MessageUtil.getMessage("category_name_msg", categoryVO.getName()));
         }
 
         return category;
@@ -143,7 +143,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (checkedCategory != null
                 && checkedCategory.getId() != categoryVO.getId()) {
             throw new DuplicateNameException(
-                    MessageUtil.getMessage("category_name", categoryVO.getName()));
+                    MessageUtil.getMessage("category_name_msg", categoryVO.getName()));
         } else {
             // 3. 更新菜品分类
             category.setName(categoryVO.getName());
@@ -177,7 +177,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         if (null == defaultCategory) {
             throw new CategoryNotFoundException(
-                    MessageUtil.getMessage("category_name", Constants.DEFAULT_CATEGORY));
+                    MessageUtil.getMessage("category_name_msg", Constants.DEFAULT_CATEGORY));
         } else {
             for (Dish dish : category.getDishes()) {
                 dish.setCategory(defaultCategory);
@@ -226,7 +226,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         if (null == category) {
             throw new CategoryNotFoundException(MessageUtil.getMessage(
-                    "category_name", name));
+                    "category_name_msg", name));
         }
 
         return category;
@@ -256,7 +256,8 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             int startIndex = (curPage - 1) * pageSize;
             categories = categoryDao.getPage(startIndex, pageSize,
-                    "FROM Category as c order by c.id desc");
+                    "FROM Category as c WHERE c.name <> '" 
+                            + Constants.DEFAULT_CATEGORY + "' order by c.id desc");
         }
 
         return categories;
@@ -268,7 +269,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 总记录条数
      */
     public Integer count() {
-        return categoryDao.count();
+        return categoryDao.count() - 1;
     }
 
     /**
