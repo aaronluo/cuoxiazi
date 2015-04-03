@@ -19,7 +19,7 @@ public class CategoryNotFoundException extends BaseException {
     private static final long serialVersionUID = 1L;
 
     static {
-        exceptionKey = "category_not_found";
+        exceptionKey = "category_not_found_exception";
     }
 
     private String queryCriteria;
