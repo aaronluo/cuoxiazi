@@ -388,7 +388,7 @@ public class DishAction extends BaseAction {
                 category = categoryService.getCategoryById(id);
                 if (null != category) {
                     dishvo.setCategoryId(category.getId());
-                    dishvo.setName(category.getName());
+//                    dishvo.setName(category.getName());
                 }
                 dishvos.add(dishvo);
             }
