@@ -122,8 +122,7 @@ public class CategoryAction extends BaseAction {
                 return INPUT;
             }
         } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    name));
+            this.setMessage(e.getMessage());
             return INPUT;
         }
 
@@ -143,8 +142,7 @@ public class CategoryAction extends BaseAction {
                 name = category.getName();
                 picPath = category.getPicPath();
             } catch (CategoryNotFoundException e) {
-                this.setMessage(MessageUtil.getMessage(
-                        "category_not_found_exception", id.toString()));
+                this.setMessage(e.getMessage());
             }
 
         }
@@ -194,12 +192,10 @@ public class CategoryAction extends BaseAction {
 
             categoryService.updateCategory(categoryVO);
         } catch (DuplicateNameException e) {
-            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
-                    name));
+            this.setMessage(e.getMessage());
             return INPUT;
-        } catch (CategoryNotFoundException e1) {
-            this.setMessage(MessageUtil.getMessage(
-                    "category_not_found_exception", id));
+        } catch (CategoryNotFoundException e) {
+            this.setMessage(e.getMessage());
             return INPUT;
         }
 
@@ -220,8 +216,7 @@ public class CategoryAction extends BaseAction {
             try {
                 categoryService.deleteCategory(Long.parseLong(id));
             } catch (CategoryNotFoundException e) {
-                this.setMessage(MessageUtil.getMessage(
-                        "category_not_found_exception", id));
+                this.setMessage(e.getMessage());
                 // 更新记录列表
                 refreshDataList();
                 return INPUT;
@@ -302,13 +297,9 @@ public class CategoryAction extends BaseAction {
                         Constants.PAGE_SIZE);
             }
         } catch (PageIndexOutOfBoundExcpeiton e) {
-            this.setMessage(MessageUtil.getMessage(
-                    "page_out_of_bound_exception", pageNow.toString(),
-                    pageTotal.toString()));
+            this.setMessage(e.getMessage());
         } catch (InvalidPageSizeException e) {
-            this.setMessage(MessageUtil.getMessage(
-                    "invalid_page_size_exception",
-                    Constants.PAGE_SIZE.toString()));
+            this.setMessage(e.getMessage());
         }
 
         CategoryVO categoryvo = null;

@@ -1,9 +1,3 @@
-function add() {
-	$("[name='addForm']").attr("action", "add.action");
-	$("[name='addForm']").attr("method", "post");
-	$("[name='addForm']").submit();
-}
-
 function prePage() {
 	var pageNow = $("#pageNow").val();
 	pageNow = parseInt(pageNow) - 1;
@@ -37,15 +31,23 @@ function load() {
 
 //上传
 function openUploadPage() {
-	// 接收父页面上传回的值
-	var newFileName = window
-			.showModalDialog("../upload/upload.action", null,
-					"dialogWidth=800px;dialogHeight=600px;status=no;help=no;scrollbars=no");
-	//newFileName = "" + newFileName;
-	//alert("newFileName: " + newFileName);
-	$("#picPath").val("/dish/" + newFileName);
+	if (window.ActiveXObject) { // IE
+		var returnValue = window.showModalDialog("../upload/upload.action",
+				window, "dialogWidth:550px;status:no;dialogHeight:600px");
+		if (returnValue != null) {
+			setValue(returnValue);
+		}
+	} else { // 非IE
+		window.open("../upload/upload.action",
+						'newwindow',
+						'height=500,width=600,top=5,left=5,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+	}
+}
 
-	//alert("picPath: " + $("#picPath").val());
+//接收父页面上传回的值
+function setValue(newFileName) {
+	$("newFileName").val(newFileName);
+	$("#picPath").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片
 	$("#categoryPic").attr("src", "../resources/images/dish/" + newFileName);
 }
@@ -55,6 +57,13 @@ function save() {
 	$("[name='saveForm']").attr("method", "post");
 	$("[name='saveForm']").submit();
 }
+
+function saveBack() {
+	$("[name='saveForm']").attr("action", "category.action");
+	$("[name='saveForm']").attr("method", "post");
+	$("[name='saveForm']").submit();
+}
+
 
 function update() {
 	$("[name='updateForm']").attr("action", "update.action");
@@ -66,12 +75,6 @@ function updateBack() {
 	$("[name='updateForm']").attr("action", "category.action");
 	$("[name='updateForm']").attr("method", "post");
 	$("[name='updateForm']").submit();
-}
-
-function saveBack() {
-	$("[name='saveForm']").attr("action", "category.action");
-	$("[name='saveForm']").attr("method", "post");
-	$("[name='saveForm']").submit();
 }
 
 // 回车提交表单（登录）
