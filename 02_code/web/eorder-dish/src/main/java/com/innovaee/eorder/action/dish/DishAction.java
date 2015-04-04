@@ -385,21 +385,16 @@ public class DishAction extends BaseAction {
                 category = categoryService.getCategoryById(id);
                 if (null != category) {
                     dishvo.setCategoryId(category.getId());
-//                    dishvo.setName(category.getName());
+                    // dishvo.setName(category.getName());
                 }
                 dishvos.add(dishvo);
             }
-        } catch (PageIndexOutOfBoundExcpeiton e) { // TODO
-            this.setMessage(MessageUtil.getMessage(
-                    "page_out_of_bound_exception", pageNow.toString(),
-                    pageTotal.toString()));
+        } catch (PageIndexOutOfBoundExcpeiton e) {
+            this.setMessage(e.getMessage());
         } catch (InvalidPageSizeException e) {
-            this.setMessage(MessageUtil.getMessage(
-                    "invalid_page_size_exception",
-                    Constants.PAGE_SIZE.toString()));
+            this.setMessage(e.getMessage());
         } catch (CategoryNotFoundException e) {
-            this.setMessage(MessageUtil.getMessage(
-                    "category_not_found_exception", id.toString()));
+            this.setMessage(e.getMessage());
         }
     }
 
@@ -421,10 +416,6 @@ public class DishAction extends BaseAction {
         List<CategoryVO> categoryVOList = new ArrayList<CategoryVO>();
         // 更新权限列表
         CategoryVO categoryVO = null;
-        // CategoryVO rootCategoryVO = new CategoryVO();
-        // rootCategoryVO.setStringId("0");
-        // rootCategoryVO.setName(MessageUtil.getMessage("dish_root"));
-        // categoryVOList.add(rootCategoryVO);
         List<Category> categoryList = categoryService.getAllCategories();
         for (Category category : categoryList) {
             categoryVO = new CategoryVO();

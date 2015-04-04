@@ -26,3 +26,7 @@
 /02_code/web/eorder-user/target
 /02_code/web/eorder-user/.classpath
 /02_code/web/eorder-user/.project
+/02_code/web/eorder-order/.settings/*
+/02_code/web/eorder-order/target
+/02_code/web/eorder-order/.classpath
+/02_code/web/eorder-order/.project

@@ -30,7 +30,7 @@
         <action name="save" class="com.innovaee.eorder.action.category.CategoryAction"
             method="save">
             <result name="input" type="tiles">categoryEdit</result>
-            <result type="tiles">categoryEdit</result>
+            <result type="tiles">category</result>
         </action>
 
         <action name="update" class="com.innovaee.eorder.action.category.CategoryAction"

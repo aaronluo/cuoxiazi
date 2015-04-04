@@ -42,13 +42,11 @@
 
 			<s:if test="null != categoryId && null != dishvos">
 				<div class="tools">
-					<form name="addForm" id="addForm">
-						<s:hidden id="categoryId" name="categoryId" />
-						<ul class="toolbar" onclick="add();">
-							<li><span><img src="../resources/images/t01.png"></span> <s:text
-									name="add" /></li>
-						</ul>
-					</form>
+					<ul class="toolbar">
+						<li><a
+							href='<s:url action="add"> <s:param name="categoryId" value="categoryId" /></s:url>'><span><img
+									src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
+					</ul>
 				</div>
 				<s:if test="0 != pageTotal">
 					<s:form id="dishForm" action="remove" theme="simple">
@@ -64,8 +62,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<s:iterator value="dishvos">
-									<tr>
+								<s:iterator value="dishvos" status="status">
+									<tr class='<s:if test="#status.even">odd</s:if>'>
 										<td><s:property value="name" /></td>
 										<td><s:property value="price" /></td>
 										<td class="imgtd"><img

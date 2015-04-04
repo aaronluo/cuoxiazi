@@ -22,19 +22,15 @@
 	<s:property value="message" />
 </div>
 
-<!--页面主体部分-->
 <div class="rightinfo">
 	<div class="tools">
-		<form name="addForm" id="addForm">
-			<ul class="toolbar" onclick="add();">
-				<li><span><img src="../resources/images/t01.png"></span> <s:text
-						name="add" /></li>
-			</ul>
-		</form>
+		<ul class="toolbar">
+			<li><a href="<s:url action="add" />"><span><img
+						src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
+		</ul>
 	</div>
 
 	<s:form id="categoryForm" action="remove" theme="simple">
-		<!--列表表格-->
 		<table class="tablelist">
 			<thead>
 				<tr>
@@ -45,8 +41,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<s:iterator value="categoryvos">
-					<tr>
+				<s:iterator value="categoryvos" status="status">
+					<tr class='<s:if test="#status.even">odd</s:if>'>
 						<td width="18%"><s:property value="name" /></td>
 						<td class="imgtd"><img
 							style="height: 64px; width: 64px; padding: 5px;"
@@ -63,7 +59,6 @@
 		</table>
 	</s:form>
 
-	<!-- 分页信息 -->
 	<div class="pagin">
 		<div class="message">
 			<s:text name="total" />
