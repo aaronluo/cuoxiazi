@@ -144,6 +144,13 @@ public class LevelAction extends BaseAction {
      */
     private boolean checkLevelVO() {
         boolean isValidVO = true;
+        
+        if(null == level) {
+            isValidVO = false;
+            addFieldError("level.discount", MessageUtil.getMessage("level_invalid_vo"));
+            return isValidVO;
+        }
+        
         if(level.getDiscount() < 1f || level.getDiscount() > 10f ) {
             isValidVO = false;
             addFieldError("level.discount", MessageUtil.getMessage("level_discount_rule"));
