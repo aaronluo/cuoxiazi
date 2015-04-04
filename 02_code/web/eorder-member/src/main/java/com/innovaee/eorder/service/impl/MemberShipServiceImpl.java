@@ -244,7 +244,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         Object[] param = {Constants.DEFAULT_USR_LEVEL};
         userLevels = userLevelDao.getPage(startIndex, 
                 pageSize,
-                "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=true AND userLevel.levelName <> ?",
+                "FROM UserLevel AS level WHERE level.levelStatus=true AND level.levelName <> ? ORDER BY level.id DESC",
                 param);
 
         return userLevels;

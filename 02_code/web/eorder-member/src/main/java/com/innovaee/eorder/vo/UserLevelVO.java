@@ -7,6 +7,9 @@
 
 package com.innovaee.eorder.vo;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @Title: UserLevelVO
  * @Description: 会员等级值对象
@@ -58,5 +61,10 @@ public class UserLevelVO extends BaseVO {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
     }
 }

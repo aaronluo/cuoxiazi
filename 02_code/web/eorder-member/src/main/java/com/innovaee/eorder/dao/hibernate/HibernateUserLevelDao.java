@@ -59,7 +59,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
     
     @SuppressWarnings("unchecked")
     public List<UserLevel> loadAll() {
-        final String hql = "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=?";
+        final String hql = "FROM UserLevel AS level WHERE level.levelStatus=? ORDER BY level.id DESC";
         Object[] params = new Object[1];
         params[0] = true;
         

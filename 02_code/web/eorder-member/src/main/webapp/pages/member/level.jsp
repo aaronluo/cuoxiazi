@@ -16,7 +16,7 @@
 	<!-- 添加会员等级按钮 -->
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="<s:url action="addLevel" />"><span><img
+			<li><a href="<s:url action="add" />"><span><img
 						src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
 		</ul>
 		
@@ -43,7 +43,7 @@
 							href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'
 							class="tablelink"><s:text name="edit" /></a></td>
 					<td><a
-							href='<s:url action="remove"> <s:param name="id" value="id" /></s:url>'
+							href='<s:url action="remove"> <s:param name="level.id" value="id" /></s:url>'
 							class="tablelink"><s:text name="delete" /></a></td>
 				</tr>
 				</s:iterator>
@@ -98,8 +98,6 @@
 	
 	<!-- 消息显示 -->
 	<div class="msgPanel">
-		<s:property value="count" />
-		<s:property value="pageNow" />
-		<s:property value="pageTotal" />
+		<s:property value="message" />
 	</div>
 </div>
