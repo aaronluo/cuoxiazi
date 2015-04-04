@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="com.innovaee.eorder.action.dish" namespace="/member"
+        extends="struts-base">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+
+        <action name="level" class="com.innovaee.eorder.action.member.LevelAction"
+            method="list">
+            <result type="tiles">level</result>
+        </action>
+    </package>
+</struts>
