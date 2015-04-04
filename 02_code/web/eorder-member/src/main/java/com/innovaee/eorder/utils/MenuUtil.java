@@ -38,7 +38,6 @@ public class MenuUtil {
      */
     public static List<MenuLinkVO> getToolbarLinkVOList() {
         if (LOGGER.isDebugEnabled()) {
-            // 找不到父节点
             LOGGER.debug("根据缓存中用户信息，获得该用户的权限列表（菜单）");
         }
         List<MenuLinkVO> toolbarlist = new ArrayList<MenuLinkVO>();
@@ -61,6 +60,8 @@ public class MenuUtil {
 
         // 将功能列表填充到角色链接值对列表中
         toolbarlist.clear();
+        // 子菜单
+        MenuLinkVO parent = null;
         for (final UserFunctionVO ufVo : userFunctions) {
             if (0 == ufVo.getFunction().getFunctionParent()) {
                 // 检查是否有重复元素
@@ -94,8 +95,6 @@ public class MenuUtil {
                 continue;
             }
 
-            // 子菜单
-            MenuLinkVO parent = null;
             for (MenuLinkVO menuLinkVo : toolbarlist) {
                 if (menuLinkVo.getId().equals(
                         ufVo.getFunction().getFunctionParent())) {

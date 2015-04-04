@@ -35,28 +35,32 @@ public class Constants {
 
     /** 每页记录条数 */
     public static final Integer PAGE_SIZE = 5;
-    
-    /** 表示成功意义的字符串**/
+
+    /** 表示成功意义的字符串 **/
     public final static String SUCCESS = "success";
-    /** 表示失败意义的字符串**/
+    /** 表示失败意义的字符串 **/
     public final static String FALSE = "false";
-    /**  日期格式化模式 - 年年年年月月日日**/
+    /** 日期格式化模式 - 年年年年月月日日 **/
     public final static String DATE_FORMAT_YYYYMMDD = "yyyyMMdd";
-    
+    /** 日期格式化模式 - 年年年年月月日日时时分分秒秒 **/
+    public final static String DATE_FORMAT_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
+
     /** 订单的状态值 */
     public final static Integer ORDER_NEW = 100;
     public final static Integer ORDER_SUBMITTED = 101;
     public final static Integer ORDER_PAID = 102;
-    
+
     /** 默认菜单分类 */
     public static final String DEFAULT_CATEGORY = "默认";
-    
+
     /** 默认会员分类 */
     public static final String DEFAULT_USR_LEVEL="非会员";
-    
-    /** 默认菜单分类图片*/
-    public static final String DEFAULT_CATEGORY_PIC = "/default_catgory.png";
-    
+    /** 默认菜单分类图片 */
+    public static final String DEFAULT_CATEGORY_PIC = "/default_category.png";
+
+    /** 默认菜单分类图片 */
+    public static final String DEFAULT_DISH_PIC = "/default_dish.png";
+
     /** 对用户等级进行升级操作 */
     public static final int USER_LEVEL_UP = 1;
     /** 对用户等级进行降级操作 */

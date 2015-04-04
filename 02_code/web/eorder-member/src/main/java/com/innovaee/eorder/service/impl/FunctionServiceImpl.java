@@ -7,6 +7,8 @@
 package com.innovaee.eorder.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +18,8 @@ import org.springframework.beans.BeanUtils;
 import com.innovaee.eorder.dao.FunctionDao;
 import com.innovaee.eorder.entity.Function;
 import com.innovaee.eorder.service.FunctionService;
+import com.innovaee.eorder.utils.Constants;
+import com.innovaee.eorder.utils.DateUtil;
 import com.innovaee.eorder.vo.FunctionVO;
 
 /**
@@ -87,6 +91,11 @@ public class FunctionServiceImpl implements FunctionService {
      * @return 被保存的功能
      */
     public long saveFunction(Function function) {
+        Date currentDay = Calendar.getInstance().getTime();
+        String functionOrder = DateUtil.formatDate(
+                Constants.DATE_FORMAT_YYYYMMDDHHMMSS, currentDay);
+        function.setFunctionOrder(functionOrder);
+        function.setCreateDate(new Date());
         return functionDao.save(function);
     }
 

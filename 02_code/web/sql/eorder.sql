@@ -125,7 +125,7 @@ CREATE TABLE `t_function` (
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_function_name` (`function_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_function
@@ -137,6 +137,8 @@ INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.
 INSERT INTO `t_function` VALUES ('5', '菜单菜品', 'DishAdmin', 'icon02.png', '/category/category.action', '0', '20150329233816', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/category.action', '5', '20150329233837', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('7', '菜品管理', 'Dish', null, '/dish/dish.action', '5', '20150329233908', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('8', '会员', 'MemberAdmin', 'icon04.png', 'abc', '0', '20150404153559', '1', '2015-04-04 15:35:59', null);
+INSERT INTO `t_function` VALUES ('9', '会员等级列表', 'UserLevel', null, '/level/list.action', '8', '20150404153618', '1', '2015-04-04 15:36:18', null);
 
 -- ----------------------------
 -- Table structure for `t_member_ship`
@@ -221,13 +223,14 @@ CREATE TABLE `t_role` (
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_role_name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
 INSERT INTO `t_role` VALUES ('1', '管理员', '管理员', '1', '2014-12-12 12:26:45', '2014-12-16 08:24:15');
 INSERT INTO `t_role` VALUES ('2', '菜单菜品管理员', '菜单菜品管理员', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_role` VALUES ('3', '会员管理员', '会员管理员', '1', '2015-04-04 03:36:41', null);
 
 -- ----------------------------
 -- Table structure for `t_role_function`
@@ -240,7 +243,7 @@ CREATE TABLE `t_role_function` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role_function
@@ -252,6 +255,8 @@ INSERT INTO `t_role_function` VALUES ('4', '1', '4', '2014-12-16 08:24:15', null
 INSERT INTO `t_role_function` VALUES ('5', '2', '6', '2014-12-12 12:26:45', null);
 INSERT INTO `t_role_function` VALUES ('6', '2', '5', '2014-12-12 12:26:45', null);
 INSERT INTO `t_role_function` VALUES ('7', '2', '7', '2014-12-12 12:26:45', null);
+INSERT INTO `t_role_function` VALUES ('8', '3', '9', null, null);
+INSERT INTO `t_role_function` VALUES ('9', '3', '8', null, null);
 
 -- ----------------------------
 -- Table structure for `t_user`
@@ -314,7 +319,7 @@ CREATE TABLE `t_user_role` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
@@ -322,3 +327,6 @@ CREATE TABLE `t_user_role` (
 INSERT INTO `t_user_role` VALUES ('2', '1', '1', '2014-12-12 12:26:45', null);
 INSERT INTO `t_user_role` VALUES ('3', '1', '2', '2014-12-12 12:26:45', null);
 INSERT INTO `t_user_role` VALUES ('4', '3', '2', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_role` VALUES ('10', '1', '3', null, null);
+INSERT INTO `t_user_role` VALUES ('11', '1', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('12', '1', '1', null, null);
