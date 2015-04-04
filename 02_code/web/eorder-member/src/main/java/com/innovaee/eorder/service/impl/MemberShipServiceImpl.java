@@ -212,7 +212,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             throw new InvalidPageSizeException(pageSize);
         }
 
-        int userLevelCount = userLevelDao.loadAll().size();
+        int userLevelCount = userLevelDao.loadAll().size() - 1;
 
         return userLevelCount % pageSize == 0 ? userLevelCount / pageSize
                 : userLevelCount / pageSize + 1;
@@ -241,8 +241,11 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         }
 
         int startIndex = (curPage - 1) * pageSize;
-        userLevels = userLevelDao.getPage(startIndex, pageSize,
-                "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=true");
+        Object[] param = {Constants.DEFAULT_USR_LEVEL};
+        userLevels = userLevelDao.getPage(startIndex, 
+                pageSize,
+                "FROM UserLevel AS userLevel WHERE userLevel.levelStatus=true AND userLevel.levelName <> ?",
+                param);
 
         return userLevels;
     }

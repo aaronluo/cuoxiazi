@@ -15,8 +15,8 @@
         <action name="doLogin" class="com.innovaee.eorder.action.login.LoginAction"
             method="doLogin">
             <result name="success" type="redirectAction">
-                <param name="namespace">/user</param>
-                <param name="actionName">user</param>
+                <param name="namespace">/member</param>
+                <param name="actionName">level</param>
             </result>
         </action>
 

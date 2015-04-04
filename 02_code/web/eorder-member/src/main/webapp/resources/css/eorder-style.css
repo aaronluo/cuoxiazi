@@ -128,12 +128,12 @@ html {
 }
 
 .rightinfo {
-	width: 80%;
+	width: 100%;
 }
 
 .twoinput {
 	width: 35px;
-	height: 33px;
+	height: 30px;
 	line-height: 33px;
 	border-top: solid 1px #a7b5bc;
 	border-left: solid 1px #a7b5bc;
@@ -141,4 +141,21 @@ html {
 	border-bottom: solid 1px #ced9df;
 	background: url(../images/inputbg.gif) repeat-x;
 	text-indent: 10px;
+}
+
+.tablePanel {
+	width:70%;
+	float:left;
+}
+
+.msgPanel {
+	width : 25%;
+	margin-right:25px;
+	float: right;
+	padding: 10px 10px;
+	background-color: #eeeeee;
+ 	border: 1px dotted #dddddd;
+  	height: 120px;
+  	color: red;
+  	font-weight: bold;
 }
