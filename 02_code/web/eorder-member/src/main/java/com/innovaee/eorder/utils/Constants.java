@@ -65,4 +65,7 @@ public class Constants {
     public static final int USER_LEVEL_UP = 1;
     /** 对用户等级进行降级操作 */
     public static final int USER_LEVEL_DOWN = 0;
+    
+    
+    public static final String HTML_BR = "&lt;br&#47;&gt;";
 }

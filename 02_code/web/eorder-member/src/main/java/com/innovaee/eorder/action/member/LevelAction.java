@@ -146,19 +146,20 @@ public class LevelAction extends BaseAction {
         boolean isValidVO = true;
         if(level.getDiscount() < 1f || level.getDiscount() > 10f ) {
             isValidVO = false;
-            setMessage(MessageUtil.getMessage("level_discount_rule"));
+            addFieldError("level.discount", MessageUtil.getMessage("level_discount_rule"));
         }
         
         if(StringUtil.isEmpty(level.getName())) {
             isValidVO = false;
-            setMessage(MessageUtil.getMessage("level_name_rule"));
+            addFieldError("level.name", MessageUtil.getMessage("level_name_rule"));
         }
         
         if(level.getLevelScore() < 0) {
             isValidVO = false;
-            setMessage(MessageUtil.getMessage("level_score_rule"));
+            addFieldError("level.levelScore", MessageUtil.getMessage("level_score_rule"));
         }
         
+       
         return isValidVO;
     }    
     
@@ -169,8 +170,6 @@ public class LevelAction extends BaseAction {
         try {
             count = memberService.getAllUserLevels().size();
             pageTotal = memberService.getUserLevePageCount(Constants.PAGE_SIZE);
-            
-//            int curPage = 1;
             
             if(pageInput != null) {
                 pageNow = pageInput;
