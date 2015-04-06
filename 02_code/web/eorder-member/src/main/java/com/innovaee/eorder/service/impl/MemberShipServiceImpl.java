@@ -206,7 +206,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
      * @throws InvalidPageSizeException
      *             非法的分页大小异常
      */
-    public int getUserLevePageCount(int pageSize)
+    public int getUserLevelPageCount(int pageSize)
             throws InvalidPageSizeException {
         if (pageSize <= 0) {
             throw new InvalidPageSizeException(pageSize);
@@ -234,7 +234,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
      */
     public List<UserLevel> getUserLevelsByPage(int curPage, int pageSize)
             throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException {
-        int totalPage = this.getUserLevePageCount(pageSize);
+        int totalPage = this.getUserLevelPageCount(pageSize);
         List<UserLevel> userLevels = new ArrayList<UserLevel>();
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
@@ -291,7 +291,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         MemberShip memberShip = new MemberShip();
 
         memberShip.setCreateDate(new Date());
-        memberShip.setCurrentScore(0);
+        memberShip.setCurrentScore(userLevel.getLevelScore());
         memberShip.setLevel(userLevel);
         memberShip.setUser(user);
         memberShip.setMemberId(user.getCellphone());
@@ -361,7 +361,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
                     .getNextLevel(memberShip.getLevel().getId());
         } else {
             userLevel = userLevelDao
-                    .getLastLevel(memberShip.getLevel().getId());
+                    .getPreLevel(memberShip.getLevel().getId());
         }
         // 不能升级/降级的时候抛出异常
         if (null == userLevel) {
@@ -414,7 +414,15 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         }
 
-        return userLevelDao.getUsers(userLevelId, curPage, pageSize);
+        List<User> users = userLevelDao.getUsers(userLevelId, curPage, pageSize);
+        
+        List<User> result = new ArrayList<User>();
+        
+        for(User user : users) {
+            result.add(userDao.get(user.getId()));
+        }
+        
+        return result;
     }
 
     /**
@@ -454,6 +462,39 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         }
 
         return userLevelDao.getUsers(userLevleId, 1, Integer.MAX_VALUE).size();
+    }
+    /**
+     * 获取指定会员等级的下一级等级
+     */
+    public UserLevel getNexLevel(Long userLevelId)
+            throws UserLevelNotFoundException {
+        UserLevel level = this.userLevelDao.get(userLevelId);
+        
+        if(level == null){
+            throw new UserLevelNotFoundException(
+                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
+        } else{
+            level = userLevelDao.getNextLevel(userLevelId);
+        }
+        
+        return level;
+    }
+
+    /**
+     * 获取指定会员等级的上一级
+     */
+    public UserLevel getPreLevel(Long userLevelId)
+            throws UserLevelNotFoundException {
+        UserLevel level = this.userLevelDao.get(userLevelId);
+        
+        if(level == null){
+            throw new UserLevelNotFoundException(
+                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
+        } else{
+            level = userLevelDao.getPreLevel(userLevelId);
+        }
+        
+        return level;
     }
 
     public UserLevelDao getUserLevelDao() {

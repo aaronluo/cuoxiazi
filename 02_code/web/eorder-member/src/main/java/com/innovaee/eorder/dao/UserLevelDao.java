@@ -37,7 +37,7 @@ public interface UserLevelDao extends BaseDao<UserLevel> {
      * @param id
      * @return
      */
-    UserLevel getLastLevel(Long id);
+    UserLevel getPreLevel(Long id);
 
     /**
      * 获取拥有指定会员等级的会员用户分页数据

@@ -42,4 +42,5 @@
     <include file="com/innovaee/eorder/action/user/struts.xml" />
     <include file="com/innovaee/eorder/action/role/struts.xml" />
     <include file="com/innovaee/eorder/action/member/struts.xml"/>
+     <include file="com/innovaee/eorder/action/level/struts.xml"/>
 </struts>

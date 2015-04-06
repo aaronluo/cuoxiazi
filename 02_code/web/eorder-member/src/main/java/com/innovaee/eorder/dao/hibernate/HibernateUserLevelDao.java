@@ -99,7 +99,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
      * @param id
      * @return
      */
-    public UserLevel getLastLevel(final Long id) {
+    public UserLevel getPreLevel(final Long id) {
         final UserLevel userLevel = this.get(id);
         UserLevel lastUserLevel = null;
         
@@ -132,8 +132,8 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                 Criteria criteria = session.createCriteria(User.class);
                 criteria.createAlias("memberShip", "memberShip");
                 criteria.createAlias("memberShip.level", "level");
-                criteria.createAlias("roles", "role");
-                criteria.add(Restrictions.eq("level.id", userLevelId));
+//                criteria.createAlias("roles", "role");
+                criteria.add(Restrictions.eq("memberShip.level.id", userLevelId));
                 criteria.addOrder(Order.desc("id"));
                 criteria.setProjection(
                         Projections.projectionList()

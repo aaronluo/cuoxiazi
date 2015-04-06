@@ -112,7 +112,7 @@ public class User extends BaseEntity {
         this.cellphone = cellphone;
     }
     
-    @OneToOne(targetEntity=MemberShip.class, fetch=FetchType.LAZY, mappedBy="user")  
+    @OneToOne(targetEntity=MemberShip.class, fetch=FetchType.EAGER, mappedBy="user")  
     public MemberShip getMemberShip() {
         return memberShip;
     }

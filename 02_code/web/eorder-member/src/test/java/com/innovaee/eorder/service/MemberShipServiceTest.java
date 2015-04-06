@@ -113,7 +113,7 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
         int pageSize = -1;
 
         try {
-            memberShipService.getUserLevePageCount(pageSize);
+            memberShipService.getUserLevelPageCount(pageSize);
         } catch (Exception exception) {
             assertEquals(InvalidPageSizeException.class, exception.getClass());
         }
@@ -236,7 +236,7 @@ public class MemberShipServiceTest extends BaseSpringTestCase {
             throws InvalidPageSizeException {
         int pageSize = 5;
 
-        assertEquals(1, memberShipService.getUserLevePageCount(pageSize));
+        assertEquals(1, memberShipService.getUserLevelPageCount(pageSize));
     }
 
     /**

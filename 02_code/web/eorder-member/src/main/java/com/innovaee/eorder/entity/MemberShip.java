@@ -47,7 +47,7 @@ public class MemberShip extends BaseEntity {
         this.user = user;
     }
 
-    @OneToOne(targetEntity=UserLevel.class, fetch=FetchType.LAZY)
+    @OneToOne(targetEntity=UserLevel.class, fetch=FetchType.EAGER)
     @JoinColumn(name="level_id")
     public UserLevel getLevel() {
         return level;

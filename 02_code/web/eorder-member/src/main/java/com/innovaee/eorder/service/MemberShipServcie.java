@@ -106,7 +106,7 @@ public interface MemberShipServcie {
      * @throws InvalidPageSizeException
      *             非法的分页大小异常
      */
-    public int getUserLevePageCount(int pageSize)
+    public int getUserLevelPageCount(int pageSize)
             throws InvalidPageSizeException;
 
     /**
@@ -214,4 +214,8 @@ public interface MemberShipServcie {
      */
     public int getUsersByUserLevelCount(Long userLevleId)
             throws UserLevelNotFoundException;
+    
+    public UserLevel getNexLevel(Long userLevelId) throws UserLevelNotFoundException;
+    
+    public UserLevel getPreLevel(Long userLevelId) throws UserLevelNotFoundException;
 }

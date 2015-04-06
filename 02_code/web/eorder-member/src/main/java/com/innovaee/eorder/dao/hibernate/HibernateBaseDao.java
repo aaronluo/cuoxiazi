@@ -107,7 +107,7 @@ public class HibernateBaseDao<T> extends HibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<T> loadAll() {
         String hql = "FROM " + entityClass.getName()
-                + " AS entity GROUP BY entity.id ORDER BY entity.id";
+                + " AS entity GROUP BY entity.id ORDER BY entity.id DESC";
 
         return getHibernateTemplate().find(hql);
     }

@@ -3,47 +3,70 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<script type="text/javascript" src="../resources/js/level.js"></script>
+<script type="text/javascript" src="../resources/js/member.js"></script>
 
 <div class="place">
 	<span><s:text name="place" /></span>
 	<ul class="placeul">
-		<li><a href="#"><s:text name="level_name" /></a></li>
+		<li><a href="#"><s:text name="member_name" /></a></li>
 	</ul>
 </div>
 
 <div class="rightinfo">
-	<!-- 添加会员等级按钮 -->
+
+	
+	<!-- 下拉选择会员等级 -->
+	<div class="tools" >
+		<s:form name="listForm" action="list">
+		<s:hidden name="pageNow" />
+		<s:hidden name="pageInput" />
+		<div style="font-weight:bold;float:left;width:65px;margin-left:5px;height:15px;padding:10px 6px">
+			<label><s:text name="level_name" />:</label>
+		</div>
+		<div>
+			<s:select 
+				list="levels" listKey="id" listValue="levelName" value="level.id" name="level.id"
+				headerKey="" headerValue=""
+				cssStyle="border:1px dotted blue;height:30px;width:120px">
+			</s:select>
+			<input type="submit" value='<s:text name="query" />' class="btn" />
+		</div>
+		</s:form>
+	</div>
+	
+	<s:if test="level.id != null && level.id > 0">
+	<!-- 添加会员用户按钮 -->
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="<s:url action="add" />"><span><img
+			<li><a href='<s:url action="add" ><s:param name="level.id" value="level.id"/></s:url>'><span><img
 						src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
 		</ul>
-		
 	</div>
-	<!-- 会员等级列表 -->
+	<!-- 用户会员列表 -->
 	<div	class="tablePanel">
 		<table class="tablelist">
 			<thead>
 				<tr>
+					<th width="20%"><s:text name="member_id" /></th>
 					<th><s:text name="level_name" /></th>
 					<th><s:text name="level_discount" /></th>
-					<th><s:text name="level_score" /></th>
+					<th><s:text name="member_score" /></th>
 					<th width="8%"><s:text name="edit" /></th>
 					<th width="8%"><s:text name="delete" /></th>
 				</tr>
 			</thead>
 			<tbody>
-				<s:iterator value="levels" status="status">
+				<s:iterator value="users" status="status" >
 				<tr class='<s:if test="#status.even">odd</s:if>'>
-					<td><s:property value="levelName" /></td>
-					<td><s:property value="discount" /></td>
-					<td><s:property value="levelScore" /></td>
+					<td><s:property value="cellphone" /></td>
+					<td><s:property value="memberShip.level.levelName" /></td>
+					<td><s:property value="memberShip.level.discount" /></td>
+					<td><s:property value="memberShip.currentScore" /></td>
 					<td><a
-							href='<s:url action="edit"><s:param name="level.id" value="id" /></s:url>'
+							href='<s:url action="edit"><s:param name="user.id" value="id" /></s:url>'
 							class="tablelink"><s:text name="edit" /></a></td>
 					<td><a
-							href='<s:url action="remove"> <s:param name="level.id" value="id" /></s:url>'
+							href='<s:url action="remove"> <s:param name="user.id" value="id" /></s:url>'
 							class="tablelink"><s:text name="delete" /></a></td>
 				</tr>
 				</s:iterator>
@@ -66,6 +89,7 @@
 				<form name="pageForm" id="pageForm">
 					<s:hidden id="pageNow" name="pageNow" />
 					<s:hidden id="pageTotal" name="pageTotal" />
+					<s:hidden id="levelId" name="level.id" />
 					<ul class="paginList" style="margin-right:-12px">
 						<li class="paginItem">
 							<s:if test="pageNow == 1">
@@ -95,7 +119,7 @@
 			</div>	
 		</div>
 	</div>
-	
+	</s:if>
 	<!-- 消息显示 -->
 	<div class="msgPanel">
 		<s:property value="message" />

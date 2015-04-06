@@ -5,7 +5,7 @@
  * Created        : 04/02/2015
  ************************************************/
 
-package com.innovaee.eorder.action.member;
+package com.innovaee.eorder.action.level;
 
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.UserLevel;
@@ -70,9 +70,10 @@ public class LevelAction extends BaseAction {
 
         return SUCCESS;
     }
-
-
-
+    /**
+     * 响应添加会员等级按钮的Action
+     * @return
+     */
     public String add(){
        level = new UserLevelVO();
         
@@ -80,7 +81,10 @@ public class LevelAction extends BaseAction {
        refreshPageData();
         return SUCCESS;
     }
-    
+    /**
+     * 添加新会员等级Action
+     * @return
+     */
     public String save() {
         logger.debug(level);
         
@@ -91,7 +95,8 @@ public class LevelAction extends BaseAction {
             } else {
                 //2. 创建新的会员等级
                 memberService.addUserLevel(level);
-                setMessage(MessageUtil.getMessage("level_add_success", level.getName()));   
+                setMessage(MessageUtil.getMessage("level_add_success", level.getName()));
+                level = new UserLevelVO();
             }
         } catch (DuplicateNameException e) {
             logger.error(e.getMessage());
@@ -106,6 +111,10 @@ public class LevelAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * 移除一个会员等级Action
+     * @return
+     */
     public String remove() {
         try {
             memberService.deleteUserLevel(level.getId());
@@ -122,6 +131,57 @@ public class LevelAction extends BaseAction {
         
         return SUCCESS;
     }
+    
+    /**
+     * 响应编辑会员等级动作的Action
+     * @return
+     */
+    public String edit() {
+        try {
+            UserLevel userLevel = memberService.getUserLevelById(level.getId());
+            
+            level.setName(userLevel.getLevelName());;
+            level.setDiscount(userLevel.getDiscount());
+            level.setLevelScore(userLevel.getLevelScore());
+            
+        } catch (UserLevelNotFoundException e) {
+            logger.error(e.getMessage());
+            setMessage(e.getMessage());
+            level = new UserLevelVO();
+            return ERROR;
+        }finally{
+            this.refreshPageData();
+        }
+        
+        return SUCCESS;
+    }
+    
+    public String update() {
+        logger.debug(level);
+        
+        try {
+            //1. 检查传入的会员等级属性是否合法
+            if(!checkLevelVO()) {
+                return ERROR;
+            } else {
+                //2. 更新新的会员等级
+                memberService.updateUserLevel(level);
+                setMessage(MessageUtil.getMessage("level_update_success", level.getName()));
+                level = new UserLevelVO();
+            }
+        } catch (Exception  e) {
+            logger.error(e.getMessage());
+            setMessage(e.getMessage());
+            
+            return ERROR;
+        }finally{
+            getLevelList(); 
+            refreshPageData();
+        }
+        
+        return SUCCESS;
+    }
+    
     
     public List<UserLevel> getLevels() {
         return levels;
@@ -176,7 +236,7 @@ public class LevelAction extends BaseAction {
     private void getLevelList() {
         try {
             count = memberService.getAllUserLevels().size();
-            pageTotal = memberService.getUserLevePageCount(Constants.PAGE_SIZE);
+            pageTotal = memberService.getUserLevelPageCount(Constants.PAGE_SIZE);
             
             if(pageInput != null) {
                 pageNow = pageInput;

@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
      * @return 被保存的用户
      */
     public Long saveUser(User user) {
-        return userDao.save(user);
+        return userDao.save(user); 
     }
 
     /**
