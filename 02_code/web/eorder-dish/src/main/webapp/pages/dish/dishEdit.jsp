@@ -31,7 +31,7 @@
 					<li><label><s:text name="dish_picture_label" /></label><img id="dishPic"
 						style="width: 348px; height: 348px; padding: 5px;"
 						src='../resources/images${dish.picPath}'></li>
-					<li><label><s:text name="category_name" /></label> <select
+					<li><label><s:text name="category_name_label" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3">
 							<s:iterator value="categoryVOList" id="categoryVO">
 								<option value='<s:property value="#categoryVO.id" />'><s:property
