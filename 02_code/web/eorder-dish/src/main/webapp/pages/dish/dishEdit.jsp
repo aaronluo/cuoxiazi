@@ -21,27 +21,26 @@
 				<s:hidden id="categoryId" name="categoryId" />
 				<s:hidden id="dish.picPath" name="dish.picPath" />
 				<ul class="forminfo">
-					<li><label><s:text name="dish_name_label" /></label><input id="dish.name"
-						name="dish.name" value="${dish.name}" type="text" class="dfinput" /></li>
-					<li><label><s:text name="dish_price_label" /></label><input id="dish.price"
-						name="dish.price" value="${dish.price}" type="text" class="dfinput" /></li>
-					<li><label><s:text name="upload" /></label><input name=""
+					<li><label><s:text name="dish_name_label" /></label><input
+						id="dish.name" name="dish.name" value="${dish.name}" type="text"
+						class="dfinput" style="width: 280px;" /></li>
+					<li><label><s:text name="dish_price_label" /></label><input
+						id="dish.price" name="dish.price" value="${dish.price}" type="text"
+						class="dfinput" style="width: 280px;" /></li>
+					<li><label><s:text name="upload_label" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
-						value='<s:text name="upload" />' /></li>
-					<li><label><s:text name="dish_picture_label" /></label><img id="dishPic"
-						style="width: 348px; height: 348px; padding: 5px;"
+						value='<s:text name="upload_label" />' /></li>
+					<li><label><s:text name="dish_picture_label" /></label><img
+						id="dishPic" style="width: 280px; height: 280px;"
 						src='../resources/images${dish.picPath}'></li>
-					<li><label><s:text name="category_name_label" /></label> <select
-						id="dishSelect" name="dishSelect" class="select3">
-							<s:iterator value="categoryVOList" id="categoryVO">
-								<option value='<s:property value="#categoryVO.id" />'><s:property
-										value="#categoryVO.name" /></option>
-							</s:iterator>
-					</select></li>
+					<li><label><s:text name="category_name_label" /></label> <s:select
+							list="categoryVOList" listKey="id" listValue="name" id="dishSelect"
+							name="dishSelect"
+							cssStyle="border:1px dotted blue;height:30px;width:280px"></s:select></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="save();"
+						name="" type="button" class="btn" style="width: 130px;" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
@@ -69,30 +68,27 @@
 				<s:hidden id="categoryId" name="categoryId" />
 				<s:hidden id="dish.picPath" name="dish.picPath" />
 				<ul class="forminfo">
-					<li><label><s:text name="dish_name_label" /></label><input id="dish.name"
-						name="dish.name" type="text" value='<s:property value="dish.name" />'
-						class="dfinput" /></li>
-					<li><label><s:text name="dish_price_label" /></label><input id="dish.price"
-						name="dish.price" type="text" value='<s:property value="dish.price" />'
-						class="dfinput" /></li>
-					<li><label><s:text name="upload" /></label><input name=""
+					<li><label><s:text name="dish_name_label" /></label><input
+						id="dish.name" name="dish.name" type="text" style="width: 280px;"
+						value='<s:property value="dish.name" />' class="dfinput" /></li>
+					<li><label><s:text name="dish_price_label" /></label><input
+						id="dish.price" name="dish.price" type="text" style="width: 280px;"
+						value='<s:property value="dish.price" />' class="dfinput" /></li>
+					<li><label><s:text name="upload_label" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
-						value='<s:text name="upload" />' /></li>
-					<li><label><s:text name="dish_picture_label" /></label><img id="dishPic"
-						style="width: 348px; height: 348px; padding: 5px;"
+						value='<s:text name="upload_label" />' /></li>
+					<li><label><s:text name="dish_picture_label" /></label><img
+						id="dishPic" style="width: 280px; height: 280px;"
 						src='../resources/images${dish.picPath}'></li>
-					<li><label><s:text name="category_name_label" /></label> <select
-						id="dishSelect" name="dishSelect" class="select3">
-							<s:iterator value="categoryVOList" id="categoryVO">
-								<option value='<s:property value="#categoryVO.id" />'><s:property
-										value="#categoryVO.name" /></option>
-							</s:iterator>
-					</select></li>
+					<li><label><s:text name="category_name_label" /></label> <s:select
+							list="categoryVOList" listKey="id" listValue="name" id="dishSelect"
+							name="dishSelect"
+							cssStyle="border:1px dotted blue;height:30px;width:280px"></s:select></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="update();"
-						value="<s:text name='confirm_save' />" /></li>
+						name="" type="button" class="btn" style="width: 130px;"
+						onclick="update();" value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
 		</div>

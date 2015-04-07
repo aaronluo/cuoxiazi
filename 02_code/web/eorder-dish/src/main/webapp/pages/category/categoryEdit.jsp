@@ -20,17 +20,17 @@
 				<ul class="forminfo">
 					<li><label><s:text name="category_name_label" /></label><input
 						id="category.name" name="category.name" value="${category.name}"
-						type="text" class="dfinput" /></li>
-					<li><label><s:text name="upload" /></label><input name=""
+						type="text" class="dfinput" style="width: 280px;" /></li>
+					<li><label><s:text name="upload_label" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
-						value='<s:text name="upload" />' /></li>
+						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
-						id="categoryPic" style="width: 348px; height: 348px; padding: 5px;"
+						id="categoryPic" style="width: 280px; height: 280px;"
 						src='../resources/images${category.picPath}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="save();"
+						name="" type="button" class="btn" style="width: 130px;" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
@@ -58,18 +58,19 @@
 				<ul class="forminfo">
 					<li><label><s:text name="category_name_label" /></label><input
 						id="category.name" name="category.name" type="text"
-						value='<s:property value="category.name" />' class="dfinput" /></li>
-					<li><label><s:text name="upload" /></label><input name=""
+						value='<s:property value="category.name" />' class="dfinput"
+						style="width: 280px;" /></li>
+					<li><label><s:text name="upload_label" /></label><input name=""
 						type="button" class="scbtn" onclick="openUploadPage();"
-						value='<s:text name="upload" />' /></li>
+						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
-						id="categoryPic" style="width: 348px; height: 348px; padding: 5px;"
+						id="categoryPic" style="width: 280px; height: 280px;"
 						src='../resources/images${category.picPath}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="update();"
-						value="<s:text name='confirm_save' />" /></li>
+						name="" type="button" class="btn" style="width: 130px;"
+						onclick="update();" value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
 		</div>

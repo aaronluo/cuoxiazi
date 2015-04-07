@@ -23,14 +23,10 @@
 			<form name="queryForm" id="queryForm">
 				<s:hidden id="categoryId" name="categoryId" />
 				<ul class="seachform">
-					<li><label><s:text name="category_name_label" /></label> <select
-						id="dishSelect" name="dishSelect" class="select3" style="width: 100px;">
-							<s:iterator value="categoryVOList" id="category">
-								<option value='<s:property value="#category.id" />'><s:property
-										value="#category.name" /></option>
-							</s:iterator>
-					</select></li>
-
+					<li><label><s:text name="category_name_label" /></label> <s:select
+							list="categoryVOList" listKey="id" listValue="name" id="dishSelect"
+							name="dishSelect"
+							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
 					<li><label>&nbsp;</label><input name="" type="button" class="scbtn"
 						onclick="query();" value='<s:text name="query" />' /></li>
 				</ul>
@@ -77,8 +73,8 @@
 						</table>
 
 						<!-- 分页信息 -->
-						<div class="pagin">
-							<div class="message">
+						<div class="pagin" style="padding: 0 0">
+							<div class="message" style="width: 60%; float: left">
 								<s:text name="total" />
 								&nbsp;&nbsp;<i class="blue"><s:property value="count" /></i>&nbsp;&nbsp;
 								<s:text name="record_message" />
@@ -87,30 +83,33 @@
 								&nbsp;&nbsp;<i class="blue"><s:property value="pageTotal" />&nbsp;&nbsp;</i>
 								<s:text name="page_end" />
 							</div>
-							<form name="pageForm" id="pageForm">
-								<s:hidden id="pageNow" name="pageNow" />
-								<s:hidden id="pageTotal" name="pageTotal" />
-								<s:hidden id="categoryId" name="categoryId" />
-								<ul class="paginList">
-									<li class="paginItem"><s:if test="pageNow == 1">
-											<span class="pagepre01">&nbsp;&nbsp;</span>
-										</s:if> <s:else>
-											<span class="pagepre02"><a href="javascript:prePage();">&nbsp;&nbsp;</a></span>
-										</s:else></li>
-									<li class="paginItem"><label>&nbsp;&nbsp;<s:text name="no" />&nbsp;&nbsp;<s:property
-												value="pageNow" />&nbsp;&nbsp;<s:text name="page" />&nbsp;&nbsp;
-									</label></li>
-									<li class="paginItem"><s:if test="pageNow == pageTotal">
-											<span class="pagenxt01">&nbsp;&nbsp;</span>
-										</s:if> <s:else>
-											<span class="pagenxt02"><a href="javascript:nextPage();">&nbsp;&nbsp;</a></span>
-										</s:else></li>
-									<li class="paginItem"><span><input type="text"
-											class="twoinput" id="pageInput" name="pageInput">&nbsp;<input
-											name="" type="button" class="btn2" onclick="load();"
-											value='<s:text name="confirm" />' /></span></li>
-								</ul>
-							</form>
+							<!-- 分页跳转 -->
+							<div class="message" style="width: 40%; float: right">
+								<form name="pageForm" id="pageForm">
+									<s:hidden id="pageNow" name="pageNow" />
+									<s:hidden id="pageTotal" name="pageTotal" />
+									<ul class="paginList" style="margin-right: -12px">
+										<li class="paginItem"><s:if test="pageNow == 1">
+												<span class="pagepre01">&nbsp;&nbsp;</span>
+											</s:if> <s:else>
+												<span class="pagepre02"><a href="javascript:prePage();">&nbsp;&nbsp;</a></span>
+											</s:else></li>
+										<li class="paginItem"><label>&nbsp;&nbsp;<s:text
+													name="no" />&nbsp;&nbsp; <s:property value="pageNow" />&nbsp;&nbsp;<s:text
+													name="page" />&nbsp;&nbsp;
+										</label></li>
+										<li class="paginItem"><s:if test="pageNow == pageTotal">
+												<span class="pagenxt01">&nbsp;&nbsp;</span>
+											</s:if> <s:else>
+												<span class="pagenxt02"><a href="javascript:nextPage();">&nbsp;&nbsp;</a></span>
+											</s:else></li>
+										<li class="paginItem"><span><input type="text"
+												class="twoinput" id="pageInput" name="pageInput">&nbsp;<input
+												name="" type="button" class="btn2" onclick="load();"
+												value='<s:text name="confirm" />' /></span></li>
+									</ul>
+								</form>
+							</div>
 						</div>
 					</div>
 					<!-- 消息显示 -->
