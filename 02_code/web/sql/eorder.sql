@@ -135,7 +135,7 @@ INSERT INTO `t_function` VALUES ('2', '权限管理', 'Function', null, '/functi
 INSERT INTO `t_function` VALUES ('3', '角色管理', 'Role', null, '/role/role.action', '1', '010200', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.action', '1', '010100', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('5', '菜单菜品', 'DishAdmin', 'icon02.png', '/category/category.action', '0', '20150329233816', '1', '2014-12-12 13:26:01', null);
-INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/category.action', '5', '20150329233837', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/list.action', '5', '20150329233837', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('7', '菜品管理', 'Dish', null, '/dish/dish.action', '5', '20150329233908', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('8', '会员管理', 'MemberAdmin', 'icon04.png', 'abc', '0', '20150404153559', '1', '2015-04-04 15:35:59', null);
 INSERT INTO `t_function` VALUES ('9', '会员等级', 'UserLevel', null, '/level/list.action', '8', '20150404153618', '1', '2015-04-04 15:36:18', null);

@@ -241,13 +241,12 @@ public class DishAction extends BaseAction {
         if (null != id) {
             try {
                 dishService.deleteDish(Long.parseLong(id));
+                this.setMessage(MessageUtil.getMessage("delete_success"));
             } catch (DishNotFoundException e) {
                 this.setMessage(e.getMessage());
                 return ERROR;
             }
         }
-
-        this.setMessage(MessageUtil.getMessage("delete_success"));
 
         // 更新记录列表
         getDishList();
