@@ -3,7 +3,7 @@ function prePage() {
 	pageNow = parseInt(pageNow) - 1;
 	$("#pageNow").val(pageNow);
 
-	$("[name='pageForm']").attr("action", "category.action");
+	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
 	$("[name='pageForm']").submit();
 }
@@ -13,7 +13,7 @@ function nextPage() {
 	pageNow = parseInt(pageNow) + 1;
 	$("#pageNow").val(pageNow);
 
-	$("[name='pageForm']").attr("action", "category.action");
+	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
 	$("[name='pageForm']").submit();
 }
@@ -23,7 +23,7 @@ function load() {
 	var pageNow = $("#pageInput").val();
 	// 如果没有输入，则不响应确认按钮事件
 	if ('' != pageNow) {
-		$("[name='pageForm']").attr("action", "category.action");
+		$("[name='pageForm']").attr("action", "list.action");
 		$("[name='pageForm']").attr("method", "post");
 		$("[name='pageForm']").submit();
 	}
@@ -59,7 +59,7 @@ function save() {
 }
 
 function saveBack() {
-	$("[name='saveForm']").attr("action", "category.action");
+	$("[name='saveForm']").attr("action", "list.action");
 	$("[name='saveForm']").attr("method", "post");
 	$("[name='saveForm']").submit();
 }
@@ -72,7 +72,7 @@ function update() {
 }
 
 function updateBack() {
-	$("[name='updateForm']").attr("action", "category.action");
+	$("[name='updateForm']").attr("action", "list.action");
 	$("[name='updateForm']").attr("method", "post");
 	$("[name='updateForm']").submit();
 }
