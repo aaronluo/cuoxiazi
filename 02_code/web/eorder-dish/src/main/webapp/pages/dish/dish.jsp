@@ -4,9 +4,9 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
     String path = request.getContextPath();
-			String basePath = request.getScheme() + "://"
-					+ request.getServerName() + ":" + request.getServerPort()
-					+ path;
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path;
 %>
 <script type="text/javascript" src="../resources/js/dish.js"></script>
 
@@ -23,7 +23,7 @@
 			<form name="queryForm" id="queryForm">
 				<s:hidden id="categoryId" name="categoryId" />
 				<ul class="seachform">
-					<li><label><s:text name="category_name" /></label> <select
+					<li><label><s:text name="category_name_label" /></label> <select
 						id="dishSelect" name="dishSelect" class="select3" style="width: 100px;">
 							<s:iterator value="categoryVOList" id="category">
 								<option value='<s:property value="#category.id" />'><s:property
@@ -36,10 +36,6 @@
 				</ul>
 			</form>
 
-			<div class="operatemessage">
-				<s:property value="message" />
-			</div>
-
 			<s:if test="null != categoryId && null != dishvos">
 				<div class="tools">
 					<ul class="toolbar">
@@ -49,14 +45,14 @@
 					</ul>
 				</div>
 				<s:if test="0 != pageTotal">
-					<s:form id="dishForm" action="remove" theme="simple">
-						<!--列表表格-->
+					<!-- 菜品列表 -->
+					<div class="tablePanel">
 						<table class="tablelist">
 							<thead>
 								<tr>
-									<th width="18%"><s:text name="dish_name" /></th>
-									<th width="8%"><s:text name="dish_price" /></th>
-									<th><s:text name="dish_picture" /></th>
+									<th width="18%"><s:text name="dish_name_label" /></th>
+									<th width="8%"><s:text name="dish_name_label" /></th>
+									<th><s:text name="dish_name_label" /></th>
 									<th width="8%"><s:text name="edit" /></th>
 									<th width="8%"><s:text name="delete" /></th>
 								</tr>
@@ -70,7 +66,7 @@
 											style="height: 64px; width: 64px; padding: 5px;"
 											src='../resources/images<s:property value="picPath" />'></td>
 										<td><a
-											href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'
+											href='<s:url action="edit"><s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
 											class="tablelink"><s:text name="edit" /></a></td>
 										<td><a
 											href='<s:url action="remove"> <s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
@@ -79,51 +75,51 @@
 								</s:iterator>
 							</tbody>
 						</table>
-					</s:form>
 
-					<!-- 分页信息 -->
-					<div class="pagin">
-						<div class="message">
-							<s:text name="total" />
-							&nbsp;&nbsp;<i class="blue"><s:property value="count" /></i>&nbsp;&nbsp;
-							<s:text name="record_message" />
-							&nbsp;&nbsp;<i class="blue"><s:property value="pageNow" />&nbsp;&nbsp;</i>
-							<s:text name="page_total" />
-							&nbsp;&nbsp;<i class="blue"><s:property value="pageTotal" />&nbsp;&nbsp;</i>
-							<s:text name="page_end" />
+						<!-- 分页信息 -->
+						<div class="pagin">
+							<div class="message">
+								<s:text name="total" />
+								&nbsp;&nbsp;<i class="blue"><s:property value="count" /></i>&nbsp;&nbsp;
+								<s:text name="record_message" />
+								&nbsp;&nbsp;<i class="blue"><s:property value="pageNow" />&nbsp;&nbsp;</i>
+								<s:text name="page_total" />
+								&nbsp;&nbsp;<i class="blue"><s:property value="pageTotal" />&nbsp;&nbsp;</i>
+								<s:text name="page_end" />
+							</div>
+							<form name="pageForm" id="pageForm">
+								<s:hidden id="pageNow" name="pageNow" />
+								<s:hidden id="pageTotal" name="pageTotal" />
+								<s:hidden id="categoryId" name="categoryId" />
+								<ul class="paginList">
+									<li class="paginItem"><s:if test="pageNow == 1">
+											<span class="pagepre01">&nbsp;&nbsp;</span>
+										</s:if> <s:else>
+											<span class="pagepre02"><a href="javascript:prePage();">&nbsp;&nbsp;</a></span>
+										</s:else></li>
+									<li class="paginItem"><label>&nbsp;&nbsp;<s:text name="no" />&nbsp;&nbsp;<s:property
+												value="pageNow" />&nbsp;&nbsp;<s:text name="page" />&nbsp;&nbsp;
+									</label></li>
+									<li class="paginItem"><s:if test="pageNow == pageTotal">
+											<span class="pagenxt01">&nbsp;&nbsp;</span>
+										</s:if> <s:else>
+											<span class="pagenxt02"><a href="javascript:nextPage();">&nbsp;&nbsp;</a></span>
+										</s:else></li>
+									<li class="paginItem"><span><input type="text"
+											class="twoinput" id="pageInput" name="pageInput">&nbsp;<input
+											name="" type="button" class="btn2" onclick="load();"
+											value='<s:text name="confirm" />' /></span></li>
+								</ul>
+							</form>
 						</div>
-						<form name="pageForm" id="pageForm">
-							<s:hidden id="pageNow" name="pageNow" />
-							<s:hidden id="pageTotal" name="pageTotal" />
-							<s:hidden id="categoryId" name="categoryId" />
-							<ul class="paginList">
-								<li class="paginItem"><s:if test="pageNow == 1">
-										<span class="pagepre01">&nbsp;&nbsp;</span>
-									</s:if> <s:else>
-										<span class="pagepre02"><a href="javascript:prePage();">&nbsp;&nbsp;</a></span>
-									</s:else></li>
-								<li class="paginItem"><label>&nbsp;&nbsp;<s:text name="no" />&nbsp;&nbsp;<s:property
-											value="pageNow" />&nbsp;&nbsp;<s:text name="page" />&nbsp;&nbsp;
-								</label></li>
-								<li class="paginItem"><s:if test="pageNow == pageTotal">
-										<span class="pagenxt01">&nbsp;&nbsp;</span>
-									</s:if> <s:else>
-										<span class="pagenxt02"><a href="javascript:nextPage();">&nbsp;&nbsp;</a></span>
-									</s:else></li>
-								<li class="paginItem"><span><input type="text"
-										class="twoinput" id="pageInput" name="pageInput">&nbsp;<input
-										name="" type="button" class="btn2" onclick="load();"
-										value='<s:text name="confirm" />' /></span></li>
-							</ul>
-						</form>
+					</div>
+					<!-- 消息显示 -->
+					<div class="msgPanel">
+						<s:property value="message" />
 					</div>
 				</s:if>
 			</s:if>
-
-			<script type="text/javascript">
-				$('.tablelist tbody tr:odd').addClass('odd');
-			</script>
-
 		</div>
 	</div>
+
 </div>

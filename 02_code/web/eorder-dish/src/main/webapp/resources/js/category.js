@@ -47,7 +47,7 @@ function openUploadPage() {
 //接收父页面上传回的值
 function setValue(newFileName) {
 	$("newFileName").val(newFileName);
-	$("#picPath").val("/dish/" + newFileName);
+	$("#category\\.picPath").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片
 	$("#categoryPic").attr("src", "../resources/images/dish/" + newFileName);
 }

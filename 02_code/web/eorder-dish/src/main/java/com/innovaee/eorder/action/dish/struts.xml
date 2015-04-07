@@ -11,43 +11,43 @@
 
         <action name="dish" class="com.innovaee.eorder.action.dish.DishAction"
             method="dish">
-            <result name="input" type="tiles">dish</result>
+            <result name="error" type="tiles">dish</result>
             <result type="tiles">dish</result>
         </action>
-
+        
         <action name="list" class="com.innovaee.eorder.action.dish.DishAction"
             method="list">
-            <result name="input" type="tiles">dish</result>
+            <result name="error" type="tiles">dish</result>
             <result type="tiles">dish</result>
-        </action>
-
-        <action name="edit" class="com.innovaee.eorder.action.dish.DishAction"
-            method="edit">
-            <result name="input" type="tiles">dishEdit</result>
-            <result type="tiles">dishEdit</result>
         </action>
 
         <action name="add" class="com.innovaee.eorder.action.dish.DishAction"
             method="add">
-            <result name="input" type="tiles">dishEdit</result>
+            <result name="error" type="tiles">dishEdit</result>
             <result type="tiles">dishEdit</result>
         </action>
 
         <action name="save" class="com.innovaee.eorder.action.dish.DishAction"
             method="save">
-            <result name="input" type="tiles">dishEdit</result>
-            <result type="tiles">dishEdit</result>
+            <result name="error" type="tiles">dishEdit</result>
+            <result type="tiles">dish</result>
         </action>
 
+        <action name="edit" class="com.innovaee.eorder.action.dish.DishAction"
+            method="edit">
+            <result name="error" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+        </action>
+        
         <action name="update" class="com.innovaee.eorder.action.dish.DishAction"
             method="update">
-            <result name="input" type="tiles">dishEdit</result>
-            <result type="tiles">dishEdit</result>
+            <result name="error" type="tiles">dishEdit</result>
+            <result type="tiles">dish</result>
         </action>
 
         <action name="remove" class="com.innovaee.eorder.action.dish.DishAction"
             method="remove">
-            <result name="input" type="tiles">dish</result>
+            <result name="error" type="tiles">dish</result>
             <result type="tiles">dish</result>
         </action>
     </package>

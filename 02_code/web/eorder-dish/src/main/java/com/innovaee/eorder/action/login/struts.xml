@@ -16,7 +16,7 @@
             method="doLogin">
             <result name="success" type="redirectAction">
                 <param name="namespace">/category</param>
-                <param name="actionName">category</param>
+                <param name="actionName">list</param>
             </result>
         </action>
 

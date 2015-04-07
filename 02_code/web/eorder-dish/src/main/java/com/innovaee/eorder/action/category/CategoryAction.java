@@ -7,12 +7,10 @@
 
 package com.innovaee.eorder.action.category;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.action.BaseAction;
@@ -25,6 +23,7 @@ import com.innovaee.eorder.service.CategoryService;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
 import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.CategoryVO;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
@@ -43,14 +42,11 @@ public class CategoryAction extends BaseAction {
     /** 数据库中对应的菜单分类描述常量 */
     public static final String FUNCTION_DESC = "Category";
 
-    /** 菜单分类名称 */
-    private String name;
+    /** 菜单分类值对象 */
+    private CategoryVO category;
 
-    /** 菜单分类图片 */
-    private String picPath;
-
-    /** 菜单分类值对象列表 */
-    private List<CategoryVO> categoryvos = new ArrayList<CategoryVO>();
+    /** 菜单分类对象列表 */
+    private List<Category> categories;
 
     /** 菜单分类服务类对象 */
     @Resource
@@ -61,150 +57,125 @@ public class CategoryAction extends BaseAction {
      * 
      * @return
      */
-    public String category() {
-
-        refreshDataList();
-
-        // 更新页面数据
+    public String list() {
+        getCategoryList();
+        // 刷新系统菜单
         refreshPageData();
         return SUCCESS;
     }
 
     /**
-     * 新增页面
+     * 响应添加会员等级按钮的Action
      * 
      * @return
      */
     public String add() {
-        // 更新页面数据
-        renewPage();
+        // 刷新系统菜单
+        refreshPageData();
+
+        category = new CategoryVO();
+
+        if (null == category.getPicPath() || "".equals(category.getPicPath())) {
+            category.setPicPath(Constants.DEFAULT_DISH_PIC);
+        }
+
         return SUCCESS;
     }
 
     /**
-     * 保存菜单分类
+     * 添加新会员等级Action
      * 
      * @return
      */
     public String save() {
-        // 更新页面数据
-        renewPage();
-
-        // 新增成功
-        Category newCategory = null;
-        CategoryVO categoryVO = null;
+        logger.debug(category);
         try {
-            categoryVO = new CategoryVO();
-            if (null != name && !"".equals(name.trim())) {
-                categoryVO.setName(name);
+            // 1. 检查传入的会员等级属性是否合法
+            if (!checkCategoryVO()) {
+                return ERROR;
             } else {
-                this.setMessage(MessageUtil.getMessage("category_name_empty"));
-                return INPUT;
-            }
-
-            if (null != picPath && !"".equals(picPath.trim())) {
-                categoryVO.setPicPath(picPath);
-            } else {
-                this.setMessage(MessageUtil
-                        .getMessage("category_picture_empty"));
-                return INPUT;
-            }
-
-            newCategory = categoryService.addCategory(categoryVO);
-
-            if (null != newCategory) {
-                this.setMessage(MessageUtil.getMessage("add_success"));
-                this.setName("");
-                this.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
-                renewPage();
-            } else {
-                this.setMessage(MessageUtil.getMessage("add_failure"));
-                return INPUT;
+                // 2. 创建新的会员等级
+                categoryService.addCategory(category);
+                setMessage(MessageUtil.getMessage("category_save_success",
+                        category.getName()));
+                category = new CategoryVO();
             }
         } catch (DuplicateNameException e) {
+            logger.error(e.getMessage());
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
+        } finally {
+            getCategoryList();
+            refreshPageData();
         }
 
         return SUCCESS;
     }
 
     /**
-     * 加载单个菜单分类信息
+     * 加载单个功能信息
      * 
      * @return
      */
     public String edit() {
-        if (null != id && !"".equals(id.trim())) {
-            Category category;
-            try {
-                category = categoryService.getCategoryById(Long.parseLong(id));
-                name = category.getName();
-                picPath = category.getPicPath();
-            } catch (CategoryNotFoundException e) {
-                this.setMessage(e.getMessage());
+        // 刷新系统菜单
+        refreshPageData();
+        category = new CategoryVO();
+        try {
+            if (null != id && !"".equals(id.trim())) {
+                Category categoryDB = categoryService.getCategoryById(Long
+                        .parseLong(id));
+                category.setId(categoryDB.getId());
+                category.setName(categoryDB.getName());
+                category.setPicPath(categoryDB.getPicPath());
+                category.setName(categoryDB.getName());
+            } else {
+                this.setMessage("ERROR");
+                return ERROR;
             }
-
+        } catch (CategoryNotFoundException e) {
+            this.setMessage(e.getMessage());
+            return ERROR;
         }
-
-        // 更新页面数据
-        renewPage();
 
         return SUCCESS;
     }
 
     /**
-     * 更新菜单分类
+     * 更新功能
      * 
      * @return
      */
     public String update() {
-        // 更新页面数据
-        renewPage();
         try {
-            CategoryVO categoryVO = null;
-            // 查看用户名是否已存在
-            Category category = categoryService.getCategoryById(Long
-                    .parseLong(id));
-            if (null == category) {
-                this.setMessage(MessageUtil
-                        .getMessage("category_not_found_exception"));
-                return INPUT;
+            // 1. 检查传入的会员等级属性是否合法
+            if (!checkCategoryVO()) {
+                return ERROR;
             } else {
-                categoryVO = new CategoryVO();
-                categoryVO.setId(category.getId());
+                // 2. 更新新的会员等级
+                categoryService.updateCategory(category);
+                setMessage(MessageUtil.getMessage("category_update_success",
+                        category.getName()));
+                category = new CategoryVO();
             }
-
-            if (null != name && !"".equals(name.trim())) {
-                categoryVO.setName(name);
-            } else {
-                this.setMessage(MessageUtil.getMessage("category_name_empty"));
-                return INPUT;
-            }
-
-            if (null != picPath && !"".equals(picPath.trim())) {
-                categoryVO.setPicPath(picPath);
-            } else {
-                this.setMessage(MessageUtil
-                        .getMessage("category_picture_empty"));
-                return INPUT;
-            }
-
-            categoryService.updateCategory(categoryVO);
         } catch (DuplicateNameException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
         } catch (CategoryNotFoundException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
+        } catch (NumberFormatException e) {
+            this.setMessage(e.getMessage());
+            return ERROR;
+        } finally {
+            getCategoryList();
+            refreshPageData();
         }
-
-        this.setMessage(MessageUtil.getMessage("update_success"));
         return SUCCESS;
     }
 
     /**
-     * 删除菜单分类
+     * 删除功能
      * 
      * @return
      */
@@ -217,16 +188,14 @@ public class CategoryAction extends BaseAction {
                 categoryService.deleteCategory(Long.parseLong(id));
             } catch (CategoryNotFoundException e) {
                 this.setMessage(e.getMessage());
-                // 更新记录列表
-                refreshDataList();
-                return INPUT;
+                return ERROR;
             }
         }
 
         this.setMessage(MessageUtil.getMessage("delete_success"));
 
         // 更新记录列表
-        refreshDataList();
+        getCategoryList();
 
         return SUCCESS;
     }
@@ -240,7 +209,7 @@ public class CategoryAction extends BaseAction {
 
         List<MenuLinkVO> menuLink = null;
         if (null != toolbarList && 0 < toolbarList.size()) {
-            // 第一个菜单分类对应的菜单
+            // 第一个功能对应的菜单
             menuLink = MenuUtil.getMenuLinkVOList(FUNCTION_DESC);
         }
 
@@ -255,30 +224,29 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 刷新列表
+     * 获取菜品分类列表
      */
-    private void refreshDataList() {
-        Integer recordCount = categoryService.count();
-        this.setCount(recordCount);
-        Integer pageTotal = 1;
-        if (0 == recordCount % Constants.PAGE_SIZE) {
-            pageTotal = recordCount / Constants.PAGE_SIZE;
-        } else {
-            pageTotal = recordCount / Constants.PAGE_SIZE + 1;
-        }
-        this.setPageTotal(pageTotal);
-
-        // 处理用户点击【上一页】和【下一页】边界情况
-        if (pageNow > pageTotal) {
-            pageNow = pageTotal;
-            pageInput = pageNow;
-        } else if (pageNow < 1) {
-            pageNow = 1;
-            pageInput = 1;
-        }
-
-        List<Category> categorys = null;
+    private void getCategoryList() {
         try {
+            Integer recordCount = categoryService.count();
+            this.setCount(recordCount);
+            int pageTotal = 1;
+            if (0 == recordCount % Constants.PAGE_SIZE) {
+                pageTotal = recordCount / Constants.PAGE_SIZE;
+            } else {
+                pageTotal = recordCount / Constants.PAGE_SIZE + 1;
+            }
+            this.setPageTotal(pageTotal);
+
+            // 处理用户点击【上一页】和【下一页】边界情况
+            if (pageNow > pageTotal) {
+                pageNow = pageTotal;
+                pageInput = pageNow;
+            } else if (pageNow < 1) {
+                pageNow = 1;
+                pageInput = 1;
+            }
+
             if (null != pageInput) {
                 if (pageInput > pageTotal) {
                     pageInput = pageTotal;
@@ -288,12 +256,12 @@ public class CategoryAction extends BaseAction {
                     pageInput = 1;
                 }
 
-                categorys = categoryService.getCategoriesByPage(pageInput,
+                categories = categoryService.getCategoriesByPage(pageInput,
                         Constants.PAGE_SIZE);
 
                 pageNow = pageInput;
             } else {
-                categorys = categoryService.getCategoriesByPage(pageNow,
+                categories = categoryService.getCategoriesByPage(pageNow,
                         Constants.PAGE_SIZE);
             }
         } catch (PageIndexOutOfBoundExcpeiton e) {
@@ -301,33 +269,42 @@ public class CategoryAction extends BaseAction {
         } catch (InvalidPageSizeException e) {
             this.setMessage(e.getMessage());
         }
-
-        CategoryVO categoryvo = null;
-        for (Category category : categorys) {
-            categoryvo = new CategoryVO();
-            BeanUtils.copyProperties(category, categoryvo);
-            categoryvos.add(categoryvo);
-        }
     }
 
     /**
-     * 
+     * 检查一个菜品的设定是否合法
      */
-    private void renewPage() {
-        // 更新页面数据
-        refreshPageData();
+    private boolean checkCategoryVO() {
+        boolean isValidVO = true;
 
-        if (null == picPath || "".equals(picPath)) {
-            this.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
+        if (null == category) {
+            isValidVO = false;
+            addFieldError("category.categoryvo",
+                    MessageUtil.getMessage("category_invalid_vo"));
+            return isValidVO;
         }
+
+        if (StringUtil.isEmpty(category.getName())) {
+            isValidVO = false;
+            addFieldError("category.name",
+                    MessageUtil.getMessage("category_name_rule"));
+        }
+
+        if (StringUtil.isEmpty(category.getPicPath())) {
+            isValidVO = false;
+            addFieldError("category.pic.path",
+                    MessageUtil.getMessage("pic_path_rule"));
+        }
+
+        return isValidVO;
     }
 
-    public List<CategoryVO> getCategoryvos() {
-        return categoryvos;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategoryvos(List<CategoryVO> categoryvos) {
-        this.categoryvos = categoryvos;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public CategoryService getCategoryService() {
@@ -338,20 +315,12 @@ public class CategoryAction extends BaseAction {
         this.categoryService = categoryService;
     }
 
-    public String getName() {
-        return name;
+    public CategoryVO getCategory() {
+        return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
+    public void setCategory(CategoryVO category) {
+        this.category = category;
     }
 
 }

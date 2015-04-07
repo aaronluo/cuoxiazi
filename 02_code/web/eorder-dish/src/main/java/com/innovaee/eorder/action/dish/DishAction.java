@@ -7,6 +7,14 @@
 
 package com.innovaee.eorder.action.dish;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
@@ -20,18 +28,13 @@ import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
 import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.CategoryVO;
 import com.innovaee.eorder.vo.DishVO;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
+import com.opensymphony.xwork2.conversion.annotations.Conversion;
+import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 /**
  * @Title: DishAction
@@ -39,6 +42,7 @@ import javax.annotation.Resource;
  *
  * @version V1.0
  */
+@Conversion(conversions = { @TypeConversion(key = "dish.price", converter = "com.innovaee.eorder.utils.FloatConverter") })
 public class DishAction extends BaseAction {
 
     /** 对象序列化ID */
@@ -48,22 +52,10 @@ public class DishAction extends BaseAction {
     public static final String FUNCTION_DESC = "Dish";
 
     /** 菜品名称 */
-    private String name;
-
-    /** 菜品价格 */
-    private Float price;
-
-    /** 菜品图片 */
-    private String picPath;
-
-    /** 在售状态 */
-    private boolean onSell;
+    private DishVO dish;
 
     /** 分类id */
     private Long categoryId;
-
-    /** 更多信息 */
-    private String misc;
 
     /** 菜品分类列表 */
     private List<Category> categoryList;
@@ -83,26 +75,32 @@ public class DishAction extends BaseAction {
     private CategoryService categoryService;
 
     /**
-     * 进入功能页面
+     * 进入菜品页面
      * 
      * @return
      */
     public String dish() {
-        renewPage();
-        // 更新页面数据
+        dish = new DishVO();
+
+        renewCategoryVOList();
+
+        // 刷新系统菜单
         refreshPageData();
         return SUCCESS;
     }
 
     /**
-     * 进入功能页面
+     * 进入菜品页面
      * 
      * @return
      */
     public String list() {
-        refreshDataList();
-        renewPage();
-        // 更新页面数据
+        dish = new DishVO();
+
+        renewCategoryVOList();
+
+        getDishList();
+        // 刷新系统菜单
         refreshPageData();
         return SUCCESS;
     }
@@ -113,22 +111,19 @@ public class DishAction extends BaseAction {
      * @return
      */
     public String add() {
-        // 更新页面数据
-        renewPage();
+        // 刷新系统菜单
+        refreshPageData();
+
+        renewCategoryVOList();
+
+        dish = new DishVO();
+
+        if (null == dish.getPicPath() || "".equals(dish.getPicPath())) {
+            dish.setPicPath(Constants.DEFAULT_DISH_PIC);
+        }
+
         return SUCCESS;
     }
-
-    // public void validateSave() {
-    // System.out.println("validateSave");
-    // if (null != price &&0 != price) {
-    // //dishVO.setPrice(price);
-    //
-    // addFieldError("functionName", "功能名称已被占用！");
-    // this.setMessage(MessageUtil.getMessage("dish_price_empty"));
-    // // 更新页面数据
-    // refreshPageData();
-    // }
-    // }
 
     /**
      * 保存功能
@@ -136,62 +131,30 @@ public class DishAction extends BaseAction {
      * @return
      */
     public String save() {
-        // 更新页面数据
-        renewPage();
         try {
-            DishVO dishVO = new DishVO();
-
-            if (null != name && !"".equals(name.trim())) {
-                dishVO.setName(name);
+            if (!checkDishVO()) {
+                return ERROR;
             } else {
-                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
 
-            if (null != price && 0 != price) {
-                dishVO.setPrice(price);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_price_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
-
-            if (null != picPath && !"".equals(picPath.trim())) {
-                dishVO.setPicPath(picPath);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
-                // 更新页面数据
-                refreshPageData();
-                return INPUT;
-            }
-
-            dishVO.setCategoryId(categoryId);
-            // 新增成功
-            Dish newDish = dishService.addDish(dishVO);
-
-            if (null != newDish) {
-                this.setMessage(MessageUtil.getMessage("add_success"));
-                this.setName("");
-                this.setPrice(null);
-                this.setPicPath("");
-                renewPage();
-            } else {
-                this.setMessage(MessageUtil.getMessage("add_failure"));
-                return INPUT;
+                dish.setCategoryId(categoryId);
+                // 新增成功
+                dishService.addDish(dish);
+                this.setMessage(MessageUtil.getMessage("dish_save_success",
+                        dish.getName()));
+                dish = new DishVO();
             }
         } catch (DuplicateNameException e) {
             this.setMessage(e.getMessage());
-            // 更新页面数据
-            refreshPageData();
-            return INPUT;
+            return ERROR;
         } catch (CategoryNotFoundException e) {
             this.setMessage(e.getMessage());
-            // 更新页面数据
+            return ERROR;
+        } finally {
+            renewCategoryVOList();
             refreshPageData();
+            getDishList();
         }
+
         return SUCCESS;
     }
 
@@ -201,21 +164,29 @@ public class DishAction extends BaseAction {
      * @return
      */
     public String edit() {
+        // 刷新系统菜单
+        refreshPageData();
+        //
+        renewCategoryVOList();
+        dish = new DishVO();
         try {
             if (null != id && !"".equals(id.trim())) {
-                Dish dish = dishService.getDishById(Long.parseLong(id));
-                name = dish.getName();
-                price = dish.getPrice();
-                picPath = dish.getPicPath();
-                onSell = dish.isOnSell();
-                categoryId = dish.getCategory().getId();
+                Dish dishDB = dishService.getDishById(Long.parseLong(id));
+                dish.setId(dishDB.getId());
+                dish.setName(dishDB.getName());
+                dish.setPrice(dishDB.getPrice());
+                dish.setPicPath(dishDB.getPicPath());
+                dish.setOnSell(dishDB.isOnSell());
+                dish.setName(dishDB.getName());
+                dish.setCategoryId(dishDB.getCategory().getId());
+            } else {
+                this.setMessage("ERROR");
+                return ERROR;
             }
         } catch (DishNotFoundException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
         }
-        // 更新页面数据
-        renewPage();
 
         return SUCCESS;
     }
@@ -226,54 +197,35 @@ public class DishAction extends BaseAction {
      * @return
      */
     public String update() {
-        // 更新页面数据
-        renewPage();
         try {
-            Dish dish = null;
-            DishVO dishVO = null;
-            if (null != id) {
-                dish = dishService.getDishById(Long.parseLong(id));
-            }
-
-            if (null != dish) {
-                dishVO = new DishVO();
-                dishVO.setId(dish.getId());
-                dishVO.setCategoryId(categoryId);
-            }
-
-            if (null != name && !"".equals(name.trim())) {
-                dishVO.setName(name);
+            // 校验输入的值
+            if (!checkDishVO()) {
+                return ERROR;
             } else {
-                this.setMessage(MessageUtil.getMessage("dish_name_empty"));
-                return INPUT;
+                dish.setCategoryId(categoryId);
+                // 新增成功
+                dishService.updateDish(dish);
+                this.setMessage(MessageUtil.getMessage("dish_update_success",
+                        dish.getName()));
+                dish = new DishVO();
             }
-
-            if (0 != price) {
-                dishVO.setPrice(price);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_price_empty"));
-                return INPUT;
-            }
-
-            if (null != picPath && !"".equals(picPath.trim())) {
-                dishVO.setPicPath(picPath);
-            } else {
-                this.setMessage(MessageUtil.getMessage("dish_picture_empty"));
-                return INPUT;
-            }
-
-            dishService.updateDish(dishVO);
         } catch (DuplicateNameException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
         } catch (CategoryNotFoundException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
+        } catch (NumberFormatException e) {
+            this.setMessage(e.getMessage());
+            return ERROR;
         } catch (DishNotFoundException e) {
             this.setMessage(e.getMessage());
-            return INPUT;
+            return ERROR;
+        } finally {
+            renewCategoryVOList();
+            refreshPageData();
+            getDishList();
         }
-        this.setMessage(MessageUtil.getMessage("update_success"));
         return SUCCESS;
     }
 
@@ -291,14 +243,14 @@ public class DishAction extends BaseAction {
                 dishService.deleteDish(Long.parseLong(id));
             } catch (DishNotFoundException e) {
                 this.setMessage(e.getMessage());
-                return INPUT;
+                return ERROR;
             }
         }
 
         this.setMessage(MessageUtil.getMessage("delete_success"));
 
         // 更新记录列表
-        refreshDataList();
+        getDishList();
         // 更新分类列表
         renewCategoryVOList();
 
@@ -331,7 +283,7 @@ public class DishAction extends BaseAction {
     /**
      * 刷新列表
      */
-    private void refreshDataList() {
+    private void getDishList() {
         Long id = 0L;
         try {
             Integer recordCount = dishService.getDishCountById(categoryId);
@@ -401,17 +353,6 @@ public class DishAction extends BaseAction {
     /**
      * 
      */
-    private void renewPage() {
-        renewCategoryVOList();
-
-        if (null == picPath || "".equals(picPath)) {
-            this.setPicPath(Constants.DEFAULT_DISH_PIC);
-        }
-
-        // 更新页面数据
-        refreshPageData();
-    }
-
     private void renewCategoryVOList() {
         List<CategoryVO> categoryVOList = new ArrayList<CategoryVO>();
         // 更新权限列表
@@ -424,6 +365,39 @@ public class DishAction extends BaseAction {
             categoryVOList.add(categoryVO);
         }
         this.setCategoryVOList(categoryVOList);
+    }
+
+    /**
+     * 检查一个菜品的设定是否合法
+     */
+    private boolean checkDishVO() {
+        boolean isValidVO = true;
+
+        if (null == dish) {
+            isValidVO = false;
+            addFieldError("dish.dishvo",
+                    MessageUtil.getMessage("dish_invalid_vo"));
+            return isValidVO;
+        }
+
+        if (dish.getPrice() < 1f || dish.getPrice() > 100000f) {
+            isValidVO = false;
+            addFieldError("dish.price",
+                    MessageUtil.getMessage("dish_price_rule"));
+        }
+
+        if (StringUtil.isEmpty(dish.getName())) {
+            isValidVO = false;
+            addFieldError("dish.name", MessageUtil.getMessage("dish_name_rule"));
+        }
+
+        if (StringUtil.isEmpty(dish.getPicPath())) {
+            isValidVO = false;
+            addFieldError("dish.pic.path",
+                    MessageUtil.getMessage("pic_path_rule"));
+        }
+
+        return isValidVO;
     }
 
     public List<DishVO> getDishvos() {
@@ -442,36 +416,12 @@ public class DishAction extends BaseAction {
         this.dishService = dishService;
     }
 
-    public String getName() {
-        return name;
+    public DishVO getDish() {
+        return dish;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
-    }
-
-    public boolean isOnSell() {
-        return onSell;
-    }
-
-    public void setOnSell(boolean onSell) {
-        this.onSell = onSell;
+    public void setDish(DishVO dish) {
+        this.dish = dish;
     }
 
     public Long getCategoryId() {
@@ -480,14 +430,6 @@ public class DishAction extends BaseAction {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getMisc() {
-        return misc;
-    }
-
-    public void setMisc(String misc) {
-        this.misc = misc;
     }
 
     public List<CategoryVO> getCategoryVOList() {
