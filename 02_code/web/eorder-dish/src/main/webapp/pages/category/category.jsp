@@ -9,8 +9,6 @@
 					+ path;
 %>
 
-
-
 <script type="text/javascript" src="../resources/js/category.js"></script>
 
 <script type="text/javascript">
@@ -56,7 +54,7 @@
 						<td><a
 							href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'
 							class="tablelink"><s:text name="edit" /></a></td>
-						<td><a href='#' onclick="remove('<s:property value="id"/>')"
+						<td><a href="javascript:remove('<s:property value="id"/>');"
 							class="tablelink"><s:text name="delete" /></a></td>
 					</tr>
 				</s:iterator>

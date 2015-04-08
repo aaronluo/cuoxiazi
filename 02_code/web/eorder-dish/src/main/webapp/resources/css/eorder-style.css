@@ -144,18 +144,44 @@ html {
 }
 
 .tablePanel {
-	width:70%;
-	float:left;
+	width: 70%;
+	float: left;
 }
 
 .msgPanel {
-	width : 25%;
-	margin-right:25px;
+	width: 25%;
+	margin-right: 25px;
 	float: right;
 	padding: 10px 10px;
 	background-color: #eeeeee;
- 	border: 1px dotted #dddddd;
-  	height: 120px;
-  	color: red;
-  	font-weight: bold;
+	border: 1px dotted #dddddd;
+	height: 120px;
+	color: red;
+	font-weight: bold;
+}
+
+.popwindow {
+	width: 400px;
+	background-color: #ee9154;
+	position: absolute;
+	padding: 2px;
+	margin: 5px;
+	display: none;
+}
+
+.popcontent {
+	height: 120px;
+	background-color: #FFF;
+	font-size: 14px;
+	/*overflow: auto;*/
+}
+
+.poptitle {
+	padding: 2px;
+	/*color: #0CF;*/
+	font-size: 14px;
+}
+
+.poptitle img {
+	float: right;
 }

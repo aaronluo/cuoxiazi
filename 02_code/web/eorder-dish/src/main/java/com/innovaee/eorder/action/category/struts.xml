@@ -32,7 +32,7 @@
             <result name="error" type="tiles">categoryEdit</result>
             <result type="tiles">categoryEdit</result>
         </action>
-        
+
         <action name="update" class="com.innovaee.eorder.action.category.CategoryAction"
             method="update">
             <result name="error" type="tiles">categoryEdit</result>
@@ -43,6 +43,21 @@
             method="remove">
             <result name="error" type="tiles">category</result>
             <result type="tiles">category</result>
+        </action>
+
+        <action name="uploadImage" class="com.innovaee.eorder.action.category.CategoryAction"
+            method="uploadImage">
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">10240000</param>
+                <param name="fileUpload.allowedTypes">
+                    image/gif,image/jpeg,image/png,image/bmp,image/jpg,image/x-png,
+                    image/pjpeg
+                </param>
+            </interceptor-ref>
+
+            <result name="input" type="tiles">categoryEdit</result>
+            <result type="tiles">categoryEdit</result>
+            <param name="uploadDir">/resources/images/dish</param>
         </action>
     </package>
 

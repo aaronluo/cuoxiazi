@@ -4,6 +4,29 @@
 
 <script type="text/javascript" src="../resources/js/category.js"></script>
 
+<script type="text/javascript">
+	//上传
+	function uploadFile() {
+		// 取得用户输入的分类
+		var oldCategoryName = $("#category\\.name").val();
+		var oldCategoryId = $("#category\\.id").val();
+		// alert("oldCategoryName: " + oldCategoryName);
+		$("#categoryName").val(oldCategoryName);
+		$("#categoryId").val(oldCategoryId);
+
+		var filename = $("[name='file']").val();
+		//alert("filename: " + filename);
+		if ('' == filename) {
+			alert('<s:text name="upload_picture_success_rule"/>')
+			return;
+		}
+
+		$("[name='uploadForm']").attr("action", "uploadImage.action");
+		$("[name='uploadForm']").attr("method", "post");
+		$("[name='uploadForm']").submit();
+	}
+</script>
+
 <s:if test="null == id">
 	<div class="place">
 		<span><s:text name="place" /></span>
@@ -22,7 +45,7 @@
 						id="category.name" name="category.name" value="${category.name}"
 						type="text" class="dfinput" style="width: 280px;" /></li>
 					<li><label><s:text name="upload_label" /></label><input name=""
-						type="button" class="scbtn" onclick="openUploadPage();"
+						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
 						id="categoryPic" style="width: 280px; height: 280px;"
@@ -61,7 +84,7 @@
 						value='<s:property value="category.name" />' class="dfinput"
 						style="width: 280px;" /></li>
 					<li><label><s:text name="upload_label" /></label><input name=""
-						type="button" class="scbtn" onclick="openUploadPage();"
+						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
 						id="categoryPic" style="width: 280px; height: 280px;"
@@ -80,3 +103,28 @@
 		</div>
 	</div>
 </s:else>
+
+<div class="popwindow" id="popwindowid">
+	<div id="title" class="poptitle">
+		<img src="../resources/images/close1.png" />
+		<s:text name="upload_label" />
+	</div>
+	<div class="popcontent">
+		<div class="formbody">
+			<div>
+				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
+					<s:hidden id="categoryId" name="categoryId" />
+					<s:hidden id="categoryName" name="categoryName" />
+					<s:hidden id="newFileName" name="newFileName" />
+					<ul class="forminfo">
+						<li><label><s:text name="upload_choose_picture_label" /></label> <s:file
+								name="file" /></li>
+						<li><label>&nbsp;&nbsp;</label><input name="" type="button"
+							class="btn" onclick="uploadFile();"
+							value="<s:text name='upload_label' />" /></li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
