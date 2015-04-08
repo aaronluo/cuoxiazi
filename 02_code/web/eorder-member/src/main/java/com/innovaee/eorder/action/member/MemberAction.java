@@ -316,14 +316,16 @@ public class MemberAction extends BaseAction {
                 users = memberService.getUsersbyUserLevel(level.getId(), pageNow,
                         Constants.PAGE_SIZE);
             }catch(PageIndexOutOfBoundExcpeiton exception) {
-                this.setMessage(MessageUtil.getMessage("member_empty"));
+                if(StringUtil.isEmpty(user.getCellphone())){
+                    this.setMessage(MessageUtil.getMessage("member_empty"));
+                }
             }
             catch (Exception exception) {
                 logger.error(exception.getMessage());
                 this.setMessage(exception.getMessage());
             }
-        } else {
-            this.setMessage(MessageUtil.getMessage("member_select_level"));
+        } else { 
+                this.setMessage(MessageUtil.getMessage("member_select_level"));
         }
         
         this.refreshPageData();
