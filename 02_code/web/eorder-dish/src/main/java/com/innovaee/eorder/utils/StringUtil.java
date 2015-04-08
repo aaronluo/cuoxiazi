@@ -102,4 +102,17 @@ public class StringUtil {
         return matcher.matches();
     }
 
+    
+    /**
+     * 判断字符串是否为空串
+     * @param strVal
+     * @return
+     */
+    public static boolean isEmpty(String strVal) {
+        if(null == strVal || strVal.trim().length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

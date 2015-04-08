@@ -3,7 +3,7 @@ function prePage() {
 	pageNow = parseInt(pageNow) - 1;
 	$("#pageNow").val(pageNow);
 
-	$("[name='pageForm']").attr("action", "category.action");
+	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
 	$("[name='pageForm']").submit();
 }
@@ -13,7 +13,7 @@ function nextPage() {
 	pageNow = parseInt(pageNow) + 1;
 	$("#pageNow").val(pageNow);
 
-	$("[name='pageForm']").attr("action", "category.action");
+	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
 	$("[name='pageForm']").submit();
 }
@@ -23,31 +23,62 @@ function load() {
 	var pageNow = $("#pageInput").val();
 	// 如果没有输入，则不响应确认按钮事件
 	if ('' != pageNow) {
-		$("[name='pageForm']").attr("action", "category.action");
+		$("[name='pageForm']").attr("action", "list.action");
 		$("[name='pageForm']").attr("method", "post");
 		$("[name='pageForm']").submit();
 	}
 }
 
-//上传
+function calcShowModalDialogLocation(dialogWidth, dialogHeight) {
+    var iWidth = dialogWidth;
+    var iHeight = dialogHeight;
+    var iTop = (window.screen.availHeight - 20 - iHeight) / 2;
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    return 'dialogWidth:' + iWidth + 'px;dialogHeight:' + iHeight + 'px;dialogTop: ' + iTop + 'px; dialogLeft: ' + iLeft + 'px;center:yes;scroll:no;status:no;resizable:0;location:no';
+}
+
+// 上传
 function openUploadPage() {
 	if (window.ActiveXObject) { // IE
-		var returnValue = window.showModalDialog("../upload/upload.action",
-				window, "dialogWidth:550px;status:no;dialogHeight:600px");
+		var dialogLocation = calcShowModalDialogLocation(550, 600);
+		var result = window.showModalDialog("../upload/upload.action", window, dialogLocation);
+		
+		//var returnValue = window.showModalDialog("../upload/upload.action",
+		//		window, "dialogWidth:550px;status:no;dialogHeight:600px");
 		if (returnValue != null) {
 			setValue(returnValue);
 		}
 	} else { // 非IE
-		window.open("../upload/upload.action",
+		var url = "../upload/upload.action"; // 转向网页的地址;
+		var name; // 网页名称，可为空;
+		var iWidth = 600; // 弹出窗口的宽度;
+		var iHeight = 500; // 弹出窗口的高度;
+		var iTop = (window.screen.availHeight - 30 - iHeight) / 2; // 获得窗口的垂直位置;
+		var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; // 获得窗口的水平位置;
+		window
+				.open(
+						url,
 						'newwindow',
-						'height=500,width=600,top=5,left=5,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+						'height='
+								+ iHeight
+								+ ',,innerHeight='
+								+ iHeight
+								+ ',width='
+								+ iWidth
+								+ ',innerWidth='
+								+ iWidth
+								+ ',top='
+								+ iTop
+								+ ',left='
+								+ iLeft
+								+ ',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
 	}
 }
 
-//接收父页面上传回的值
+// 接收父页面上传回的值
 function setValue(newFileName) {
 	$("newFileName").val(newFileName);
-	$("#picPath").val("/dish/" + newFileName);
+	$("#category\\.picPath").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片
 	$("#categoryPic").attr("src", "../resources/images/dish/" + newFileName);
 }
@@ -59,11 +90,10 @@ function save() {
 }
 
 function saveBack() {
-	$("[name='saveForm']").attr("action", "category.action");
+	$("[name='saveForm']").attr("action", "list.action");
 	$("[name='saveForm']").attr("method", "post");
 	$("[name='saveForm']").submit();
 }
-
 
 function update() {
 	$("[name='updateForm']").attr("action", "update.action");
@@ -72,10 +102,11 @@ function update() {
 }
 
 function updateBack() {
-	$("[name='updateForm']").attr("action", "category.action");
+	$("[name='updateForm']").attr("action", "list.action");
 	$("[name='updateForm']").attr("method", "post");
 	$("[name='updateForm']").submit();
 }
+
 
 // 回车提交表单（登录）
 $(function() {

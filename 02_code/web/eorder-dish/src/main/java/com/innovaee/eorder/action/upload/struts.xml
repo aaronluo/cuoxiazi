@@ -6,8 +6,6 @@
 <struts>
     <constant name="struts.i18n.encoding" value="UTF-8" />
     <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
-    <constant name="struts.multipart.saveDir" value="d:\\temp" />
-    <constant name="struts.multipart.maxSize" value="1024000" />
 
     <package name="com.innovaee.eorder.action.upload" namespace="/upload"
         extends="struts-base">

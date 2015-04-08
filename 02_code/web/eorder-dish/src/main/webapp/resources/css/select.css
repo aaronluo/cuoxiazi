@@ -106,6 +106,7 @@ option {
 
 .select2 {
 	width: 125px;
+	height: 280px;
 	border: 1px solid #ccc;
 	margin: 0px;
 }
@@ -116,15 +117,6 @@ option {
 
 .select3 {
 	width: 395px;
-	height: 32px;
-	line-height: 28px;
-	/*border: 1px solid #ccc;
-	margin: 0px;*/
-	padding: 2px 0;
-}
-
-.select4 {
-	width: 100px;
 	height: 32px;
 	line-height: 28px;
 	/*border: 1px solid #ccc;

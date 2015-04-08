@@ -53,8 +53,10 @@ public class Constants {
     /** 默认菜单分类 */
     public static final String DEFAULT_CATEGORY = "默认";
 
+    /** 默认会员分类 */
+    public static final String DEFAULT_USR_LEVEL="非会员";
     /** 默认菜单分类图片 */
-    public static final String DEFAULT_CATEGORY_PIC = "/default_catgory.png";
+    public static final String DEFAULT_CATEGORY_PIC = "/default_category.png";
 
     /** 默认菜单分类图片 */
     public static final String DEFAULT_DISH_PIC = "/default_dish.png";

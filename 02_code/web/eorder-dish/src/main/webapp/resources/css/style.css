@@ -423,7 +423,7 @@ h2 {
 }
 
 .leftmenu dd .menuson {
-	display: none;
+	display: block; /* TODO */
 }
 
 .leftmenu dd:first-child .menuson {
@@ -570,7 +570,7 @@ h2 {
 
 .tablelist {
 	border: solid 1px #cbcbcb;
-	width: 80%;
+	width: 100%;
 	clear: both;
 }
 
@@ -607,12 +607,10 @@ h2 {
 
 /*page*/
 .pagin {
-	width: 79%;
 	position: relative;
 	margin-top: 10px;
 	padding: 0 12px;
 	height: 35px;
-	position: relative;
 }
 
 .pagin .message {
@@ -1046,7 +1044,6 @@ h2 {
 	font-weight: bold;
 	color: #fff;
 	cursor: pointer;
-	width: 60px;
 }
 
 /*tip*/

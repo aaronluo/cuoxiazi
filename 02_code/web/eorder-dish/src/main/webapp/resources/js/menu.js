@@ -14,7 +14,6 @@ $(function() {
 			$(this).next('ul').slideDown();
 		}
 	});
-
 })
 
 // 进入页面后自动打开菜单，选中子菜单项
@@ -25,7 +24,7 @@ window.onload = function() {// 页面所有元素加载完毕
 	var menuTitleObj = $("#menuTitle" + currentFunction).parent("div");
 	// 3、展开菜单
 	var $ul = $(menuTitleObj).next('ul');
-	$('dd').find('ul').slideUp();
+	// $('dd').find('ul').slideUp();
 	if ($ul.is(':visible')) {
 		$(menuTitleObj).next('ul').slideUp();
 	} else {
