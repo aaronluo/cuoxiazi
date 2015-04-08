@@ -347,7 +347,7 @@ public class DishAction extends BaseAction {
                 dishvos.add(dishvo);
             }
         } catch (PageIndexOutOfBoundExcpeiton e) {
-            this.setMessage(e.getMessage());
+            this.setMessage(MessageUtil.getMessage("dish_empty"));
         } catch (InvalidPageSizeException e) {
             this.setMessage(e.getMessage());
         } catch (CategoryNotFoundException e) {
