@@ -47,8 +47,8 @@
 							<thead>
 								<tr>
 									<th width="18%"><s:text name="dish_name_label" /></th>
-									<th width="8%"><s:text name="dish_name_label" /></th>
-									<th><s:text name="dish_name_label" /></th>
+									<th width="8%"><s:text name="dish_price_label" /></th>
+									<th><s:text name="dish_picture_label" /></th>
 									<th width="8%"><s:text name="edit" /></th>
 									<th width="8%"><s:text name="delete" /></th>
 								</tr>
