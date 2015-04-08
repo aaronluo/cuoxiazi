@@ -9,7 +9,6 @@ package com.innovaee.eorder.dao.hibernate;
 import com.innovaee.eorder.dao.UserLevelDao;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
-import com.innovaee.eorder.utils.Constants;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -60,7 +59,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
     
     @SuppressWarnings("unchecked")
     public List<UserLevel> loadAll() {
-        final String hql = "FROM UserLevel AS level WHERE level.levelStatus=? ORDER BY level.id DESC";
+        final String hql = "FROM UserLevel AS level WHERE level.levelStatus=? ORDER BY level.levelScore DESC";
         Object[] params = new Object[1];
         params[0] = true;
         
@@ -82,6 +81,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                     
                     Criteria criteria = session.createCriteria(UserLevel.class);
                     criteria.add(Restrictions.gt("levelScore", userLevel.getLevelScore()));
+                    criteria.add(Restrictions.eq("levelStatus", true));
                     criteria.addOrder(Order.asc("levelScore"));
                     
                     if(!criteria.list().isEmpty()) {
@@ -111,6 +111,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                     
                     Criteria criteria = session.createCriteria(UserLevel.class);
                     criteria.add(Restrictions.lt("levelScore", userLevel.getLevelScore()));
+                    criteria.add(Restrictions.eq("levelStatus", true));
                     criteria.addOrder(Order.desc("levelScore"));
                     
                     if(!criteria.list().isEmpty()) {
@@ -162,6 +163,7 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                 Criteria criteria = session.createCriteria(UserLevel.class);
               
                 criteria.add(Restrictions.le("levelScore", score));
+                criteria.add(Restrictions.eq("levelStatus", true));
                 criteria.addOrder(Order.desc("levelScore"));
                 
                 criteria.setFirstResult(0);

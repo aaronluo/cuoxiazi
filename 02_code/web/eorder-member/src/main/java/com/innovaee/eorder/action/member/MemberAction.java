@@ -22,8 +22,6 @@ import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
-import com.opensymphony.xwork2.conversion.annotations.Conversion;
-import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 

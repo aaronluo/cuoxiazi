@@ -8,6 +8,7 @@
 package com.innovaee.eorder.action.level;
 
 import com.innovaee.eorder.action.BaseAction;
+import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.UserLevelNotFoundException;
@@ -116,10 +117,17 @@ public class LevelAction extends BaseAction {
      * @return
      */
     public String remove() {
-        try {
+        try {  
+            List<User> users = memberService.getUsersbyUserLevel(level.getId(), 1, Integer.MAX_VALUE);
             memberService.deleteUserLevel(level.getId());
+            
+            for (User user : users) {
+                int score = user.getMemberShip().getCurrentScore();
+                memberService.updateUserMemberShip(user.getId(), score);
+            }
+            
             setMessage(MessageUtil.getMessage("level_remove_success"));
-        } catch (UserLevelNotFoundException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             
             setMessage(e.getMessage());
