@@ -386,7 +386,7 @@ public class DishAction extends BaseAction {
             return isValidVO;
         }
 
-        if (dish.getPrice() < 1f || dish.getPrice() > 100000f) {
+        if (dish.getPrice() <= 0.0f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));
