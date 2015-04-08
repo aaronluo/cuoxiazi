@@ -149,13 +149,11 @@ html {
 }
 
 .msgPanel {
-	width : 25%;
-	margin-right:25px;
+	width : 20%;
+	margin-right:55px;
 	float: right;
-	padding: 10px 10px;
-	background-color: #eeeeee;
- 	border: 1px dotted #dddddd;
   	height: 120px;
   	color: red;
   	font-weight: bold;
+  	font-size : 15px
 }
