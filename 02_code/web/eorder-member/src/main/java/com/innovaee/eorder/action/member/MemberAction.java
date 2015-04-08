@@ -124,7 +124,10 @@ public class MemberAction extends BaseAction {
             } else {
                 final User checkUser = userService.findUserByUserName(user.getCellphone());
                 if (null != checkUser) {
-                    memberService.addMemberShipToUser(level.getId(), checkUser.getId(), true);
+//                    memberService.addMemberShipToUser(level.getId(), checkUser.getId(), true);
+                    this.setMessage(MessageUtil.getMessage("member_already_exists", 
+                                checkUser.getMemberShip().getLevel().getLevelName()));
+                    return ERROR;
                 } else {
                     user.setUsername(user.getCellphone());
                     user.setPassword(user.getCellphone());
