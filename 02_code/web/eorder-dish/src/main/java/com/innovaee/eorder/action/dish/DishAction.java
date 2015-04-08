@@ -150,7 +150,7 @@ public class DishAction extends BaseAction {
                 this.setMessage(MessageUtil.getMessage("dish_save_success",
                         dish.getName()));
                 dish = new DishVO();
-                getDishList();// TODO
+                getDishList();
             }
         } catch (DuplicateNameException e) {
             this.setMessage(e.getMessage());
