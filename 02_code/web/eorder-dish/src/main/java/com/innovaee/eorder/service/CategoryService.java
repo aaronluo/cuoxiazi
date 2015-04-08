@@ -12,8 +12,10 @@ import com.innovaee.eorder.exception.CategoryNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,9 +32,10 @@ public interface CategoryService {
      * @return 所有分类列表
      */
     public List<Category> getAllCategories();
-    
+
     /**
      * 获取保护默认菜品分类的列表
+     * 
      * @return
      */
     public List<Category> getAllCategoriesWithDefault();
@@ -111,7 +114,7 @@ public interface CategoryService {
             throws CategoryNotFoundException;
 
     /**
-     * 获取菜品分类分页数据
+     * 获取菜品分类分页数据，不包括默认分类
      * 
      * @param curPage
      *            当前分页
@@ -124,6 +127,22 @@ public interface CategoryService {
      */
     public List<Category> getCategoriesByPage(int curPage, int pageSize)
             throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException;
+
+    /**
+     * 获取菜品分类分页数据，包括默认分类
+     * 
+     * @param curPage
+     *            当前分页
+     * @param pageSize
+     *            分页大小
+     * @return
+     * @throws PageIndexOutOfBoundExcpeiton
+     *             分页超限异常
+     * @throws InvalidPageSizeException
+     */
+    public List<Category> getCategoriesByPageWithDefault(int curPage,
+            int pageSize) throws PageIndexOutOfBoundExcpeiton,
+            InvalidPageSizeException;
 
     /**
      * 根据分页大小，获取总页数

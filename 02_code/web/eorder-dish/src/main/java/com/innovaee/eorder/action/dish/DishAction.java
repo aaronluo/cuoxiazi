@@ -362,7 +362,8 @@ public class DishAction extends BaseAction {
         List<CategoryVO> categoryVOList = new ArrayList<CategoryVO>();
         // 更新权限列表
         CategoryVO categoryVO = null;
-        List<Category> categoryList = categoryService.getAllCategories();
+        List<Category> categoryList = categoryService
+                .getAllCategoriesWithDefault();
         for (Category category : categoryList) {
             categoryVO = new CategoryVO();
             BeanUtils.copyProperties(category, categoryVO);
