@@ -30,6 +30,12 @@ public interface CategoryService {
      * @return 所有分类列表
      */
     public List<Category> getAllCategories();
+    
+    /**
+     * 获取保护默认菜品分类的列表
+     * @return
+     */
+    public List<Category> getAllCategoriesWithDefault();
 
     /**
      * 根据菜品ID查找菜品列表

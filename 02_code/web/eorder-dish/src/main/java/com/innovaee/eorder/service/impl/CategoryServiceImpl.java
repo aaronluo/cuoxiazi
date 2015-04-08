@@ -62,6 +62,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categories;
     }
 
+    public List<Category> getAllCategoriesWithDefault() {
+       return   categoryDao.loadAll();
+    }
+
     /**
      * 根据菜品ID查找菜品列表
      * 
