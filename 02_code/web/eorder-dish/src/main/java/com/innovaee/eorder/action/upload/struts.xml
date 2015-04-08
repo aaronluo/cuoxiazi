@@ -35,12 +35,5 @@
             <param name="uploadDir">/resources/images/dish</param>
         </action>
 
-        <action name="multiFileUpload"
-            class="com.innovaee.eorder.action.upload.MultiFileUploadAction">
-            <result name="input">/multiFileUpload.jsp</result>
-            <result name="success">/multiFileSuccess.jsp</result>
-            <param name="uploadDir">/WEB-INF/UploadFiles</param>
-        </action>
-
     </package>
 </struts>

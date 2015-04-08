@@ -4,6 +4,36 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <script type="text/javascript" src="../resources/js/dish.js"></script>
+<script type="text/javascript">
+	// 上传
+	function uploadFile() {
+		// 取得用户输入的分类
+		var oldDishId = $("#dish\\.id").val();
+		var oldCategoryId = $("#categoryId").val();
+		var oldDishName = $("#dish\\.name").val();
+		var oldDishPrice = $("#dish\\.price").val();
+
+		//alert("oldDishId: " + oldDishId);
+		//alert("oldCategoryId: " + oldCategoryId);
+		//alert("oldDishName: " + oldDishName);
+		//alert("oldDishPrice: " + oldDishPrice);
+		$("#dishId").val(oldDishId);
+		$("#oldCategoryId").val(oldCategoryId);
+		$("#dishName").val(oldDishName);
+		$("#dishPrice").val(oldDishPrice);
+
+		var filename = $("[name='file']").val();
+		//alert("filename: " + filename);
+		if ('' == filename) {
+			alert('<s:text name="upload_picture_success_rule"/>')
+			return;
+		}
+
+		$("[name='uploadForm']").attr("action", "uploadImage.action");
+		$("[name='uploadForm']").attr("method", "post");
+		$("[name='uploadForm']").submit();
+	}
+</script>
 
 <s:if test="dish.id == null || dish.id == 0L">
 	<!-- 创建新的菜品 -->
@@ -28,7 +58,7 @@
 						id="dish.price" name="dish.price" value="${dish.price}" type="text"
 						class="dfinput" style="width: 280px;" /></li>
 					<li><label><s:text name="upload_label" /></label><input name=""
-						type="button" class="scbtn" onclick="openUploadPage();"
+						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="dish_picture_label" /></label><img
 						id="dishPic" style="width: 280px; height: 280px;"
@@ -75,7 +105,7 @@
 						id="dish.price" name="dish.price" type="text" style="width: 280px;"
 						value='<s:property value="dish.price" />' class="dfinput" /></li>
 					<li><label><s:text name="upload_label" /></label><input name=""
-						type="button" class="scbtn" onclick="openUploadPage();"
+						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="dish_picture_label" /></label><img
 						id="dishPic" style="width: 280px; height: 280px;"
@@ -98,3 +128,30 @@
 		</div>
 	</div>
 </s:else>
+
+<div class="popwindow" id="popwindowid">
+	<div id="title" class="poptitle">
+		<img src="../resources/images/close1.png" />
+		<s:text name="upload_label" />
+	</div>
+	<div class="popcontent">
+		<div class="formbody">
+			<div>
+				<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
+					<s:hidden id="dishId" name="dishId" />
+					<s:hidden id="oldCategoryId" name="oldCategoryId" />
+					<s:hidden id="dishName" name="dishName" />
+					<s:hidden id="dishPrice" name="dishPrice" />
+					<s:hidden id="newFileName" name="newFileName" />
+					<ul class="forminfo">
+						<li><label><s:text name="upload_choose_picture_label" /></label> <s:file
+								name="file" /></li>
+						<li><label>&nbsp;&nbsp;</label><input name="" type="button"
+							class="btn" onclick="uploadFile();"
+							value="<s:text name='upload_label' />" /></li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

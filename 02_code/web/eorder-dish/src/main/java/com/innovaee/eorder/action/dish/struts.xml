@@ -14,7 +14,7 @@
             <result name="error" type="tiles">dish</result>
             <result type="tiles">dish</result>
         </action>
-        
+
         <action name="list" class="com.innovaee.eorder.action.dish.DishAction"
             method="list">
             <result name="error" type="tiles">dish</result>
@@ -38,7 +38,7 @@
             <result name="error" type="tiles">dishEdit</result>
             <result type="tiles">dishEdit</result>
         </action>
-        
+
         <action name="update" class="com.innovaee.eorder.action.dish.DishAction"
             method="update">
             <result name="error" type="tiles">dishEdit</result>
@@ -49,6 +49,21 @@
             method="remove">
             <result name="error" type="tiles">dish</result>
             <result type="tiles">dish</result>
+        </action>
+
+        <action name="uploadImage" class="com.innovaee.eorder.action.dish.DishAction"
+            method="uploadImage">
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.maximumSize">10240000</param>
+                <param name="fileUpload.allowedTypes">
+                    image/gif,image/jpeg,image/png,image/bmp,image/jpg,image/x-png,
+                    image/pjpeg
+                </param>
+            </interceptor-ref>
+
+            <result name="input" type="tiles">dishEdit</result>
+            <result type="tiles">dishEdit</result>
+            <param name="uploadDir">/resources/images/dish</param>
         </action>
     </package>
 
