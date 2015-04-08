@@ -112,12 +112,13 @@
 							</div>
 						</div>
 					</div>
-					<!-- 消息显示 -->
-					<div class="msgPanel">
-						<s:property value="message" />
-					</div>
 				</s:if>
+				<!-- 消息显示 -->
+				<div class="msgPanel">
+					<s:property value="message" />
+				</div>
 			</s:if>
+
 		</div>
 	</div>
 

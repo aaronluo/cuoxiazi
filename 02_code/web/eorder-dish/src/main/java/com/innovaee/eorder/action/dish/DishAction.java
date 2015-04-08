@@ -135,13 +135,13 @@ public class DishAction extends BaseAction {
             if (!checkDishVO()) {
                 return ERROR;
             } else {
-
                 dish.setCategoryId(categoryId);
                 // 新增成功
                 dishService.addDish(dish);
                 this.setMessage(MessageUtil.getMessage("dish_save_success",
                         dish.getName()));
                 dish = new DishVO();
+                getDishList();// TODO
             }
         } catch (DuplicateNameException e) {
             this.setMessage(e.getMessage());
@@ -152,7 +152,6 @@ public class DishAction extends BaseAction {
         } finally {
             renewCategoryVOList();
             refreshPageData();
-            getDishList();
         }
 
         return SUCCESS;
