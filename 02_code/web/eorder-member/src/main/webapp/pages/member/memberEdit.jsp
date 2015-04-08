@@ -70,11 +70,23 @@
 					<li>
 						<label><s:text name="member_score"/></label>
 						<s:textfield cssClass="dfinput" type="text" name="user.memberShip.currentScore" cssStyle="width:285px"/>
+						<script>
+							function checkNumber() {
+								var newScore = $('input#user_memberShip_currentScore').val();
+								var reg = new RegExp("^[0-9]*$");
+								
+								if(reg.test(newScore)) {
+									return update();
+								}else{
+									alert('<s:text name="level_score_rule"/>');
+								}
+							}
+						</script>
 					</li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnUpdate" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="update();"
+						name="" type="button" class="btn" onclick="checkNumber();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>

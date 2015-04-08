@@ -33,7 +33,7 @@ public class MemberShip extends BaseEntity {
     /** 会员等级信息 */
     private UserLevel level;
     /** 会员当前积分 */
-    private Integer currentScore;
+    private Integer currentScore = 0;
     /** 会员号 */
     private String memberId;
    

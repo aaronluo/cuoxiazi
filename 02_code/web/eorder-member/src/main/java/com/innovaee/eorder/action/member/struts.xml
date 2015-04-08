@@ -43,6 +43,7 @@
             method="update">
             <result type="tiles">listMember</result>
             <result name="error" type="tiles">editMember</result>
+            <result name="input" type="tiles">editMember</result>
         </action>
     </package>
 </struts>

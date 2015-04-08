@@ -497,6 +497,30 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         return level;
     }
 
+    public UserLevel getNearestLevel(int score) {
+        return userLevelDao.getNearestLevel(score);
+    }
+
+    public void updateUserMemberShip(Long userId, int newScore) throws UserNotFoundException {
+        User user = userDao.get(userId);
+        
+        if(null == user) {
+            throw new UserNotFoundException(MessageUtil.getMessage("user_id", "" + userId));
+        } else{
+            MemberShip memberShip = user.getMemberShip();
+            UserLevel newLevel = this.getNearestLevel(newScore);
+            
+            if(null != newLevel) {
+                memberShip.setLevel(newLevel);
+            }
+            
+            memberShip.setCurrentScore(newScore);
+            
+            memberShipDao.update(memberShip);
+        }
+                
+    }
+
     public UserLevelDao getUserLevelDao() {
         return userLevelDao;
     }

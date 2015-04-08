@@ -1,5 +1,5 @@
 /***********************************************
- * Filename        : DishAction.java 
+ * Filename        : LevelAction.java 
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 04/02/2015
@@ -29,7 +29,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 /**
- * @Title: MemberAction
+ * @Title: LevelAction
  * @Description: 会员等级管理Action类
  *
  * @version V1.0
