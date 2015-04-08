@@ -29,11 +29,22 @@ function load() {
 	}
 }
 
+function calcShowModalDialogLocation(dialogWidth, dialogHeight) {
+    var iWidth = dialogWidth;
+    var iHeight = dialogHeight;
+    var iTop = (window.screen.availHeight - 20 - iHeight) / 2;
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+    return 'dialogWidth:' + iWidth + 'px;dialogHeight:' + iHeight + 'px;dialogTop: ' + iTop + 'px; dialogLeft: ' + iLeft + 'px;center:yes;scroll:no;status:no;resizable:0;location:no';
+}
+
 // 上传
 function openUploadPage() {
 	if (window.ActiveXObject) { // IE
-		var returnValue = window.showModalDialog("../upload/upload.action",
-				window, "dialogWidth:550px;status:no;dialogHeight:600px");
+		var dialogLocation = calcShowModalDialogLocation(550, 600);
+		var result = window.showModalDialog("../upload/upload.action", window, dialogLocation);
+		
+		//var returnValue = window.showModalDialog("../upload/upload.action",
+		//		window, "dialogWidth:550px;status:no;dialogHeight:600px");
 		if (returnValue != null) {
 			setValue(returnValue);
 		}
