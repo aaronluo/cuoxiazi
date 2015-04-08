@@ -47,5 +47,7 @@ public interface UserLevelDao extends BaseDao<UserLevel> {
      * @return
      */
     List<User> getUsers(Long userLevelId, int curPage, int pageSize);
+    
+    UserLevel getNearestLevel(final int score);
 
 }

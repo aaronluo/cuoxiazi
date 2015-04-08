@@ -9,6 +9,7 @@ package com.innovaee.eorder.dao.hibernate;
 import com.innovaee.eorder.dao.UserLevelDao;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.utils.Constants;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -149,6 +150,28 @@ public class HibernateUserLevelDao extends HibernateBaseDao<UserLevel>
                 criteria.setMaxResults(pageSize);
                 
                 return (List<User>)criteria.list();
+            }
+        });
+    }
+
+    public UserLevel getNearestLevel(final int score) {
+        return this.getHibernateTemplate().execute(new HibernateCallback<UserLevel>(){
+            public UserLevel doInHibernate(Session session){
+                UserLevel newUserLevel = null;
+                
+                Criteria criteria = session.createCriteria(UserLevel.class);
+              
+                criteria.add(Restrictions.le("levelScore", score));
+                criteria.addOrder(Order.desc("levelScore"));
+                
+                criteria.setFirstResult(0);
+                criteria.setMaxResults(1);
+                
+                if(!criteria.list().isEmpty()) {
+                    newUserLevel = (UserLevel)criteria.list().iterator().next();
+                }
+                
+                return newUserLevel;
             }
         });
     }

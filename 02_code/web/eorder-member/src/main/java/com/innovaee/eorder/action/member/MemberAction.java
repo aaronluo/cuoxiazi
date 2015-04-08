@@ -1,5 +1,5 @@
 /***********************************************
- * Filename        : DishAction.java 
+ * Filename        : MemberAction.java 
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 04/02/2015
@@ -22,6 +22,8 @@ import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
+import com.opensymphony.xwork2.conversion.annotations.Conversion;
+import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -61,6 +63,16 @@ public class MemberAction extends BaseAction {
     private List<UserLevel> levels = new ArrayList<UserLevel>();
     /** 选中会员等级实体 **/
     private UserLevel level = new UserLevel();
+    /**新会员等级积分*/
+//    private int newScore;
+//
+//    public int getNewScore() {
+//        return newScore;
+//    }
+//
+//    public void setNewScore(int newScore) {
+//        this.newScore = newScore;
+//    }
 
     /**
      * 显示特定会员等级下的会员分页列表
@@ -174,26 +186,22 @@ public class MemberAction extends BaseAction {
     public String update() {
         try{
             int newScore = user.getMemberShip().getCurrentScore();
+            
+            if(newScore < 0) {
+                this.setMessage(MessageUtil.getMessage("member_bad_score"));
+                
+                return ERROR;
+            }
+            
             user = userService.findUserByCellphone(user.getCellphone());
             
-            if(null != user) {
-                level = user.getMemberShip().getLevel();
-                
-                final UserLevel nextLevel = memberService.getNexLevel(level.getId());
-                final UserLevel preLevel = memberService.getPreLevel(level.getId());
-                
-                if(null != nextLevel && newScore > level.getLevelScore()) {
-                    //用户需要升级
-                    memberService.updateUserLevelOfUser(user.getId(), Constants.USER_LEVEL_UP);
-                    level = nextLevel;
-                }else if(null != preLevel && newScore < level.getLevelScore()) {
-                    //用户需要降级
-                    memberService.updateUserLevelOfUser(user.getId(), Constants.USER_LEVEL_DOWN);
-                    level = preLevel;
+            if(null != user) {             
+                if(newScore != user.getMemberShip().getCurrentScore() 
+                        || newScore != user.getMemberShip().getLevel().getLevelScore()) {
+                    memberService.updateUserMemberShip(user.getId(), newScore);
+                    
+                    level = userService.findUserByCellphone(user.getCellphone()).getMemberShip().getLevel();
                 }
-                
-                user.getMemberShip().setCurrentScore(newScore);
-                userService.updateUser(user);
             }
             
         }catch(Exception exception) {

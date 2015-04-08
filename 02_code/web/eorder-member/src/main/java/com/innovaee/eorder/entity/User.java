@@ -45,7 +45,7 @@ public class User extends BaseEntity {
     private Boolean userStatus;
 
     /** 会员信息 */
-    private MemberShip memberShip;
+    private MemberShip memberShip = new MemberShip();
     
     /** 角色列表 */
     private Set<Role> roles;

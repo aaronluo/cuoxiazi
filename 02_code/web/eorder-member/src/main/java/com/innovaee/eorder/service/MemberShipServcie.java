@@ -218,4 +218,8 @@ public interface MemberShipServcie {
     public UserLevel getNexLevel(Long userLevelId) throws UserLevelNotFoundException;
     
     public UserLevel getPreLevel(Long userLevelId) throws UserLevelNotFoundException;
+    
+    public UserLevel getNearestLevel(final int score);
+
+    public void updateUserMemberShip(Long id, int newScore) throws UserNotFoundException;
 }
