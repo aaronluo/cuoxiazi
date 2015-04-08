@@ -265,12 +265,12 @@ public class CategoryAction extends BaseAction {
                     pageInput = 1;
                 }
 
-                categories = categoryService.getCategoriesByPage(pageInput,
+                categories = categoryService.getCategoriesByPageWithDefault(pageInput,
                         Constants.PAGE_SIZE);
 
                 pageNow = pageInput;
             } else {
-                categories = categoryService.getCategoriesByPage(pageNow,
+                categories = categoryService.getCategoriesByPageWithDefault(pageNow,
                         Constants.PAGE_SIZE);
             }
         } catch (PageIndexOutOfBoundExcpeiton e) {

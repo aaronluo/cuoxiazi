@@ -43,7 +43,7 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void getAllCategoriesTest() {
-        assertEquals(11, categoryService.getAllCategories().size());
+        assertEquals(11, categoryService.getAllCategoriesWithDefault().size());
     }
 
     /**
@@ -188,8 +188,8 @@ public class CategoryServiceTest extends BaseSpringTestCase {
         int currentPage = 2;
         int pageSize = 5;
 
-        List<Category> categories = categoryService.getCategoriesByPage(
-                currentPage, pageSize);
+        List<Category> categories = categoryService
+                .getCategoriesByPageWithDefault(currentPage, pageSize);
 
         assertEquals(categories.size(), pageSize);
 
@@ -204,7 +204,8 @@ public class CategoryServiceTest extends BaseSpringTestCase {
         int pageSize = 5;
 
         try {
-            categoryService.getCategoriesByPage(currentPage, pageSize);
+            categoryService.getCategoriesByPageWithDefault(currentPage,
+                    pageSize);
         } catch (Exception exception) {
             assertEquals(exception.getClass(),
                     PageIndexOutOfBoundExcpeiton.class);
