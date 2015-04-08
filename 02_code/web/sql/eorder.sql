@@ -37,7 +37,7 @@ CREATE TABLE `t_dish` (
   `category_id` bigint(20) DEFAULT NULL,
   `dish_name` varchar(128) NOT NULL,
   `dish_picture` varchar(256) DEFAULT NULL,
-  `dish_price` float(64,0) DEFAULT 0.0,
+  `dish_price` decimal(15,2) DEFAULT '0.00',
   `on_sell` tinyint(1) DEFAULT 1,
   `misc` varchar(128) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
@@ -48,65 +48,65 @@ CREATE TABLE `t_dish` (
 -- ----------------------------
 -- Records of t_dish
 -- ----------------------------
-INSERT INTO `t_dish` VALUES ('1', '1', '手撕包菜', '/01/0101.png', '20', '1', null, '2014-12-12 13:26:01', null);
-INSERT INTO `t_dish` VALUES ('2', '1', '无油版左公鸡', '/01/0102.png', '25', '1', null, '2014-12-12 13:26:02', null);
-INSERT INTO `t_dish` VALUES ('3', '1', '毛氏红烧肉', '/01/0103.png', '30', '1', null, '2014-12-12 13:26:03', null);
-INSERT INTO `t_dish` VALUES ('4', '1', '泡椒风爪', '/01/0104.png', '20', '1', null, '2014-12-12 13:26:04', null);
-INSERT INTO `t_dish` VALUES ('5', '1', '豆豉炒香干', '/01/0105.png', '25', '1', null, '2014-12-12 13:26:05', null);
-INSERT INTO `t_dish` VALUES ('6', '1', '辣子鸡', '/01/0106.png', '30', '1', null, '2014-12-12 13:26:06', null);
-INSERT INTO `t_dish` VALUES ('7', '2', '剁椒鱼头', '/02/0201.png', '20', '1', null, '2014-12-12 13:26:07', null);
-INSERT INTO `t_dish` VALUES ('8', '2', '口水鸡', '/02/0202.png', '25', '1', null, '2014-12-12 13:26:08', null);
-INSERT INTO `t_dish` VALUES ('9', '2', '四川咸烧白', '/02/0203.png', '30', '1', null, '2014-12-12 13:26:09', null);
-INSERT INTO `t_dish` VALUES ('10', '2', '川椒大蒜肚条', '/02/0204.png', '20', '1', null, '2014-12-12 13:26:10', null);
-INSERT INTO `t_dish` VALUES ('11', '2', '水煮牛肉', '/02/0205.png', '25', '1', null, '2014-12-12 13:26:11', null);
-INSERT INTO `t_dish` VALUES ('12', '3', '宫保鸡丁', '/03/0301.png', '30', '1', null, '2014-12-12 13:26:12', null);
-INSERT INTO `t_dish` VALUES ('13', '3', '支竹焖羊肉', '/03/0302.png', '20', '1', null, '2014-12-12 13:26:13', null);
-INSERT INTO `t_dish` VALUES ('14', '3', '腊鸭腿煲仔饭', '/03/0303.png', '25', '1', null, '2014-12-12 13:26:14', null);
-INSERT INTO `t_dish` VALUES ('15', '3', '菠萝咕咾肉', '/03/0304.png', '30', '1', null, '2014-12-12 13:26:15', null);
-INSERT INTO `t_dish` VALUES ('16', '3', '菰米腊鸭腿煲仔饭', '/03/0305.png', '20', '1', null, '2014-12-12 13:26:16', null);
-INSERT INTO `t_dish` VALUES ('17', '3', '蒜蓉粉丝蒸扇贝', '/03/0306.png', '25', '1', null, '2014-12-12 13:26:17', null);
-INSERT INTO `t_dish` VALUES ('18', '3', '豉香蒸排骨', '/03/0307.png', '30', '1', null, '2014-12-12 13:26:18', null);
-INSERT INTO `t_dish` VALUES ('19', '4', '宫保虾灯', '/04/0401.png', '20', '1', null, '2014-12-12 13:26:19', null);
-INSERT INTO `t_dish` VALUES ('20', '4', '木耳炒白菜', '/04/0402.png', '25', '1', null, '2014-12-12 13:26:20', null);
-INSERT INTO `t_dish` VALUES ('21', '4', '泡菜五花肉', '/04/0403.png', '30', '1', null, '2014-12-12 13:26:21', null);
-INSERT INTO `t_dish` VALUES ('22', '4', '滑蛋虾仁', '/04/0404.png', '20', '1', null, '2014-12-12 13:26:22', null);
-INSERT INTO `t_dish` VALUES ('23', '4', '软炸虾仁', '/04/0405.png', '25', '1', null, '2014-12-12 13:26:23', null);
-INSERT INTO `t_dish` VALUES ('24', '4', '香醋花生', '/04/0406.png', '30', '1', null, '2014-12-12 13:26:24', null);
-INSERT INTO `t_dish` VALUES ('25', '5', '上汤龙虾球', '/05/0501.png', '20', '1', null, '2014-12-12 13:26:25', null);
-INSERT INTO `t_dish` VALUES ('26', '5', '文蛤炖蛋', '/05/0502.png', '25', '1', null, '2014-12-12 13:26:26', null);
-INSERT INTO `t_dish` VALUES ('27', '5', '核桃虾仁', '/05/0503.png', '30', '1', null, '2014-12-12 13:26:27', null);
-INSERT INTO `t_dish` VALUES ('28', '5', '白灼花蟹', '/05/0504.png', '20', '1', null, '2014-12-12 13:26:28', null);
-INSERT INTO `t_dish` VALUES ('29', '5', '白灼虾', '/05/0505.png', '25', '1', null, '2014-12-12 13:26:29', null);
-INSERT INTO `t_dish` VALUES ('30', '5', '龙井虾仁', '/05/0506.png', '30', '1', null, '2014-12-12 13:26:30', null);
-INSERT INTO `t_dish` VALUES ('31', '6', '九江双蒸酒', '/06/0601.png', '20', '1', null, '2014-12-12 13:26:31', null);
-INSERT INTO `t_dish` VALUES ('32', '6', '小糊涂神', '/06/0602.png', '25', '1', null, '2014-12-12 13:26:32', null);
-INSERT INTO `t_dish` VALUES ('33', '6', '泸州老窖', '/06/0603.png', '30', '1', null, '2014-12-12 13:26:33', null);
-INSERT INTO `t_dish` VALUES ('34', '6', '红秀天香', '/06/0604.png', '20', '1', null, '2014-12-12 13:26:34', null);
-INSERT INTO `t_dish` VALUES ('35', '6', '贵州茅台酒', '/06/0605.png', '25', '1', null, '2014-12-12 13:26:35', null);
-INSERT INTO `t_dish` VALUES ('36', '6', '长城干红葡萄酒', '/06/0606.png', '30', '1', null, '2014-12-12 13:26:36', null);
-INSERT INTO `t_dish` VALUES ('37', '7', '冰红茶', '/07/0701.png', '20', '1', null, '2014-12-12 13:26:37', null);
-INSERT INTO `t_dish` VALUES ('38', '7', '奶茶', '/07/0702.png', '25', '1', null, '2014-12-12 13:26:38', null);
-INSERT INTO `t_dish` VALUES ('39', '7', '拿铁咖啡', '/07/0703.png', '30', '1', null, '2014-12-12 13:26:39', null);
-INSERT INTO `t_dish` VALUES ('40', '7', '橙汁', '/07/0704.png', '20', '1', null, '2014-12-12 13:26:40', null);
-INSERT INTO `t_dish` VALUES ('41', '7', '西瓜汁', '/07/0705.png', '25', '1', null, '2014-12-12 13:26:41', null);
-INSERT INTO `t_dish` VALUES ('42', '7', '酸梅汤', '/07/0706.png', '30', '1', null, '2014-12-12 13:26:42', null);
-INSERT INTO `t_dish` VALUES ('43', '8', '五仁月饼', '/08/0801.png', '20', '1', null, '2014-12-12 13:26:43', null);
-INSERT INTO `t_dish` VALUES ('44', '8', '凉糕', '/08/0802.png', '25', '1', null, '2014-12-12 13:26:44', null);
-INSERT INTO `t_dish` VALUES ('45', '8', '杯子蛋糕', '/08/0803.png', '30', '1', null, '2014-12-12 13:26:45', null);
-INSERT INTO `t_dish` VALUES ('46', '8', '水果慕斯蛋糕', '/08/0804.png', '20', '1', null, '2014-12-12 13:26:46', null);
-INSERT INTO `t_dish` VALUES ('47', '8', '蔓越莓小蛋糕', '/08/0805.png', '25', '1', null, '2014-12-12 13:26:47', null);
-INSERT INTO `t_dish` VALUES ('48', '8', '香橙蛋糕卷', '/08/0806.png', '30', '1', null, '2014-12-12 13:26:48', null);
-INSERT INTO `t_dish` VALUES ('49', '9', '南瓜饼', '/09/0901.png', '20', '1', null, '2014-12-12 13:26:49', null);
-INSERT INTO `t_dish` VALUES ('50', '9', '热带海鲜炬饭', '/09/0902.png', '25', '1', null, '2014-12-12 13:26:50', null);
-INSERT INTO `t_dish` VALUES ('51', '9', '紫薯花卷', '/09/0903.png', '30', '1', null, '2014-12-12 13:26:51', null);
-INSERT INTO `t_dish` VALUES ('52', '9', '芋头腊味饭', '/09/0904.png', '20', '1', null, '2014-12-12 13:26:52', null);
-INSERT INTO `t_dish` VALUES ('53', '9', '香煎土豆饼', '/09/0905.png', '25', '1', null, '2014-12-12 13:26:53', null);
-INSERT INTO `t_dish` VALUES ('54', '9', '麻酱拌意面', '/09/0906.png', '30', '1', null, '2014-12-12 13:26:54', null);
-INSERT INTO `t_dish` VALUES ('55', '10', '小鸡炖蘑菇', '/09/0901.png', '20', '1', null, '2014-12-12 13:26:49', null);
-INSERT INTO `t_dish` VALUES ('56', '10', '番薯炖牛肉', '/09/0902.png', '25', '1', null, '2014-12-12 13:26:50', null);
-INSERT INTO `t_dish` VALUES ('57', '10', '胡萝卜炖羊肉', '/09/0903.png', '30', '1', null, '2014-12-12 13:26:51', null);
-INSERT INTO `t_dish` VALUES ('58', '10', '金针炖猪蹄', '/09/0904.png', '20', '1', null, '2014-12-12 13:26:52', null);
-INSERT INTO `t_dish` VALUES ('59', '10', '鲜奶炖鸡汤', '/09/0905.png', '25', '1', null, '2014-12-12 13:26:53', null);
+INSERT INTO `t_dish` VALUES ('1', '1', '手撕包菜', '/01/0101.png', '20.00', '1', null, '2014-12-12 13:26:01', null);
+INSERT INTO `t_dish` VALUES ('2', '1', '无油版左公鸡', '/01/0102.png', '25.01', '1', null, '2014-12-12 13:26:02', null);
+INSERT INTO `t_dish` VALUES ('3', '1', '毛氏红烧肉', '/01/0103.png', '30.00', '1', null, '2014-12-12 13:26:03', null);
+INSERT INTO `t_dish` VALUES ('4', '1', '泡椒风爪', '/01/0104.png', '20.00', '1', null, '2014-12-12 13:26:04', null);
+INSERT INTO `t_dish` VALUES ('5', '1', '豆豉炒香干', '/01/0105.png', '25.00', '1', null, '2014-12-12 13:26:05', null);
+INSERT INTO `t_dish` VALUES ('6', '1', '辣子鸡', '/01/0106.png', '30.00', '1', null, '2014-12-12 13:26:06', null);
+INSERT INTO `t_dish` VALUES ('7', '2', '剁椒鱼头', '/02/0201.png', '20.00', '1', null, '2014-12-12 13:26:07', null);
+INSERT INTO `t_dish` VALUES ('8', '2', '口水鸡', '/02/0202.png', '25.00', '1', null, '2014-12-12 13:26:08', null);
+INSERT INTO `t_dish` VALUES ('9', '2', '四川咸烧白', '/02/0203.png', '30.00', '1', null, '2014-12-12 13:26:09', null);
+INSERT INTO `t_dish` VALUES ('10', '2', '川椒大蒜肚条', '/02/0204.png', '20.00', '1', null, '2014-12-12 13:26:10', null);
+INSERT INTO `t_dish` VALUES ('11', '2', '水煮牛肉', '/02/0205.png', '25.00', '1', null, '2014-12-12 13:26:11', null);
+INSERT INTO `t_dish` VALUES ('12', '3', '宫保鸡丁', '/03/0301.png', '30.00', '1', null, '2014-12-12 13:26:12', null);
+INSERT INTO `t_dish` VALUES ('13', '3', '支竹焖羊肉', '/03/0302.png', '20.00', '1', null, '2014-12-12 13:26:13', null);
+INSERT INTO `t_dish` VALUES ('14', '3', '腊鸭腿煲仔饭', '/03/0303.png', '25.00', '1', null, '2014-12-12 13:26:14', null);
+INSERT INTO `t_dish` VALUES ('15', '3', '菠萝咕咾肉', '/03/0304.png', '30.00', '1', null, '2014-12-12 13:26:15', null);
+INSERT INTO `t_dish` VALUES ('16', '3', '菰米腊鸭腿煲仔饭', '/03/0305.png', '20.00', '1', null, '2014-12-12 13:26:16', null);
+INSERT INTO `t_dish` VALUES ('17', '3', '蒜蓉粉丝蒸扇贝', '/03/0306.png', '25.00', '1', null, '2014-12-12 13:26:17', null);
+INSERT INTO `t_dish` VALUES ('18', '3', '豉香蒸排骨', '/03/0307.png', '30.00', '1', null, '2014-12-12 13:26:18', null);
+INSERT INTO `t_dish` VALUES ('19', '4', '宫保虾灯', '/04/0401.png', '20.00', '1', null, '2014-12-12 13:26:19', null);
+INSERT INTO `t_dish` VALUES ('20', '4', '木耳炒白菜', '/04/0402.png', '25.00', '1', null, '2014-12-12 13:26:20', null);
+INSERT INTO `t_dish` VALUES ('21', '4', '泡菜五花肉', '/04/0403.png', '30.00', '1', null, '2014-12-12 13:26:21', null);
+INSERT INTO `t_dish` VALUES ('22', '4', '滑蛋虾仁', '/04/0404.png', '20.00', '1', null, '2014-12-12 13:26:22', null);
+INSERT INTO `t_dish` VALUES ('23', '4', '软炸虾仁', '/04/0405.png', '25.00', '1', null, '2014-12-12 13:26:23', null);
+INSERT INTO `t_dish` VALUES ('24', '4', '香醋花生', '/04/0406.png', '30.00', '1', null, '2014-12-12 13:26:24', null);
+INSERT INTO `t_dish` VALUES ('25', '5', '上汤龙虾球', '/05/0501.png', '20.00', '1', null, '2014-12-12 13:26:25', null);
+INSERT INTO `t_dish` VALUES ('26', '5', '文蛤炖蛋', '/05/0502.png', '25.00', '1', null, '2014-12-12 13:26:26', null);
+INSERT INTO `t_dish` VALUES ('27', '5', '核桃虾仁', '/05/0503.png', '30.00', '1', null, '2014-12-12 13:26:27', null);
+INSERT INTO `t_dish` VALUES ('28', '5', '白灼花蟹', '/05/0504.png', '20.00', '1', null, '2014-12-12 13:26:28', null);
+INSERT INTO `t_dish` VALUES ('29', '5', '白灼虾', '/05/0505.png', '25.00', '1', null, '2014-12-12 13:26:29', null);
+INSERT INTO `t_dish` VALUES ('30', '5', '龙井虾仁', '/05/0506.png', '30.00', '1', null, '2014-12-12 13:26:30', null);
+INSERT INTO `t_dish` VALUES ('31', '6', '九江双蒸酒', '/06/0601.png', '20.00', '1', null, '2014-12-12 13:26:31', null);
+INSERT INTO `t_dish` VALUES ('32', '6', '小糊涂神', '/06/0602.png', '25.00', '1', null, '2014-12-12 13:26:32', null);
+INSERT INTO `t_dish` VALUES ('33', '6', '泸州老窖', '/06/0603.png', '30.00', '1', null, '2014-12-12 13:26:33', null);
+INSERT INTO `t_dish` VALUES ('34', '6', '红秀天香', '/06/0604.png', '20.00', '1', null, '2014-12-12 13:26:34', null);
+INSERT INTO `t_dish` VALUES ('35', '6', '贵州茅台酒', '/06/0605.png', '25.00', '1', null, '2014-12-12 13:26:35', null);
+INSERT INTO `t_dish` VALUES ('36', '6', '长城干红葡萄酒', '/06/0606.png', '30.00', '1', null, '2014-12-12 13:26:36', null);
+INSERT INTO `t_dish` VALUES ('37', '7', '冰红茶', '/07/0701.png', '20.00', '1', null, '2014-12-12 13:26:37', null);
+INSERT INTO `t_dish` VALUES ('38', '7', '奶茶', '/07/0702.png', '25.00', '1', null, '2014-12-12 13:26:38', null);
+INSERT INTO `t_dish` VALUES ('39', '7', '拿铁咖啡', '/07/0703.png', '30.00', '1', null, '2014-12-12 13:26:39', null);
+INSERT INTO `t_dish` VALUES ('40', '7', '橙汁', '/07/0704.png', '20.00', '1', null, '2014-12-12 13:26:40', null);
+INSERT INTO `t_dish` VALUES ('41', '7', '西瓜汁', '/07/0705.png', '25.00', '1', null, '2014-12-12 13:26:41', null);
+INSERT INTO `t_dish` VALUES ('42', '7', '酸梅汤', '/07/0706.png', '30.00', '1', null, '2014-12-12 13:26:42', null);
+INSERT INTO `t_dish` VALUES ('43', '8', '五仁月饼', '/08/0801.png', '20.00', '1', null, '2014-12-12 13:26:43', null);
+INSERT INTO `t_dish` VALUES ('44', '8', '凉糕', '/08/0802.png', '25.00', '1', null, '2014-12-12 13:26:44', null);
+INSERT INTO `t_dish` VALUES ('45', '8', '杯子蛋糕', '/08/0803.png', '30.00', '1', null, '2014-12-12 13:26:45', null);
+INSERT INTO `t_dish` VALUES ('46', '8', '水果慕斯蛋糕', '/08/0804.png', '20.00', '1', null, '2014-12-12 13:26:46', null);
+INSERT INTO `t_dish` VALUES ('47', '8', '蔓越莓小蛋糕', '/08/0805.png', '25.00', '1', null, '2014-12-12 13:26:47', null);
+INSERT INTO `t_dish` VALUES ('48', '8', '香橙蛋糕卷', '/08/0806.png', '30.00', '1', null, '2014-12-12 13:26:48', null);
+INSERT INTO `t_dish` VALUES ('49', '9', '南瓜饼', '/09/0901.png', '20.00', '1', null, '2014-12-12 13:26:49', null);
+INSERT INTO `t_dish` VALUES ('50', '9', '热带海鲜炬饭', '/09/0902.png', '25.00', '1', null, '2014-12-12 13:26:50', null);
+INSERT INTO `t_dish` VALUES ('51', '9', '紫薯花卷', '/09/0903.png', '30.00', '1', null, '2014-12-12 13:26:51', null);
+INSERT INTO `t_dish` VALUES ('52', '9', '芋头腊味饭', '/09/0904.png', '20.00', '1', null, '2014-12-12 13:26:52', null);
+INSERT INTO `t_dish` VALUES ('53', '9', '香煎土豆饼', '/09/0905.png', '25.00', '1', null, '2014-12-12 13:26:53', null);
+INSERT INTO `t_dish` VALUES ('54', '9', '麻酱拌意面', '/09/0906.png', '30.00', '1', null, '2014-12-12 13:26:54', null);
+INSERT INTO `t_dish` VALUES ('55', '10', '小鸡炖蘑菇', '/09/0901.png', '20.00', '1', null, '2014-12-12 13:26:49', null);
+INSERT INTO `t_dish` VALUES ('56', '10', '番薯炖牛肉', '/09/0902.png', '25.00', '1', null, '2014-12-12 13:26:50', null);
+INSERT INTO `t_dish` VALUES ('57', '10', '胡萝卜炖羊肉', '/09/0903.png', '30.00', '1', null, '2014-12-12 13:26:51', null);
+INSERT INTO `t_dish` VALUES ('58', '10', '金针炖猪蹄', '/09/0904.png', '20.00', '1', null, '2014-12-12 13:26:52', null);
+INSERT INTO `t_dish` VALUES ('59', '10', '鲜奶炖鸡汤', '/09/0905.png', '25.00', '1', null, '2014-12-12 13:26:53', null);
 
 -- ----------------------------
 -- Table structure for `t_function`
