@@ -265,13 +265,13 @@ public class CategoryAction extends BaseAction {
                     pageInput = 1;
                 }
 
-                categories = categoryService.getCategoriesByPageWithDefault(pageInput,
-                        Constants.PAGE_SIZE);
+                categories = categoryService.getCategoriesByPageWithDefault(
+                        pageInput, Constants.PAGE_SIZE);
 
                 pageNow = pageInput;
             } else {
-                categories = categoryService.getCategoriesByPageWithDefault(pageNow,
-                        Constants.PAGE_SIZE);
+                categories = categoryService.getCategoriesByPageWithDefault(
+                        pageNow, Constants.PAGE_SIZE);
             }
         } catch (PageIndexOutOfBoundExcpeiton e) {
             this.setMessage(e.getMessage());
@@ -297,6 +297,8 @@ public class CategoryAction extends BaseAction {
             isValidVO = false;
             addFieldError("category.name",
                     MessageUtil.getMessage("category_name_rule"));
+        } else {
+            category.setName(category.getName());
         }
 
         if (StringUtil.isEmpty(category.getPicPath())) {
