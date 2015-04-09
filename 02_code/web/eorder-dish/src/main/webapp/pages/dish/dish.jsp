@@ -86,6 +86,7 @@
 							<!-- 分页跳转 -->
 							<div class="message" style="width: 40%; float: right">
 								<form name="pageForm" id="pageForm">
+									<s:hidden id="categoryId" name="categoryId" />
 									<s:hidden id="pageNow" name="pageNow" />
 									<s:hidden id="pageTotal" name="pageTotal" />
 									<ul class="paginList" style="margin-right: -12px">
