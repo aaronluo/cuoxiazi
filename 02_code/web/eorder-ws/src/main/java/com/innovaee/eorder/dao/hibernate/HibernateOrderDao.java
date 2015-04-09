@@ -113,9 +113,14 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                     criteria.add(Restrictions.eq("servent.id", orderCriteria.getServentId()));
                 }
                 //会员ID
-                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
+//                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
+//                    criteria.createAlias("member", "member");
+//                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
+//                }
+                //会员手机号
+                if(null != orderCriteria.getCellphone() && orderCriteria.getCellphone().length() > 0) {
                     criteria.createAlias("member", "member");
-                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
+                    criteria.add(Restrictions.like("member.memberId", orderCriteria.getCellphone(), MatchMode.ANYWHERE));
                 }
                  //收银员ID
                 if(null != orderCriteria.getCashierId() && orderCriteria.getCashierId() > 0L) {
@@ -190,10 +195,16 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                     criteria.add(Restrictions.eq("servent.id", orderCriteria.getServentId()));
                 }
                 //会员ID
-                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
+//                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
+//                    criteria.createAlias("member", "member");
+//                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
+//                }
+              //会员手机号
+                if(null != orderCriteria.getCellphone() && orderCriteria.getCellphone().length() > 0) {
                     criteria.createAlias("member", "member");
-                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
+                    criteria.add(Restrictions.like("member.memberId", orderCriteria.getCellphone(), MatchMode.ANYWHERE));
                 }
+                
                  //收银员ID
                 if(null != orderCriteria.getCashierId() && orderCriteria.getCashierId() > 0L) {
                     criteria.createAlias("casher", "casher");

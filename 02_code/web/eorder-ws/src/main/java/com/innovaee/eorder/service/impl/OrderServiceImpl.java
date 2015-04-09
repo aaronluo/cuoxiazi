@@ -344,4 +344,30 @@ public class OrderServiceImpl implements OrderService {
         
         return order;
     }
+
+    /**
+     * 更新订单信息，这里比较简洁的处理订单的更新，只能更新订单的状态，收银员和会员信息
+     * 
+     * @param order
+     *            返回更新后的Order实体
+     * @return
+     * @throws OrderNotFoundException
+     */
+    @Override
+    public Order updateOrder(NewOrderVO orderVO) throws OrderNotFoundException {
+        Order order = orderDao.get(orderVO.getId());
+        
+        if(null == order) {
+            throw new OrderNotFoundException(
+                    MessageUtil.getMessage("order_id", "" + orderVO.getId()));
+        }
+        
+        order.setOrderStatus(orderVO.getStatus());
+        order.setCasher(userDao.get(orderVO.getCashierId()));
+        order.setMember(userDao.get(orderVO.getMemberId()));
+
+        orderDao.update(order);
+        
+        return order;
+    }
 }

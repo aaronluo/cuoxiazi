@@ -32,7 +32,7 @@ public interface OrderService {
      * @param orderId
      *            订单ID
      * @return 订单
-     * @throws OrderNotFoundException 
+     * @throws OrderNotFoundException
      */
     public Order getOrderById(Long orderId) throws OrderNotFoundException;
 
@@ -111,8 +111,19 @@ public interface OrderService {
      *             订单未找到异常
      * @throws UserNotFoundException
      *             用户未找到异常
-     * @throws OrderOperationException 
+     * @throws OrderOperationException
      */
     public Order payTheOrder(Long orderId, Long casherId)
-            throws OrderNotFoundException, UserNotFoundException, OrderOperationException;
+            throws OrderNotFoundException, UserNotFoundException,
+            OrderOperationException;
+
+    /**
+     * 更新订单信息，这里比较简洁的处理订单的更新，只能更新订单的状态，收银员和会员信息
+     * 
+     * @param order
+     *            返回更新后的Order实体
+     * @return
+     * @throws OrderNotFoundException
+     */
+    public Order updateOrder(NewOrderVO order) throws OrderNotFoundException;
 }

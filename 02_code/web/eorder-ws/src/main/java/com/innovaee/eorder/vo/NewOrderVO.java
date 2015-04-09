@@ -45,6 +45,9 @@ public class NewOrderVO extends BaseVO {
     /**订单总价最大值 **/
     @XmlTransient
     private float totalPriceMax;
+    /**会员手机号 **/
+    @XmlTransient
+    private String  cellphone;
     /**用餐桌号**/
     private Integer tableNumber;
     /**用餐人数**/
@@ -75,10 +78,17 @@ public class NewOrderVO extends BaseVO {
 
 
     /**下面为该对象属性setter/getter函数组**/
+    
     public Integer getTableNumber() {
         return tableNumber;
     }
 
+    public String getCellphone() {
+        return cellphone;
+    }
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
     public void setTableNumber(Integer tableNumber) {
         this.tableNumber = tableNumber;
     }
