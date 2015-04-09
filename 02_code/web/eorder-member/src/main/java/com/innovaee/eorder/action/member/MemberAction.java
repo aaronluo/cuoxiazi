@@ -116,18 +116,26 @@ public class MemberAction extends BaseAction {
         try {
             level = memberService.getUserLevelById(level.getId());
             // 验证输入用户名是否为手机号
+           
             if (!StringUtil.isMobileNO(user.getCellphone())) {
                 logger.error(MessageUtil.getMessage("cellphone_invalid"));
                 this.setMessage(MessageUtil.getMessage("cellphone_invalid"));
-
+                
                 return ERROR;
             } else {
+                user.setCellphone(user.getCellphone().trim());
                 final User checkUser = userService.findUserByUserName(user.getCellphone());
                 if (null != checkUser) {
-//                    memberService.addMemberShipToUser(level.getId(), checkUser.getId(), true);
-                    this.setMessage(MessageUtil.getMessage("member_already_exists", 
+                    if(null == checkUser.getMemberShip()){
+                        memberService.addMemberShipToUser(level.getId(), checkUser.getId(), true);
+                        this.refreshMemberList();
+                        
+                        return SUCCESS;
+                    }else{
+                        this.setMessage(MessageUtil.getMessage("member_already_exists", 
                                 checkUser.getMemberShip().getLevel().getLevelName()));
-                    return ERROR;
+                        return ERROR;          
+                    }
                 } else {
                     user.setUsername(user.getCellphone());
                     user.setPassword(user.getCellphone());
@@ -150,10 +158,11 @@ public class MemberAction extends BaseAction {
             return ERROR;
         } finally {
             levels = memberService.getAllUserLevels();
-            this.refreshMemberList();
             this.refreshPageData();
         }
 
+        this.refreshMemberList();
+        
         this.setMessage(MessageUtil.getMessage("member_add_success"));
         return SUCCESS;
     }
@@ -193,8 +202,6 @@ public class MemberAction extends BaseAction {
                 
                 return ERROR;
             }
-            
-            user = userService.findUserByCellphone(user.getCellphone());
             
             if(null != user) {             
                 if(newScore != user.getMemberShip().getCurrentScore() 
@@ -319,9 +326,9 @@ public class MemberAction extends BaseAction {
                 users = memberService.getUsersbyUserLevel(level.getId(), pageNow,
                         Constants.PAGE_SIZE);
             }catch(PageIndexOutOfBoundExcpeiton exception) {
-                if(StringUtil.isEmpty(user.getCellphone())){
+//                if(StringUtil.isEmpty(user.getCellphone())){
                     this.setMessage(MessageUtil.getMessage("member_empty"));
-                }
+//                }
             }
             catch (Exception exception) {
                 logger.error(exception.getMessage());

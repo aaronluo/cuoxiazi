@@ -17,7 +17,7 @@
 	
 	<div class="rightinfo" style="margin-top:50px">
 		<div	class="tablePanel" >
-			<form id="saveForm" name="saveForm" action="save">
+			<form id="saveForm" name="saveForm" >
 				<ul class="forminfo">
 					<li><label><s:text name="member_id_label" /></label>
 					<s:textfield cssClass="dfinput"  type="text"  name="user.cellphone"  cssStyle="width:285px"/>
@@ -31,7 +31,7 @@
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="save();"
+						name="" type="submit" class="btn" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
@@ -54,7 +54,7 @@
 	
 	<div class="rightinfo" style="margin-top:50px">
 		<div	class="tablePanel" >
-			<form id="updateForm" name="updateForm" action="update">
+			<form id="updateForm" name="updateForm" >
 				<s:hidden name="user.cellphone" />
 				<s:hidden name="level.id" />
 				<ul class="forminfo">
@@ -86,7 +86,7 @@
 					<li><label>&nbsp;&nbsp;</label><input id="btnUpdate" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="checkNumber();"
+						name="" type="submit" class="btn" onclick="checkNumber();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>

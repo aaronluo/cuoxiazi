@@ -31,7 +31,7 @@
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="save();"
+						type="submit" class="btn" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>
@@ -69,7 +69,7 @@
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
-						name="" type="button" class="btn" onclick="update();"
+						type="submit" class="btn" onclick="update();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
 			</form>

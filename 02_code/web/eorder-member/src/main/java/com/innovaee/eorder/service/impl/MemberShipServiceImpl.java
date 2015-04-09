@@ -214,6 +214,10 @@ public class MemberShipServiceImpl implements MemberShipServcie {
 
         int userLevelCount = userLevelDao.loadAll().size() - 1;
 
+        if (userLevelCount ==0) {
+            return 0;
+        }
+        
         return userLevelCount % pageSize == 0 ? userLevelCount / pageSize
                 : userLevelCount / pageSize + 1;
 
@@ -443,6 +447,10 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             throws UserLevelNotFoundException, InvalidPageSizeException {
         int count = getUsersByUserLevelCount(userLevelId);
 
+        if (count ==0) {
+            return 0;
+        }
+        
         return count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
     }
 

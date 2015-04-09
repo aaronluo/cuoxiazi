@@ -25,6 +25,7 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -64,7 +65,7 @@ public class LevelAction extends BaseAction {
     public String list() {
         level = new UserLevelVO();
         // 取得当前页面需要的会员等级信息集合
-        getLevelList(); 
+        refreshLevelList(); 
 
         // 刷新系统菜单
         this.refreshPageData();
@@ -78,7 +79,7 @@ public class LevelAction extends BaseAction {
     public String add(){
        level = new UserLevelVO();
         
-       getLevelList(); 
+       refreshLevelList(); 
        refreshPageData();
         return SUCCESS;
     }
@@ -105,7 +106,7 @@ public class LevelAction extends BaseAction {
             
             return ERROR;
         }finally{
-            getLevelList(); 
+            refreshLevelList(); 
             refreshPageData();
         }
         
@@ -117,8 +118,14 @@ public class LevelAction extends BaseAction {
      * @return
      */
     public String remove() {
-        try {  
-            List<User> users = memberService.getUsersbyUserLevel(level.getId(), 1, Integer.MAX_VALUE);
+        try {
+            
+            int userCount = memberService.getUsersByUserLevelCount(level.getId());
+            List<User> users = new ArrayList<User>();
+            
+            if (userCount > 0) {
+                users = memberService.getUsersbyUserLevel(level.getId(), 1, Integer.MAX_VALUE);
+            }
             memberService.deleteUserLevel(level.getId());
             
             for (User user : users) {
@@ -133,7 +140,7 @@ public class LevelAction extends BaseAction {
             setMessage(e.getMessage());
             return ERROR;
         }finally{
-            getLevelList(); 
+            refreshLevelList(); 
             refreshPageData();
         }
         
@@ -183,7 +190,7 @@ public class LevelAction extends BaseAction {
             
             return ERROR;
         }finally{
-            getLevelList(); 
+            refreshLevelList(); 
             refreshPageData();
         }
         
@@ -224,9 +231,12 @@ public class LevelAction extends BaseAction {
             addFieldError("level.discount", MessageUtil.getMessage("level_discount_rule"));
         }
         
+        
         if(StringUtil.isEmpty(level.getName())) {
             isValidVO = false;
             addFieldError("level.name", MessageUtil.getMessage("level_name_rule"));
+        }else{
+            level.setName(level.getName().trim());
         }
         
         if(level.getLevelScore() < 0) {
@@ -241,7 +251,7 @@ public class LevelAction extends BaseAction {
     /**
      * 获取用户等级列表
      */
-    private void getLevelList() {
+    private void refreshLevelList() {
         try {
             count = memberService.getAllUserLevels().size();
             pageTotal = memberService.getUserLevelPageCount(Constants.PAGE_SIZE);
