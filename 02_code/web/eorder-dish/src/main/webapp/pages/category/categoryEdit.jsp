@@ -38,7 +38,7 @@
 
 	<div class="rightinfo" style="margin-top: 50px">
 		<div class="tablePanel">
-			<form id="saveForm" name="saveForm" action="save">
+			<form id="saveForm" name="saveForm">
 				<s:hidden id="category.picPath" name="category.picPath" />
 				<ul class="forminfo">
 					<li><label><s:text name="category_name_label" /></label><input
@@ -75,7 +75,7 @@
 
 	<div class="rightinfo" style="margin-top: 50px">
 		<div class="tablePanel">
-			<form id="updateForm" name="updateForm" action="update">
+			<form id="updateForm" name="updateForm">
 				<s:hidden id="category.id" name="category.id" value="%{category.id}"></s:hidden>
 				<s:hidden id="category.picPath" name="category.picPath" />
 				<ul class="forminfo">

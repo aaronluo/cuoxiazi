@@ -40,38 +40,38 @@
 									src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
 					</ul>
 				</div>
-				<s:if test="0 != pageTotal">
-					<!-- 菜品列表 -->
-					<div class="tablePanel">
-						<table class="tablelist">
-							<thead>
-								<tr>
-									<th width="18%"><s:text name="dish_name_label" /></th>
-									<th width="8%"><s:text name="dish_price_label" /></th>
-									<th><s:text name="dish_picture_label" /></th>
-									<th width="8%"><s:text name="edit" /></th>
-									<th width="8%"><s:text name="delete" /></th>
-								</tr>
-							</thead>
-							<tbody>
-								<s:iterator value="dishvos" status="status">
-									<tr class='<s:if test="#status.even">odd</s:if>'>
-										<td><s:property value="name" /></td>
-										<td><s:property value="price" /></td>
-										<td class="imgtd"><img
-											style="height: 64px; width: 64px; padding: 5px;"
-											src='../resources/images<s:property value="picPath" />'></td>
-										<td><a
-											href='<s:url action="edit"><s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
-											class="tablelink"><s:text name="edit" /></a></td>
-										<td><a
-											href='<s:url action="remove"> <s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
-											class="tablelink"><s:text name="delete" /></a></td>
-									</tr>
-								</s:iterator>
-							</tbody>
-						</table>
 
+				<!-- 菜品列表 -->
+				<div class="tablePanel">
+					<table class="tablelist">
+						<thead>
+							<tr>
+								<th width="18%"><s:text name="dish_name_label" /></th>
+								<th width="8%"><s:text name="dish_price_label" /></th>
+								<th><s:text name="dish_picture_label" /></th>
+								<th width="8%"><s:text name="edit" /></th>
+								<th width="8%"><s:text name="delete" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<s:iterator value="dishvos" status="status">
+								<tr class='<s:if test="#status.even">odd</s:if>'>
+									<td><s:property value="name" /></td>
+									<td><s:property value="price" /></td>
+									<td class="imgtd"><img
+										style="height: 64px; width: 64px; padding: 5px;"
+										src='../resources/images<s:property value="picPath" />'></td>
+									<td><a
+										href='<s:url action="edit"><s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
+										class="tablelink"><s:text name="edit" /></a></td>
+									<td><a
+										href='<s:url action="remove"> <s:param name="categoryId" value="categoryId" /><s:param name="id" value="id" /></s:url>'
+										class="tablelink"><s:text name="delete" /></a></td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table>
+					<s:if test="0 != pageTotal">
 						<!-- 分页信息 -->
 						<div class="pagin" style="padding: 0 0">
 							<div class="message" style="width: 60%; float: left">
@@ -112,8 +112,9 @@
 								</form>
 							</div>
 						</div>
-					</div>
-				</s:if>
+					</s:if>
+				</div>
+
 				<!-- 消息显示 -->
 				<div class="msgPanel">
 					<s:property value="message" />

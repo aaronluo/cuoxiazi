@@ -395,6 +395,8 @@ public class DishAction extends BaseAction {
         if (StringUtil.isEmpty(dish.getName())) {
             isValidVO = false;
             addFieldError("dish.name", MessageUtil.getMessage("dish_name_rule"));
+        } else {
+            dish.setName(dish.getName());
         }
 
         if (StringUtil.isEmpty(dish.getPicPath())) {
