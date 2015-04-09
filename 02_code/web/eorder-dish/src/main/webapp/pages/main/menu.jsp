@@ -12,8 +12,6 @@
 
 <!--左侧菜单 begin-->
 <div style="background: #f0f9fd;">
-	<div class="lefttop"><span></span>
-    </div>
 	<s:iterator value="menuList" id="banner">
 		<dl class="leftmenu" >
 			<s:hidden id="currentFunctionDesc" name="currentFunctionDesc" />
