@@ -56,7 +56,7 @@
 		<div	class="tablePanel" >
 			<form id="updateForm" name="updateForm" >
 				<s:hidden name="user.cellphone" />
-				<s:hidden name="level.id" />
+				<s:hidden name="user.memberShip.level.id" />
 				<ul class="forminfo">
 					<li><label><s:text name="member_id_label" /></label>
 					<s:textfield cssClass="dfinput"  type="text"  name="user.cellphone"  disabled="true" cssStyle="width:285px"/>
@@ -71,6 +71,8 @@
 						<label><s:text name="member_score"/></label>
 						<s:textfield cssClass="dfinput" type="text" name="user.memberShip.currentScore" cssStyle="width:285px"/>
 						<script>
+						$('input#user_memberShip_currentScore').focus();
+						
 							function checkNumber() {
 								var newScore = $('input#user_memberShip_currentScore').val();
 								var reg = new RegExp("^[0-9]*$");

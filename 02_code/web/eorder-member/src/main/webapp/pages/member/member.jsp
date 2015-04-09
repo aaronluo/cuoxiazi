@@ -74,6 +74,7 @@
 		</table>
 		
 		<!-- 分页信息 -->
+		<s:if test="users.size != 0">
 		<div class="pagin" style="padding:0 0">
 			<div class="message"  style="width:60%;float:left">
 				<s:text name="total" />
@@ -118,6 +119,7 @@
 				</form>
 			</div>	
 		</div>
+		</s:if>
 	</div>
 	</s:if>
 	<!-- 消息显示 -->

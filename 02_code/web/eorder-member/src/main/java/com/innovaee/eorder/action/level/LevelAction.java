@@ -254,6 +254,10 @@ public class LevelAction extends BaseAction {
     private void refreshLevelList() {
         try {
             count = memberService.getAllUserLevels().size();
+            
+            if (count == 0) {
+                return ;
+            }
             pageTotal = memberService.getUserLevelPageCount(Constants.PAGE_SIZE);
             
             if(pageInput != null) {

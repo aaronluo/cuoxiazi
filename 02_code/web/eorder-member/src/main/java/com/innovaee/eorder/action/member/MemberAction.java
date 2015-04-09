@@ -196,6 +196,7 @@ public class MemberAction extends BaseAction {
     public String update() {
         try{
             int newScore = user.getMemberShip().getCurrentScore();
+            user = userService.findUserByCellphone(user.getCellphone());
             
             if(newScore < 0) {
                 this.setMessage(MessageUtil.getMessage("member_bad_score"));
@@ -207,9 +208,8 @@ public class MemberAction extends BaseAction {
                 if(newScore != user.getMemberShip().getCurrentScore() 
                         || newScore != user.getMemberShip().getLevel().getLevelScore()) {
                     memberService.updateUserMemberShip(user.getId(), newScore);
-                    
-                    level = userService.findUserByCellphone(user.getCellphone()).getMemberShip().getLevel();
                 }
+                
             }
             
         }catch(Exception exception) {
@@ -219,6 +219,7 @@ public class MemberAction extends BaseAction {
             return ERROR;
         }finally{
             levels = memberService.getAllUserLevels();
+            level = userService.findUserByCellphone(user.getCellphone()).getMemberShip().getLevel();
             this.refreshMemberList();
             this.refreshPageData();
         }
@@ -239,6 +240,8 @@ public class MemberAction extends BaseAction {
 
             level = user.getMemberShip().getLevel();
             memberService.deleteMemberShipOfUser(user.getId());
+            
+            this.setMessage(MessageUtil.getMessage("member_remove_success"));
         } catch (Exception exception) {
             logger.error(exception.getMessage());
 
@@ -310,6 +313,14 @@ public class MemberAction extends BaseAction {
             // 选择了一个会员等级
             try {
                 count = memberService.getUsersByUserLevelCount(level.getId());
+                
+                if(count == 0) {
+                    if(null == user || null == user.getId() || user.getId() == 0){
+                        this.setMessage(MessageUtil.getMessage("member_empty"));
+                    }
+                    return ;
+                }
+                
                 pageTotal = memberService.getUsersByUserLevelPageCount(level.getId(),
                         Constants.PAGE_SIZE);
 
