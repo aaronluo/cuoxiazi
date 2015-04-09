@@ -37,7 +37,7 @@ CREATE TABLE `t_dish` (
   `category_id` bigint(20) DEFAULT NULL,
   `dish_name` varchar(128) NOT NULL,
   `dish_picture` varchar(256) DEFAULT NULL,
-  `dish_price` decimal(15,2) DEFAULT '0.00',
+  `dish_price` float(64,2) DEFAULT NULL,
   `on_sell` tinyint(1) DEFAULT 1,
   `misc` varchar(128) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
