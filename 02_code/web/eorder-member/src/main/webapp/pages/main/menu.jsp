@@ -11,9 +11,7 @@
 <script type="text/javascript" src="../resources/js/menu.js"></script>
 
 <!--左侧菜单 begin-->
-<div style="background: #f0f9fd;>
-	<div class="lefttop"><span></span>
-    </div>
+<div style="background: #f0f9fd;">
 	<s:iterator value="menuList" id="banner">
 		<dl class="leftmenu" >
 			<s:hidden id="currentFunctionDesc" name="currentFunctionDesc" />
