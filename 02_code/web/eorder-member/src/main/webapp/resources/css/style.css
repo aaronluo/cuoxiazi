@@ -237,7 +237,7 @@ h2 {
 
 .topleft {
 	height: 88px;
-	background: url(../images/topleft.jpg) no-repeat;
+	background: url(../images/topleft.png) no-repeat;
 	float: left;
 	width: 300px;
 }
@@ -249,7 +249,7 @@ h2 {
 
 .topright {
 	height: 88px;
-	background: url(../images/topright.jpg) no-repeat right;
+	background: url(../images/topright.png) no-repeat right;
 	float: right;
 }
 
@@ -337,11 +337,11 @@ h2 {
 
 .user {
 	height: 30px;
-	background: url(../images/ub1.png) repeat-x;
+	/*background: url(../images/ub1.png) repeat-x;*/
 	clear: both;
 	margin-top: 10px;
 	float: right;
-	margin-right: 12px;
+	margin-right: 106px;
 	border-radius: 30px;
 	behavior: url(js/pie.htc);
 	white-space: nowrap;
@@ -423,7 +423,7 @@ h2 {
 }
 
 .leftmenu dd .menuson {
-	display: none;
+	display: block; /* TODO */
 }
 
 .leftmenu dd:first-child .menuson {
