@@ -251,6 +251,10 @@ public class DishServiceImpl implements DishService {
         Category category = categoryDao.get(categoryId);
         int totalDishes = category.getDishes().size();
 
+        if(totalDishes == 0) {
+            return 0;
+        }
+        
         return totalDishes % pageSize == 0 ? totalDishes / pageSize
                 : totalDishes / pageSize + 1;
     }
