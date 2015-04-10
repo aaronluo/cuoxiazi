@@ -250,16 +250,16 @@ public class DishAction extends BaseAction {
             try {
                 dishService.deleteDish(Long.parseLong(id));
                 this.setMessage(MessageUtil.getMessage("delete_success"));
-            } catch (DishNotFoundException e) {
+            } catch (Exception e) {
                 this.setMessage(e.getMessage());
                 return ERROR;
+            } finally {
+                // 更新记录列表
+                getDishList();
+                // 更新分类列表
+                renewCategoryVOList();
             }
         }
-
-        // 更新记录列表
-        getDishList();
-        // 更新分类列表
-        renewCategoryVOList();
 
         return SUCCESS;
     }
@@ -293,13 +293,19 @@ public class DishAction extends BaseAction {
     private void getDishList() {
         Long id = 0L;
         try {
-            Integer recordCount = dishService.getDishCountById(categoryId);
-            this.setCount(recordCount);
+            count = dishService.getDishCountById(categoryId);
+            if (0 == count) {
+                // 如果查询不存在，否则为删除后查询
+                if (null == this.getId() || "".equals(this.getId())) {
+                    this.setMessage(MessageUtil.getMessage("dish_empty"));
+                }
+                return;
+            }
             int pageTotal = 1;
-            if (0 == recordCount % Constants.PAGE_SIZE) {
-                pageTotal = recordCount / Constants.PAGE_SIZE;
+            if (0 == count % Constants.PAGE_SIZE) {
+                pageTotal = count / Constants.PAGE_SIZE;
             } else {
-                pageTotal = recordCount / Constants.PAGE_SIZE + 1;
+                pageTotal = count / Constants.PAGE_SIZE + 1;
             }
             this.setPageTotal(pageTotal);
 

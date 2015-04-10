@@ -71,7 +71,7 @@
 							</s:iterator>
 						</tbody>
 					</table>
-					<s:if test="0 != pageTotal">
+					<s:if test="0 != count">
 						<!-- 分页信息 -->
 						<div class="pagin" style="padding: 0 0">
 							<div class="message" style="width: 60%; float: left">

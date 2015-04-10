@@ -6,17 +6,15 @@
  ************************************************/
 package com.innovaee.eorder.service;
 
+import java.util.List;
+
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.exception.CategoryNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
-import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Title: CategoryService
