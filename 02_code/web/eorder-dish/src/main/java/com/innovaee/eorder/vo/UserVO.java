@@ -84,4 +84,12 @@ public class UserVO extends BaseVO {
         this.levelName = levelName;
     }
 
+    @Override
+    public String toString() {
+        return "UserVO [username=" + username + ", roleName=" + roleName
+                + ", password=" + password + ", cellphone=" + cellphone
+                + ", levelName=" + levelName + ", userStatus=" + userStatus
+                + "]";
+    }
+
 }

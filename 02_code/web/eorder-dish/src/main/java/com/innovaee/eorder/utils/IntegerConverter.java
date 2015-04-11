@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class IntegerConverter extends StrutsTypeConverter {
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Object convertFromString(Map context, String[] values, Class toType) {
         Integer result = 0;
@@ -37,6 +38,7 @@ public class IntegerConverter extends StrutsTypeConverter {
         return result;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public String convertToString(Map context, Object val) {
         return ""+val;

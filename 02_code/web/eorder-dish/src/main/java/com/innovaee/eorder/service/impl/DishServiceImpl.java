@@ -65,7 +65,7 @@ public class DishServiceImpl implements DishService {
             // 2. 检查菜品添加的所属分类是否存在
             Category category = categoryDao.get(dishVO.getCategoryId());
             if (null == category) {
-                // 菜品分类不存在，抛出异常 TODO
+                // 菜品分类不存在，抛出异常
                 throw new CategoryNotFoundException(MessageUtil.getMessage(
                         "category_id", dishVO.getCategoryId() + ""));
             } else {
@@ -185,9 +185,8 @@ public class DishServiceImpl implements DishService {
         Dish dish = dishDao.getDishByName(name);
 
         if (null == dish) {
-            throw new DishNotFoundException(
-                    MessageUtil.getMessage("dish_name_msg",
-                    name));
+            throw new DishNotFoundException(MessageUtil.getMessage(
+                    "dish_name_msg", name));
         }
 
         return dish;
@@ -251,10 +250,10 @@ public class DishServiceImpl implements DishService {
         Category category = categoryDao.get(categoryId);
         int totalDishes = category.getDishes().size();
 
-        if(totalDishes == 0) {
+        if (totalDishes == 0) {
             return 0;
         }
-        
+
         return totalDishes % pageSize == 0 ? totalDishes / pageSize
                 : totalDishes / pageSize + 1;
     }
