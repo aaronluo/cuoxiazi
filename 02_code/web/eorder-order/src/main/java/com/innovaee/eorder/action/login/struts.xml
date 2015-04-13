@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+                        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="com.innovaee.eorder.action.login" namespace="/login"
+        extends="struts-base">
+        
+        <action name="login" class="com.innovaee.eorder.action.login.LoginAction"
+            method="login">
+            <result name="success">/pages/login/login.jsp</result>
+        </action>
+
+        <action name="doLogin" class="com.innovaee.eorder.action.login.LoginAction"
+            method="doLogin">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">order</param>
+            </result>
+        </action>
+
+        <action name="doLogout" class="com.innovaee.eorder.action.login.LoginAction"
+            method="doLogout">
+            <result name="success">/pages/main/login.jsp</result>
+        </action>
+    </package>
+</struts>
