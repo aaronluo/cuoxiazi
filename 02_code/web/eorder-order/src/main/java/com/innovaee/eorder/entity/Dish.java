@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @Title: Dish
  * @Description: 菜品实体
@@ -125,5 +128,10 @@ public class Dish extends BaseEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 }

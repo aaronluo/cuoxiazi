@@ -44,7 +44,7 @@ public class Order extends BaseEntity {
 
     /** 订单总价 */
     private Float totalPrice;
-    
+
     /** 折扣总价 */
     private Float discountPrice;
 
@@ -134,7 +134,7 @@ public class Order extends BaseEntity {
     }
 
     @Basic
-    @Column(name="DISCOUNT_PRICE")
+    @Column(name = "DISCOUNT_PRICE")
     public Float getDiscountPrice() {
         return discountPrice;
     }
@@ -153,7 +153,7 @@ public class Order extends BaseEntity {
         this.orderStatus = orderStatus;
     }
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "SERVENT_ID")
     public User getServent() {
         return servent;
@@ -193,6 +193,7 @@ public class Order extends BaseEntity {
     }
 
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 }

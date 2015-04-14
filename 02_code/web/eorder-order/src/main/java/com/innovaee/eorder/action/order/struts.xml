@@ -22,14 +22,6 @@
             <result name="input" type="tiles">order</result>
             <result name="success" type="tiles">order</result>
         </action>
-
-        <action name="abc" class="com.innovaee.eorder.action.order.OrderAction"
-            method="abc">
-            <result name="error" type="tiles">order</result>
-            <result name="input" type="tiles">order</result>
-            <result name="success" type="tiles">order</result>
-        </action>
-
     </package>
 
 </struts>

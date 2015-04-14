@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @Title: OrderItem
  * @Description: 订单明细
@@ -55,7 +58,7 @@ public class OrderItem extends BaseEntity {
         this.order = order;
     }
 
-    @OneToOne(targetEntity = Dish.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Dish.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "DISH_ID")
     public Dish getDish() {
         return dish;
@@ -75,4 +78,8 @@ public class OrderItem extends BaseEntity {
         this.dishAmount = dishAmount;
     }
 
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
+    }
 }

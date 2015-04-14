@@ -24,43 +24,38 @@
 					<li><label><s:text name="order_seq_label" /></label><input
 						id="order.orderSeq" name="order.orderSeq" value="${order.orderSeq}"
 						type="text" class="scinput" /></li>
-					<li><label><s:text name="cashier_label" /></label> <s:select
-							list="cashierList" listKey="id" listValue="username" id="cashierSelect"
-							name="cashierSelect"
-							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
-					<li><label><s:text name="order_create_at_min" /></label><input
-						id="order.createAtMinStr" name="order.createAtMin" type="text"
-						class="scinput" readonly onclick="JTC.setday(this)" /> <sd:datetimepicker
-							id="order.createAtMin" name="order.createAtMin"></sd:datetimepicker></li>
-					<li><label><s:text name="order_total_price_min" /></label><input
-						id="order.totalPriceMin" name="order.totalPriceMin" type="text"
-						class="scinput" /></li>
+					<li><label><s:text name="member_label" /></label><input
+						id="order.memberId" name="order.memberId" type="text" class="scinput" /></li>
 					<li><label><s:text name="order_status_label" /></label> <s:select
 							list="statusList" listKey="key" listValue="value" id="statusSelect"
 							name="statusSelect"
 							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
-				</ul>
-				<ul class="seachform">
-					<li><label><s:text name="member_label" /></label><input
-						id="order.memberId" name="order.memberId" type="text" class="scinput" /></li>
+					<li><label><s:text name="cashier_label" /></label> <s:select
+							list="cashierList" listKey="id" listValue="username" id="cashierSelect"
+							name="cashierSelect"
+							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
 					<li><label><s:text name="servent_label" /></label> <s:select
 							list="serventList" listKey="id" listValue="username" id="serventSelect"
 							name="serventSelect"
 							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
+				</ul>
+				<ul class="seachform">
+					<li><label><s:text name="order_create_at_min" /></label><input
+						id="order.createAtMinStr" name="order.createAtMin" type="text"
+						class="scinput" readonly onclick="JTC.setday(this)" /></li>
 					<li><label><s:text name="order_create_at_max" /></label><input
 						id="order.createAtMaxStr" name="order.createAtMax" type="text"
 						class="scinput" readonly onclick="JTC.setday(this)" /></li>
+					<li><label><s:text name="order_total_price_min" /></label><input
+						id="order.totalPriceMin" name="order.totalPriceMin" type="text"
+						class="scinput" /></li>
 					<li><label><s:text name="order_total_price_max" /></label><input
 						id="order.totalPriceMax" name="order.totalPriceMax" type="text"
 						class="scinput" /></li>
-					<li><label></label></li>
-				</ul>
-				<ul class="seachform">
 					<li><input name="" type="button" class="scbtn" onclick="query();"
 						value='<s:text name="query" />' /></li>
 				</ul>
 			</form>
-
 
 			<!-- 菜品列表 -->
 			<div class="tablePanel">
@@ -68,7 +63,7 @@
 					<thead>
 						<tr>
 							<th width="18%"><s:text name="order_seq_label" /></th>
-							<th><s:text name="table_number_label" /></th>
+							<th width="8%"><s:text name="table_number_label" /></th>
 							<th width="8%"><s:text name="attendee_number_label" /></th>
 							<th width="8%"><s:text name="total_price_label" /></th>
 							<th width="8%"><s:text name="discount_price_label" /></th>
@@ -76,6 +71,7 @@
 							<th width="8%"><s:text name="servent_label" /></th>
 							<th width="8%"><s:text name="member_label" /></th>
 							<th width="8%"><s:text name="cashier_label" /></th>
+							<th><s:text name="order_create_date_label" /></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,6 +86,7 @@
 								<td><s:property value="servent.username" /></td>
 								<td><s:property value="member.username" /></td>
 								<td><s:property value="casher.username" /></td>
+								<td><s:date name="createDate" format="yyyy-MM-dd HH:mm:ss" /></td>
 							</tr>
 						</s:iterator>
 					</tbody>

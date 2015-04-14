@@ -61,11 +61,36 @@
         <put-attribute name="body" value="/pages/order/order.jsp" />
     </definition>
 
-    <!-- <definition name="upload" extends="layout"> <put-attribute name="body" value="/pages/upload/upload.jsp" 
-        /> </definition> -->
+    <definition name="cash" extends="layout">
+        <put-attribute name="body" value="/pages/cash/cash.jsp" />
+    </definition>
+
+    <definition name="cashEdit" extends="layout">
+        <put-attribute name="body" value="/pages/cash/cashEdit.jsp" />
+    </definition>
 
     <definition name="upload" extends="layoutbody">
         <put-attribute name="body" value="/pages/upload/upload.jsp" />
+    </definition>
+
+    <definition name="listLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/level.jsp" />
+    </definition>
+
+    <definition name="addLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/levelEdit.jsp" />
+    </definition>
+
+    <definition name="editLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/levelEdit.jsp" />
+    </definition>
+
+    <definition name="listMember" extends="layout">
+        <put-attribute name="body" value="/pages/member/member.jsp" />
+    </definition>
+
+    <definition name="editMember" extends="layout">
+        <put-attribute name="body" value="/pages/member/memberEdit.jsp" />
     </definition>
 
 </tiles-definitions>

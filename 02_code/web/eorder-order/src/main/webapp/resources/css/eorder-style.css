@@ -149,13 +149,27 @@ html {
 }
 
 .msgPanel {
-	width : 20%;
-	margin-right:55px;
+	width: 20%;
+	margin-right: 55px;
 	float: right;
-  	height: 120px;
-  	color: red;
-  	font-weight: bold;
-  	font-size : 15px
+	height: 120px;
+	color: red;
+	font-weight: bold;
+	font-size: 15px
+}
+
+.orderItemTablePanel {
+	width: 25%;
+	float: left;
+}
+
+.orderItemPanel {
+	width: 60%;
+	margin-right: 55px;
+	float: right;
+	height: 120px;
+	font-weight: bold;
+	font-size: 15px
 }
 
 .popwindow {
@@ -182,4 +196,28 @@ html {
 
 .poptitle img {
 	float: right;
+}
+
+.divgreen {
+	padding: 10px;
+	margin: 10px;
+	width: 96px;
+	height: 96px;
+	line-height: 96px; /* 和height一致，使文字垂直居中*/
+	overflow: hidden;
+	background-color: #0F0;
+	text-align: center; /* 使文字水平居中*/
+	overflow: hidden;
+}
+
+.divred {
+	padding: 10px;
+	margin: 10px;
+	width: 96px;
+	height: 96px;
+	line-height: 96px;
+	overflow: hidden;
+	background-color: #F00;
+	text-align: center;
+	overflow: hidden;
 }

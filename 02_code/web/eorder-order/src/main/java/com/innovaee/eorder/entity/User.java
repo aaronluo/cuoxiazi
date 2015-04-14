@@ -19,6 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @Title: User
  * @Description: 用户实体
@@ -46,7 +49,7 @@ public class User extends BaseEntity {
 
     /** 会员信息 */
     private MemberShip memberShip = new MemberShip();
-    
+
     /** 角色列表 */
     private Set<Role> roles;
 
@@ -70,7 +73,8 @@ public class User extends BaseEntity {
      * @param userStatus
      *            用户状态
      */
-    public User(String username, String password, String cellphone, Boolean userStatus) {
+    public User(String username, String password, String cellphone,
+            Boolean userStatus) {
         super();
         this.username = username;
         this.password = password;
@@ -111,8 +115,8 @@ public class User extends BaseEntity {
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
-    
-    @OneToOne(targetEntity=MemberShip.class, fetch=FetchType.EAGER, mappedBy="user")  
+
+    @OneToOne(targetEntity = MemberShip.class, fetch = FetchType.EAGER, mappedBy = "user")
     public MemberShip getMemberShip() {
         return memberShip;
     }
@@ -141,4 +145,8 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
+    }
 }

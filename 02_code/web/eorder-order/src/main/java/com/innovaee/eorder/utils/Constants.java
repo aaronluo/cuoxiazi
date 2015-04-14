@@ -36,6 +36,9 @@ public class Constants {
     /** 每页记录条数 */
     public static final Integer PAGE_SIZE = 5;
 
+    /** 就餐桌数 */
+    public static final Integer TABLE_NUMBER = 20;
+
     /** 表示成功意义的字符串 **/
     public final static String SUCCESS = "success";
     /** 表示失败意义的字符串 **/
@@ -54,7 +57,7 @@ public class Constants {
     public static final String DEFAULT_CATEGORY = "默认";
 
     /** 默认会员分类 */
-    public static final String DEFAULT_USR_LEVEL="非会员";
+    public static final String DEFAULT_USR_LEVEL = "非会员";
     /** 默认菜单分类图片 */
     public static final String DEFAULT_CATEGORY_PIC = "/default_category.png";
 

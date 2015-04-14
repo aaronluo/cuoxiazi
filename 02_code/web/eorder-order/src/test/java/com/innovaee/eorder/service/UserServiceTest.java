@@ -30,11 +30,11 @@ public class UserServiceTest extends BaseSpringTestCase {
     private String password = "12345";
 
     /** 手机号码 */
-    private String cellphone = "13888888888";
+    private String cellphone = "13999995555";
 
     /** 用户状态 */
     private Boolean userStatus = true;
-    
+
     /**
      * 测试获得所有用户值对象列表
      */
@@ -63,31 +63,31 @@ public class UserServiceTest extends BaseSpringTestCase {
 
         // 更新属性
         // 2. 更新
-//        String newCellphone = "13999999999";
-//        userNew.setCellphone(newCellphone);
-//        userService.updateUser(userNew);
+        // String newCellphone = "13999999999";
+        // userNew.setCellphone(newCellphone);
+        // userService.updateUser(userNew);
 
-//        // 3. 查找
-//        // 3.1 通过用户ID查找
-//        User userDB = userService.findUserByUsernameAndPassword(username,
-//                password);
-//        Assert.assertNotNull(userDB);
-//
-//        // 3.2 查找（通过手机号码查找用户）
-//        userDB = userService.findUserByCellphone(newCellphone);
-//        Assert.assertNotNull(userDB);
-//        Assert.assertEquals(newCellphone, userDB.getCellphone());
-//
-//        // 3.3 通过用户名查找用户
-//        userDB = userService.findUserByUserName(userNew.getUsername());
-//        Assert.assertNotNull(userDB);
-//
-//        // 4. 删除
-//        userService.deleteUser(userDB.getId());
-//
-//        // 5.通过用户名密码查找用户
-//        userDB = userService.loadUser(userNew.getId());
-//        Assert.assertNull(userDB);
+        // // 3. 查找
+        // // 3.1 通过用户ID查找
+        // User userDB = userService.findUserByUsernameAndPassword(username,
+        // password);
+        // Assert.assertNotNull(userDB);
+        //
+        // // 3.2 查找（通过手机号码查找用户）
+        // userDB = userService.findUserByCellphone(newCellphone);
+        // Assert.assertNotNull(userDB);
+        // Assert.assertEquals(newCellphone, userDB.getCellphone());
+        //
+        // // 3.3 通过用户名查找用户
+        // userDB = userService.findUserByUserName(userNew.getUsername());
+        // Assert.assertNotNull(userDB);
+        //
+        // // 4. 删除
+        // userService.deleteUser(userDB.getId());
+        //
+        // // 5.通过用户名密码查找用户
+        // userDB = userService.loadUser(userNew.getId());
+        // Assert.assertNull(userDB);
     }
 
     /**
@@ -97,7 +97,8 @@ public class UserServiceTest extends BaseSpringTestCase {
     public void findUserByCellphone() {
         // 3.2 查找（通过手机号码查找用户）
         User userDB = userService.findUserByCellphone(cellphone);
-        Assert.assertNull(userDB);
+        System.out.println(userDB);
+        Assert.assertNotNull(userDB);
     }
 
     /**
