@@ -58,6 +58,13 @@ public class Constants {
 
     /** 默认会员分类 */
     public static final String DEFAULT_USR_LEVEL = "非会员";
+
+    /** 默认会员分类 */
+    public static final String CASHIER = "收银员";
+
+    /** 默认会员分类 */
+    public static final String SERVENT = "点餐员";
+
     /** 默认菜单分类图片 */
     public static final String DEFAULT_CATEGORY_PIC = "/default_category.png";
 

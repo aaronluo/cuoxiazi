@@ -56,9 +56,12 @@
 						id="order.member.cellphone" name="order.member.cellphone"
 						value="${order.member.cellphone}" type="text" class="dfinput"
 						style="width: 280px;" /></li>
-					<li><label>&nbsp;&nbsp;</label><input name="" type="button"
-						class="btn" style="width: 130px;" onclick="discount();"
-						value="<s:text name='update_user_info_label' />" /></li>
+					<s:if
+						test="null == order.member || null == order.member.memberShip || null == order.member.memberShip.discount || '' == order.member.memberShip.discount">
+						<li><label>&nbsp;&nbsp;</label><input name="" type="button"
+							class="btn" style="width: 130px;" onclick="discount();"
+							value="<s:text name='update_user_info_label' />" /></li>
+					</s:if>
 				</ul>
 			</form>
 			<form id="saveForm" name="saveForm">

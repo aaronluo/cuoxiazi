@@ -97,15 +97,43 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         NewOrderVO orderCriteria = new NewOrderVO();
 
-        orderCriteria.setMemberId(1L);
+        // orderCriteria.setMemberId(1L);
+        orderCriteria.setCellphone("9998");
 
         List<Order> orders = orderService.queryOrders(orderCriteria, curPage,
                 pageSize);
 
         assertNotNull(orders);
-        assertEquals(5, orders.size());
-        assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
-                .getLevel().getLevelName());
+        assertEquals(2, orders.size());
+        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
+        // .getLevel().getLevelName());
+    }
+    
+    @Test
+    public void queryOrderByPageTestTwo() throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton {
+        int curPage = 1;
+        int pageSize = 5;
+
+        // List<Order> orders = orderService.queryOrders(null, curPage,
+        // pageSize);
+        //
+        // assertNotNull(orders);
+        // assertTrue(12L == orders.get(0).getId());
+        // assertEquals("2015032800010", orders.get(0).getOrderSeq());
+
+        NewOrderVO orderCriteria = new NewOrderVO();
+
+        // orderCriteria.setMemberId(1L);
+        orderCriteria.setCellphone("9955");
+
+        List<Order> orders = orderService.queryOrders(orderCriteria, curPage,
+                pageSize);
+
+        assertNotNull(orders);
+        assertEquals(3, orders.size());
+        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
+        // .getLevel().getLevelName());
     }
 
     /**

@@ -6,21 +6,19 @@
  ************************************************/
 package com.innovaee.eorder.dao.hibernate;
 
-import com.innovaee.eorder.dao.UserLevelDao;
-import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.entity.UserLevel;
+import java.sql.SQLException;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import java.sql.SQLException;
-import java.util.List;
+import com.innovaee.eorder.dao.UserLevelDao;
+import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.entity.UserLevel;
 
 /**
  * @Title: HibernateUserLevelDao

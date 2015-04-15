@@ -25,33 +25,36 @@
 						id="order.orderSeq" name="order.orderSeq" value="${order.orderSeq}"
 						type="text" class="scinput" /></li>
 					<li><label><s:text name="member_label" /></label><input
-						id="order.memberId" name="order.memberId" type="text" class="scinput" /></li>
+						id="order.cellphone" name="order.cellphone" value="${order.cellphone}"
+						type="text" class="scinput" /></li>
 					<li><label><s:text name="order_status_label" /></label> <s:select
-							list="statusList" listKey="key" listValue="value" id="statusSelect"
-							name="statusSelect"
+							headerKey="0" headerValue=" " list="statusList" listKey="key"
+							listValue="value" id="statusSelect" name="statusSelect"
 							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
 					<li><label><s:text name="cashier_label" /></label> <s:select
-							list="cashierList" listKey="id" listValue="username" id="cashierSelect"
-							name="cashierSelect"
+							headerKey="0" headerValue=" " list="cashierList" listKey="id"
+							listValue="username" id="cashierSelect" name="cashierSelect"
 							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
 					<li><label><s:text name="servent_label" /></label> <s:select
-							list="serventList" listKey="id" listValue="username" id="serventSelect"
-							name="serventSelect"
+							headerKey="0" headerValue=" " list="serventList" listKey="id"
+							listValue="username" id="serventSelect" name="serventSelect"
 							cssStyle="border:1px dotted blue;height:30px;width:130px"></s:select></li>
 				</ul>
 				<ul class="seachform">
 					<li><label><s:text name="order_create_at_min" /></label><input
-						id="order.createAtMinStr" name="order.createAtMin" type="text"
-						class="scinput" readonly onclick="JTC.setday(this)" /></li>
+						id="order.createAtMin" name="order.createAtMin"
+						value='<s:date name="order.createAtMin" format="yyyy-MM-dd" />'
+						type="text" class="scinput" readonly onclick="JTC.setday(this)"> </input></li>
 					<li><label><s:text name="order_create_at_max" /></label><input
-						id="order.createAtMaxStr" name="order.createAtMax" type="text"
-						class="scinput" readonly onclick="JTC.setday(this)" /></li>
+						id="order.createAtMax" name="order.createAtMax"
+						value='<s:date name="order.createAtMax" format="yyyy-MM-dd" />'
+						type="text" class="scinput" readonly onclick="JTC.setday(this)" /></li>
 					<li><label><s:text name="order_total_price_min" /></label><input
-						id="order.totalPriceMin" name="order.totalPriceMin" type="text"
-						class="scinput" /></li>
+						id="order.totalPriceMin" name="order.totalPriceMin"
+						value="${order.totalPriceMin}" type="text" class="scinput" /></li>
 					<li><label><s:text name="order_total_price_max" /></label><input
-						id="order.totalPriceMax" name="order.totalPriceMax" type="text"
-						class="scinput" /></li>
+						id="order.totalPriceMax" name="order.totalPriceMax"
+						value="${order.totalPriceMax}" type="text" class="scinput" /></li>
 					<li><input name="" type="button" class="scbtn" onclick="query();"
 						value='<s:text name="query" />' /></li>
 				</ul>
@@ -69,7 +72,7 @@
 							<th width="8%"><s:text name="discount_price_label" /></th>
 							<th width="8%"><s:text name="order_status_label" /></th>
 							<th width="8%"><s:text name="servent_label" /></th>
-							<th width="8%"><s:text name="member_label" /></th>
+							<th width="12%"><s:text name="member_label" /></th>
 							<th width="8%"><s:text name="cashier_label" /></th>
 							<th><s:text name="order_create_date_label" /></th>
 						</tr>
@@ -82,9 +85,16 @@
 								<td><s:property value="attendeeNumber" /></td>
 								<td><s:property value="totalPrice" /></td>
 								<td><s:property value="discountPrice" /></td>
-								<td><s:property value="orderStatus" /></td>
+
+								<td><s:if test="100==orderStatus">
+										<s:text name="order_status_new" />
+									</s:if> <s:elseif test="101==orderStatus">
+										<s:text name="order_status_submitted" />
+									</s:elseif> <s:else>
+										<s:text name="order_status_paid" />
+									</s:else></td>
 								<td><s:property value="servent.username" /></td>
-								<td><s:property value="member.username" /></td>
+								<td><s:property value="member.cellphone" /></td>
 								<td><s:property value="casher.username" /></td>
 								<td><s:date name="createDate" format="yyyy-MM-dd HH:mm:ss" /></td>
 							</tr>

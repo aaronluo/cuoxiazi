@@ -91,16 +91,17 @@ public class OrderServiceImpl implements OrderService {
      * @param orderId
      *            订单ID
      * @return 订单
-     * @throws OrderNotFoundException 
+     * @throws OrderNotFoundException
      */
     @Override
     public Order getOrderById(Long orderId) throws OrderNotFoundException {
         Order order = orderDao.get(orderId);
-        
-        if(order == null) {
-            throw new OrderNotFoundException(MessageUtil.getMessage("order_id", "" + orderId));
+
+        if (order == null) {
+            throw new OrderNotFoundException(MessageUtil.getMessage("order_id",
+                    "" + orderId));
         }
-        
+
         return order;
     }
 
@@ -156,7 +157,7 @@ public class OrderServiceImpl implements OrderService {
         }
         // 下单客户是会员，获取折扣信息
         float discount = 1.0f;
-        if (newOrder.getMemberId() > 0) {
+        if (null != newOrder.getMemberId() && newOrder.getMemberId() > 0) {
             User member = userDao.get(newOrder.getMemberId());
             if (null != member) {
                 order.setMember(member);
@@ -206,8 +207,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 返回桌号和当前订单的关联关系，如果当前桌号有订单， 
-     * 则在Map中取得Order；反之，则为NULL
+     * 返回桌号和当前订单的关联关系，如果当前桌号有订单， 则在Map中取得Order；反之，则为NULL
      * 这里设定一共有20个桌子，所以Map的key值是从1到20
      * 
      * @return
@@ -215,64 +215,65 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Map<Integer, Order> getTableStatus() {
         Map<Integer, Order> result = new HashMap<Integer, Order>();
-        
-        //1. 获取状态为New的订单
+
+        // 1. 获取状态为New的订单
         NewOrderVO orderCriteria = new NewOrderVO();
         orderCriteria.setStatus(Constants.ORDER_NEW);
-        
-        List<Order> orders = orderDao.query(orderCriteria, 1, Integer.MAX_VALUE);
-        //2. 进行桌号对比
+
+        List<Order> orders = orderDao
+                .query(orderCriteria, 1, Integer.MAX_VALUE);
+        // 2. 进行桌号对比
         for (int tableNum = 1; tableNum <= 20; tableNum++) {
             boolean foundOrder = false;
-            for(Order order : orders) {
-                if(tableNum == order.getTableNumber()) {
+            for (Order order : orders) {
+                if (tableNum == order.getTableNumber()) {
                     result.put(tableNum, order);
                     foundOrder = true;
                     break;
                 }
             }
-            
-            if(!foundOrder) {
+
+            if (!foundOrder) {
                 result.put(tableNum, null);
             }
-            
+
         }
-        
+
         return result;
     }
+
     /**
      * 根据查询条件查找订单
      * 
      * @param orderCriteria
      * @param curPage
      * @param pageSize
-     * @return 返回订单分页数据，这里有一个issue就是订单的明细没有获取，
-     * 需要再次调用getOrderById来获取完备的明细
-     * @throws InvalidPageSizeException 
-     * @throws PageIndexOutOfBoundExcpeiton 
+     * @return 返回订单分页数据，这里有一个issue就是订单的明细没有获取， 需要再次调用getOrderById来获取完备的明细
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
      */
     @Override
     public List<Order> queryOrders(NewOrderVO orderCriteria, int curPage,
             int pageSize) throws InvalidPageSizeException,
             PageIndexOutOfBoundExcpeiton {
         int pageCount = this.queryOrdersPageCount(orderCriteria, pageSize);
-        
-        if(curPage < 1 || curPage > pageCount) {
+
+        if (curPage < 1 || curPage > pageCount) {
             throw new PageIndexOutOfBoundExcpeiton(pageCount, curPage);
         }
-        
+
         List<Order> orders = orderDao.query(orderCriteria, curPage, pageSize);
-        
+
         return orders;
     }
-    
+
     /**
      * 根据查询条件查找订单分页总数
      * 
      * @param orderCriteria
      * @param pageSize
      * @return
-     * @throws InvalidPageSizeException 
+     * @throws InvalidPageSizeException
      */
     @Override
     public int queryOrdersPageCount(NewOrderVO orderCriteria, int pageSize)
@@ -323,25 +324,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Order payTheOrder(Long orderId, Long casherId)
-            throws OrderNotFoundException, UserNotFoundException, OrderOperationException {
+            throws OrderNotFoundException, UserNotFoundException,
+            OrderOperationException {
         Order order = this.getOrderById(orderId);
-        
-        //1. 判断Order是否为非Paid状态
-        if(order.getOrderStatus() == Constants.ORDER_PAID) {
-            throw new OrderOperationException(
-                    MessageUtil.getMessage("can_not_proceed_payment", order.getOrderSeq()));
+
+        // 1. 判断Order是否为非Paid状态
+        if (order.getOrderStatus() == Constants.ORDER_PAID) {
+            throw new OrderOperationException(MessageUtil.getMessage(
+                    "can_not_proceed_payment", order.getOrderSeq()));
         }
-        
+
         User casher = userDao.get(casherId);
-        if(null == casher) {
-            throw new UserNotFoundException(MessageUtil.getMessage("user_id", "" + casherId));
+        if (null == casher) {
+            throw new UserNotFoundException(MessageUtil.getMessage("user_id",
+                    "" + casherId));
         }
-        
+
         order.setCasher(casher);
         order.setOrderStatus(Constants.ORDER_PAID);
         order.setUpdateDate(new Date());
         orderDao.update(order);
-        
+
         return order;
     }
 
@@ -356,18 +359,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order updateOrder(NewOrderVO orderVO) throws OrderNotFoundException {
         Order order = orderDao.get(orderVO.getId());
-        
-        if(null == order) {
-            throw new OrderNotFoundException(
-                    MessageUtil.getMessage("order_id", "" + orderVO.getId()));
+
+        if (null == order) {
+            throw new OrderNotFoundException(MessageUtil.getMessage("order_id",
+                    "" + orderVO.getId()));
         }
-        
+
         order.setOrderStatus(orderVO.getStatus());
         order.setCasher(userDao.get(orderVO.getCashierId()));
         order.setMember(userDao.get(orderVO.getMemberId()));
 
         orderDao.update(order);
-        
+
         return order;
     }
 }

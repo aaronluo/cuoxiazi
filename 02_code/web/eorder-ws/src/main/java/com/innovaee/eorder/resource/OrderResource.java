@@ -54,7 +54,7 @@ public class OrderResource {
      * @param orderId
      *            订单ID
      * @return 订单明细列表
-     * @throws OrderNotFoundException 
+     * @throws OrderNotFoundException
      */
     @GET
     @Path("/{orderId}")
@@ -70,7 +70,10 @@ public class OrderResource {
         Order order = orderService.getOrderById(orderId);
 
         if (null == order) {
-            result.put("exception", MessageUtil.getMessage("order_not_found_exception", ""+orderId));
+            result.put(
+                    "exception",
+                    MessageUtil.getMessage("order_not_found_exception", ""
+                            + orderId));
         } else {
             List<OrderItem> orderItems = new ArrayList<OrderItem>(
                     order.getOrderItems());
@@ -97,7 +100,7 @@ public class OrderResource {
     @Scope("request")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CallResult placeOrder(NewOrderVO newOrderVO)  {
+    public CallResult placeOrder(NewOrderVO newOrderVO) {
         logger.info("[REST_CALL= placeOrder]");
 
         logger.debug(newOrderVO);
@@ -106,22 +109,28 @@ public class OrderResource {
         try {
             Long orderId = orderService.placeOrder(newOrderVO);
             Order order = null;
-            try{
+            try {
                 order = orderService.getOrderById(orderId);
-            }catch(Exception exception){
+            } catch (Exception exception) {
                 callResult.setResult(Constants.FALSE);
                 callResult.setMessage(exception.getMessage());
             }
-           
+
             callResult.setResult(Constants.SUCCESS);
             callResult.setMessage(MessageUtil.getMessage("place_order_success",
                     order.getOrderSeq()));
-        } catch (UserNotFoundException | ZeroOrderItemException
-                | DishNotFoundException exception) {
+        } catch (UserNotFoundException exception) {
+            callResult.setResult(Constants.FALSE);
+            callResult.setMessage(exception.getMessage());
+        } catch (ZeroOrderItemException exception) {
+            callResult.setResult(Constants.FALSE);
+            callResult.setMessage(exception.getMessage());
+        } catch (DishNotFoundException exception) {
             callResult.setResult(Constants.FALSE);
             callResult.setMessage(exception.getMessage());
         }
-
+        // |
+        // |
         return callResult;
     }
 

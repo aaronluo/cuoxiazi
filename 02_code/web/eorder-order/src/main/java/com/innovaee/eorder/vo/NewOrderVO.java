@@ -44,6 +44,8 @@ public class NewOrderVO extends BaseVO {
     private Long serventId;
     /** 会员ID **/
     private Long memberId;
+    /** 会员号 **/
+    private String cellphone;
     /** 订单明细 **/
     private List<NewOrderItemVO> items;
 
@@ -160,6 +162,14 @@ public class NewOrderVO extends BaseVO {
         this.totalPriceMax = totalPriceMax;
     }
 
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
     /** 重载toString函数 **/
     @Override
     public String toString() {
@@ -178,6 +188,10 @@ public class NewOrderVO extends BaseVO {
         }
 
         if (this.memberId != null && this.memberId > 0L) {
+            return false;
+        }
+        
+        if (cellphone != null && !this.cellphone.isEmpty()) {
             return false;
         }
 

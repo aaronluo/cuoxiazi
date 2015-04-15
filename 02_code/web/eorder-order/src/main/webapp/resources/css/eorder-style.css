@@ -208,6 +208,7 @@ html {
 	background-color: #0F0;
 	text-align: center; /* 使文字水平居中*/
 	overflow: hidden;
+	font-size: 26px;
 }
 
 .divred {
@@ -220,4 +221,5 @@ html {
 	background-color: #F00;
 	text-align: center;
 	overflow: hidden;
+	font-size: 26px;
 }

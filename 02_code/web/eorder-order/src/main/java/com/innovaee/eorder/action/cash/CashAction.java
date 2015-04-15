@@ -176,6 +176,7 @@ public class CashAction extends BaseAction {
             } catch (OrderNotFoundException e) {
                 setMessage(e.getMessage());
             }
+
             // 刷新系统菜单
             refreshPageData();
         }
@@ -210,6 +211,7 @@ public class CashAction extends BaseAction {
             setMessage(e.getMessage());
             return ERROR;
         } finally {
+            tableStatus = orderService.getTableStatus();
             // 刷新系统菜单
             refreshPageData();
         }

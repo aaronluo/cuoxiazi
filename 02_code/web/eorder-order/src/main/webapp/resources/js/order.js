@@ -74,26 +74,6 @@ $(function() {
 		//alert("serventId: " + serventId);
 	});
 	
-	
-	var serventId = $("#order\\.serventId").val();
-	$("#serventSelect").each(function() {
-		$(this).children("option").each(function() {
-			if (serventId == $(this).val()) {
-				$(this).attr("selected", true);
-				return;
-			}
-		});
-	});
-
-	// 下拉选单值变事件
-	$('#serventSelect').change(function() {
-		var serventId = $(this).children('option:selected').val();
-		$("#order\\.serventId").val(serventId);
-
-		//var serventId = $("#order\\.serventId").val();
-		//alert("serventId: " + serventId);
-	});
-	
 	var status = $("#order\\.status").val();
 	$("#statusSelect").each(function() {
 		$(this).children("option").each(function() {
@@ -108,7 +88,6 @@ $(function() {
 	$('#statusSelect').change(function() {
 		var status = $(this).children('option:selected').val();
 		$("#order\\.status").val(status);
-
 		//var status = $("#order\\.status").val();
 		//alert("status: " + status);
 	});

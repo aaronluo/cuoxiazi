@@ -9,6 +9,7 @@ package com.innovaee.eorder.action.order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -16,11 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.Role;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.service.RoleService;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
 import com.innovaee.eorder.utils.MessageUtil;
@@ -77,7 +79,7 @@ public class OrderAction extends BaseAction {
 
     /** 用户服务类对象 */
     @Resource
-    private UserService userService;
+    private RoleService roleService;
 
     /**
      * 进入流水页面
@@ -106,11 +108,11 @@ public class OrderAction extends BaseAction {
      */
     public String list() {
         getQueryList();
-        // order = new NewOrderVO();
         try {
             if (checkNewOrderVO()) {
                 getOrderList();
             } else {
+                count = 0;
                 return ERROR;
             }
         } catch (Exception e) {
@@ -131,46 +133,77 @@ public class OrderAction extends BaseAction {
         boolean isValidVO = true;
 
         if (null == order) {
-            isValidVO = false;
-            addFieldError("dish.dishvo",
-                    MessageUtil.getMessage("dish_invalid_vo"));
-            return isValidVO;
+            order = new NewOrderVO();
+            return true;
         }
 
         if (order.getTotalPriceMin() < 0.0f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));
+            setMessage(MessageUtil.getMessage("dish_price_rule"));
         }
 
         if (order.getTotalPriceMax() < 0.0f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));
+            setMessage(MessageUtil.getMessage("dish_price_rule"));
+        }
+
+        if (null != order.getCreateAtMin() && null != order.getCreateAtMax()) {
+            if (order.getCreateAtMin().getTime() > order.getCreateAtMax()
+                    .getTime()) {
+                isValidVO = false;
+                addFieldError("order.createAt",
+                        MessageUtil.getMessage("order_create_at_rule"));
+                setMessage(MessageUtil.getMessage("order_create_at_rule"));
+            }
+        }
+
+        if (null != order.getCashierId() && 0 == order.getCashierId()) {
+            order.setCashierId(null);
+        }
+
+        if (null != order.getServentId() && 0 == order.getServentId()) {
+            order.setServentId(null);
         }
 
         return isValidVO;
     }
 
     /**
-     * 获取流水列表
+     * 获取查询条件的列表
      */
     private void getQueryList() {
+        // 1. 收银员列表
         cashierList = new ArrayList<User>();
-        cashierList.add(userService.findUserByUserName("admin"));
-        cashierList.add(userService.findUserByUserName("member"));
+        Role cashierRole = roleService.findRoleByRoleName(Constants.CASHIER);
+        Set<User> cashier = cashierRole.getUsers();
+        if (null != cashier && 0 < cashier.size()) {
+            for (User user : cashier) {
+                cashierList.add(user);
+            }
+        }
 
+        // 2. 点餐员列表
         serventList = new ArrayList<User>();
-        serventList.add(userService.findUserByUserName("test"));
-        serventList.add(userService.findUserByUserName("dish"));
+        Role serventRole = roleService.findRoleByRoleName(Constants.SERVENT);
+        Set<User> servent = serventRole.getUsers();
+        if (null != servent && 0 < servent.size()) {
+            for (User user : servent) {
+                serventList.add(user);
+            }
+        }
 
+        // 3. 状态列表
         statusList = new ArrayList<KeyValue>();
-        // public final static Integer ORDER_NEW = 100;
-        // public final static Integer ORDER_SUBMITTED = 101;
-        // public final static Integer ORDER_PAID = 102;
-        statusList.add(new KeyValue(Constants.ORDER_NEW, "新建"));
-        statusList.add(new KeyValue(Constants.ORDER_SUBMITTED, "已提交"));
-        statusList.add(new KeyValue(Constants.ORDER_PAID, "已支付"));
+        statusList.add(new KeyValue(Constants.ORDER_NEW, MessageUtil
+                .getMessage("order_status_new")));
+        statusList.add(new KeyValue(Constants.ORDER_SUBMITTED, MessageUtil
+                .getMessage("order_status_submitted")));
+        statusList.add(new KeyValue(Constants.ORDER_PAID, MessageUtil
+                .getMessage("order_status_paid")));
     }
 
     /**

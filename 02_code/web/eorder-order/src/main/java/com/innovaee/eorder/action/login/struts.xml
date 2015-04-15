@@ -6,7 +6,7 @@
 
     <package name="com.innovaee.eorder.action.login" namespace="/login"
         extends="struts-base">
-        
+
         <action name="login" class="com.innovaee.eorder.action.login.LoginAction"
             method="login">
             <result name="success">/pages/login/login.jsp</result>
@@ -15,8 +15,8 @@
         <action name="doLogin" class="com.innovaee.eorder.action.login.LoginAction"
             method="doLogin">
             <result name="success" type="redirectAction">
-                <param name="namespace">/order</param>
-                <param name="actionName">order</param>
+                <param name="namespace">/cash</param>
+                <param name="actionName">cash</param>
             </result>
         </action>
 
