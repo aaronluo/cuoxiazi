@@ -22,20 +22,29 @@
             <result name="input" type="tiles">cashEdit</result>
             <result name="success" type="tiles">cashEdit</result>
         </action>
-        
+
         <action name="discount" class="com.innovaee.eorder.action.cash.CashAction"
             method="discount">
             <result name="error" type="tiles">cashEdit</result>
             <result name="input" type="tiles">cashEdit</result>
             <result name="success" type="tiles">cashEdit</result>
         </action>
-        
+
         <action name="save" class="com.innovaee.eorder.action.cash.CashAction"
             method="save">
             <result name="error" type="tiles">cashEdit</result>
             <result name="input" type="tiles">cashEdit</result>
             <result name="success" type="tiles">cash</result>
         </action>
+
+        <action name="print" class="com.innovaee.eorder.action.cash.CashAction"
+            method="print">
+            <result name="error" type="tiles">print</result>
+            <result name="input" type="tiles">print</result>
+            <result name="success" type="tiles">print</result>
+        </action>
+
+
     </package>
 
 </struts>

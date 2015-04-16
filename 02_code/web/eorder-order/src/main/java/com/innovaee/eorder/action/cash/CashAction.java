@@ -86,7 +86,6 @@ public class CashAction extends BaseAction {
      */
     public String edit() {
         if (null != orderId) {
-
             try {
                 order = orderService.getOrderById(orderId);
             } catch (OrderNotFoundException e) {
@@ -122,7 +121,7 @@ public class CashAction extends BaseAction {
 
             NewOrderVO newOrderVO = new NewOrderVO();
             // 1. 设置订单ID
-            newOrderVO.setId(orderId);
+            newOrderVO.setId(order.getId());
             User member = userService.findUserByCellphone(order.getMember()
                     .getCellphone());
             if (null != member) {
@@ -164,7 +163,7 @@ public class CashAction extends BaseAction {
             orderService.updateOrder(newOrderVO);
         } catch (OrderNotFoundException e) {
             try {
-                order = orderService.getOrderById(orderId);
+                order = orderService.getOrderById(order.getId());
             } catch (OrderNotFoundException e1) {
                 setMessage(e.getMessage());
             }
@@ -172,7 +171,7 @@ public class CashAction extends BaseAction {
             return ERROR;
         } finally {
             try {
-                order = orderService.getOrderById(orderId);
+                order = orderService.getOrderById(order.getId());
             } catch (OrderNotFoundException e) {
                 setMessage(e.getMessage());
             }
@@ -216,6 +215,26 @@ public class CashAction extends BaseAction {
             refreshPageData();
         }
 
+        return SUCCESS;
+    }
+
+    /**
+     * 进入流水页面
+     * 
+     * @return
+     */
+    public String print() {
+        if (null != orderId) {
+            try {
+                order = orderService.getOrderById(orderId);
+            } catch (OrderNotFoundException e) {
+                setMessage(e.getMessage());
+                return ERROR;
+            }
+        } else {
+            setMessage(MessageUtil.getMessage("order_id", "" + orderId));
+            return ERROR;
+        }
         return SUCCESS;
     }
 

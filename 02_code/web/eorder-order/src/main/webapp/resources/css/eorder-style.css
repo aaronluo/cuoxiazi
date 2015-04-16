@@ -198,6 +198,32 @@ html {
 	float: right;
 }
 
+.pop_print_window {
+	width: 600px;
+	background-color: #ee9154;
+	position: absolute;
+	padding: 2px;
+	margin: 5px;
+	display: none;
+}
+
+.pop_print_content {
+	height: 720px;
+	background-color: #FFF;
+	font-size: 14px;
+	/*overflow: auto;*/
+}
+
+.pop_print_title {
+	padding: 2px;
+	/*color: #0CF;*/
+	font-size: 14px;
+}
+
+.pop_print_title img {
+	float: right;
+}
+
 .divgreen {
 	padding: 10px;
 	margin: 10px;
@@ -222,4 +248,15 @@ html {
 	text-align: center;
 	overflow: hidden;
 	font-size: 26px;
+}
+
+.print_page_title {
+	background: url(../images/tbg.png) repeat-x;
+	height: 36px;
+	line-height: 36px;
+	border-bottom: solid 1px #d3dbde;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+/*	text-indent: 24px;*/
 }

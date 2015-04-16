@@ -73,6 +73,10 @@
         <put-attribute name="body" value="/pages/upload/upload.jsp" />
     </definition>
 
+    <definition name="print" extends="layoutbody">
+        <put-attribute name="body" value="/pages/cash/cashPrint.jsp" />
+    </definition>
+
     <definition name="listLevel" extends="layout">
         <put-attribute name="body" value="/pages/member/level.jsp" />
     </definition>

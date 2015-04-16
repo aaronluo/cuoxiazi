@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <script type="text/javascript" src="../resources/js/cash.js"></script>
+
 <div class="place">
 	<span><s:text name="place" /></span>
 	<ul class="placeul">
@@ -21,13 +23,16 @@
 				<tr>
 					<th><s:text name="dish_name_label" /></th>
 					<th><s:text name="amount_label" /></th>
+					<th><s:text name="dish_price_thin_label" /></th>
 				</tr>
 			</thead>
 			<tbody>
 				<s:iterator value="order.orderItems" status="status">
 					<tr class='<s:if test="#status.even">odd</s:if>'>
-						<td width="70%"><s:property value="dish.name" /></td>
-						<td><s:property value="dishAmount" /></td>
+						<td><s:property value="dish.name" /></td>
+						<td width="10%"><s:property value="dishAmount" /></td>
+						<td width="20%"><fmt:formatNumber value="${dish.price}"
+								pattern="0.00" /></td>
 					</tr>
 				</s:iterator>
 			</tbody>
@@ -82,8 +87,8 @@
 						id="order.discountPrice" name="order.discountPrice"
 						value="${order.discountPrice}" type="text" class="dfinput"
 						style="width: 280px;" readonly="readonly" /></li>
-					<li><label>&nbsp;&nbsp;</label><input name="" type="button"
-						class="btn" style="width: 130px;" onclick="print();"
+					<li><label>&nbsp;&nbsp;</label><input name="" id="btn_print"
+						type="button" class="scbtn" style="width: 130px;"
 						value="<s:text name='print_label' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
 						name="" type="button" class="btn" style="width: 130px;" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
@@ -95,3 +100,4 @@
 			<s:fielderror />
 		</div>
 	</div>
+</div>

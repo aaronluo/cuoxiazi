@@ -179,20 +179,23 @@ public class OrderAction extends BaseAction {
         // 1. 收银员列表
         cashierList = new ArrayList<User>();
         Role cashierRole = roleService.findRoleByRoleName(Constants.CASHIER);
-        Set<User> cashier = cashierRole.getUsers();
-        if (null != cashier && 0 < cashier.size()) {
-            for (User user : cashier) {
-                cashierList.add(user);
+        if (null != cashierRole) {
+            Set<User> cashier = cashierRole.getUsers();
+            if (null != cashier && 0 < cashier.size()) {
+                for (User user : cashier) {
+                    cashierList.add(user);
+                }
             }
-        }
-
+        } 
         // 2. 点餐员列表
         serventList = new ArrayList<User>();
         Role serventRole = roleService.findRoleByRoleName(Constants.SERVENT);
-        Set<User> servent = serventRole.getUsers();
-        if (null != servent && 0 < servent.size()) {
-            for (User user : servent) {
-                serventList.add(user);
+        if (null != serventRole) {
+            Set<User> servent = serventRole.getUsers();
+            if (null != servent && 0 < servent.size()) {
+                for (User user : servent) {
+                    serventList.add(user);
+                }
             }
         }
 

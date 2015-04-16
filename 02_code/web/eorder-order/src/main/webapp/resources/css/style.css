@@ -1602,6 +1602,14 @@ h2 {
 	text-indent: 10px;
 }
 
+.labelvalue {
+	width: 200px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../images/inputbg.gif) repeat-x;
+	text-indent: 10px;
+}
+
 .scbtn {
 	width: 85px;
 	height: 35px;
