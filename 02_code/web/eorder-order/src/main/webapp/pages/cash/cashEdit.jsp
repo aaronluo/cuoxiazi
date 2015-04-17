@@ -2,8 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <script type="text/javascript" src="../resources/js/cash.js"></script>
+<script type="text/javascript" src="../resources/js/jquery.PrintArea.js"></script>
 
 <div class="place">
 	<span><s:text name="place" /></span>
@@ -46,6 +46,7 @@
 			<form id="orderForm" name="orderForm">
 				<s:hidden id="orderId" name="orderId" />
 				<s:hidden id="order.id" name="order.id" />
+				<s:hidden id="order.orderItems.size" name="order.orderItems.size" />
 				<s:hidden id="order.totalPrice" name="order.totalPrice" />
 				<s:hidden id="order.orderStatus" name="order.orderStatus" />
 				<ul class="forminfo">
@@ -87,9 +88,9 @@
 						id="order.discountPrice" name="order.discountPrice"
 						value="${order.discountPrice}" type="text" class="dfinput"
 						style="width: 280px;" readonly="readonly" /></li>
-					<li><label>&nbsp;&nbsp;</label><input name="" id="btn_print"
+					<li><label>&nbsp;&nbsp;</label><input name="" id="btn_center"
 						type="button" class="scbtn" style="width: 130px;"
-						value="<s:text name='print_label' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
+						value="<s:text name='print_label' />" />&nbsp;&nbsp;&nbsp;&nbsp; <input
 						name="" type="button" class="btn" style="width: 130px;" onclick="save();"
 						value="<s:text name='confirm_save' />" /></li>
 				</ul>
@@ -99,5 +100,69 @@
 			<s:property value="message" />
 			<s:fielderror />
 		</div>
+	</div>
+</div>
+
+<div class="pop_print_window" id="pop_print_windowid">
+	<div id="title" class="poptitle">
+		<img src="../resources/images/close1.png" />
+		<s:text name="print_label" />
+	</div>
+	<div class="pop_print_content" id="pop_print_contentid">
+		<div id="printContent" class="rightinfo">
+			<div style="width: 550px;">
+				<div style="padding-left: 25px; width: 430px">
+					<span class="print_page_title"><s:text name="order.print_page_label" /></span>
+				</div>
+				<ul class="print_label">
+					<li><label><s:text name="member_label" /></label><span
+						class="labelvalue" style="width: 180px;"><s:property value="order.orderSeq" /></span></li>
+					<li><label><s:text name="table_number_label" /></label><span
+						class="labelvalue"><s:property value="order.tableNumber" /></span></li>
+				</ul>
+				<ul class="print_label">
+					<li><label><s:text name="order_create_date_label" /></label>
+						<div class="labelvalue" style="width: 180px;">
+							<s:date name="order.createDate" format="yyyy-MM-dd HH:mm:ss" />
+						</div></li>
+					<li><label><s:text name="cashier_label" /></label><span
+						class="labelvalue"><s:property value="order.casher.username" /></span></li>
+				</ul>
+				<div style="padding-left: 25px">
+					<table class="print_tablelist" style="width: 430px">
+						<thead>
+							<tr>
+								<th><s:text name="dish_name_label" /></th>
+								<th><s:text name="amount_label" /></th>
+								<th><s:text name="dish_price_thin_label" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<s:iterator value="order.orderItems" status="status">
+								<tr class='<s:if test="#status.even">odd</s:if>'>
+									<td><s:property value="dish.name" /></td>
+									<td width="10%"><s:property value="dishAmount" /></td>
+									<td width="20%"><fmt:formatNumber value="${dish.price}"
+											pattern="0.00" /></td>
+								</tr>
+							</s:iterator>
+						</tbody>
+					</table>
+				</div>
+
+				<ul class="print_label">
+					<li><label><b><s:text name="total_price" /></b></label><span
+						class="labelvalue"><s:property value="order.totalPrice" /></span></li>
+					<li><label><b><s:text name="real_price_label" /></label></b><span
+						class="labelvalue"><s:property value="order.discountPrice" /></span></li>
+				</ul>
+
+			</div>
+		</div>
+		<ul class="seachform" style="padding-left: 50px">
+			<li style="padding-left: 135px"><input name="" id="btnPrint"
+				type="button" class="scbtn" style="width: 130px;"
+				value="<s:text name='print_thin_label' />" /></li>
+		</ul>
 	</div>
 </div>

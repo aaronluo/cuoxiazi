@@ -80,7 +80,7 @@ function openUploadPage() {
 
 // 接收父页面上传回的值
 function setValue(newFileName) {
-	alert("setValue");
+	//alert("setValue");
 	$("newFileName").val(newFileName);
 	$("#category\\.picPath").val("/dish/" + newFileName);
 	// 改变图片源，实时刷新图片

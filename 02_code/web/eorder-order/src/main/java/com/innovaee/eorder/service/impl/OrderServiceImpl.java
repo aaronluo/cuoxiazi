@@ -369,17 +369,19 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderStatus(orderVO.getStatus());
         order.setCasher(userDao.get(orderVO.getCashierId()));
-        User member = userDao.get(orderVO.getMemberId());
-        if (null != member) {
-            order.setMember(member);
-            MemberShip memberShip = member.getMemberShip();
-            if (null != memberShip) {
-                order.getMember().setMemberShip(memberShip);
-                UserLevel level = memberShip.getLevel();
-                if (null != level) {
-                    order.getMember().getMemberShip().setLevel(level);
-                    order.setDiscountPrice(order.getTotalPrice()
-                            * level.getDiscount());
+        if (null != orderVO.getMemberId()) {
+            User member = userDao.get(orderVO.getMemberId());
+            if (null != member) {
+                order.setMember(member);
+                MemberShip memberShip = member.getMemberShip();
+                if (null != memberShip) {
+                    order.getMember().setMemberShip(memberShip);
+                    UserLevel level = memberShip.getLevel();
+                    if (null != level) {
+                        order.getMember().getMemberShip().setLevel(level);
+                        order.setDiscountPrice(order.getTotalPrice()
+                                * level.getDiscount());
+                    }
                 }
             }
         }

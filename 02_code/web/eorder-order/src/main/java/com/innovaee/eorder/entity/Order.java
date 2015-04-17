@@ -7,9 +7,6 @@
 
 package com.innovaee.eorder.entity;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +17,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @Title: Order
@@ -184,6 +185,7 @@ public class Order extends BaseEntity {
     }
 
     @OneToMany(targetEntity = OrderItem.class, fetch = FetchType.EAGER, mappedBy = "order")
+    @OrderBy("id ASC")
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }

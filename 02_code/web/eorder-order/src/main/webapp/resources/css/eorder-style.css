@@ -199,7 +199,7 @@ html {
 }
 
 .pop_print_window {
-	width: 600px;
+	width: 550px;
 	background-color: #ee9154;
 	position: absolute;
 	padding: 2px;
@@ -208,7 +208,7 @@ html {
 }
 
 .pop_print_content {
-	height: 720px;
+	/* width: 420px; */
 	background-color: #FFF;
 	font-size: 14px;
 	/*overflow: auto;*/
@@ -258,5 +258,59 @@ html {
 	text-align: center;
 	font-weight: bold;
 	font-size: 24px;
-/*	text-indent: 24px;*/
+	/*	text-indent: 24px;*/
+}
+
+.labelvalue {
+	width: 160px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../images/inputbg.gif) repeat-x;
+	text-indent: 2px;
+}
+
+/*seachform*/
+.print_label {
+	height: 42px;
+	padding-left: 40px;
+}
+
+.print_label li {
+	float: left;
+	/*margin-right: 15px;
+	background-color: #00ff00;*/
+}
+
+.print_label li label {
+	/*background-color: #804000;
+	padding-right: 10px;*/
+	width: 50px;
+	/*background-color: blue;*/
+	line-height: 32px;
+	float: left;
+	margin-right: 2px;
+	text-align: right;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.print_tablelist {
+	border: solid 1px #cbcbcb;
+	width: 100%;
+	clear: both;
+}
+
+.print_tablelist th {
+	background: url(../images/th.gif) repeat-x;
+	height: 34px;
+	line-height: 34px;
+	border-bottom: solid 1px #b6cad2;
+	text-indent: 11px;
+	text-align: left;
+}
+
+.print_tablelist td {
+	line-height: 35px;
+	text-indent: 11px;
+	border-right: dotted 1px #c7c7c7;
 }

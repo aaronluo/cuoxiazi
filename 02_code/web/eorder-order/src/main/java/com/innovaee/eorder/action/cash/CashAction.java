@@ -88,6 +88,21 @@ public class CashAction extends BaseAction {
         if (null != orderId) {
             try {
                 order = orderService.getOrderById(orderId);
+                // 将当前收银员修改为订单的收银员
+                EOrderUserDetailVO userDetail = (EOrderUserDetailVO) SecurityContextHolder
+                        .getContext().getAuthentication().getPrincipal();
+                if (null != userDetail) {
+                    NewOrderVO newOrderVO = new NewOrderVO();
+                    // 1. 设置订单ID
+                    newOrderVO.setId(order.getId());
+                    // 2. 设置订单状态
+                    newOrderVO.setStatus(order.getOrderStatus());
+                    User cashier = userDetail.getUser();
+                    if (null != cashier) {
+                        newOrderVO.setCashierId(cashier.getId());
+                        order = orderService.updateOrder(newOrderVO);
+                    }
+                }
             } catch (OrderNotFoundException e) {
                 setMessage(e.getMessage());
                 return ERROR;
@@ -109,8 +124,7 @@ public class CashAction extends BaseAction {
         try {
             if (null != order.getMember().getCellphone()
                     && !"".equals(order.getMember().getCellphone().trim())) {
-                if (StringUtil.isMobileNO(order.getMember().getCellphone())) {
-                } else {
+                if (!StringUtil.isMobileNO(order.getMember().getCellphone())) {
                     this.setMessage(MessageUtil.getMessage("cellphone_invalid"));
                     return INPUT;
                 }
@@ -226,7 +240,27 @@ public class CashAction extends BaseAction {
     public String print() {
         if (null != orderId) {
             try {
+                // 查找当前订单
                 order = orderService.getOrderById(orderId);
+                // 如果非会员打印，则要先查看是否有收银员，如果没有，将当前收银员修改为订单的收银员
+                User cashier = order.getCasher();
+                if (null == cashier) {
+                    EOrderUserDetailVO userDetail = (EOrderUserDetailVO) SecurityContextHolder
+                            .getContext().getAuthentication().getPrincipal();
+
+                    if (null != userDetail) {
+                        NewOrderVO newOrderVO = new NewOrderVO();
+                        // 1. 设置订单ID
+                        newOrderVO.setId(order.getId());
+                        // 2. 设置订单状态
+                        newOrderVO.setStatus(order.getOrderStatus());
+                        cashier = userDetail.getUser();
+                        if (null != cashier) {
+                            newOrderVO.setCashierId(cashier.getId());
+                            orderService.updateOrder(newOrderVO);
+                        }
+                    }
+                }
             } catch (OrderNotFoundException e) {
                 setMessage(e.getMessage());
                 return ERROR;
