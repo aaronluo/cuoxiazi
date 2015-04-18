@@ -6,14 +6,26 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.dao.OrderDao;
 import com.innovaee.eorder.dao.OrderItemDao;
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.entity.Dish;
+import com.innovaee.eorder.entity.MemberShip;
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
@@ -22,20 +34,11 @@ import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.support.Constants;
-import com.innovaee.eorder.support.DateUtil;
 import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.utils.Constants;
+import com.innovaee.eorder.utils.DateUtil;
 import com.innovaee.eorder.vo.NewOrderItemVO;
 import com.innovaee.eorder.vo.NewOrderVO;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Title: OrderServiceImpl
@@ -195,7 +198,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
             order.setTotalPrice(totalPrice);
-            order.setDiscountPrice(totalPrice * discount);
+            order.setDiscountPrice(totalPrice * discount * 0.1);
 
             orderDao.update(order);
         } else {
@@ -265,6 +268,50 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders = orderDao.query(orderCriteria, curPage, pageSize);
 
         return orders;
+    }
+
+    /**
+     * 根据查询条件查找订单明细
+     * 
+     * @param order
+     * @param curPage
+     * @param pageSize
+     * @return 返回订单明细分页数据
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     */
+    @Override
+    public List<OrderItem> queryOrderItems(Order order, int curPage,
+            int pageSize) throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton {
+        int orderCount = 0;
+        if (null != order.getOrderItems() && 0 < order.getOrderItems().size()) {
+            orderCount = order.getOrderItems().size();
+        } else {
+            return null;
+        }
+
+        int pageCount = orderCount % pageSize == 0 ? orderCount / pageSize
+                : orderCount / pageSize + 1;
+
+        if (curPage < 1 || curPage > pageCount) {
+            throw new PageIndexOutOfBoundExcpeiton(pageCount, curPage);
+        }
+        List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+        orderItemList.addAll(order.getOrderItems());
+        // 超过总页数置为最后一页
+        if (curPage > pageCount) {
+            curPage = pageCount;
+        }
+
+        // 计算需要显示的结果数据
+        List<OrderItem> pageOrderItemList = new ArrayList<OrderItem>();
+        for (int i = ((curPage - 1) * pageSize); i < orderItemList.size()
+                && i < ((curPage) * pageSize) && curPage > 0; i++) {
+            pageOrderItemList.add(orderItemList.get(i));
+        }
+
+        return pageOrderItemList;
     }
 
     /**
@@ -367,8 +414,23 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderStatus(orderVO.getStatus());
         order.setCasher(userDao.get(orderVO.getCashierId()));
-        order.setMember(userDao.get(orderVO.getMemberId()));
-
+        if (null != orderVO.getMemberId()) {
+            User member = userDao.get(orderVO.getMemberId());
+            if (null != member) {
+                order.setMember(member);
+                MemberShip memberShip = member.getMemberShip();
+                if (null != memberShip) {
+                    order.getMember().setMemberShip(memberShip);
+                    UserLevel level = memberShip.getLevel();
+                    if (null != level) {
+                        order.getMember().getMemberShip().setLevel(level);
+                        order.setDiscountPrice(order.getTotalPrice()
+                                * level.getDiscount() * 0.1);
+                    }
+                }
+            }
+        }
+        order.setUpdateDate(new Date());
         orderDao.update(order);
 
         return order;

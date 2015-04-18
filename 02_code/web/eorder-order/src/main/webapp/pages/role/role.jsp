@@ -35,9 +35,9 @@
 		<table class="tablelist">
 			<thead>
 				<tr>
-					<th width="8%"><s:text name="role_name" /></th>
-					<th width="8%"><s:text name="role_desc" /></th>
-					<th width="68%"><s:text name="function_list" /></th>
+					<th width="12%"><s:text name="role_name" /></th>
+					<th width="15%"><s:text name="role_desc" /></th>
+					<th><s:text name="function_list" /></th>
 					<th width="8%"><s:text name="edit" /></th>
 					<th width="8%"><s:text name="delete" /></th>
 				</tr>

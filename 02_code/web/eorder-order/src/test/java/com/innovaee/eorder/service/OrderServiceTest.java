@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.OrderOperationException;
@@ -108,7 +109,55 @@ public class OrderServiceTest extends BaseSpringTestCase {
         // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
         // .getLevel().getLevelName());
     }
-    
+
+    /**
+     * 单元测试 - 查询OrderItem分页测试
+     * 
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     * @throws OrderNotFoundException
+     */
+    @Test
+    public void queryOrderItemTestTwo() throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton, OrderNotFoundException {
+        Long orderId = 13L;
+        Order order = orderService.getOrderById(orderId);
+        int curPage = 3;
+        int pageSize = 5;
+
+        List<OrderItem> orderItems = orderService.queryOrderItems(order,
+                curPage, pageSize);
+
+        assertNotNull(orderItems);
+        assertEquals(2, orderItems.size());
+        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
+        // .getLevel().getLevelName());
+    }
+
+    /**
+     * 单元测试 - 查询OrderItem分页测试
+     * 
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     * @throws OrderNotFoundException
+     */
+    @Test
+    public void queryOrderItemTestOne() throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton, OrderNotFoundException {
+        Long orderId = 13L;
+        Order order = orderService.getOrderById(orderId);
+        int curPage = 1;
+        int pageSize = 5;
+
+        List<OrderItem> orderItems = orderService.queryOrderItems(order,
+                curPage, pageSize);
+
+        assertNotNull(orderItems);
+        assertEquals(5, orderItems.size());
+        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
+        // .getLevel().getLevelName());
+    }
+
     @Test
     public void queryOrderByPageTestTwo() throws InvalidPageSizeException,
             PageIndexOutOfBoundExcpeiton {

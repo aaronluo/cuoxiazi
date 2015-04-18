@@ -18,25 +18,61 @@
 		<div class="formtitle">
 			<span><s:text name="order_detail_label" /></span>
 		</div>
-		<table class="tablelist">
-			<thead>
-				<tr>
-					<th><s:text name="dish_name_label" /></th>
-					<th><s:text name="amount_label" /></th>
-					<th><s:text name="dish_price_thin_label" /></th>
-				</tr>
-			</thead>
-			<tbody>
-				<s:iterator value="order.orderItems" status="status">
-					<tr class='<s:if test="#status.even">odd</s:if>'>
-						<td><s:property value="dish.name" /></td>
-						<td width="10%"><s:property value="dishAmount" /></td>
-						<td width="20%"><fmt:formatNumber value="${dish.price}"
-								pattern="0.00" /></td>
+		<div style="overflow-x: hidden; overflow-y: auto;">
+			<table>
+				<thead>
+					<tr>
+						<th><s:text name="dish_name_label" /></th>
+						<th><s:text name="amount_label" /></th>
+						<th><s:text name="dish_price_thin_label" /></th>
 					</tr>
-				</s:iterator>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<s:iterator value="orderItems" status="status">
+						<tr class='<s:if test="#status.even">odd</s:if>'>
+							<td><s:property value="dish.name" /></td>
+							<td width="40px"><s:property value="dishAmount" /></td>
+							<td width="60px"><fmt:formatNumber value="${dish.price}"
+									pattern="0.00" /></td>
+						</tr>
+					</s:iterator>
+				</tbody>
+			</table>
+		</div>
+		<!-- 分页信息 -->
+		<div class="pagin" style="padding: 0 0">
+			<!-- 分页跳转 -->
+			<div class="message" style="width: 40%; float: right">
+				<form name="pageForm" id="pageForm">
+					<s:hidden id="orderId" name="orderId" />
+					<s:hidden id="order.id" name="order.id" />
+					<s:hidden id="order.serventId" name="order.serventId" />
+					<s:hidden id="order.cashierId" name="order.cashierId" />
+					<s:hidden id="order.totalPrice" name="order.totalPrice" />
+					<s:hidden id="order.discountPrice" name="order.discountPrice" />
+					<s:hidden id="order.orderStatus" name="order.orderStatus" />
+					<s:hidden id="order.member.memberShip.discount"
+						name="order.member.memberShip.discount" />
+					<s:hidden id="pageNow" name="pageNow" />
+					<s:hidden id="pageTotal" name="pageTotal" />
+					<ul class="paginList" style="margin-right: -12px">
+						<li class="paginItem"><s:if test="pageNow == 1">
+								<span class="pagepre01">&nbsp;&nbsp;</span>
+							</s:if> <s:else>
+								<span class="pagepre02"><a href="javascript:prePage();">&nbsp;&nbsp;</a></span>
+							</s:else></li>
+						<li class="paginItem"><label>&nbsp;&nbsp;<s:text name="no" />&nbsp;&nbsp;
+								<s:property value="pageNow" />&nbsp;&nbsp;<s:text name="page" />&nbsp;&nbsp;
+						</label></li>
+						<li class="paginItem"><s:if test="pageNow == pageTotal">
+								<span class="pagenxt01">&nbsp;&nbsp;</span>
+							</s:if> <s:else>
+								<span class="pagenxt02"><a href="javascript:nextPage();">&nbsp;&nbsp;</a></span>
+							</s:else></li>
+					</ul>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="orderItemPanel">
 		<div class="formtitle">
@@ -49,6 +85,8 @@
 				<s:hidden id="order.orderItems.size" name="order.orderItems.size" />
 				<s:hidden id="order.totalPrice" name="order.totalPrice" />
 				<s:hidden id="order.orderStatus" name="order.orderStatus" />
+				<s:hidden id="pageNow" name="pageNow" />
+				<s:hidden id="pageTotal" name="pageTotal" />
 				<ul class="forminfo">
 					<li><label><s:text name="table_number_label" /></label><input
 						id="order.tableNumber" name="order.tableNumber"
@@ -75,15 +113,21 @@
 				<s:hidden id="orderId" name="orderId" />
 				<s:hidden id="order.id" name="order.id" />
 				<s:hidden id="order.orderStatus" name="order.orderStatus" />
+				<s:hidden id="pageNow" name="pageNow" />
+				<s:hidden id="pageTotal" name="pageTotal" />
 				<ul class="forminfo">
 					<li><label><s:text name="total_price" /></label><input
 						id="order.totalPrice" name="order.totalPrice" value="${order.totalPrice}"
 						type="text" class="dfinput" style="width: 280px;" readonly="readonly" /></li>
-					<li><label><s:text name="level_discount" /></label><input
-						id="order.member.memberShip.discount"
-						name="order.member.memberShip.discount"
-						value="${order.member.memberShip.level.discount}" type="text"
-						class="dfinput" style="width: 280px;" readonly="readonly" /></li>
+					<li><label><s:text name="level_discount" /></label> <s:if
+							test="null == order.member || null == order.member.memberShip || null == order.member.memberShip.discount || '' == order.member.memberShip.discount">
+							<s:text name="no_discount_label" />
+						</s:if> <s:else>
+							<input id="order.member.memberShip.discount"
+								name="order.member.memberShip.discount"
+								value='${order.member.memberShip.level.discount} &nbsp;&nbsp;<s:text name="discount_label" />'
+								type="text" class="dfinput" style="width: 280px;" readonly="readonly" />
+						</s:else></li>
 					<li><label><s:text name="real_price_label" /></label> <input
 						id="order.discountPrice" name="order.discountPrice"
 						value="${order.discountPrice}" type="text" class="dfinput"
@@ -116,7 +160,8 @@
 				</div>
 				<ul class="print_label">
 					<li><label><s:text name="order_seq_label" /></label><span
-						class="labelvalue" style="width: 180px;"><s:property value="order.orderSeq" /></span></li>
+						class="labelvalue" style="width: 180px;"><s:property
+								value="order.orderSeq" /></span></li>
 					<li><label><s:text name="table_number_label" /></label><span
 						class="labelvalue"><s:property value="order.tableNumber" /></span></li>
 				</ul>

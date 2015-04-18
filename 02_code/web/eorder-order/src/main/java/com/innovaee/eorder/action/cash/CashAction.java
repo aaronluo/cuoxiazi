@@ -17,20 +17,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.MemberShip;
 import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.entity.UserLevel;
+import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.OrderOperationException;
+import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.OrderService;
 import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
 import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
 import com.innovaee.eorder.vo.NewOrderVO;
-import com.innovaee.eorder.vo.OrderItemVO;
 
 /**
  * @Title: CashAction
@@ -47,7 +50,7 @@ public class CashAction extends BaseAction {
     public static final String FUNCTION_DESC = "Cash";
 
     /** 订单明细 */
-    private List<OrderItemVO> orderItemVOs;
+    private List<OrderItem> orderItems;
 
     /** 餐桌状态 */
     private Map<Integer, Order> tableStatus;
@@ -107,6 +110,32 @@ public class CashAction extends BaseAction {
                 setMessage(e.getMessage());
                 return ERROR;
             } finally {
+                // 获取菜品明细列表
+                getOrderItemList();
+                // 刷新系统菜单
+                refreshPageData();
+            }
+        }
+
+        return SUCCESS;
+    }
+
+    /**
+     * 显示订单明细
+     * 
+     * @return
+     */
+    public String list() {
+        if (null != orderId) {
+            try {
+                order = orderService.getOrderById(orderId);
+                // 获取菜品明细列表
+                getOrderItemList();
+            } catch (OrderNotFoundException e) {
+                setMessage(e.getMessage());
+                return ERROR;
+            } finally {
+
                 // 刷新系统菜单
                 refreshPageData();
             }
@@ -150,7 +179,7 @@ public class CashAction extends BaseAction {
                         if (null != level) {
                             order.getMember().getMemberShip().setLevel(level);
                             order.setDiscountPrice(order.getTotalPrice()
-                                    * level.getDiscount());
+                                    * level.getDiscount() * 0.1);
                         }
                     }
                 }
@@ -190,6 +219,8 @@ public class CashAction extends BaseAction {
                 setMessage(e.getMessage());
             }
 
+            // 获取菜品明细列表
+            getOrderItemList();
             // 刷新系统菜单
             refreshPageData();
         }
@@ -225,6 +256,8 @@ public class CashAction extends BaseAction {
             return ERROR;
         } finally {
             tableStatus = orderService.getTableStatus();
+            // 获取菜品明细列表
+            getOrderItemList();
             // 刷新系统菜单
             refreshPageData();
         }
@@ -273,6 +306,43 @@ public class CashAction extends BaseAction {
     }
 
     /**
+     * 获取菜品明细列表
+     */
+    private void getOrderItemList() {
+        try {
+            count = order.getOrderItems().size();
+            if (0 == count) {
+                this.setMessage(MessageUtil.getMessage("order_record_empty"));
+                return;
+            }
+
+            int pageTotal = 1;
+            if (0 == count % Constants.PAGE_SIZE) {
+                pageTotal = count / Constants.PAGE_SIZE;
+            } else {
+                pageTotal = count / Constants.PAGE_SIZE + 1;
+            }
+            this.setPageTotal(pageTotal);
+
+            // 处理用户点击【上一页】和【下一页】边界情况
+            if (pageNow > pageTotal) {
+                pageNow = pageTotal;
+                pageInput = pageNow;
+            } else if (pageNow < 1) {
+                pageNow = 1;
+                pageInput = 1;
+            }
+
+            orderItems = orderService.queryOrderItems(order, pageNow,
+                    Constants.PAGE_SIZE);
+        } catch (PageIndexOutOfBoundExcpeiton e) {
+            this.setMessage(e.getMessage());
+        } catch (InvalidPageSizeException e) {
+            this.setMessage(e.getMessage());
+        }
+    }
+
+    /**
      * 刷新页面数据
      */
     private void refreshPageData() {
@@ -303,12 +373,12 @@ public class CashAction extends BaseAction {
         this.tableStatus = tableStatus;
     }
 
-    public List<OrderItemVO> getOrderItemVOs() {
-        return orderItemVOs;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemVOs(List<OrderItemVO> orderItemVOs) {
-        this.orderItemVOs = orderItemVOs;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public Order getOrder() {

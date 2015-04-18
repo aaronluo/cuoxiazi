@@ -7,6 +7,7 @@
 package com.innovaee.eorder.service;
 
 import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.OrderItem;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
@@ -79,6 +80,20 @@ public interface OrderService {
     public List<Order> queryOrders(final NewOrderVO orderCriteria,
             final int curPage, final int pageSize)
             throws InvalidPageSizeException, PageIndexOutOfBoundExcpeiton;
+
+    /**
+     * 根据查询条件查找订单明细
+     * 
+     * @param order
+     * @param curPage
+     * @param pageSize
+     * @return 返回订单明细分页数据
+     * @throws InvalidPageSizeException
+     * @throws PageIndexOutOfBoundExcpeiton
+     */
+    public List<OrderItem> queryOrderItems(Order order, int curPage,
+            int pageSize) throws InvalidPageSizeException,
+            PageIndexOutOfBoundExcpeiton;
 
     /**
      * 根据查询条件查找订单分页总数

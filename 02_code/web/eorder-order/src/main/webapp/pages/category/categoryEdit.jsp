@@ -48,7 +48,7 @@
 						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
-						id="categoryPic" style="width: 280px; height: 280px;"
+						id="categoryPic" style="width: 140px; height: 140px;"
 						src='../resources/images${category.picPath}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnSave"
 						type="button" class="btn" onclick="saveBack();"
@@ -87,7 +87,7 @@
 						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="category_picture_label" /></label><img
-						id="categoryPic" style="width: 280px; height: 280px;"
+						id="categoryPic" style="width: 140px; height: 140px;"
 						src='../resources/images${category.picPath}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"

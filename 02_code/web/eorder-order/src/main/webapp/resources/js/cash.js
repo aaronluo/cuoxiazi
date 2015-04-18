@@ -1,3 +1,34 @@
+function prePage() {
+	var pageNow = $("#pageNow").val();
+	pageNow = parseInt(pageNow) - 1;
+	$("#pageNow").val(pageNow);
+
+	$("[name='pageForm']").attr("action", "list.action");
+	$("[name='pageForm']").attr("method", "post");
+	$("[name='pageForm']").submit();
+}
+
+function nextPage() {
+	var pageNow = $("#pageNow").val();
+	pageNow = parseInt(pageNow) + 1;
+	$("#pageNow").val(pageNow);
+
+	$("[name='pageForm']").attr("action", "list.action");
+	$("[name='pageForm']").attr("method", "post");
+	$("[name='pageForm']").submit();
+}
+
+function load() {
+	// 取得用户输入的页数
+	var pageNow = $("#pageInput").val();
+	// 如果没有输入，则不响应确认按钮事件
+	if ('' != pageNow) {
+		$("[name='pageForm']").attr("action", "list.action");
+		$("[name='pageForm']").attr("method", "post");
+		$("[name='pageForm']").submit();
+	}
+}
+
 function discount() {
 
 	// 取得用户输入的页数
@@ -99,11 +130,21 @@ function init() {
 	// windowHeight = windowHeight + size*100;
 	// alert("#2 windowHeight: " + windowHeight);
 	windowWidth = $(window).width();
+	//alert("windowWidth: " + windowWidth);
 	popHeight = $(".pop_print_window").height();
 	//alert("#1 popHeight: " + popHeight);
-	popHeight = popHeight + size * 6;
+	if(popHeight > 350) {
+		popHeight = 350;
+	}
+	
+	if(size < 5) {
+		popHeight = popHeight + size * 6;
+	} else {
+		popHeight = popHeight + 5 * 6;
+	}
 	//alert("#2 popHeight: " + popHeight);
 	popWidth = $(".pop_print_window").width();
+	//alert("popWidth: " + popWidth);
 	// pop_print_windowid
 	$("#pop_print_windowid").css({
 		height : popHeight
@@ -113,9 +154,9 @@ function init() {
 	//alert("#1 popContentHeight: " + popContentHeight);
 	popContentHeight = popHeight-25;
 	//alert("#2 popContentHeight: " + popContentHeight);
-	$("#pop_print_contentid").css({
-		height : popContentHeight
-	});// 设置的动态高度
+	//$("#pop_print_contentid").css({
+	//	height : popContentHeight
+	//});// 设置的动态高度
 	//alert("OK");
 }
 // 关闭窗口的方法

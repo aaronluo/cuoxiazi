@@ -2,13 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-    String path = request.getContextPath();
-			String basePath = request.getScheme() + "://"
-					+ request.getServerName() + ":" + request.getServerPort()
-					+ path;
-%>
-
 <script type="text/javascript" src="../resources/js/category.js"></script>
 
 <script type="text/javascript">
@@ -49,7 +42,7 @@
 					<tr class='<s:if test="#status.even">odd</s:if>'>
 						<td width="18%"><s:property value="name" /></td>
 						<td class="imgtd"><img
-							style="height: 64px; width: 64px; padding: 5px;"
+							style="height: 32px; width: 32px; padding: 2px;"
 							src='../resources/images<s:property value="picPath" />'></td>
 						<td><a
 							href='<s:url action="edit"><s:param name="id" value="id" /></s:url>'

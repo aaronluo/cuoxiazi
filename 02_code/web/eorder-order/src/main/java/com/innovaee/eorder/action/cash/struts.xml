@@ -23,6 +23,13 @@
             <result name="success" type="tiles">cashEdit</result>
         </action>
 
+        <action name="list" class="com.innovaee.eorder.action.cash.CashAction"
+            method="list">
+            <result name="error" type="tiles">cashEdit</result>
+            <result name="input" type="tiles">cashEdit</result>
+            <result name="success" type="tiles">cashEdit</result>
+        </action>
+
         <action name="discount" class="com.innovaee.eorder.action.cash.CashAction"
             method="discount">
             <result name="error" type="tiles">cashEdit</result>

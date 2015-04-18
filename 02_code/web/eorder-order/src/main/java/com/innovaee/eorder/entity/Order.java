@@ -47,7 +47,7 @@ public class Order extends BaseEntity {
     private Float totalPrice;
 
     /** 折扣总价 */
-    private Float discountPrice;
+    private Double discountPrice;
 
     /** 订单状态 */
     private Integer orderStatus;
@@ -136,11 +136,11 @@ public class Order extends BaseEntity {
 
     @Basic
     @Column(name = "DISCOUNT_PRICE")
-    public Float getDiscountPrice() {
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Float discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 

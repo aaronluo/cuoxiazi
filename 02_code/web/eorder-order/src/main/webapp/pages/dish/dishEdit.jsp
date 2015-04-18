@@ -61,7 +61,7 @@
 						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="dish_picture_label" /></label><img
-						id="dishPic" style="width: 280px; height: 280px;"
+						id="dishPic" style="width: 140px; height: 140px;"
 						src='../resources/images${dish.picPath}'></li>
 					<li><label><s:text name="category_name_label" /></label> <s:select
 							list="categoryVOList" listKey="id" listValue="name" id="dishSelect"
@@ -108,7 +108,7 @@
 						id="btn_center" type="button" class="scbtn"
 						value='<s:text name="upload_label" />' /></li>
 					<li><label><s:text name="dish_picture_label" /></label><img
-						id="dishPic" style="width: 280px; height: 280px;"
+						id="dishPic" style="width: 140px; height: 140px;"
 						src='../resources/images${dish.picPath}'></li>
 					<li><label><s:text name="category_name_label" /></label> <s:select
 							list="categoryVOList" listKey="id" listValue="name" id="dishSelect"
