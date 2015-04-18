@@ -255,7 +255,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                     orderCriteria.getCreateAtMin()));
                         }
                         if (orderCriteria.getCreateAtMax() != null) {
-                            // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期
+                            // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期，所以用后一天的0时进行小于比较
                             Date date = orderCriteria.getCreateAtMax();// 取时间
                             Calendar calendar = new GregorianCalendar();
                             calendar.setTime(date);

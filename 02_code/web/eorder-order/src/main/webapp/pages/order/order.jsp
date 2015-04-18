@@ -125,10 +125,9 @@
 								<s:hidden id="order.cashierId" name="order.cashierId" />
 								<s:hidden id="order.serventId" name="order.serventId" />
 								<input type="hidden" id="order.createAtMin" name="order.createAtMin"
-									value='<s:date name="order.createAtMin" format="yyyy-MM-dd" />'>
-								</input> <input type="hidden" id="order.createAtMax" name="order.createAtMax"
-									value='<s:date name="order.createAtMax" format="yyyy-MM-dd" />'>
-								</input>
+									value='<s:date name="order.createAtMin" format="yyyy-MM-dd" />' /> <input
+									type="hidden" id="order.createAtMax" name="order.createAtMax"
+									value='<s:date name="order.createAtMax" format="yyyy-MM-dd" />' />
 								<s:hidden id="order.totalPriceMin" name="order.totalPriceMin" />
 								<s:hidden id="order.totalPriceMax" name="order.totalPriceMax" />
 								<s:hidden id="order.status" name="order.status" />

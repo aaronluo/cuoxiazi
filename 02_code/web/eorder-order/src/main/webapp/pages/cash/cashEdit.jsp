@@ -115,7 +115,7 @@
 					<span class="print_page_title"><s:text name="order.print_page_label" /></span>
 				</div>
 				<ul class="print_label">
-					<li><label><s:text name="member_label" /></label><span
+					<li><label><s:text name="order_seq_label" /></label><span
 						class="labelvalue" style="width: 180px;"><s:property value="order.orderSeq" /></span></li>
 					<li><label><s:text name="table_number_label" /></label><span
 						class="labelvalue"><s:property value="order.tableNumber" /></span></li>
