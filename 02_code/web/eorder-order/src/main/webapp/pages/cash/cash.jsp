@@ -11,7 +11,7 @@
 </div>
 
 <div class="rightinfo">
-	<div class="tablePanel" style="padding: 100px 150px">
+	<div class="tablePanel" style="padding: 50px 100px">
 		<table>
 			<tbody>
 				<c:forEach var="itemi" begin="0" end="3" varStatus="status">

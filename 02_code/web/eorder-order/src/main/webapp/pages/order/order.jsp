@@ -51,12 +51,16 @@
 						type="text" class="scinput" readonly onclick="JTC.setday(this)" /></li>
 					<li><label><s:text name="order_total_price_min" /></label><input
 						id="order.totalPriceMin" name="order.totalPriceMin"
-						value="${order.totalPriceMin}" type="text" class="scinput" /></li>
+						value="${order.totalPriceMin}" type="text" class="scinput"
+						style="width: 105px;" /></li>
 					<li><label><s:text name="order_total_price_max" /></label><input
 						id="order.totalPriceMax" name="order.totalPriceMax"
-						value="${order.totalPriceMax}" type="text" class="scinput" /></li>
+						value="${order.totalPriceMax}" type="text" class="scinput"
+						style="width: 105px;" /></li>
 					<li><input name="" type="button" class="scbtn" onclick="query();"
 						value='<s:text name="query" />' /></li>
+					<li><input name="" type="button" class="scbtn" onclick="resetQuery();"
+						value='<s:text name="reset" />' /></li>
 				</ul>
 			</form>
 
@@ -65,7 +69,7 @@
 				<table class="tablelist">
 					<thead>
 						<tr>
-							<th width="18%"><s:text name="order_seq_label" /></th>
+							<th><s:text name="order_seq_label" /></th>
 							<th width="8%"><s:text name="table_number_label" /></th>
 							<th width="8%"><s:text name="attendee_number_label" /></th>
 							<th width="8%"><s:text name="total_price_label" /></th>
@@ -74,7 +78,7 @@
 							<th width="8%"><s:text name="servent_label" /></th>
 							<th width="12%"><s:text name="member_label" /></th>
 							<th width="8%"><s:text name="cashier_label" /></th>
-							<th><s:text name="order_create_date_label" /></th>
+							<th width="15%"><s:text name="order_create_date_label" /></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -116,6 +120,18 @@
 						<!-- 分页跳转 -->
 						<div class="message" style="width: 40%; float: right">
 							<form name="pageForm" id="pageForm">
+								<s:hidden id="order.orderSeq" name="order.orderSeq" />
+								<s:hidden id="order.cellphone" name="order.cellphone" />
+								<s:hidden id="order.cashierId" name="order.cashierId" />
+								<s:hidden id="order.serventId" name="order.serventId" />
+								<input type="hidden" id="order.createAtMin" name="order.createAtMin"
+									value='<s:date name="order.createAtMin" format="yyyy-MM-dd" />'>
+								</input> <input type="hidden" id="order.createAtMax" name="order.createAtMax"
+									value='<s:date name="order.createAtMax" format="yyyy-MM-dd" />'>
+								</input>
+								<s:hidden id="order.totalPriceMin" name="order.totalPriceMin" />
+								<s:hidden id="order.totalPriceMax" name="order.totalPriceMax" />
+								<s:hidden id="order.status" name="order.status" />
 								<s:hidden id="pageNow" name="pageNow" />
 								<s:hidden id="pageTotal" name="pageTotal" />
 								<ul class="paginList" style="margin-right: -12px">

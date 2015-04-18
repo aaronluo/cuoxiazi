@@ -186,7 +186,7 @@ public class OrderAction extends BaseAction {
                     cashierList.add(user);
                 }
             }
-        } 
+        }
         // 2. 点餐员列表
         serventList = new ArrayList<User>();
         Role serventRole = roleService.findRoleByRoleName(Constants.SERVENT);

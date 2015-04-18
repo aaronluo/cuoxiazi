@@ -7,7 +7,9 @@
 package com.innovaee.eorder.dao.hibernate;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -139,8 +141,14 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                             orderCriteria.getCreateAtMin()));
                 }
                 if (orderCriteria.getCreateAtMax() != null) {
-                    criteria.add(Restrictions.le("createDate",
-                            orderCriteria.getCreateAtMax()));
+                    // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期
+                    Date date = orderCriteria.getCreateAtMax();// 取时间
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
+                    // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                    criteria.add(Restrictions.lt("createDate",
+                            calendar.getTime()));
                 }
                 // 订单状态
                 if (orderCriteria.getStatus() >= Constants.ORDER_NEW) {
@@ -247,8 +255,14 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                     orderCriteria.getCreateAtMin()));
                         }
                         if (orderCriteria.getCreateAtMax() != null) {
-                            criteria.add(Restrictions.le("createDate",
-                                    orderCriteria.getCreateAtMax()));
+                            // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期
+                            Date date = orderCriteria.getCreateAtMax();// 取时间
+                            Calendar calendar = new GregorianCalendar();
+                            calendar.setTime(date);
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
+                            // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                            criteria.add(Restrictions.lt("createDate",
+                                    calendar.getTime()));
                         }
                         // 订单状态
                         if (orderCriteria.getStatus() >= Constants.ORDER_NEW) {
