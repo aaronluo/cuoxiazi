@@ -7,9 +7,6 @@
 
 package com.innovaee.eorder.entity;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +17,11 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @Title: Order
@@ -44,9 +45,9 @@ public class Order extends BaseEntity {
 
     /** 订单总价 */
     private Float totalPrice;
-    
+
     /** 折扣总价 */
-    private Float discountPrice;
+    private Double discountPrice;
 
     /** 订单状态 */
     private Integer orderStatus;
@@ -134,12 +135,12 @@ public class Order extends BaseEntity {
     }
 
     @Basic
-    @Column(name="DISCOUNT_PRICE")
-    public Float getDiscountPrice() {
+    @Column(name = "DISCOUNT_PRICE")
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Float discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -153,7 +154,7 @@ public class Order extends BaseEntity {
         this.orderStatus = orderStatus;
     }
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "SERVENT_ID")
     public User getServent() {
         return servent;
@@ -184,6 +185,7 @@ public class Order extends BaseEntity {
     }
 
     @OneToMany(targetEntity = OrderItem.class, fetch = FetchType.EAGER, mappedBy = "order")
+    @OrderBy("id ASC")
     public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -193,6 +195,7 @@ public class Order extends BaseEntity {
     }
 
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 }
