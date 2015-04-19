@@ -38,8 +38,8 @@ public class OrderServiceTest extends BaseSpringTestCase {
     @Resource
     private OrderService orderService;
 
-    // @Test
-    public void orderCountTest() {
+    @Test
+    public void orderCountTestOne() {
         // 测试无任何查询条件的订单总数
         assertEquals(orderService.getOrderCount(null), 12);
         // 订单序号查询
@@ -75,6 +75,45 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         orderCriteria.setStatus(Constants.ORDER_NEW);
         assertEquals(10, orderService.getOrderCount(orderCriteria));
+    }
+
+    @Test
+    public void orderCountTestTwo() {
+        // 测试无任何查询条件的订单总数
+        // assertEquals(orderService.getOrderCount(null), 12);
+        // 订单序号查询
+        // String partOrderSeq = "20150328";
+        NewOrderVO orderCriteria = new NewOrderVO();
+        // orderCriteria.setOrderSeq(partOrderSeq);
+        // assertEquals(10, orderService.getOrderCount(orderCriteria));
+
+        // long serventId = 1l;
+        // orderCriteria.setServentId(serventId);
+        // assertEquals(2, orderService.getOrderCount(orderCriteria));
+        // orderCriteria.setOrderSeq(null);
+        // assertEquals(4, orderService.getOrderCount(orderCriteria));
+        //
+        // long memberId = 1l;
+        // orderCriteria.setMemberId(memberId);
+        // assertEquals(2, orderService.getOrderCount(orderCriteria));
+
+        Float minTotalPrice = 410.00f;
+        Float maxTotalPrice = 410.00f;
+
+        orderCriteria.setTotalPriceMin(minTotalPrice);
+        orderCriteria.setTotalPriceMax(maxTotalPrice);
+
+        assertEquals(3, orderService.getOrderCount(orderCriteria));
+        // orderCriteria.setTotalPriceMax(minTotalPrice);
+        // assertEquals(2, orderService.getOrderCount(orderCriteria));
+        //
+        // orderCriteria = new NewOrderVO();
+        //
+        // orderCriteria.setStatus(Constants.ORDER_PAID);
+        // assertEquals(0, orderService.getOrderCount(orderCriteria));
+        //
+        // orderCriteria.setStatus(Constants.ORDER_NEW);
+        // assertEquals(10, orderService.getOrderCount(orderCriteria));
     }
 
     /**

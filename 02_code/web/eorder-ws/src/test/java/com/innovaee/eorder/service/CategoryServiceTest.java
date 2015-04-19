@@ -22,7 +22,7 @@ import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
-import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
 
 /**

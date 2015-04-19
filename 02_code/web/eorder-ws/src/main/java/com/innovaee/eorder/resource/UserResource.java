@@ -25,7 +25,7 @@ import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.entity.User;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.UserService;
-import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.OrderVO;
 import com.innovaee.eorder.vo.UserVO;
 

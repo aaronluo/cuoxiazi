@@ -165,7 +165,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                         && 0 < orderCriteria.getTotalPriceMin()
                         && null != orderCriteria.getTotalPriceMax()
                         && 0 < orderCriteria.getTotalPriceMax()
-                        && orderCriteria.getTotalPriceMax() > orderCriteria
+                        && orderCriteria.getTotalPriceMax() >= orderCriteria
                                 .getTotalPriceMin()) {
                     criteria.add(Restrictions.le("totalPrice",
                             orderCriteria.getTotalPriceMax()));
@@ -283,7 +283,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                 && 0 < orderCriteria.getTotalPriceMin()
                                 && null != orderCriteria.getTotalPriceMax()
                                 && 0 < orderCriteria.getTotalPriceMax()
-                                && orderCriteria.getTotalPriceMax() > orderCriteria
+                                && orderCriteria.getTotalPriceMax() >= orderCriteria
                                         .getTotalPriceMin()) {
                             criteria.add(Restrictions.le("totalPrice",
                                     orderCriteria.getTotalPriceMax()));

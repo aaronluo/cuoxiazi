@@ -24,8 +24,8 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.innovaee.eorder.dao.OrderDao;
 import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.util.Constants;
-import com.innovaee.eorder.util.DateUtil;
+import com.innovaee.eorder.utils.Constants;
+import com.innovaee.eorder.utils.DateUtil;
 import com.innovaee.eorder.vo.NewOrderVO;
 
 /**
@@ -165,7 +165,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                         && 0 < orderCriteria.getTotalPriceMin()
                         && null != orderCriteria.getTotalPriceMax()
                         && 0 < orderCriteria.getTotalPriceMax()
-                        && orderCriteria.getTotalPriceMax() > orderCriteria
+                        && orderCriteria.getTotalPriceMax() >= orderCriteria
                                 .getTotalPriceMin()) {
                     criteria.add(Restrictions.le("totalPrice",
                             orderCriteria.getTotalPriceMax()));
@@ -283,7 +283,7 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                 && 0 < orderCriteria.getTotalPriceMin()
                                 && null != orderCriteria.getTotalPriceMax()
                                 && 0 < orderCriteria.getTotalPriceMax()
-                                && orderCriteria.getTotalPriceMax() > orderCriteria
+                                && orderCriteria.getTotalPriceMax() >= orderCriteria
                                         .getTotalPriceMin()) {
                             criteria.add(Restrictions.le("totalPrice",
                                     orderCriteria.getTotalPriceMax()));

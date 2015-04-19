@@ -23,7 +23,7 @@ import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.OrderOperationException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
-import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.NewOrderVO;
 
 /**

@@ -30,7 +30,7 @@ import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
 import com.innovaee.eorder.support.MessageUtil;
-import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.CallResult;
 import com.innovaee.eorder.vo.NewOrderVO;
 import com.innovaee.eorder.vo.OrderItemVO;

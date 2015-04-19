@@ -123,7 +123,6 @@ public class OrderAction extends BaseAction {
         try {
             if (checkNewOrderVO()) {
                 getOrderList();
-
             } else {
                 count = 0;
                 return ERROR;
@@ -158,14 +157,16 @@ public class OrderAction extends BaseAction {
             return true;
         }
 
-        if (null != order.getTotalPriceMin() && order.getTotalPriceMin() < 0.00f) {
+        if (null != order.getTotalPriceMin()
+                && order.getTotalPriceMin() < 0.00f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));
             setMessage(MessageUtil.getMessage("dish_price_rule"));
         }
 
-        if (null != order.getTotalPriceMax() && order.getTotalPriceMax() < 0.00f) {
+        if (null != order.getTotalPriceMax()
+                && order.getTotalPriceMax() < 0.00f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));

@@ -5,7 +5,7 @@
  * Created         : 08/03/2015  
  ************************************************/
 
-package com.innovaee.eorder.util;
+package com.innovaee.eorder.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

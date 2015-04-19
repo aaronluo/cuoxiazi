@@ -5,7 +5,7 @@
  * Created        : 11/27/2014
  ************************************************/
 
-package com.innovaee.eorder.util;
+package com.innovaee.eorder.utils;
 
 /**
  * @Title: Constants

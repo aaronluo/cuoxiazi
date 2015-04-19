@@ -23,7 +23,7 @@ import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.service.CategoryService;
 import com.innovaee.eorder.support.MessageUtil;
-import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
 
 /**
