@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@ taglib prefix="sd" uri="/struts-dojo-tags"%>
 <script type="text/javascript" src="../resources/js/order.js"></script>
 <script language="javascript" src="../resources/js/JTimer.js"></script>
@@ -23,10 +26,10 @@
 				<ul class="seachform">
 					<li><label><s:text name="order_seq_label" /></label><input
 						id="order.orderSeq" name="order.orderSeq" value="${order.orderSeq}"
-						type="text" class="scinput" /></li>
+						type="text" class="scinput" style="width: 100px;" /></li>
 					<li><label><s:text name="member_label" /></label><input
 						id="order.cellphone" name="order.cellphone" value="${order.cellphone}"
-						type="text" class="scinput" /></li>
+						type="text" class="scinput" style="width: 100px;" /></li>
 					<li><label><s:text name="order_status_label" /></label> <s:select
 							headerKey="0" headerValue=" " list="statusList" listKey="key"
 							listValue="value" id="statusSelect" name="statusSelect"
@@ -44,19 +47,21 @@
 					<li><label><s:text name="order_create_at_min" /></label><input
 						id="order.createAtMin" name="order.createAtMin"
 						value='<s:date name="order.createAtMin" format="yyyy-MM-dd" />'
-						type="text" class="scinput" readonly onclick="JTC.setday(this)"> </input></li>
+						type="text" class="scinput" style="width: 100px;" readonly="readonly"
+						onclick="JTC.setday(this)"> </input></li>
 					<li><label><s:text name="order_create_at_max" /></label><input
 						id="order.createAtMax" name="order.createAtMax"
 						value='<s:date name="order.createAtMax" format="yyyy-MM-dd" />'
-						type="text" class="scinput" readonly onclick="JTC.setday(this)" /></li>
+						type="text" class="scinput" style="width: 98px;" readonly="readonly"
+						onclick="JTC.setday(this)" /></li>
 					<li><label><s:text name="order_total_price_min" /></label><input
 						id="order.totalPriceMin" name="order.totalPriceMin"
-						value="${order.totalPriceMin}" type="text" class="scinput"
-						style="width: 105px;" /></li>
+						value='<fmt:formatNumber value="${order.totalPriceMin}" pattern="0.00" />'
+						type="text" class="scinput" style="width: 98px;" /></li>
 					<li><label><s:text name="order_total_price_max" /></label><input
 						id="order.totalPriceMax" name="order.totalPriceMax"
-						value="${order.totalPriceMax}" type="text" class="scinput"
-						style="width: 105px;" /></li>
+						value='<fmt:formatNumber value="${order.totalPriceMax}" pattern="0.00" />'
+						type="text" class="scinput" style="width: 100px;" /></li>
 					<li><input name="" type="button" class="scbtn" onclick="query();"
 						value='<s:text name="query" />' /></li>
 					<li><input name="" type="button" class="scbtn" onclick="resetQuery();"
@@ -65,7 +70,7 @@
 			</form>
 
 			<!-- 菜品列表 -->
-			<div class="tablePanel">
+			<div class="tablePanel" style="min-width: 900px;">
 				<table class="tablelist">
 					<thead>
 						<tr>
@@ -87,9 +92,8 @@
 								<td><s:property value="orderSeq" /></td>
 								<td><s:property value="tableNumber" /></td>
 								<td><s:property value="attendeeNumber" /></td>
-								<td><s:property value="totalPrice" /></td>
-								<td><s:property value="discountPrice" /></td>
-
+								<td><fmt:formatNumber value="${totalPrice}" pattern="0.00" /></td>
+								<td><fmt:formatNumber value="${discountPrice}" pattern="0.00" /></td>
 								<td><s:if test="100==orderStatus">
 										<s:text name="order_status_new" />
 									</s:if> <s:elseif test="101==orderStatus">

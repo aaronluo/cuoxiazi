@@ -7,6 +7,13 @@
 
 package com.innovaee.eorder.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.innovaee.eorder.dao.MemberShipDao;
 import com.innovaee.eorder.dao.UserDao;
 import com.innovaee.eorder.dao.UserLevelDao;
@@ -21,16 +28,9 @@ import com.innovaee.eorder.exception.UpdateUserLevelException;
 import com.innovaee.eorder.exception.UserLevelNotFoundException;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.service.MemberShipServcie;
-import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.util.Constants;
 import com.innovaee.eorder.vo.UserLevelVO;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @Title: MeberShipServiceImpl

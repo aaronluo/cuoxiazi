@@ -136,7 +136,7 @@
 						type="button" class="scbtn" style="width: 130px;"
 						value="<s:text name='print_label' />" />&nbsp;&nbsp;&nbsp;&nbsp; <input
 						name="" type="button" class="btn" style="width: 130px;" onclick="save();"
-						value="<s:text name='confirm_save' />" /></li>
+						value="<s:text name='confirm_cash_label' />" /></li>
 				</ul>
 			</form>
 		</div>

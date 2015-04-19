@@ -34,9 +34,9 @@ import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
 import com.innovaee.eorder.exception.ZeroOrderItemException;
 import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.support.Constants;
-import com.innovaee.eorder.support.DateUtil;
 import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.util.DateUtil;
 import com.innovaee.eorder.vo.NewOrderItemVO;
 import com.innovaee.eorder.vo.NewOrderVO;
 
@@ -172,7 +172,7 @@ public class OrderServiceImpl implements OrderService {
         Long orderId = orderDao.save(order);
         order = orderDao.get(orderId);
         // 3. 创建订单详情
-        Float totalPrice = 0.0f;
+        Float totalPrice = 0.00f;
         if (null != newOrder.getItems() && newOrder.getItems().size() > 0) {
 
             for (NewOrderItemVO item : newOrder.getItems()) {

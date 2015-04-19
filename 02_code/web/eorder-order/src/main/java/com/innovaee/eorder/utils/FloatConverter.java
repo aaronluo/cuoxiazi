@@ -22,7 +22,7 @@ public class FloatConverter extends StrutsTypeConverter {
     @SuppressWarnings("rawtypes")
     @Override
     public Object convertFromString(Map context, String[] values, Class toType) {
-        Float result = 0.0f;
+        Float result = 0.00f;
 
         if (Float.class == toType || float.class == toType) {
             String strVal = values[0];

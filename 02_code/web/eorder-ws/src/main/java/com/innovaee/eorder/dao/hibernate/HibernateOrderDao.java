@@ -6,11 +6,11 @@
  ************************************************/
 package com.innovaee.eorder.dao.hibernate;
 
-import com.innovaee.eorder.dao.OrderDao;
-import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.support.Constants;
-import com.innovaee.eorder.support.DateUtil;
-import com.innovaee.eorder.vo.NewOrderVO;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -22,9 +22,11 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
+import com.innovaee.eorder.dao.OrderDao;
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.util.DateUtil;
+import com.innovaee.eorder.vo.NewOrderVO;
 
 /**
  * @Title: HibernateOrderDao
@@ -82,79 +84,104 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
      * 查询符合查询条件的订单总数
      * 
      * @param orderCriteria
-     *            查询条件，包括：
-     *            1. 订单序号 - like查询
-     *            2. 服务员ID
-     *            3. 收银员ID
-     *            4. 会员ID
-     *            5. 创建时间
-     *            6. 订单状态
-     *            7. 订单总价
+     *            查询条件，包括： 1. 订单序号 - like查询 2. 服务员ID 3. 收银员ID 4. 会员ID 5. 创建时间 6.
+     *            订单状态 7. 订单总价
      * @return 查询记录总数
      */
     @Override
     public int count(final NewOrderVO orderCriteria) {
-        
-       return  getHibernateTemplate().execute(new HibernateCallback<Integer>(){
+
+        return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
 
             @Override
             public Integer doInHibernate(Session session)
                     throws HibernateException, SQLException {
-               
+
                 Criteria criteria = session.createCriteria(Order.class);
-                
-                //订单序号模糊查询
-                if(orderCriteria.getOrderSeq() != null && !orderCriteria.getOrderSeq().isEmpty()) {
-                    criteria.add(Restrictions.like("orderSeq", orderCriteria.getOrderSeq(), MatchMode.ANYWHERE));
+
+                // 订单序号模糊查询
+                if (orderCriteria.getOrderSeq() != null
+                        && !orderCriteria.getOrderSeq().isEmpty()) {
+                    criteria.add(Restrictions.like("orderSeq",
+                            orderCriteria.getOrderSeq(), MatchMode.ANYWHERE));
                 }
-                //服务员ID
-                if(null != orderCriteria.getServentId() && orderCriteria.getServentId() > 0L) {
+                // 服务员ID
+                if (null != orderCriteria.getServentId()
+                        && orderCriteria.getServentId() > 0L) {
                     criteria.createAlias("servent", "servent");
-                    criteria.add(Restrictions.eq("servent.id", orderCriteria.getServentId()));
+                    criteria.add(Restrictions.eq("servent.id",
+                            orderCriteria.getServentId()));
                 }
-                //会员ID
-//                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
-//                    criteria.createAlias("member", "member");
-//                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
-//                }
-                //会员手机号
-                if(null != orderCriteria.getCellphone() && orderCriteria.getCellphone().length() > 0) {
+                // 会员ID
+                // if (null != orderCriteria.getMemberId()
+                // && orderCriteria.getMemberId() > 0L) {
+                // criteria.createAlias("member", "member");
+                // criteria.add(Restrictions.eq("member.id",
+                // orderCriteria.getMemberId()));
+                // }
+
+                // 会员号
+                if (orderCriteria.getCellphone() != null
+                        && !orderCriteria.getCellphone().isEmpty()) {
                     criteria.createAlias("member", "member");
-                    criteria.add(Restrictions.like("member.memberId", orderCriteria.getCellphone(), MatchMode.ANYWHERE));
+                    criteria.add(Restrictions.like("member.cellphone",
+                            orderCriteria.getCellphone(), MatchMode.ANYWHERE));
                 }
-                 //收银员ID
-                if(null != orderCriteria.getCashierId() && orderCriteria.getCashierId() > 0L) {
+
+                // 收银员ID
+                if (null != orderCriteria.getCashierId()
+                        && orderCriteria.getCashierId() > 0L) {
                     criteria.createAlias("casher", "casher");
-                    criteria.add(Restrictions.eq("casher.id", orderCriteria.getCashierId()));
+                    criteria.add(Restrictions.eq("casher.id",
+                            orderCriteria.getCashierId()));
                 }
-                //创建时间
-                if(orderCriteria.getCreateAtMin() != null) {
-                    criteria.add(Restrictions.ge("createDate", orderCriteria.getCreateAtMin()));
+                // 创建时间
+                if (orderCriteria.getCreateAtMin() != null) {
+                    criteria.add(Restrictions.ge("createDate",
+                            orderCriteria.getCreateAtMin()));
                 }
-                if(orderCriteria.getCreateAtMax() != null) {
-                    criteria.add(Restrictions.le("createDate", orderCriteria.getCreateAtMax()));
-                }   
-                //订单状态
-                if(orderCriteria.getStatus() >= Constants.ORDER_NEW) {
-                    criteria.add(Restrictions.eq("orderStatus", orderCriteria.getStatus()));
+                if (orderCriteria.getCreateAtMax() != null) {
+                    // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期
+                    Date date = orderCriteria.getCreateAtMax();// 取时间
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
+                    // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                    criteria.add(Restrictions.lt("createDate",
+                            calendar.getTime()));
                 }
-                //订单总价
-                if(orderCriteria.getTotalPriceMin() > 0) {
-                    criteria.add(Restrictions.ge("totalPrice", orderCriteria.getTotalPriceMin()));
+                // 订单状态
+                if (orderCriteria.getStatus() >= Constants.ORDER_NEW) {
+                    criteria.add(Restrictions.eq("orderStatus",
+                            orderCriteria.getStatus()));
                 }
-                if(orderCriteria.getTotalPriceMax() > 0 
-                        && orderCriteria.getTotalPriceMax() > orderCriteria.getTotalPriceMin()) {
-                    criteria.add(Restrictions.le("totalPrice", orderCriteria.getTotalPriceMax()));
+                // 订单总价
+                if (null != orderCriteria.getTotalPriceMin()
+                        && 0 < orderCriteria.getTotalPriceMin()) {
+                    criteria.add(Restrictions.ge("totalPrice",
+                            orderCriteria.getTotalPriceMin()));
                 }
-                
-                criteria.setProjection(Projections.projectionList().add(Projections.count("id")));
-                
-                return ((Long)criteria.list().iterator().next()).intValue();
+                if (null != orderCriteria.getTotalPriceMin()
+                        && 0 < orderCriteria.getTotalPriceMin()
+                        && null != orderCriteria.getTotalPriceMax()
+                        && 0 < orderCriteria.getTotalPriceMax()
+                        && orderCriteria.getTotalPriceMax() > orderCriteria
+                                .getTotalPriceMin()) {
+                    criteria.add(Restrictions.le("totalPrice",
+                            orderCriteria.getTotalPriceMax()));
+                }
+
+                criteria.setProjection(Projections.projectionList().add(
+                        Projections.count("id")));
+
+                return ((Long) criteria.list().iterator().next()).intValue();
             }
-            
+
         });
     }
+
     /**
+     * <pre>
      * 查询符合查询条件的订单分页数据
      * @param orderCriteria
      *            查询条件，包括：
@@ -168,93 +195,141 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
      * @param curPage 当前页
      * @param pageSize 分页大小
      * @return
+     * </pre>
      */
     @Override
-    public List<Order> query(final NewOrderVO orderCriteria, final int curPage, final int pageSize) {
-        return  getHibernateTemplate().execute(new HibernateCallback<List<Order>>(){
+    public List<Order> query(final NewOrderVO orderCriteria, final int curPage,
+            final int pageSize) {
+        return getHibernateTemplate().execute(
+                new HibernateCallback<List<Order>>() {
 
-            @SuppressWarnings("unchecked")
-            @Override
-            public List<Order> doInHibernate(Session session)
-                    throws HibernateException, SQLException {
-                
-                int startIdx = (curPage - 1) * pageSize;
-                Criteria criteria = session.createCriteria(Order.class);
-                
-                if(null == orderCriteria) {
-                    return getPage(startIdx, pageSize, "FROM Order as order ORDER BY id DESC");
-                }
-                
-                //订单序号模糊查询
-                if(orderCriteria.getOrderSeq() != null && !orderCriteria.getOrderSeq().isEmpty()) {
-                    criteria.add(Restrictions.like("orderSeq", orderCriteria.getOrderSeq(), MatchMode.ANYWHERE));
-                }
-                //服务员ID
-                if(null != orderCriteria.getServentId() && orderCriteria.getServentId() > 0L) {
-                    criteria.createAlias("servent", "servent");
-                    criteria.add(Restrictions.eq("servent.id", orderCriteria.getServentId()));
-                }
-                //会员ID
-//                if(null != orderCriteria.getMemberId()  && orderCriteria.getMemberId() > 0L) {
-//                    criteria.createAlias("member", "member");
-//                    criteria.add(Restrictions.eq("member.id", orderCriteria.getMemberId()));
-//                }
-              //会员手机号
-                if(null != orderCriteria.getCellphone() && orderCriteria.getCellphone().length() > 0) {
-                    criteria.createAlias("member", "member");
-                    criteria.add(Restrictions.like("member.memberId", orderCriteria.getCellphone(), MatchMode.ANYWHERE));
-                }
-                
-                 //收银员ID
-                if(null != orderCriteria.getCashierId() && orderCriteria.getCashierId() > 0L) {
-                    criteria.createAlias("casher", "casher");
-                    criteria.add(Restrictions.eq("casher.id", orderCriteria.getCashierId()));
-                }
-                //创建时间
-                if(orderCriteria.getCreateAtMin() != null) {
-                    criteria.add(Restrictions.ge("createDate", orderCriteria.getCreateAtMin()));
-                }
-                if(orderCriteria.getCreateAtMax() != null) {
-                    criteria.add(Restrictions.le("createDate", orderCriteria.getCreateAtMax()));
-                }   
-                //订单状态
-                if(orderCriteria.getStatus() >= Constants.ORDER_NEW) {
-                    criteria.add(Restrictions.eq("orderStatus", orderCriteria.getStatus()));
-                }
-                //订单总价
-                if(orderCriteria.getTotalPriceMin() > 0) {
-                    criteria.add(Restrictions.ge("totalPrice", orderCriteria.getTotalPriceMin()));
-                }
-                if(orderCriteria.getTotalPriceMax() > 0 
-                        && orderCriteria.getTotalPriceMax() > orderCriteria.getTotalPriceMin()) {
-                    criteria.add(Restrictions.le("totalPrice", orderCriteria.getTotalPriceMax()));
-                }
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public List<Order> doInHibernate(Session session)
+                            throws HibernateException, SQLException {
 
-//               criteria.createAlias("orderItems", "orderItems");
-               criteria.addOrder(org.hibernate.criterion.Order.desc("this.id"));
-               criteria.setProjection(
-                       Projections.projectionList()
-                       .add(Projections.distinct(Projections.property("id")))
-                       .add(Property.forName("id").as("id"))
-                       .add(Property.forName("attendeeNumber").as("attendeeNumber"))
-                       .add(Property.forName("casher").as("casher"))
-                       .add(Property.forName("discountPrice").as("discountPrice"))
-                       .add(Property.forName("member").as("member"))
-                       .add(Property.forName("orderSeq").as("orderSeq"))
-                       .add(Property.forName("orderStatus").as("orderStatus"))
-                       .add(Property.forName("servent").as("servent"))
-                       .add(Property.forName("tableNumber").as("tableNumber"))
-                       .add(Property.forName("totalPrice").as("totalPrice"))
-                       .add(Property.forName("createDate").as("createDate"))
-                       .add(Property.forName("updateDate").as("updateDate")))
-//                       .add(Property.forName("orderItems").as("orderItems")))
-                       .setResultTransformer(new AliasToBeanResultTransformer(Order.class));
+                        int startIdx = (curPage - 1) * pageSize;
+                        Criteria criteria = session.createCriteria(Order.class);
 
-                criteria.setFirstResult(startIdx);
-                criteria.setMaxResults(pageSize);
-                
-                return criteria.list();
-            }
-        });
+                        if (null == orderCriteria) {
+                            return getPage(startIdx, pageSize,
+                                    "FROM Order as order ORDER BY id DESC");
+                        }
+
+                        // 订单序号模糊查询
+                        if (orderCriteria.getOrderSeq() != null
+                                && !orderCriteria.getOrderSeq().isEmpty()) {
+                            criteria.add(Restrictions.like("orderSeq",
+                                    orderCriteria.getOrderSeq(),
+                                    MatchMode.ANYWHERE));
+                        }
+                        // 服务员ID
+                        if (null != orderCriteria.getServentId()
+                                && orderCriteria.getServentId() > 0L) {
+                            criteria.createAlias("servent", "servent");
+                            criteria.add(Restrictions.eq("servent.id",
+                                    orderCriteria.getServentId()));
+                        }
+                        // 会员ID
+                        // if (null != orderCriteria.getMemberId()
+                        // && orderCriteria.getMemberId() > 0L) {
+                        // criteria.createAlias("member", "member");
+                        // criteria.add(Restrictions.eq("member.id",
+                        // orderCriteria.getMemberId()));
+                        // }
+
+                        // 会员号
+                        if (orderCriteria.getCellphone() != null
+                                && !orderCriteria.getCellphone().isEmpty()) {
+                            criteria.createAlias("member", "member");
+                            criteria.add(Restrictions.like("member.cellphone",
+                                    orderCriteria.getCellphone(),
+                                    MatchMode.ANYWHERE));
+                        }
+                        // 收银员ID
+                        if (null != orderCriteria.getCashierId()
+                                && orderCriteria.getCashierId() > 0L) {
+                            criteria.createAlias("casher", "casher");
+                            criteria.add(Restrictions.eq("casher.id",
+                                    orderCriteria.getCashierId()));
+                        }
+                        // 创建时间
+                        if (orderCriteria.getCreateAtMin() != null) {
+                            criteria.add(Restrictions.ge("createDate",
+                                    orderCriteria.getCreateAtMin()));
+                        }
+                        if (orderCriteria.getCreateAtMax() != null) {
+                            // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期，所以用后一天的0时进行小于比较
+                            Date date = orderCriteria.getCreateAtMax();// 取时间
+                            Calendar calendar = new GregorianCalendar();
+                            calendar.setTime(date);
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
+                            // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                            criteria.add(Restrictions.lt("createDate",
+                                    calendar.getTime()));
+                        }
+                        // 订单状态
+                        if (orderCriteria.getStatus() >= Constants.ORDER_NEW) {
+                            criteria.add(Restrictions.eq("orderStatus",
+                                    orderCriteria.getStatus()));
+                        }
+                        // 订单总价
+                        if (null != orderCriteria.getTotalPriceMin()
+                                && 0 < orderCriteria.getTotalPriceMin()) {
+                            criteria.add(Restrictions.ge("totalPrice",
+                                    orderCriteria.getTotalPriceMin()));
+                        }
+                        if (null != orderCriteria.getTotalPriceMin()
+                                && 0 < orderCriteria.getTotalPriceMin()
+                                && null != orderCriteria.getTotalPriceMax()
+                                && 0 < orderCriteria.getTotalPriceMax()
+                                && orderCriteria.getTotalPriceMax() > orderCriteria
+                                        .getTotalPriceMin()) {
+                            criteria.add(Restrictions.le("totalPrice",
+                                    orderCriteria.getTotalPriceMax()));
+                        }
+
+                        // criteria.createAlias("orderItems", "orderItems");
+                        criteria.addOrder(org.hibernate.criterion.Order
+                                .desc("this.id"));
+                        criteria.setProjection(
+                                Projections
+                                        .projectionList()
+                                        .add(Projections.distinct(Projections
+                                                .property("id")))
+                                        .add(Property.forName("id").as("id"))
+                                        .add(Property.forName("attendeeNumber")
+                                                .as("attendeeNumber"))
+                                        .add(Property.forName("casher").as(
+                                                "casher"))
+                                        .add(Property.forName("discountPrice")
+                                                .as("discountPrice"))
+                                        .add(Property.forName("member").as(
+                                                "member"))
+                                        .add(Property.forName("orderSeq").as(
+                                                "orderSeq"))
+                                        .add(Property.forName("orderStatus")
+                                                .as("orderStatus"))
+                                        .add(Property.forName("servent").as(
+                                                "servent"))
+                                        .add(Property.forName("tableNumber")
+                                                .as("tableNumber"))
+                                        .add(Property.forName("totalPrice").as(
+                                                "totalPrice"))
+                                        .add(Property.forName("createDate").as(
+                                                "createDate"))
+                                        .add(Property.forName("updateDate").as(
+                                                "updateDate")))
+                        // .add(Property.forName("orderItems").as("orderItems")))
+                                .setResultTransformer(
+                                        new AliasToBeanResultTransformer(
+                                                Order.class));
+
+                        criteria.setFirstResult(startIdx);
+                        criteria.setMaxResults(pageSize);
+
+                        return criteria.list();
+                    }
+                });
     }
 }

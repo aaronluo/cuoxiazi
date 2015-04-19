@@ -151,15 +151,16 @@ public class CashAction extends BaseAction {
      */
     public String discount() {
         try {
-            if (null != order.getMember().getCellphone()
+            if (null != order.getMember()
+                    && null != order.getMember().getCellphone()
                     && !"".equals(order.getMember().getCellphone().trim())) {
                 if (!StringUtil.isMobileNO(order.getMember().getCellphone())) {
                     this.setMessage(MessageUtil.getMessage("cellphone_invalid"));
-                    return INPUT;
+                    return ERROR;
                 }
             } else {
                 this.setMessage(MessageUtil.getMessage("cellphone_empty"));
-                return INPUT;
+                return ERROR;
             }
 
             NewOrderVO newOrderVO = new NewOrderVO();

@@ -156,11 +156,15 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                             orderCriteria.getStatus()));
                 }
                 // 订单总价
-                if (orderCriteria.getTotalPriceMin() > 0) {
+                if (null != orderCriteria.getTotalPriceMin()
+                        && 0 < orderCriteria.getTotalPriceMin()) {
                     criteria.add(Restrictions.ge("totalPrice",
                             orderCriteria.getTotalPriceMin()));
                 }
-                if (orderCriteria.getTotalPriceMax() > 0
+                if (null != orderCriteria.getTotalPriceMin()
+                        && 0 < orderCriteria.getTotalPriceMin()
+                        && null != orderCriteria.getTotalPriceMax()
+                        && 0 < orderCriteria.getTotalPriceMax()
                         && orderCriteria.getTotalPriceMax() > orderCriteria
                                 .getTotalPriceMin()) {
                     criteria.add(Restrictions.le("totalPrice",
@@ -270,11 +274,15 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                     orderCriteria.getStatus()));
                         }
                         // 订单总价
-                        if (orderCriteria.getTotalPriceMin() > 0) {
+                        if (null != orderCriteria.getTotalPriceMin()
+                                && 0 < orderCriteria.getTotalPriceMin()) {
                             criteria.add(Restrictions.ge("totalPrice",
                                     orderCriteria.getTotalPriceMin()));
                         }
-                        if (orderCriteria.getTotalPriceMax() > 0
+                        if (null != orderCriteria.getTotalPriceMin()
+                                && 0 < orderCriteria.getTotalPriceMin()
+                                && null != orderCriteria.getTotalPriceMax()
+                                && 0 < orderCriteria.getTotalPriceMax()
                                 && orderCriteria.getTotalPriceMax() > orderCriteria
                                         .getTotalPriceMin()) {
                             criteria.add(Restrictions.le("totalPrice",

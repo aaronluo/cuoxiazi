@@ -91,6 +91,12 @@ public class OrderAction extends BaseAction {
         getQueryList();
 
         order = new NewOrderVO();
+        if (null != order.getTotalPriceMin() && 0.0 == order.getTotalPriceMin()) {
+            order.setTotalPriceMin(null);
+        }
+        if (null != order.getTotalPriceMax() && 0.0 == order.getTotalPriceMax()) {
+            order.setTotalPriceMax(null);
+        }
         if (checkNewOrderVO()) {
             getOrderList();
         } else {
@@ -108,9 +114,16 @@ public class OrderAction extends BaseAction {
      */
     public String list() {
         getQueryList();
+        if (null != order.getTotalPriceMin() && 0.0 == order.getTotalPriceMin()) {
+            order.setTotalPriceMin(null);
+        }
+        if (null != order.getTotalPriceMax() && 0.0 == order.getTotalPriceMax()) {
+            order.setTotalPriceMax(null);
+        }
         try {
             if (checkNewOrderVO()) {
                 getOrderList();
+
             } else {
                 count = 0;
                 return ERROR;
@@ -134,17 +147,25 @@ public class OrderAction extends BaseAction {
 
         if (null == order) {
             order = new NewOrderVO();
+            if (null != order.getTotalPriceMin()
+                    && 0.0 == order.getTotalPriceMin()) {
+                order.setTotalPriceMin(null);
+            }
+            if (null != order.getTotalPriceMax()
+                    && 0.0 == order.getTotalPriceMax()) {
+                order.setTotalPriceMax(null);
+            }
             return true;
         }
 
-        if (order.getTotalPriceMin() < 0.0f) {
+        if (null != order.getTotalPriceMin() && order.getTotalPriceMin() < 0.00f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));
             setMessage(MessageUtil.getMessage("dish_price_rule"));
         }
 
-        if (order.getTotalPriceMax() < 0.0f) {
+        if (null != order.getTotalPriceMax() && order.getTotalPriceMax() < 0.00f) {
             isValidVO = false;
             addFieldError("dish.price",
                     MessageUtil.getMessage("dish_price_rule"));

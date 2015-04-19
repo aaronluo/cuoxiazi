@@ -6,6 +6,13 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.innovaee.eorder.dao.CategoryDao;
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.entity.Category;
@@ -15,16 +22,9 @@ import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.service.CategoryService;
-import com.innovaee.eorder.support.Constants;
 import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.util.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @Title: CategoryServiceImpl

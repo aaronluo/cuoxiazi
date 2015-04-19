@@ -6,18 +6,6 @@
  ************************************************/
 package com.innovaee.eorder.resource;
 
-import com.innovaee.eorder.entity.MemberShip;
-import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.exception.UserNotFoundException;
-import com.innovaee.eorder.service.UserService;
-import com.innovaee.eorder.support.Constants;
-import com.innovaee.eorder.vo.OrderVO;
-import com.innovaee.eorder.vo.UserVO;
-
-import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Scope;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +16,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+
+import com.innovaee.eorder.entity.MemberShip;
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.exception.UserNotFoundException;
+import com.innovaee.eorder.service.UserService;
+import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.vo.OrderVO;
+import com.innovaee.eorder.vo.UserVO;
 
 /**
  * @Title: UserResource

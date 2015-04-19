@@ -7,15 +7,11 @@
 
 package com.innovaee.eorder.vo;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @Title: NewOrderVO
@@ -23,49 +19,40 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * @version V1.0
  */
-@XmlRootElement
 public class NewOrderVO extends BaseVO {
-    /**订单序号 **/
-    @XmlTransient
-   private String  orderSeq;
-    /**收银员ID**/
-    @XmlTransient
+    /** 订单序号 **/
+    private String orderSeq;
+    /** 收银员ID **/
     private Long cashierId;
-    /**订单创建时间 **/
-    @XmlTransient
+    /** 订单创建时间 **/
     private Date createAtMin;
-    @XmlTransient
+    /**  */
     private Date createAtMax;
-    /**订单状态 **/
-    @XmlTransient
+    /** 订单状态 **/
     private int status;
-    /**订单总价最小值 **/
-    @XmlTransient
-    private float totalPriceMin;
-    /**订单总价最大值 **/
-    @XmlTransient
-    private float totalPriceMax;
-    /**会员手机号 **/
-    @XmlTransient
-    private String  cellphone;
-    /**用餐桌号**/
+    /** 订单总价最小值 **/
+    private Float totalPriceMin;
+    /** 订单总价最大值 **/
+    private Float totalPriceMax;
+    /** 用餐桌号 **/
     private Integer tableNumber;
-    /**用餐人数**/
+    /** 用餐人数 **/
     private Integer attendeeNumber;
-    /**服务员ID**/
+    /** 服务员ID **/
     private Long serventId;
-    /**会员ID**/
+    /** 会员ID **/
     private Long memberId;
-    /**订单明细**/
+    /** 会员号 **/
+    private String cellphone;
+    /** 订单明细 **/
     private List<NewOrderItemVO> items;
-    
-    
 
-    /**无参数构造函数**/
+    /** 无参数构造函数 **/
     public NewOrderVO() {
         super();
     }
-    /**有参数构造函数**/
+
+    /** 有参数构造函数 **/
     public NewOrderVO(Integer tableNumber, Integer attendeeNumber,
             Long serventId, Long memberId, List<NewOrderItemVO> items) {
         super();
@@ -76,19 +63,11 @@ public class NewOrderVO extends BaseVO {
         this.items = items;
     }
 
-
-    /**下面为该对象属性setter/getter函数组**/
-    
+    /** 下面为该对象属性setter/getter函数组 **/
     public Integer getTableNumber() {
         return tableNumber;
     }
 
-    public String getCellphone() {
-        return cellphone;
-    }
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
-    }
     public void setTableNumber(Integer tableNumber) {
         this.tableNumber = tableNumber;
     }
@@ -120,34 +99,39 @@ public class NewOrderVO extends BaseVO {
     public List<NewOrderItemVO> getItems() {
         return items;
     }
-    
+
     public void setItems(List<NewOrderItemVO> items) {
         this.items = items;
     }
-    
+
     public String getOrderSeq() {
         return orderSeq;
     }
+
     public void setOrderSeq(String orderSeq) {
         this.orderSeq = orderSeq;
     }
-    
+
     public Long getCashierId() {
         return cashierId;
     }
+
     public void setCashierId(Long cashierId) {
         this.cashierId = cashierId;
     }
-    
+
     public Date getCreateAtMin() {
         return createAtMin;
     }
+
     public void setCreateAtMin(Date createAtMin) {
         this.createAtMin = createAtMin;
     }
+
     public Date getCreateAtMax() {
         return createAtMax;
     }
+
     public void setCreateAtMax(Date createAtMax) {
         this.createAtMax = createAtMax;
     }
@@ -155,62 +139,81 @@ public class NewOrderVO extends BaseVO {
     public int getStatus() {
         return status;
     }
+
     public void setStatus(int status) {
         this.status = status;
     }
-    public float getTotalPriceMin() {
+
+    public Float getTotalPriceMin() {
         return totalPriceMin;
     }
-    public void setTotalPriceMin(float totalPriceMin) {
+
+    public void setTotalPriceMin(Float totalPriceMin) {
         this.totalPriceMin = totalPriceMin;
     }
-    public float getTotalPriceMax() {
+
+    public Float getTotalPriceMax() {
         return totalPriceMax;
     }
-    public void setTotalPriceMax(float totalPriceMax) {
+
+    public void setTotalPriceMax(Float totalPriceMax) {
         this.totalPriceMax = totalPriceMax;
     }
-    /**重载toString函数**/
-    @Override
-    public String toString(){
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
+
+    public String getCellphone() {
+        return cellphone;
     }
-    
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+
+    /** 重载toString函数 **/
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.DEFAULT_STYLE);
+    }
+
     public boolean isEmpty() {
-        
-        if(orderSeq != null && !this.orderSeq.isEmpty()) {
+
+        if (orderSeq != null && !this.orderSeq.isEmpty()) {
             return false;
         }
-        
-        if(this.serventId != null && this.serventId > 0L) {
+
+        if (this.serventId != null && this.serventId > 0L) {
             return false;
         }
-        
-        if(this.memberId != null && this.memberId > 0L) {
+
+        if (this.memberId != null && this.memberId > 0L) {
             return false;
         }
-        
-        if(this.cashierId !=null && this.cashierId > 0L) {
+
+        if (cellphone != null && !this.cellphone.isEmpty()) {
             return false;
         }
-        
-        if(this.createAtMin != null) {
+
+        if (this.cashierId != null && this.cashierId > 0L) {
             return false;
         }
-        
-        if(this.createAtMax != null) {
+
+        if (this.createAtMin != null) {
             return false;
         }
-        
-        if(this.status > 0) {
+
+        if (this.createAtMax != null) {
             return false;
         }
-        
-        if(this.totalPriceMin > 0) {
+
+        if (this.status > 0) {
             return false;
         }
-        
-        if(this.totalPriceMax > 0) {
+
+        if (null != totalPriceMin && this.totalPriceMin > 0) {
+            return false;
+        }
+
+        if (null != totalPriceMax && this.totalPriceMax > 0) {
             return false;
         }
         return true;

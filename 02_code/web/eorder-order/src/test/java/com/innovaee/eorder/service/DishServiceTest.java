@@ -93,7 +93,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜");
-       dishVO.setPrice(150.0f);
+       dishVO.setPrice(150.00f);
         dishVO.setPicPath("");
 
         try {
@@ -113,7 +113,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜1");
-       dishVO.setPrice(150.0f);
+       dishVO.setPrice(150.00f);
         dishVO.setPicPath("");
 
         try {
@@ -137,7 +137,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜1");
-       dishVO.setPrice(150.0f);
+       dishVO.setPrice(150.00f);
         dishVO.setPicPath("");
 
         Dish dish = dishService.addDish(dishVO);

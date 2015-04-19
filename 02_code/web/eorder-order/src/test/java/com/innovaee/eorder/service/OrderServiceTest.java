@@ -58,8 +58,8 @@ public class OrderServiceTest extends BaseSpringTestCase {
         orderCriteria.setMemberId(memberId);
         assertEquals(2, orderService.getOrderCount(orderCriteria));
 
-        float minTotalPrice = 0.0f;
-        float maxTotalPrice = 100.0f;
+        float minTotalPrice = 0.00f;
+        float maxTotalPrice = 100.00f;
 
         orderCriteria.setTotalPriceMin(minTotalPrice);
         orderCriteria.setTotalPriceMax(maxTotalPrice);

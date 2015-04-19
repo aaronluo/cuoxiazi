@@ -10,21 +10,21 @@ package com.innovaee.eorder.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+
 import com.innovaee.eorder.entity.Order;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.OrderNotFoundException;
 import com.innovaee.eorder.exception.OrderOperationException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.exception.UserNotFoundException;
-import com.innovaee.eorder.support.Constants;
+import com.innovaee.eorder.util.Constants;
 import com.innovaee.eorder.vo.NewOrderVO;
-
-import org.junit.Test;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 /**
  * @Title: OrderServiceTest

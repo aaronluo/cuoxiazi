@@ -33,9 +33,9 @@ public class NewOrderVO extends BaseVO {
     /** 订单状态 **/
     private int status;
     /** 订单总价最小值 **/
-    private float totalPriceMin;
+    private Float totalPriceMin;
     /** 订单总价最大值 **/
-    private float totalPriceMax;
+    private Float totalPriceMax;
     /** 用餐桌号 **/
     private Integer tableNumber;
     /** 用餐人数 **/
@@ -146,19 +146,19 @@ public class NewOrderVO extends BaseVO {
         this.status = status;
     }
 
-    public float getTotalPriceMin() {
+    public Float getTotalPriceMin() {
         return totalPriceMin;
     }
 
-    public void setTotalPriceMin(float totalPriceMin) {
+    public void setTotalPriceMin(Float totalPriceMin) {
         this.totalPriceMin = totalPriceMin;
     }
 
-    public float getTotalPriceMax() {
+    public Float getTotalPriceMax() {
         return totalPriceMax;
     }
 
-    public void setTotalPriceMax(float totalPriceMax) {
+    public void setTotalPriceMax(Float totalPriceMax) {
         this.totalPriceMax = totalPriceMax;
     }
 
@@ -190,7 +190,7 @@ public class NewOrderVO extends BaseVO {
         if (this.memberId != null && this.memberId > 0L) {
             return false;
         }
-        
+
         if (cellphone != null && !this.cellphone.isEmpty()) {
             return false;
         }
@@ -211,11 +211,11 @@ public class NewOrderVO extends BaseVO {
             return false;
         }
 
-        if (this.totalPriceMin > 0) {
+        if (null != totalPriceMin && this.totalPriceMin > 0) {
             return false;
         }
 
-        if (this.totalPriceMax > 0) {
+        if (null != totalPriceMax && this.totalPriceMax > 0) {
             return false;
         }
         return true;

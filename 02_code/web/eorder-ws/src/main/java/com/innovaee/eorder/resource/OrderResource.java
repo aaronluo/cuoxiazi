@@ -6,22 +6,6 @@
  ************************************************/
 package com.innovaee.eorder.resource;
 
-import com.innovaee.eorder.entity.Order;
-import com.innovaee.eorder.entity.OrderItem;
-import com.innovaee.eorder.exception.DishNotFoundException;
-import com.innovaee.eorder.exception.OrderNotFoundException;
-import com.innovaee.eorder.exception.UserNotFoundException;
-import com.innovaee.eorder.exception.ZeroOrderItemException;
-import com.innovaee.eorder.service.OrderService;
-import com.innovaee.eorder.support.Constants;
-import com.innovaee.eorder.support.MessageUtil;
-import com.innovaee.eorder.vo.CallResult;
-import com.innovaee.eorder.vo.NewOrderVO;
-import com.innovaee.eorder.vo.OrderItemVO;
-
-import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Scope;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +18,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+
+import com.innovaee.eorder.entity.Order;
+import com.innovaee.eorder.entity.OrderItem;
+import com.innovaee.eorder.exception.DishNotFoundException;
+import com.innovaee.eorder.exception.OrderNotFoundException;
+import com.innovaee.eorder.exception.UserNotFoundException;
+import com.innovaee.eorder.exception.ZeroOrderItemException;
+import com.innovaee.eorder.service.OrderService;
+import com.innovaee.eorder.support.MessageUtil;
+import com.innovaee.eorder.util.Constants;
+import com.innovaee.eorder.vo.CallResult;
+import com.innovaee.eorder.vo.NewOrderVO;
+import com.innovaee.eorder.vo.OrderItemVO;
 
 /**
  * @Title: OrderResource

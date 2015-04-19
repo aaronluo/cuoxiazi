@@ -9,6 +9,12 @@ package com.innovaee.eorder.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.exception.CategoryNotFoundException;
@@ -16,14 +22,8 @@ import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
-import com.innovaee.eorder.support.Constants;
+import com.innovaee.eorder.util.Constants;
 import com.innovaee.eorder.vo.CategoryVO;
-
-import org.junit.Test;
-
-import java.util.List;
-
-import javax.annotation.Resource;
 
 /**
  * @Title: CategoryServiceTest
