@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,9 +129,12 @@ public class OrderHestoryDetailAdapter extends BaseAdapter {
 
         int count = goodsItemDataTemp.getCount();
         Double allPrice = goodsItemDataTemp.getPrice() * count;
+        BigDecimal df = new BigDecimal(allPrice);	
+        double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String allPriceStr = String.valueOf(rate2);	
         countTxtView.setText(String.valueOf(count));
-        priceTxtView.setText(String.valueOf(allPrice));
-        
+        priceTxtView.setText(allPriceStr);	
+        				
         return view;
     }
     	

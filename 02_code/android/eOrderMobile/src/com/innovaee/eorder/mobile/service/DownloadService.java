@@ -397,10 +397,9 @@ public class DownloadService implements GoodService, CategoryService {
                 HttpEntity entity = httpResponse.getEntity();
                 if (entity != null) {
                     // 获取服务器响应的json字符串
-                    String json = EntityUtils.toString(entity, "UTF-8");
-                    
-                    //List<T> beans = (List<T>) parseOrderHestoryDataJson(json);
-                    	
+                    String json = EntityUtils.toString(entity, "UTF-8"); 
+                    Log.d("leon:", json);
+                    		
                     ReturnResultDataBean returnData = new ReturnResultDataBean();	
                     List<T> beans = (List<T>) parseOrderHestoryDataJson(json, returnData);			
                     		
@@ -445,9 +444,9 @@ public class DownloadService implements GoodService, CategoryService {
                 JSONObject obj = array.getJSONObject(i);
                 OrderHestoryDataBean category = new OrderHestoryDataBean(
                         obj.getInt("id"), obj.getString("createAt"),
-                        obj.getDouble("totalPrice"));
-                categoryList.add(category);              
-            }
+                        obj.getDouble("totalPrice"), obj.getString("orderSeq"));
+                categoryList.add(category);              			
+            }															
             
             result.setMessage("ok");				
 			result.setResult(true);	

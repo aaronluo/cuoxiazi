@@ -29,7 +29,10 @@ public class OrderHestoryDataBean implements Serializable {
 
     // 订单总价格定义
     public static final String COLUM_TOTALPRICE = "totalprice";
-
+    
+    // 订单流水号
+    public static final String COLUM_ORDERSEQ = "orderSeq";
+    
     // 订单id
     private int id;
 
@@ -38,6 +41,10 @@ public class OrderHestoryDataBean implements Serializable {
 
     // 订单总价格
     private Double totalPrice;
+    
+    // 订单流水号
+    private String orderSeq;
+    	
 
     /**
      * 构造函数
@@ -51,11 +58,12 @@ public class OrderHestoryDataBean implements Serializable {
      * @param time 订单时间
      * @param totalPrice 订单总价格
      */
-    public OrderHestoryDataBean(int id, String time, Double totalPrice) {
+    public OrderHestoryDataBean(int id, String time, Double totalPrice, String orderSeq) {
         this.id = id;
         this.time = time;
         this.totalPrice = totalPrice;
-    }
+        this.orderSeq = orderSeq;
+    }	
     
     /**
      * 获取订单id
@@ -113,4 +121,23 @@ public class OrderHestoryDataBean implements Serializable {
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
+    
+    /**
+     * 获取订单流水号
+     * 
+     * @return 订单流水号
+     */
+    public String getorderSeq() {
+        return this.orderSeq;
+    }
+
+    /**
+     * 设置订单流水号
+     * 
+     * @param orderSeq
+     *            订单流水号
+     */
+    public void setorderSeq(String orderSeq) {
+        this.orderSeq = orderSeq;
+    }	
 }

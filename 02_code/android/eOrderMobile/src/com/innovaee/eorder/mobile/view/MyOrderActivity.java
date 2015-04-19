@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,8 +93,11 @@ public class MyOrderActivity extends Activity {
             case MSG_UPDATE_COUNT:
                 selectOrderGoods = (List<GoodsDataBean>) msg.obj;
                 Double price = getAllPrice();
+                BigDecimal df = new BigDecimal(price);	
+                double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                String priceStr = String.valueOf(rate2);				
                 allPirce.setText(MyOrderActivity.this.getApplicationContext()
-                        .getString(R.string.main_griditem_text_rmb) + price);
+                        .getString(R.string.main_griditem_text_rmb) + priceStr);
 
                 // 通知MainViewActivity刷新
                 sendBroadcastToMainActivity();
@@ -104,10 +109,13 @@ public class MyOrderActivity extends Activity {
 
                 if (selectOrderGoods != null && selectOrderGoods.size() > 0) {
                     Double price1 = getAllPrice();
+                    BigDecimal df1 = new BigDecimal(price1);	
+                    double rate1 = df1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();                    	
+                    String priceStr1 = String.valueOf(rate1);	
                     allPirce.setText(MyOrderActivity.this
                             .getApplicationContext().getString(
                                     R.string.main_griditem_text_rmb)
-                            + price1);
+                            + priceStr1);
                     myOrderAdapter = new MyOrderAdapter(MyOrderActivity.this,
                             selectOrderGoods, handler);// 对应R中的id 
                     listView.setAdapter(myOrderAdapter);
@@ -210,10 +218,15 @@ public class MyOrderActivity extends Activity {
             }
         });
 
+        Double allPrice = getAllPrice();
+        BigDecimal df = new BigDecimal(allPrice);	
+        double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String allPriceStr = String.valueOf(rate2);
+        
         allPirce.setText(MyOrderActivity.this.getApplicationContext()
                 .getString(R.string.main_griditem_text_rmb)
-                + String.valueOf(getAllPrice()));
-    }
+                + allPriceStr);
+    }			
 
     /**
      * 得到总价格

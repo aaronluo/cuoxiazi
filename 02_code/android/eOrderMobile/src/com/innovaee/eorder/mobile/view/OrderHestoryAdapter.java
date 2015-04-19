@@ -7,9 +7,7 @@
 
 package com.innovaee.eorder.mobile.view;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -110,27 +108,19 @@ public class OrderHestoryAdapter extends BaseAdapter {
             OrderHestoryDataBean orderHestoryDataBean = (OrderHestoryDataBean) listItemsData
                     .get(position);
 
-            TextView orderIdTxtView = (TextView) view
-                    .findViewById(R.id.order_id);
             TextView timeTxtView = (TextView) view
                     .findViewById(R.id.order_time);
             TextView totalPriceTxtView = (TextView) view
                     .findViewById(R.id.order_totalprice);
 
-            long longTime = Long.valueOf(orderHestoryDataBean.getTime())
-                    .longValue();
-            Date date = new Date(longTime);
-            String time = DateFormat.getDateInstance().format(date);
-
-            orderIdTxtView.setText(context
-                    .getString(R.string.orderhestory_item_text_order)
-                    + String.valueOf(orderHestoryDataBean.getId()));
-            timeTxtView.setText(context
-                    .getString(R.string.orderhestory_item_text_time) + time);
-            totalPriceTxtView.setText(context
+            String orderSeq = orderHestoryDataBean.getorderSeq();
+            
+            timeTxtView.setText(context			
+                    .getString(R.string.orderhestory_item_text_orderseq) + orderSeq);
+            totalPriceTxtView.setText(context		
                     .getString(R.string.orderhestory_item_text_totalprice)
                     + String.valueOf(orderHestoryDataBean.getTotalPrice()));
-
+            					
             // 添加最新项
             listPosition.add(position);
             listView.add(view);

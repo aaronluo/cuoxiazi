@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -422,20 +424,28 @@ public class OrderActivity extends Activity {
 
         // 计算实际价格
         Double realPrice = (allPrice * discount) / 10;
-
+        
+        BigDecimal df1 = new BigDecimal(allPrice);	
+        double rate1 = df1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String allPriceStr = String.valueOf(rate1);	
+        	
+        BigDecimal df2 = new BigDecimal(realPrice);	
+        double rate2 = df2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String realPriceStr = String.valueOf(rate2);
+        	
         // 原始价格文本显示器
         originalPriceTxt.setText(this.getApplicationContext().getString(
                 R.string.order_text_originalprice)
                 + this.getApplicationContext().getString(
                         R.string.main_griditem_text_rmb)
-                + String.valueOf(allPrice));
+                + allPriceStr);
 
         // 实际价格文本显示器
         realPriceTxt.setText(this.getApplicationContext().getString(
                 R.string.order_text_realprice)
                 + this.getApplicationContext().getString(
                         R.string.main_griditem_text_rmb)
-                + String.valueOf(realPrice));
+                + realPriceStr);	
 
         // 折扣文本显示器
         // 如果折扣为10则显示无折扣
@@ -451,8 +461,8 @@ public class OrderActivity extends Activity {
         // 最终价格显示器
         allPriceTxt.setText(this.getApplicationContext().getString(
                 R.string.main_griditem_text_rmb)
-                + String.valueOf(realPrice));
-    }
+                + realPriceStr);
+    }		
 
     /**
      * 更新折扣等ui

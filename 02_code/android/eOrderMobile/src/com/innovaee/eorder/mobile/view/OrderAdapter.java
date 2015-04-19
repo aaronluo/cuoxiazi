@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,13 +128,16 @@ public class OrderAdapter extends BaseAdapter {
 
             int count = goodsItemDataTemp.getCount();
             Double allPrice = goodsItemDataTemp.getPrice() * count;
+            BigDecimal df = new BigDecimal(allPrice);	
+            double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            String allPriceStr = String.valueOf(rate2);			
             countTxtView.setText(context
                     .getString(R.string.order_item_text_count)
                     + String.valueOf(count));
             totalPirceTxtView.setText(context
                     .getString(R.string.order_item_text_totalprice)
-                    + String.valueOf(allPrice));
-
+                    + allPriceStr);
+            				
             // 添加最新项
             listPosition.add(position);
             listView.add(view);

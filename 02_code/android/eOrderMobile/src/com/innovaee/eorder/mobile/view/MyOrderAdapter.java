@@ -7,6 +7,8 @@
 
 package com.innovaee.eorder.mobile.view;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,9 +127,13 @@ public class MyOrderAdapter extends BaseAdapter {
             public void onClick(View paramAnonymousView) {
                 addMyOrderSelectCount(goodsItemDataTemp);
                 int count = goodsItemDataTemp.getCount();
+                													
+                BigDecimal df = new BigDecimal(goodsItemDataTemp.getPrice() * count);	
+                double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                String allPriceStr = String.valueOf(rate2);	
+                		
                 countTxtView.setText(String.valueOf(count));
-                priceTxtView.setText(String.valueOf(goodsItemDataTemp
-                        .getPrice() * count));
+                priceTxtView.setText(allPriceStr);	
                 updateActivityCountUi();
             }
         });
@@ -140,10 +146,13 @@ public class MyOrderAdapter extends BaseAdapter {
                     resetActivityAdapterUi();
                 } else {
                     int count = goodsItemDataTemp.getCount();
-                    countTxtView.setText(String.valueOf(count));
-                    priceTxtView.setText(String.valueOf(goodsItemDataTemp
-                            .getPrice() * count));
-                    updateActivityCountUi();
+                    BigDecimal df = new BigDecimal(goodsItemDataTemp.getPrice() * count);	
+                    double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    String allPriceStr = String.valueOf(rate2);
+                    		
+                    countTxtView.setText(String.valueOf(count));	
+                    priceTxtView.setText(allPriceStr);
+                    updateActivityCountUi();			
                 }
             }
         });
@@ -152,9 +161,12 @@ public class MyOrderAdapter extends BaseAdapter {
 
         int count = goodsItemDataTemp.getCount();
         Double allPrice = goodsItemDataTemp.getPrice() * count;
+        BigDecimal df = new BigDecimal(allPrice);	
+        double rate2 = df.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String allPriceStr = String.valueOf(rate2);		
         countTxtView.setText(String.valueOf(count));
-        priceTxtView.setText(String.valueOf(allPrice));
-
+        priceTxtView.setText(allPriceStr);		
+        			
         return view;
     }
 

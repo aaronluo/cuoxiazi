@@ -17,19 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentTop="true" >
-
-            <TextView
-                android:id="@+id/order_id"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:background="#ffeeeeee"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="40dp"
-                android:text="@string/orderhestory_item_text_order"
-                android:textColor="#4d4d4d"
-                android:textSize="20dp" />
-
+			
             <TextView
                 android:id="@+id/order_time"
                 android:layout_width="wrap_content"
@@ -39,11 +27,11 @@
                 android:layout_marginRight="20dp"
                 android:background="#ffeeeeee"
                 android:gravity="right|center_vertical"
-                android:text="@string/orderhestory_item_text_time"
+                android:text="@string/orderhestory_item_text_orderseq"
                 android:textColor="#4d4d4d"
                 android:textSize="20dp" />
         </RelativeLayout>
-
+		
         <RelativeLayout
             android:id="@+id/order_layout_2"
             android:layout_width="match_parent"
