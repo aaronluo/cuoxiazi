@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2015-04-15 22:47:07
+Date: 2015-04-19 10:07:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -232,20 +232,25 @@ CREATE TABLE `t_order` (
   `casher_id` bigint(20) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
-  `discount_price` float(64,2) DEFAULT NULL,
+  `discount_price` double(64,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
 INSERT INTO `t_order` VALUES ('1', '2014120900001', '10', '4', '150.00', '102', '15', '6', '1', '2014-12-08 19:48:34', '2015-04-15 22:26:12', '142.50');
-INSERT INTO `t_order` VALUES ('2', '2014120900002', '20', '2', '100.50', '100', '15', '14', '19', '2014-12-09 20:48:44', null, '100.50');
+INSERT INTO `t_order` VALUES ('2', '2014120900002', '20', '2', '100.50', '100', '15', '6', '1', '2014-12-09 20:48:44', '2015-04-16 23:48:52', '95.47');
 INSERT INTO `t_order` VALUES ('3', '2015041100001', '5', '2', '100.50', '100', '16', '6', '18', '2015-04-11 19:48:44', null, null);
 INSERT INTO `t_order` VALUES ('4', '2015041200001', '8', '2', '100.50', '102', '15', '6', '18', '2015-04-12 19:48:44', '2015-04-14 23:40:40', '100.50');
 INSERT INTO `t_order` VALUES ('5', '2015041300001', '16', '2', '100.50', '102', '16', '6', '20', '2015-04-13 19:48:44', '2015-04-15 22:41:22', '95.47');
 INSERT INTO `t_order` VALUES ('6', '2015041400001', '18', '2', '100.50', '102', '17', null, '1', '2015-04-14 19:48:44', '2015-04-15 22:25:31', '95.47');
 INSERT INTO `t_order` VALUES ('8', '2015041400002', '2', '4', '50.00', '102', '17', '6', '1', '2015-04-14 23:47:11', '2015-04-15 22:04:58', '47.50');
+INSERT INTO `t_order` VALUES ('9', '2015041700001', '3', '4', '60.00', '100', '16', '6', '1', '2015-04-17 16:09:01', '2015-04-19 00:33:29', '57.00');
+INSERT INTO `t_order` VALUES ('10', '2015041700002', '7', '4', '110.00', '100', '16', null, '1', '2015-04-17 16:15:01', '2015-04-19 00:30:08', '110.00');
+INSERT INTO `t_order` VALUES ('11', '2015041700003', '9', '4', '110.00', '100', '16', null, '1', '2015-04-17 16:34:00', '2015-04-18 23:04:53', '110.00');
+INSERT INTO `t_order` VALUES ('12', '2015041700004', '15', '4', '410.00', '100', '16', '6', '1', '2015-04-17 22:30:41', '2015-04-19 00:49:48', '389.50');
+INSERT INTO `t_order` VALUES ('13', '2015041700005', '17', '4', '410.00', '100', '16', '6', '18', '2015-04-17 23:52:59', '2015-04-18 00:08:07', '38.95');
 
 -- ----------------------------
 -- Table structure for `t_order_item`
@@ -259,7 +264,7 @@ CREATE TABLE `t_order_item` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order_item
@@ -285,6 +290,37 @@ INSERT INTO `t_order_item` VALUES ('18', '5', '15', '1', '2014-12-12 12:26:45', 
 INSERT INTO `t_order_item` VALUES ('19', '6', '1', '2', '2014-12-12 12:26:45', null);
 INSERT INTO `t_order_item` VALUES ('20', '6', '22', '1', '2014-12-12 12:26:45', null);
 INSERT INTO `t_order_item` VALUES ('21', '8', '11', '2', '2015-04-14 23:47:11', '2015-04-14 23:47:11');
+INSERT INTO `t_order_item` VALUES ('22', '9', '12', '2', '2015-04-17 16:09:01', '2015-04-17 16:09:01');
+INSERT INTO `t_order_item` VALUES ('23', '10', '12', '1', '2015-04-17 16:15:01', '2015-04-17 16:15:01');
+INSERT INTO `t_order_item` VALUES ('24', '10', '15', '2', '2015-04-17 16:15:01', '2015-04-17 16:15:01');
+INSERT INTO `t_order_item` VALUES ('25', '10', '16', '1', '2015-04-17 16:15:01', '2015-04-17 16:15:01');
+INSERT INTO `t_order_item` VALUES ('26', '11', '12', '1', '2015-04-17 16:34:00', '2015-04-17 16:34:00');
+INSERT INTO `t_order_item` VALUES ('27', '11', '15', '2', '2015-04-17 16:34:00', '2015-04-17 16:34:00');
+INSERT INTO `t_order_item` VALUES ('28', '11', '16', '1', '2015-04-17 16:34:00', '2015-04-17 16:34:00');
+INSERT INTO `t_order_item` VALUES ('29', '12', '12', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('30', '12', '15', '2', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('31', '12', '16', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('32', '12', '22', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('33', '12', '25', '2', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('34', '12', '26', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('35', '12', '32', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('36', '12', '35', '2', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('37', '12', '36', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('38', '12', '42', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('39', '12', '45', '2', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('40', '12', '46', '1', '2015-04-17 22:30:41', '2015-04-17 22:30:41');
+INSERT INTO `t_order_item` VALUES ('41', '13', '12', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('42', '13', '15', '2', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('43', '13', '16', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('44', '13', '22', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('45', '13', '25', '2', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('46', '13', '26', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('47', '13', '32', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('48', '13', '35', '2', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('49', '13', '36', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('50', '13', '42', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('51', '13', '45', '2', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
+INSERT INTO `t_order_item` VALUES ('52', '13', '46', '1', '2015-04-17 23:52:59', '2015-04-17 23:52:59');
 
 -- ----------------------------
 -- Table structure for `t_role`
@@ -400,12 +436,11 @@ CREATE TABLE `t_user_level` (
 -- ----------------------------
 -- Records of t_user_level
 -- ----------------------------
-INSERT INTO `t_user_level` VALUES ('1', '钻石会员', '0.80', '10000', '1', '2014-12-12 12:26:45', null);
-INSERT INTO `t_user_level` VALUES ('2', '白金会员', '0.85', '7500', '1', '2014-12-12 12:26:45', null);
-INSERT INTO `t_user_level` VALUES ('3', '金牌会员', '0.90', '5000', '1', '2014-12-12 12:26:45', null);
-INSERT INTO `t_user_level` VALUES ('4', '普通会员', '0.95', '0', '1', '2014-12-12 12:26:45', null);
-INSERT INTO `t_user_level` VALUES ('5', '非会员', '1.00', '0', '1', '2014-12-12 12:26:45', null);
-INSERT INTO `t_user_level` VALUES ('6', 'aaa', '1.00', '1', '1', '2015-04-07 14:39:04', null);
+INSERT INTO `t_user_level` VALUES ('1', '钻石会员', '8.00', '10000', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('2', '白金会员', '8.50', '7500', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('3', '金牌会员', '9.00', '5000', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('4', '普通会员', '9.50', '0', '1', '2014-12-12 12:26:45', null);
+INSERT INTO `t_user_level` VALUES ('5', '非会员', '10.00', '0', '1', '2014-12-12 12:26:45', null);
 
 -- ----------------------------
 -- Table structure for `t_user_role`
