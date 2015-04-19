@@ -203,8 +203,8 @@ public class OrderAction extends BaseAction {
         statusList = new ArrayList<KeyValue>();
         statusList.add(new KeyValue(Constants.ORDER_NEW, MessageUtil
                 .getMessage("order_status_new")));
-        statusList.add(new KeyValue(Constants.ORDER_SUBMITTED, MessageUtil
-                .getMessage("order_status_submitted")));
+        // statusList.add(new KeyValue(Constants.ORDER_SUBMITTED, MessageUtil
+        // .getMessage("order_status_submitted")));
         statusList.add(new KeyValue(Constants.ORDER_PAID, MessageUtil
                 .getMessage("order_status_paid")));
     }
