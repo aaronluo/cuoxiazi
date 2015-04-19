@@ -70,7 +70,7 @@
 					<thead>
 						<tr>
 							<th><s:text name="order_seq_label" /></th>
-							<th width="8%"><s:text name="table_number_label" /></th>
+							<th width="6%"><s:text name="table_number_label" /></th>
 							<th width="8%"><s:text name="attendee_number_label" /></th>
 							<th width="8%"><s:text name="total_price_label" /></th>
 							<th width="8%"><s:text name="discount_price_label" /></th>
@@ -78,7 +78,7 @@
 							<th width="8%"><s:text name="servent_label" /></th>
 							<th width="12%"><s:text name="member_label" /></th>
 							<th width="8%"><s:text name="cashier_label" /></th>
-							<th width="15%"><s:text name="order_create_date_label" /></th>
+							<th width="18%"><s:text name="order_create_date_label" /></th>
 						</tr>
 					</thead>
 					<tbody>

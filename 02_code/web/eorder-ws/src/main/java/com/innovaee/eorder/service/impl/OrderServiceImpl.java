@@ -198,7 +198,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
             order.setTotalPrice(totalPrice);
-            order.setDiscountPrice(totalPrice * discount * 0.1);
+            order.setDiscountPrice(totalPrice * discount * 1.0);
 
             orderDao.update(order);
         } else {
