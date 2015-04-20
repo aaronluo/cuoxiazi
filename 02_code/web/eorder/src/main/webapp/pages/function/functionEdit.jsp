@@ -20,16 +20,15 @@
 		</div>
 
 		<div>
-			<form id="saveForm" name="saveForm">
+			<form id="saveForm" name="saveForm" action="save">
 				<ul class="forminfo">
 					<s:hidden id="functionParent" name="functionParent" />
 					<li><label><s:text name="function_name" /></label><input
-						id="functionName" name="functionName" value="${functionName}" type="text"
-						class="dfinput" /></li>
-					<li><label><s:text name="function_desc" /></label><input id="functionDesc"
-						name="functionDesc" value="${functionDesc}" type="text" class="dfinput" /></li>
+						id="functionName" name="functionName" type="text" class="dfinput" /></li>
+					<li><label><s:text name="function_desc" /></label><input
+						id="functionDesc" name="functionDesc" type="text" class="dfinput" /></li>
 					<li><label><s:text name="function_path" /></label><input
-						id="functionPath" name="functionPath"  value="${functionPath}" type="text" class="dfinput" /></li>
+						id="functionPath" name="functionPath" type="text" class="dfinput" /></li>
 					<li><label><s:text name="function_parent_name" /></label> <select
 						id="functionSelect" name="functionSelect" class="select3">
 							<s:iterator value="functionParentList" id="function">

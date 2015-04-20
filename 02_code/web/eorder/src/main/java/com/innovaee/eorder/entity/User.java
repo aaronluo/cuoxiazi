@@ -16,11 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @Title: User
@@ -44,11 +40,11 @@ public class User extends BaseEntity {
     /** 手机号码 */
     private String cellphone;
 
+    /** 等级ID */
+    private Long levelId;
+
     /** 用户状态 */
     private Boolean userStatus;
-
-    /** 会员信息 */
-    private MemberShip memberShip = new MemberShip();
 
     /** 角色列表 */
     private Set<Role> roles;
@@ -74,11 +70,12 @@ public class User extends BaseEntity {
      *            用户状态
      */
     public User(String username, String password, String cellphone,
-            Boolean userStatus) {
+            Long levelId, Boolean userStatus) {
         super();
         this.username = username;
         this.password = password;
         this.cellphone = cellphone;
+        this.levelId = levelId;
         this.userStatus = userStatus;
     }
 
@@ -116,13 +113,14 @@ public class User extends BaseEntity {
         this.cellphone = cellphone;
     }
 
-    @OneToOne(targetEntity = MemberShip.class, fetch = FetchType.EAGER, mappedBy = "user")
-    public MemberShip getMemberShip() {
-        return memberShip;
+    @Basic
+    @Column(name = "USER_LEVEL_ID")
+    public Long getLevelId() {
+        return levelId;
     }
 
-    public void setMemberShip(MemberShip memberShip) {
-        this.memberShip = memberShip;
+    public void setLevelId(Long levelId) {
+        this.levelId = levelId;
     }
 
     @Basic
@@ -145,8 +143,4 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.SIMPLE_STYLE);
-    }
 }

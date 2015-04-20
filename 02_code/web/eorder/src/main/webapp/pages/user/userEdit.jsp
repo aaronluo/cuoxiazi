@@ -25,14 +25,13 @@
 				<s:hidden id="leftRolesArray" name="leftRolesArray" />
 				<ul class="forminfo">
 					<li><label><s:text name="username" /></label><input id="username"
-						name="username" value="${username}" type="text" class="dfinput" /></li>
+						name="username" type="text" class="dfinput" /></li>
 					<li><label><s:text name="password" /></label><input id="passwordOne"
-						name="passwordOne" value="${passwordOne}" type="password" class="dfinput" /></li>
+						name="passwordOne" type="password" class="dfinput" /></li>
 					<li><label><s:text name="confirm_password" /></label><input
-						id="passwordTwo" name="passwordTwo" value="${passwordTwo}" type="password"
-						class="dfinput" /></li>
+						id="passwordTwo" name="passwordTwo" type="password" class="dfinput" /></li>
 					<li><label><s:text name="cellphone" /></label><input name="cellphone"
-						id="cellphone" value="${cellphone}" type="text" class="dfinput" /></li>
+						type="text" class="dfinput" /></li>
 					<li><label><s:text name="roles_allocation" /></label>
 						<div class="selectcontent">
 							<div class="rightselect">

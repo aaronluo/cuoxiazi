@@ -11,22 +11,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.junit.Test;
-
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.exception.CategoryNotFoundException;
 import com.innovaee.eorder.exception.DishNotFoundException;
 import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
-import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
-import com.innovaee.eorder.utils.Constants;
-import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.vo.DishVO;
+
+import org.junit.Test;
+
+import javax.annotation.Resource;
 
 /**
  * @Title: DishServiceTest
@@ -93,7 +87,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜");
-       dishVO.setPrice(150.00f);
+        dishVO.setPrice(150.0f);
         dishVO.setPicPath("");
 
         try {
@@ -113,7 +107,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜1");
-       dishVO.setPrice(150.00f);
+        dishVO.setPrice(150.0f);
         dishVO.setPicPath("");
 
         try {
@@ -137,7 +131,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setCategoryId(1L);
         dishVO.setMisc("misc");
         dishVO.setName("手撕包菜1");
-       dishVO.setPrice(150.00f);
+        dishVO.setPrice(150.0f);
         dishVO.setPicPath("");
 
         Dish dish = dishService.addDish(dishVO);
@@ -162,7 +156,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setName(duplicateName);
         dishVO.setPicPath(dish.getPicPath());
-       dishVO.setPrice(dish.getPrice());
+        dishVO.setPrice(dish.getPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -187,7 +181,7 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setName(dish.getName());
         dishVO.setPicPath(dish.getPicPath());
-       dishVO.setPrice(dish.getPrice());
+        dishVO.setPrice(dish.getPrice());
 
         try {
             dishService.updateDish(dishVO);
@@ -198,7 +192,6 @@ public class DishServiceTest extends BaseSpringTestCase {
 
     /**
      * 单元测试 - 更新菜品信息
-     * 
      * @throws DishNotFoundException
      * @throws CategoryNotFoundException
      * @throws DuplicateNameException
@@ -214,11 +207,11 @@ public class DishServiceTest extends BaseSpringTestCase {
         dishVO.setMisc(dish.getMisc());
         dishVO.setName(dish.getName());
         dishVO.setPicPath(dish.getPicPath());
-       dishVO.setPrice(dish.getPrice());
+        dishVO.setPrice(dish.getPrice());
 
         dishService.updateDish(dishVO);
     }
-
+    
     /**
      * 单元测试 - 删除非法ID指定的菜品信息
      */
@@ -230,70 +223,26 @@ public class DishServiceTest extends BaseSpringTestCase {
             assertEquals(exception.getClass(), DishNotFoundException.class);
         }
     }
-
+    
     /**
      * 单元测试 - 删除菜品信息
      */
     @Test
-    public void deleteDishTest() throws DishNotFoundException {
+    public void deleteDishTest() throws DishNotFoundException {   
         dishService.deleteDish(1L);
     }
-
+    
     /**
      * 单元测试 - 菜品分页总数
-     * 
      * @throws InvalidPageSizeException
      * @throws CategoryNotFoundException
      */
     @Test
-    public void getDishPageCountTest() throws InvalidPageSizeException,
-            CategoryNotFoundException {
-        Long categoryId = 1L;
-
-        int pageCount = dishService.getDishPageCount(5, categoryId);
-
-        assertEquals(2, pageCount);
+    public void getDishPageCountTest() throws InvalidPageSizeException, CategoryNotFoundException {
+         Long categoryId = 1L;
+         
+         int pageCount = dishService.getDishPageCount(5, categoryId);
+         
+         assertEquals(2, pageCount);
     }
-
-    /**
-     * 单元测试 - 菜品分页数
-     * 
-     * @throws InvalidPageSizeException
-     * @throws CategoryNotFoundException
-     */
-    @Test
-    public void getDishesByPageTest() throws InvalidPageSizeException,
-            CategoryNotFoundException {
-        Long categoryId = 5L;
-
-        List<Dish> dishes = null;
-        try {
-            dishes = dishService.getDishesByPage(1, 5, categoryId);
-            for (Dish dish : dishes) {
-                System.out.println("dish: "
-                        + ToStringBuilder.reflectionToString(dish));
-            }
-        } catch (PageIndexOutOfBoundExcpeiton e) {
-            LOGGER.error(MessageUtil.getMessage("invalid_page_size_exception",
-                    Constants.PAGE_SIZE.toString()));
-        }
-        assertNotNull(dishes);
-        assertEquals(5, dishes.size());
-    }
-
-    /**
-     * 单元测试 - 菜品分页数
-     * 
-     * @throws InvalidPageSizeException
-     * @throws CategoryNotFoundException
-     */
-    @Test
-    public void getDishCountByIdTest() throws InvalidPageSizeException,
-            CategoryNotFoundException {
-        Long categoryId = 1L;
-
-        Integer count = dishService.getDishCountById(categoryId);
-        System.out.println("count: " + count);
-    }
-
 }

@@ -24,10 +24,12 @@
 <!--页面主体部分-->
 <div class="rightinfo">
 	<div class="tools">
-		<ul class="toolbar">
-			<li><a href='<s:url action="add"/>'><span><img
-						src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
-		</ul>
+		<form name="addForm" id="addForm">
+			<ul class="toolbar" onclick="add();">
+				<li><span><img src="../resources/images/t01.png"></span>
+				<s:text name="add" /></li>
+			</ul>
+		</form>
 	</div>
 
 	<s:form id="roleForm" action="remove" theme="simple">
@@ -35,16 +37,16 @@
 		<table class="tablelist">
 			<thead>
 				<tr>
-					<th width="12%"><s:text name="role_name" /></th>
-					<th width="15%"><s:text name="role_desc" /></th>
-					<th><s:text name="function_list" /></th>
+					<th width="8%"><s:text name="role_name" /></th>
+					<th width="8%"><s:text name="role_desc" /></th>
+					<th width="68%"><s:text name="function_list" /></th>
 					<th width="8%"><s:text name="edit" /></th>
 					<th width="8%"><s:text name="delete" /></th>
 				</tr>
 			</thead>
 			<tbody>
-				<s:iterator value="rolevos" status="status">
-					<tr class='<s:if test="#status.even">odd</s:if>'>
+				<s:iterator value="rolevos">
+					<tr>
 						<td><s:property value="roleName" /> <s:hidden id="id" name="id"
 								value="%{id}" /></td>
 						<td><s:property value="roleDesc" /></td>

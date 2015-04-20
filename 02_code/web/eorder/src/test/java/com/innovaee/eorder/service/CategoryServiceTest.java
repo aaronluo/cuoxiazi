@@ -43,7 +43,7 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void getAllCategoriesTest() {
-        assertEquals(11, categoryService.getAllCategoriesWithDefault().size());
+        assertEquals(11, categoryService.getAllCategories().size());
     }
 
     /**
@@ -51,10 +51,10 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void addCategoryWithDuplicateNameTest() {
-        String name = "湘菜";
+        String categoryName = "湘菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setName(name);
+        categoryVO.setName(categoryName);
         categoryVO.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
         try {
             categoryService.addCategory(categoryVO);
@@ -68,10 +68,10 @@ public class CategoryServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void addValidCategoryTest() {
-        String name = "汤水";
+        String categoryName = "汤水";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setName(name);
+        categoryVO.setName(categoryName);
         categoryVO.setPicPath(Constants.DEFAULT_CATEGORY_PIC);
 
         try {
@@ -91,10 +91,10 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     @Test
     public void updateWithInvalidNameTest() throws CategoryNotFoundException {
         Category category = categoryService.getCategoryById(1L);
-        String invalidName = "川菜";
+        String invalidCategoryName = "川菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setName(invalidName);
+        categoryVO.setName(invalidCategoryName);
         categoryVO.setId(category.getId());
         categoryVO.setPicPath(category.getPicPath());
 
@@ -107,7 +107,6 @@ public class CategoryServiceTest extends BaseSpringTestCase {
 
     /**
      * 更新菜品分类单元测试
-     * 
      * @throws DuplicateNameException
      * @throws CategoryNotFoundException
      */
@@ -115,10 +114,10 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     public void updateWithRightNameTest() throws DuplicateNameException,
             CategoryNotFoundException {
         Category category = categoryService.getCategoryById(1L);
-        String invalidName = "湘菜";
+        String invalidCategoryName = "湘菜";
 
         CategoryVO categoryVO = new CategoryVO();
-        categoryVO.setName(invalidName);
+        categoryVO.setName(invalidCategoryName);
         categoryVO.setId(category.getId());
         categoryVO.setPicPath(category.getPicPath());
 
@@ -128,7 +127,6 @@ public class CategoryServiceTest extends BaseSpringTestCase {
 
     /**
      * 删除菜品分类单元测试
-     * 
      * @throws CategoryNotFoundException
      * @throws DishNotFoundException
      */
@@ -150,7 +148,7 @@ public class CategoryServiceTest extends BaseSpringTestCase {
             assertEquals(exception.getClass(), CategoryNotFoundException.class);
         }
     }
-
+    
     /**
      * 单元测试 - 使用非法分页大小获取分页总数
      */
@@ -158,43 +156,38 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     public void getCategoryPageCountWithInvalidPageSizeTest() {
         try {
             categoryService.getCategoryPageCount(0);
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             assertEquals(exception.getClass(), InvalidPageSizeException.class);
         }
     }
-
+    
     /**
      * 单元测试 - 使用合法分页大小获取分页总数
-     * 
-     * @throws InvalidPageSizeException
+     * @throws InvalidPageSizeException 
      */
     @Test
-    public void getCategoryPageCountWithValidPageSizeTest()
-            throws InvalidPageSizeException {
+    public void getCategoryPageCountWithValidPageSizeTest() throws InvalidPageSizeException {
         int pageSize = categoryService.getCategoryPageCount(5);
-
+        
         assertEquals(3, pageSize);
     }
-
+    
     /**
      * 单元测试 - 获取菜品分类分页
-     * 
      * @throws PageIndexOutOfBoundExcpeiton
-     * @throws InvalidPageSizeException
+     * @throws InvalidPageSizeException 
      */
     @Test
-    public void getCategoriesPageTest() throws PageIndexOutOfBoundExcpeiton,
-            InvalidPageSizeException {
+    public void getCategoriesPageTest() throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException {
         int currentPage = 2;
         int pageSize = 5;
-
-        List<Category> categories = categoryService
-                .getCategoriesByPageWithDefault(currentPage, pageSize);
-
-        assertEquals(categories.size(), pageSize);
-
+        
+       List<Category> categories =  categoryService.getCategoriesByPage(currentPage, pageSize);
+       
+       assertEquals(categories.size(), pageSize);
+        
     }
-
+    
     /**
      * 单元测试 - 使用非法页数获取菜品分类分页
      */
@@ -202,13 +195,11 @@ public class CategoryServiceTest extends BaseSpringTestCase {
     public void getCategoriesPageWithInvalidPageTest() {
         int currentPage = 5;
         int pageSize = 5;
-
+        
         try {
-            categoryService.getCategoriesByPageWithDefault(currentPage,
-                    pageSize);
-        } catch (Exception exception) {
-            assertEquals(exception.getClass(),
-                    PageIndexOutOfBoundExcpeiton.class);
+            categoryService.getCategoriesByPage(currentPage, pageSize);
+        }catch (Exception exception) {
+            assertEquals(exception.getClass(), PageIndexOutOfBoundExcpeiton.class);
         }
     }
 }

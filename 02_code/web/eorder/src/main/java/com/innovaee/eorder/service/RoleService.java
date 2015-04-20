@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.innovaee.eorder.entity.Function;
 import com.innovaee.eorder.entity.Role;
-import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.vo.RoleVO;
 
 /**
@@ -54,7 +53,7 @@ public interface RoleService {
      *            待保存的角色
      * @return 被保存的角色
      */
-    public Role addRole(Role role) throws DuplicateNameException;
+    public Long saveRole(Role role);
 
     /**
      * 更新角色

@@ -7,10 +7,7 @@
 
 package com.innovaee.eorder.service.impl;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +19,6 @@ import com.innovaee.eorder.dao.FunctionDao;
 import com.innovaee.eorder.dao.RoleDao;
 import com.innovaee.eorder.entity.Function;
 import com.innovaee.eorder.entity.Role;
-import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.service.RoleService;
 import com.innovaee.eorder.vo.RoleVO;
 
@@ -64,9 +60,9 @@ public class RoleServiceImpl implements RoleService {
             for (Function tempFunction : functions) {
                 // 查找功能（权限）名称
                 function = functionDao.get(tempFunction.getId());
-                // if (0 != function.getFunctionParent()) {
-                functionNames.add(function.getFunctionName());
-                // }
+                if (0 != function.getFunctionParent()) {
+                    functionNames.add(function.getFunctionName());
+                }
             }
             roleVO.setFunctionName(functionNames.toString());
 
@@ -105,27 +101,8 @@ public class RoleServiceImpl implements RoleService {
      *            待保存的角色
      * @return 被保存的角色
      */
-    public Role addRole(Role role) throws DuplicateNameException {
-        // 1. 检查是否有同名角色
-        Role dbRole = roleDao.findRoleByRoleName(role.getRoleName());
-
-        Long newId = 0L;
-        if (null == dbRole) {
-            Timestamp createAt = Timestamp.valueOf(new SimpleDateFormat(
-                    "yyyy-MM-dd hh:mm:ss.SSS").format(Calendar.getInstance()
-                    .getTime()));
-            role.setCreateDate(createAt);
-            newId = roleDao.save(role);
-            if (0L != newId) {
-                
-                role.setId(newId);
-            } 
-        } else {
-            // 有重名菜品，抛出异常
-            throw new DuplicateNameException(role.getRoleName());
-        }
-
-        return role;
+    public Long saveRole(Role role) {
+        return roleDao.save(role);
     }
 
     /**
@@ -164,18 +141,18 @@ public class RoleServiceImpl implements RoleService {
             Set<Function> functionSet = role.getFunctions();
             for (Function function : functionSet) {
                 // 过滤Root类型的功能(functionParen为0)
-                // if (0 != function.getFunctionParent()) {
-                functions.add(function);
-                // }
+                if (0 != function.getFunctionParent()) {
+                    functions.add(function);
+                }
             }
         }
 
         List<Function> allFunctions = functionDao.loadAll();
         for (Function functionDB : allFunctions) {
             // 过滤Root类型的功能(functionParen为0)
-            // if (0 != functionDB.getFunctionParent()) {
-            leftFunctions.add(functionDB);
-            // }
+            if (0 != functionDB.getFunctionParent()) {
+                leftFunctions.add(functionDB);
+            }
         }
 
         leftFunctions.removeAll(functions);

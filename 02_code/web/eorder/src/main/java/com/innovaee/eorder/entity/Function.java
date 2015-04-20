@@ -16,9 +16,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 /**
  * @Title: Function
  * @Description: 功能实体
@@ -170,8 +167,4 @@ public class Function extends BaseEntity {
         this.roles = roles;
     }
 
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.SIMPLE_STYLE);
-    }
 }

@@ -25,10 +25,12 @@
 <!--页面主体部分-->
 <div class="rightinfo">
 	<div class="tools">
-		<ul class="toolbar">
-			<li><a href='<s:url action="add"/>'><span><img
-						src="../resources/images/t01.png"></span> <s:text name="add" /></a></li>
-		</ul>
+		<form name="addForm" id="addForm">
+			<ul class="toolbar" onclick="add();">
+				<li><span><img src="../resources/images/t01.png"></span> <s:text
+						name="add" /></li>
+			</ul>
+		</form>
 	</div>
 
 	<s:form id="userForm" action="remove" theme="simple">
@@ -43,8 +45,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<s:iterator value="uservos" status="status">
-					<tr class='<s:if test="#status.even">odd</s:if>'>
+				<s:iterator value="uservos">
+					<tr>
 						<td><s:property value="username" /> <s:hidden id="userId"
 								name="userId" value="%{userId}" /></td>
 						<td><s:property value="roleName" /></td>

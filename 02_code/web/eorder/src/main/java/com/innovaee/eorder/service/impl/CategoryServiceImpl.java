@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 /**
  * @Title: CategoryServiceImpl
  * @Description: 菜品分类服务实现类
@@ -37,11 +35,9 @@ import javax.annotation.Resource;
 public class CategoryServiceImpl implements CategoryService {
 
     /** 菜品分类数据访问实现类对象 */
-    @Resource
     private CategoryDao categoryDao;
 
     /** 菜品数据访问实现类对象 */
-    @Resource
     private DishDao dishDao;
 
     /**
@@ -50,19 +46,6 @@ public class CategoryServiceImpl implements CategoryService {
      * @return 所有分类列表
      */
     public List<Category> getAllCategories() {
-        List<Category> categories = categoryDao.loadAll();
-
-        for (Category category : categories) {
-            if (category.getName().equals(Constants.DEFAULT_CATEGORY)) {
-                categories.remove(category);
-                break;
-            }
-        }
-
-        return categories;
-    }
-
-    public List<Category> getAllCategoriesWithDefault() {
         return categoryDao.loadAll();
     }
 
@@ -100,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @throws DuplicateNameException
      *             菜品分类命名重复异常
      */
-
+    
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Category addCategory(CategoryVO categoryVO)
             throws DuplicateNameException {
@@ -112,11 +95,12 @@ public class CategoryServiceImpl implements CategoryService {
             category.setName(categoryVO.getName());
             category.setPicPath(categoryVO.getPicPath());
             category.setCreateDate(new Date());
+
             Long categoryId = categoryDao.save(category);
             category = categoryDao.get(categoryId);
         } else {
-            throw new DuplicateNameException(MessageUtil.getMessage(
-                    "category_name_msg", categoryVO.getName()));
+            throw new DuplicateNameException("categoryName:"
+                    + categoryVO.getName());
         }
 
         return category;
@@ -134,7 +118,7 @@ public class CategoryServiceImpl implements CategoryService {
      *             菜品分类不存在异常
      * 
      */
-
+    
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Category updateCategory(CategoryVO categoryVO)
             throws DuplicateNameException, CategoryNotFoundException {
@@ -146,8 +130,8 @@ public class CategoryServiceImpl implements CategoryService {
         // 2. 检查是否有同名菜品分类
         if (checkedCategory != null
                 && checkedCategory.getId() != categoryVO.getId()) {
-            throw new DuplicateNameException(MessageUtil.getMessage(
-                    "category_name_msg", categoryVO.getName()));
+            throw new DuplicateNameException("categoryName:"
+                    + categoryVO.getName());
         } else {
             // 3. 更新菜品分类
             category.setName(categoryVO.getName());
@@ -168,7 +152,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @throws CategoryNotFoundException
      *             菜品分类不存在异常
      */
-
+    
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public void deleteCategory(Long categoryId)
             throws CategoryNotFoundException {
@@ -180,8 +164,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .getCategoryByName(Constants.DEFAULT_CATEGORY);
 
         if (null == defaultCategory) {
-            throw new CategoryNotFoundException(MessageUtil.getMessage(
-                    "category_name_msg", Constants.DEFAULT_CATEGORY));
+            throw new CategoryNotFoundException("categoryName:"
+                    + Constants.DEFAULT_CATEGORY);
         } else {
             for (Dish dish : category.getDishes()) {
                 dish.setCategory(defaultCategory);
@@ -202,7 +186,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
-
+    
     public Category getCategoryById(Long categoryId)
             throws CategoryNotFoundException {
         Category category = categoryDao.get(categoryId);
@@ -217,27 +201,27 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 根据指定的菜品分类名字查找菜品分类
      * 
-     * @param name
+     * @param categoryName
      *            菜品分类名字
      * @return 菜品分类对象
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
-
-    public Category getCategoryByName(String name)
+    
+    public Category getCategoryByName(String categoryName)
             throws CategoryNotFoundException {
-        Category category = categoryDao.getCategoryByName(name);
+        Category category = categoryDao.getCategoryByName(categoryName);
 
         if (null == category) {
             throw new CategoryNotFoundException(MessageUtil.getMessage(
-                    "category_name_msg", name));
+                    "category_name", categoryName));
         }
 
         return category;
     }
 
     /**
-     * 获取菜品分类分页数据，不包括默认分类
+     * 获取菜品分类分页数据
      * 
      * @param curPage
      *            当前分页
@@ -246,64 +230,24 @@ public class CategoryServiceImpl implements CategoryService {
      * @return
      * @throws PageIndexOutOfBoundExcpeiton
      *             分页超限异常
-     * @throws InvalidPageSizeException
+     * @throws InvalidPageSizeException 
      */
+    
     public List<Category> getCategoriesByPage(int curPage, int pageSize)
             throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException {
         List<Category> categories = new ArrayList<Category>();
         // 1. 计算总页数
-        int totalPage = getCategoryPageCount(pageSize);
+        int totalPage =getCategoryPageCount(pageSize);
         // 2. 如果当前分页不是一个非法的分页， 则抛出异常
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         } else {
             int startIndex = (curPage - 1) * pageSize;
             categories = categoryDao.getPage(startIndex, pageSize,
-                    "FROM Category as c WHERE c.name <> '"
-                            + Constants.DEFAULT_CATEGORY
-                            + "' order by c.id desc");
+                    "FROM Category");
         }
 
         return categories;
-    }
-
-    /**
-     * 获取菜品分类分页数据，包括默认分类
-     * 
-     * @param curPage
-     *            当前分页
-     * @param pageSize
-     *            分页大小
-     * @return
-     * @throws PageIndexOutOfBoundExcpeiton
-     *             分页超限异常
-     * @throws InvalidPageSizeException
-     */
-    public List<Category> getCategoriesByPageWithDefault(int curPage,
-            int pageSize) throws PageIndexOutOfBoundExcpeiton,
-            InvalidPageSizeException {
-        List<Category> categories = new ArrayList<Category>();
-        // 1. 计算总页数
-        int totalPage = getCategoryPageCount(pageSize);
-        // 2. 如果当前分页不是一个非法的分页， 则抛出异常
-        if (curPage < 1 || curPage > totalPage) {
-            throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
-        } else {
-            int startIndex = (curPage - 1) * pageSize;
-            categories = categoryDao.getPage(startIndex, pageSize,
-                    "FROM Category as c order by c.id desc");
-        }
-
-        return categories;
-    }
-
-    /**
-     * 获得总记录条数
-     * 
-     * @return 总记录条数
-     */
-    public Integer count() {
-        return categoryDao.count() - 1;
     }
 
     /**
@@ -315,7 +259,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @throws InvalidPageSizeException
      *             非法的分页大小异常，分页大小必须大于0
      */
-
+    
     public int getCategoryPageCount(int pageSize)
             throws InvalidPageSizeException {
         if (pageSize <= 0) {
@@ -328,4 +272,19 @@ public class CategoryServiceImpl implements CategoryService {
                 : totalCategories / pageSize + 1;
     }
 
+    public void setCategoryDao(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
+
+    public CategoryDao getCategoryDao() {
+        return categoryDao;
+    }
+
+    public DishDao getDishDao() {
+        return dishDao;
+    }
+
+    public void setDishDao(DishDao dishDao) {
+        this.dishDao = dishDao;
+    }
 }

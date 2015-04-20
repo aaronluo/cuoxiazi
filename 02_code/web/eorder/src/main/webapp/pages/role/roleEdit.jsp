@@ -25,11 +25,11 @@
 				<s:hidden id="leftFunctionsArray" name="leftFunctionsArray" />
 				<ul class="forminfo">
 					<li><label><s:text name="role_name" /></label><input id="roleName"
-						name="roleName" value="${roleName}" type="text"
-						value='<s:property value="roleName" />' class="dfinput" /></li>
+						name="roleName" type="text" value='<s:property value="roleName" />'
+						class="dfinput" /></li>
 					<li><label><s:text name="role_desc" /></label><input id="roleDesc"
-						name="roleDesc" value="${roleDesc}" type="text"
-						value='<s:property value="roleDesc" />' class="dfinput" /></li>
+						name="roleDesc" type="text" value='<s:property value="roleDesc" />'
+						class="dfinput" /></li>
 					<li><label><s:text name="functions_allocation" /></label>
 						<div class="selectcontent">
 							<div class="rightselect">
