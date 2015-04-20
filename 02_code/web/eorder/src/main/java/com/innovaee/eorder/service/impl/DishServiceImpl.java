@@ -6,6 +6,15 @@
  ************************************************/
 package com.innovaee.eorder.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.innovaee.eorder.dao.CategoryDao;
 import com.innovaee.eorder.dao.DishDao;
 import com.innovaee.eorder.entity.Category;
@@ -19,13 +28,6 @@ import com.innovaee.eorder.service.DishService;
 import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.vo.DishVO;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * @Title: DishServiceImpl
  * @Description: 菜品服务实现类
@@ -34,9 +36,11 @@ import java.util.List;
 public class DishServiceImpl implements DishService {
 
     /** 菜品数据访问实现类对象 */
+    @Resource
     private DishDao dishDao;
 
     /** 菜品分类数据访问实现类对象 */
+    @Resource
     private CategoryDao categoryDao;
 
     /**
@@ -50,7 +54,7 @@ public class DishServiceImpl implements DishService {
      * @throws CategoryNotFoundException
      *             菜品分类不存在异常
      */
-    
+
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Dish addDish(DishVO dishVO) throws DuplicateNameException,
             CategoryNotFoundException {
@@ -61,7 +65,7 @@ public class DishServiceImpl implements DishService {
             // 2. 检查菜品添加的所属分类是否存在
             Category category = categoryDao.get(dishVO.getCategoryId());
             if (null == category) {
-                // 菜品分类不存在，抛出异常
+                // 菜品分类不存在，抛出异常 
                 throw new CategoryNotFoundException(MessageUtil.getMessage(
                         "category_id", dishVO.getCategoryId() + ""));
             } else {
@@ -72,7 +76,6 @@ public class DishServiceImpl implements DishService {
                 dish.setPicPath(dishVO.getPicPath());
                 dish.setPrice(dishVO.getPrice());
                 dish.setCreateDate(new Date());
-
                 dishDao.save(dish);
             }
         } else {
@@ -96,10 +99,11 @@ public class DishServiceImpl implements DishService {
      * @throws DuplicateNameException
      *             命名重复异常
      */
-    
+
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = Exception.class)
     public Dish updateDish(DishVO dishVO) throws DishNotFoundException,
-            CategoryNotFoundException, DuplicateNameException {
+            CategoryNotFoundException, DuplicateNameException,
+            NumberFormatException {
         // 1. 检查要更新的菜品是否存在
         Dish dish = getDishById(dishVO.getId());
 
@@ -139,7 +143,7 @@ public class DishServiceImpl implements DishService {
      * @throws DishNotFoundException
      *             菜品不存在异常
      */
-    
+
     public void deleteDish(Long dishId) throws DishNotFoundException {
         Dish dish = getDishById(dishId);
 
@@ -155,7 +159,7 @@ public class DishServiceImpl implements DishService {
      *            菜品ID
      * @return 菜品实体
      */
-    
+
     public Dish getDishById(Long dishId) throws DishNotFoundException {
         Dish dish = dishDao.get(dishId);
 
@@ -170,19 +174,20 @@ public class DishServiceImpl implements DishService {
     /**
      * 根据菜品名称获取菜品信息
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 菜品信息对象
      * @throws DishNotFoundException
      *             菜品不存在异常
      */
-    
-    public Dish getDishByName(String dishName) throws DishNotFoundException {
-        Dish dish = dishDao.getDishByName(dishName);
+
+    public Dish getDishByName(String name) throws DishNotFoundException {
+        Dish dish = dishDao.getDishByName(name);
 
         if (null == dish) {
-            throw new DishNotFoundException(MessageUtil.getMessage("dish_name",
-                    dishName));
+            throw new DishNotFoundException(
+                    MessageUtil.getMessage("dish_name_msg",
+                    name));
         }
 
         return dish;
@@ -201,14 +206,13 @@ public class DishServiceImpl implements DishService {
      * @throws CategoryNotFoundException
      * @throws InvalidPageSizeException
      */
-    
     public List<Dish> getDishesByPage(int curPage, int pageSize, Long categoryId)
             throws PageIndexOutOfBoundExcpeiton, CategoryNotFoundException,
             InvalidPageSizeException {
         List<Dish> dishes = new ArrayList<Dish>();
         // 1. 计算总页数
         int totalPage = this.getDishPageCount(pageSize, categoryId);
-        // 2. 如果当前分页不是一个非法的分页， 则抛出异常
+        // 2. 如果当前分页是一个非法的分页， 则抛出异常
         if (curPage < 1 || curPage > totalPage) {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         } else {
@@ -217,12 +221,8 @@ public class DishServiceImpl implements DishService {
                         "category_id", "" + categoryId));
             } else {
                 int startIndex = (curPage - 1) * pageSize;
-                dishes = dishDao
-                        .getPage(
-                                startIndex,
-                                pageSize,
-                                "FROM Dish WHERE Dish.category_id=? AND Dish.onSell=true",
-                                categoryId);
+                String sql = "FROM Dish as d WHERE d.category.id=? AND d.onSell=1 order by d.id desc";
+                dishes = dishDao.getPage(startIndex, pageSize, sql, categoryId);
             }
         }
 
@@ -242,7 +242,6 @@ public class DishServiceImpl implements DishService {
      * @throws CategoryNotFoundException
      *             菜品分类未找到异常
      */
-    
     public int getDishPageCount(int pageSize, Long categoryId)
             throws InvalidPageSizeException, CategoryNotFoundException {
         if (pageSize <= 0) {
@@ -256,20 +255,15 @@ public class DishServiceImpl implements DishService {
                 : totalDishes / pageSize + 1;
     }
 
-    public void setDishDao(DishDao dishDao) {
-        this.dishDao = dishDao;
-    }
-
-    public DishDao getDishDao() {
-        return dishDao;
-    }
-
-    public CategoryDao getCategoryDao() {
-        return categoryDao;
-    }
-
-    public void setCategoryDao(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
+    /**
+     * 根据分类ID获取菜品记录条数
+     * 
+     * @param categoryId
+     *            分类ID
+     * @return 返回菜品记录条数
+     */
+    public Integer getDishCountById(final Long categoryId) {
+        return dishDao.getDishCountById(categoryId);
     }
 
 }

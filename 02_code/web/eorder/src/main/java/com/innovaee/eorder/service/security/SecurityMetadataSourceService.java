@@ -108,21 +108,25 @@ public class SecurityMetadataSourceService implements
 
         Set<Role> roleList = securityMetadataSourceService
                 .getUserRoles(username);
-        
-        for (Role role : roleList) {
-            Set<Function> functions = role.getFunctions();
-            for (Function function : functions) {
-                UserFunctionVO userFunctionVo = new UserFunctionVO();
-                userFunctionVo.setUser(user);
-                userFunctionVo.setRole(role);
-                userFunctionVo.setFunction(function);
 
-                // Add one Item
-                userFunctions.add(userFunctionVo);
+        if (null != roleList) {
+            for (Role role : roleList) {
+                Set<Function> functions = role.getFunctions();
+                for (Function function : functions) {
+                    UserFunctionVO userFunctionVo = new UserFunctionVO();
+                    userFunctionVo.setUser(user);
+                    userFunctionVo.setRole(role);
+                    userFunctionVo.setFunction(function);
+
+                    // Add one Item
+                    userFunctions.add(userFunctionVo);
+                }
             }
-        }
 
-        return userFunctions;
+            return userFunctions;
+        } else {
+            return null;
+        }
     }
 
     /**

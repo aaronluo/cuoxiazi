@@ -10,6 +10,8 @@ package com.innovaee.eorder.action;
 import com.innovaee.eorder.vo.MenuLinkVO;
 import com.opensymphony.xwork2.ActionSupport;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class BaseAction extends ActionSupport {
 
     /** 对象序列化ID */
     private static final long serialVersionUID = 6286143366540227001L;
+    
+    protected Logger logger = Logger.getLogger(this.getClass());
 
     /** 工具栏列表 */
     protected List<MenuLinkVO> toolbarList = new ArrayList<MenuLinkVO>();

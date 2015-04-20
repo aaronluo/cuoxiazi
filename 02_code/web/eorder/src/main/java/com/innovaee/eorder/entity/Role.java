@@ -16,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -110,6 +111,7 @@ public class Role extends BaseEntity {
     }
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, targetEntity = User.class)
+    @OrderBy("id ASC")
     public Set<User> getUsers() {
         return users;
     }

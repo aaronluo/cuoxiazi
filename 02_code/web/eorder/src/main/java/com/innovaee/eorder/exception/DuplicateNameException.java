@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.exception;
 
-import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.support.MessageUtil;
 
 /**
  * @Title: DuplicateNameException
@@ -29,7 +29,7 @@ public class DuplicateNameException extends BaseException {
         duplicateName = name;
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, this.duplicateName);
     }

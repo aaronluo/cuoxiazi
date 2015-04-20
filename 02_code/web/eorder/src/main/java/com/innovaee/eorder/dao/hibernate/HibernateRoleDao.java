@@ -28,7 +28,7 @@ public class HibernateRoleDao extends HibernateBaseDao<Role> implements RoleDao 
      * @return 角色
      */
     public Role findRoleByRoleName(final String roleName) {
-        final String hql = "from Role as role where role.roleName = ?";
+        final String hql = "from Role as role where role.roleName = ? order by id ASC";
         Object[] paras = { roleName };
         List<Role> roles = getPage(0, Constants.MAX_RECORD, hql, paras);
 
