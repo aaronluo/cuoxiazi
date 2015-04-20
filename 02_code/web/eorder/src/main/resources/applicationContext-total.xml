@@ -133,14 +133,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         parent="baseDao" />
     <bean id="userLevelDao" class="com.innovaee.eorder.dao.hibernate.HibernateUserLevelDao"
         parent="baseDao" />
-
-    <bean id="categoryDao" class="com.innovaee.eorder.dao.hibernate.HibernateCategoryDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-
-    <bean id="dishDao" class="com.innovaee.eorder.dao.hibernate.HibernateDishDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+    <bean id="categoryDao" class="com.innovaee.eorder.dao.hibernate.HibernateCategoryDao" />
+    <bean id="dishDao" class="com.innovaee.eorder.dao.hibernate.HibernateDishDao" />
+    <bean id="orderDao" class="com.innovaee.eorder.dao.hibernate.HibernateOrderDao" />
 
     <bean id="authorizationService" class="com.innovaee.eorder.service.security.AuthorizationService" />
     <bean id="authenticationService" class="com.innovaee.eorder.service.security.AuthenticationService" />
@@ -151,14 +146,16 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="userService" class="com.innovaee.eorder.service.impl.UserServiceImpl" />
     <bean id="userLevelService" class="com.innovaee.eorder.service.impl.UserLevelServiceImpl" />
     <bean id="roleService" class="com.innovaee.eorder.service.impl.RoleServiceImpl" />
-
-    <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl">
-        <property name="categoryDao" ref="categoryDao" />
-        <property name="dishDao" ref="dishDao" />
+    <bean id="categoryService" class="com.innovaee.eorder.service.impl.CategoryServiceImpl" />
+    <bean id="dishService" class="com.innovaee.eorder.service.impl.DishServiceImpl" />
+    <bean id="orderService" class="com.innovaee.eorder.service.impl.OrderServiceImpl" />
+    <bean id="memberShipDao" class="com.innovaee.eorder.dao.hibernate.HibernateMemberShipDao">
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="dishService" class="com.innovaee.eorder.service.impl.DishServiceImpl">
-        <property name="dishDao" ref="dishDao" />
-        <property name="categoryDao" ref="categoryDao" />
+    <bean id="memberShipService" class="com.innovaee.eorder.service.impl.MemberShipServiceImpl">
+        <property name="userDao" ref="userDao" />
+        <property name="userLevelDao" ref="userLevelDao" />
+        <property name="memberShipDao" ref="memberShipDao" />
     </bean>
 </beans>

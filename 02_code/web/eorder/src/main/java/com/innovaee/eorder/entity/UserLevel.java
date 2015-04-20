@@ -32,7 +32,7 @@ public class UserLevel extends BaseEntity {
     private Float discount;
 
     /** 等级积分 */
-    private Long levelScore;
+    private Integer levelScore;
 
     /** 等级状态 */
     private Boolean levelStatus;
@@ -59,11 +59,11 @@ public class UserLevel extends BaseEntity {
 
     @Basic
     @Column(name = "level_score")
-    public Long getLevelScore() {
+    public Integer getLevelScore() {
         return levelScore;
     }
 
-    public void setLevelScore(Long levelScore) {
+    public void setLevelScore(Integer levelScore) {
         this.levelScore = levelScore;
     }
 

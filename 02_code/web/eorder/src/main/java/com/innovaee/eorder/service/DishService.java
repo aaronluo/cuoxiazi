@@ -62,7 +62,8 @@ public interface DishService {
      *             命名重复异常
      */
     public Dish updateDish(DishVO dishVO) throws DishNotFoundException,
-            CategoryNotFoundException, DuplicateNameException;
+            CategoryNotFoundException, DuplicateNameException,
+            NumberFormatException;
 
     /**
      * 删除指定id的菜品
@@ -77,13 +78,13 @@ public interface DishService {
     /**
      * 根据菜品名称获取菜品信息
      * 
-     * @param dishName
+     * @param name
      *            菜品名称
      * @return 菜品信息对象
      * @throws DishNotFoundException
      *             菜品不存在异常
      */
-    public Dish getDishByName(String dishName) throws DishNotFoundException;
+    public Dish getDishByName(String name) throws DishNotFoundException;
 
     /**
      * 获取菜品分页数据
@@ -99,19 +100,34 @@ public interface DishService {
      *             分页超限异常
      * @throws CategoryNotFoundException
      *             菜品分类不存在异常
-     * @throws InvalidPageSizeException 
+     * @throws InvalidPageSizeException
      */
     public List<Dish> getDishesByPage(int curPage, int pageSize, Long categoryId)
-            throws PageIndexOutOfBoundExcpeiton, CategoryNotFoundException, InvalidPageSizeException;
+            throws PageIndexOutOfBoundExcpeiton, CategoryNotFoundException,
+            InvalidPageSizeException;
 
     /**
      * 获得某一菜品分类下的菜品分页总数
-     * @param pageSize 分页大小 
-     * @param categoryId 菜品分类id
+     * 
+     * @param pageSize
+     *            分页大小
+     * @param categoryId
+     *            菜品分类id
      * @return
-     * @throws InvalidPageSizeException 非法分页大小异常
-     * @throws CategoryNotFoundException 菜品分类未找到异常
+     * @throws InvalidPageSizeException
+     *             非法分页大小异常
+     * @throws CategoryNotFoundException
+     *             菜品分类未找到异常
      */
     public int getDishPageCount(int pageSize, Long categoryId)
             throws InvalidPageSizeException, CategoryNotFoundException;
+
+    /**
+     * 根据分类ID获取菜品记录条数
+     * 
+     * @param categoryId
+     *            分类ID
+     * @return 返回菜品记录条数
+     */
+    public Integer getDishCountById(final Long categoryId);
 }

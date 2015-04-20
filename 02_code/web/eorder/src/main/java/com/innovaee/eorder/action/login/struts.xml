@@ -6,7 +6,7 @@
 
     <package name="com.innovaee.eorder.action.login" namespace="/login"
         extends="struts-base">
-        
+
         <action name="login" class="com.innovaee.eorder.action.login.LoginAction"
             method="login">
             <result name="success">/pages/login/login.jsp</result>

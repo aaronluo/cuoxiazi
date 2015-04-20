@@ -7,7 +7,8 @@
 
 package com.innovaee.eorder.exception;
 
-import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.support.MessageUtil;
+
 
 /**
  * @Title: CategoryServiceImpl
@@ -17,21 +18,20 @@ import com.innovaee.eorder.utils.MessageUtil;
  */
 public class InvalidPageSizeException extends BaseException {
 
-    /**  */
-    private static final long serialVersionUID = -5620691314368641941L;
-
     static {
         exceptionKey = "invalid_page_size_exception";
     }
-
+    private static final long serialVersionUID = 1L;
+    
     private int invalidPageSize;
-
+    
     public InvalidPageSizeException(int invalidPageSize) {
         super();
         this.invalidPageSize = invalidPageSize;
     }
 
+    @Override
     public String getMessage() {
-        return MessageUtil.getMessage(exceptionKey, "" + invalidPageSize);
+        return MessageUtil.getMessage(exceptionKey, ""+invalidPageSize);
     }
 }

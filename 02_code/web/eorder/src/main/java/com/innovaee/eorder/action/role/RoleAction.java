@@ -21,11 +21,12 @@ import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Function;
 import com.innovaee.eorder.entity.Role;
 import com.innovaee.eorder.entity.User;
+import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.service.FunctionService;
 import com.innovaee.eorder.service.RoleService;
-import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.Constants;
 import com.innovaee.eorder.utils.MenuUtil;
+import com.innovaee.eorder.utils.MessageUtil;
 import com.innovaee.eorder.utils.StringUtil;
 import com.innovaee.eorder.vo.EOrderUserDetailVO;
 import com.innovaee.eorder.vo.MenuLinkVO;
@@ -168,10 +169,7 @@ public class RoleAction extends BaseAction {
             Set<Function> functions = role.getFunctions();
             List<String> functionNameList = new ArrayList<String>();
             for (Function function : functions) {
-                // 如果不是根节点，则加入功能列表
-                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
-                    functionNameList.add(function.getFunctionName());
-                }
+                functionNameList.add(function.getFunctionName());
             }
             rolevo.setFunctionName(functionNameList.toString());
 
@@ -243,14 +241,20 @@ public class RoleAction extends BaseAction {
         myFunctionSet.addAll(this.getMyFunctions());
         role.setFunctions(myFunctionSet);
 
-        Long newId = roleService.saveRole(role);
-        if (newId != 0) {
-            this.setMessage(MessageUtil.getMessage("add_success"));
-            this.setRoleName("");
-            this.setRoleDesc("");
-            renewPage();
-        } else {
-            this.setMessage(MessageUtil.getMessage("add_failure"));
+        try {
+            Role newRole = roleService.addRole(role);
+            if (null != newRole) {
+                this.setMessage(MessageUtil.getMessage("add_success"));
+                this.setRoleName("");
+                this.setRoleDesc("");
+                renewPage();
+            } else {
+                this.setMessage(MessageUtil.getMessage("add_failure"));
+                return INPUT;
+            }
+        } catch (DuplicateNameException e) {
+            this.setMessage(MessageUtil.getMessage("duplicate_name_exception",
+                    roleName));
             return INPUT;
         }
 
@@ -269,10 +273,7 @@ public class RoleAction extends BaseAction {
         List<Function> leftFunctionList = roleService
                 .findLeftFunctionsByRoleId(Constants.MAX_ID);
         for (Function function : leftFunctionList) {
-            if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
-                leftFunctions.add(function);
-            }
-
+            leftFunctions.add(function);
         }
 
         return SUCCESS;
@@ -368,18 +369,20 @@ public class RoleAction extends BaseAction {
             // 加载用户角色信息
             Set<Function> functionSet = role.getFunctions();
             for (Function function : functionSet) {
-                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
-                    myFunctions.add(function);
-                }
+                // if (Constants.ROOT_FUNCTION != function.getFunctionParent())
+                // {
+                myFunctions.add(function);
+                // }
 
             }
 
             List<Function> leftFunctionList = roleService
                     .findLeftFunctionsByRoleId(Long.parseLong(id));
             for (Function function : leftFunctionList) {
-                if (Constants.ROOT_FUNCTION != function.getFunctionParent()) {
-                    leftFunctions.add(function);
-                }
+                // if (Constants.ROOT_FUNCTION != function.getFunctionParent())
+                // {
+                leftFunctions.add(function);
+                // }
 
             }
 

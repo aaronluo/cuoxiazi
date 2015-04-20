@@ -86,7 +86,6 @@ public class FunctionAction extends BaseAction {
         if (null != id && !"".equals(id.trim())) {
             Function function = functionService
                     .loadFunction(Long.parseLong(id));
-
             functionName = function.getFunctionName();
             functionDesc = function.getFunctionDesc();
             functionPath = function.getFunctionPath();

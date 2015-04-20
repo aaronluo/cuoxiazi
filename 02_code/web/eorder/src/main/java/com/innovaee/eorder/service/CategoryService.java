@@ -6,6 +6,8 @@
  ************************************************/
 package com.innovaee.eorder.service;
 
+import java.util.List;
+
 import com.innovaee.eorder.entity.Category;
 import com.innovaee.eorder.entity.Dish;
 import com.innovaee.eorder.exception.CategoryNotFoundException;
@@ -13,8 +15,6 @@ import com.innovaee.eorder.exception.DuplicateNameException;
 import com.innovaee.eorder.exception.InvalidPageSizeException;
 import com.innovaee.eorder.exception.PageIndexOutOfBoundExcpeiton;
 import com.innovaee.eorder.vo.CategoryVO;
-
-import java.util.List;
 
 /**
  * @Title: CategoryService
@@ -30,6 +30,13 @@ public interface CategoryService {
      * @return 所有分类列表
      */
     public List<Category> getAllCategories();
+
+    /**
+     * 获取保护默认菜品分类的列表
+     * 
+     * @return
+     */
+    public List<Category> getAllCategoriesWithDefault();
 
     /**
      * 根据菜品ID查找菜品列表
@@ -95,17 +102,17 @@ public interface CategoryService {
     /**
      * 根据指定的菜品分类名字查找菜品分类
      * 
-     * @param categoryName
+     * @param name
      *            菜品分类名字
      * @return 菜品分类对象
      * @throws CategoryNotFoundException
      *             菜品分类对象不存在异常
      */
-    public Category getCategoryByName(final String categoryName)
+    public Category getCategoryByName(final String name)
             throws CategoryNotFoundException;
 
     /**
-     * 获取菜品分类分页数据
+     * 获取菜品分类分页数据，不包括默认分类
      * 
      * @param curPage
      *            当前分页
@@ -114,10 +121,26 @@ public interface CategoryService {
      * @return
      * @throws PageIndexOutOfBoundExcpeiton
      *             分页超限异常
-     * @throws InvalidPageSizeException 
+     * @throws InvalidPageSizeException
      */
     public List<Category> getCategoriesByPage(int curPage, int pageSize)
             throws PageIndexOutOfBoundExcpeiton, InvalidPageSizeException;
+
+    /**
+     * 获取菜品分类分页数据，包括默认分类
+     * 
+     * @param curPage
+     *            当前分页
+     * @param pageSize
+     *            分页大小
+     * @return
+     * @throws PageIndexOutOfBoundExcpeiton
+     *             分页超限异常
+     * @throws InvalidPageSizeException
+     */
+    public List<Category> getCategoriesByPageWithDefault(int curPage,
+            int pageSize) throws PageIndexOutOfBoundExcpeiton,
+            InvalidPageSizeException;
 
     /**
      * 根据分页大小，获取总页数
@@ -130,4 +153,12 @@ public interface CategoryService {
      */
     public int getCategoryPageCount(int pageSize)
             throws InvalidPageSizeException;
+
+    /**
+     * 获得总记录条数
+     * 
+     * @return 总记录条数
+     */
+    public Integer count();
+
 }

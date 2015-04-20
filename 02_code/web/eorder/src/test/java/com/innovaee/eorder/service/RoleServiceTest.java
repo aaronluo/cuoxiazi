@@ -1,13 +1,15 @@
 package com.innovaee.eorder.service;
 
-import com.innovaee.eorder.entity.Role;
-import com.innovaee.eorder.vo.RoleVO;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import com.innovaee.eorder.entity.Role;
+import com.innovaee.eorder.exception.DuplicateNameException;
+import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.vo.RoleVO;
 
 /**
  * @Title: RoleServiceTest
@@ -46,36 +48,39 @@ public class RoleServiceTest extends BaseSpringTestCase {
      */
     @Test
     public void operateRole() {
-        // 先新增一个对象
-        Role role = new Role(roleName, roleDesc, roleStatus);
-
-        // 1. 保存
-        Long roleId = roleService.saveRole(role);
-        Role roleNew = roleService.loadRole(roleId);
-
         // 更新属性
         String newRoleName = "RoleName2";
         String newRoleDesc = "RoleDesc2";
-        roleNew.setRoleName(newRoleName);
-        roleNew.setRoleDesc(newRoleDesc);
-        // 2. 更新
-        roleService.updateRole(roleNew);
+        try { // 先新增一个对象
+            Role role = new Role(roleName, roleDesc, roleStatus);
 
-        // 3. 查找
-        // 3.1 根据角色名称查找角色
-        Role roleDB = roleService.findRoleByRoleName(newRoleName);
-        Assert.assertNotNull(roleDB);
-        Assert.assertEquals(newRoleName, roleDB.getRoleName());
-        Assert.assertEquals(newRoleDesc, roleDB.getRoleDesc());
+            // 1. 保存
+            Role roleNew = roleService.addRole(role);
 
-        // 4. 移除
-        roleService.deleteRole(roleNew.getId());
+            roleNew.setRoleName(newRoleName);
+            roleNew.setRoleDesc(newRoleDesc);
+            // 2. 更新
+            roleService.updateRole(roleNew);
 
-        // 3.2 通过角色ID查找角色
-        // 得到新增后的ID
-        Long newRoleId = roleNew.getId();
-        roleDB = roleService.loadRole(newRoleId);
-        Assert.assertNull(roleDB);
+            // 3. 查找
+            // 3.1 根据角色名称查找角色
+            Role roleDB = roleService.findRoleByRoleName(newRoleName);
+            Assert.assertNotNull(roleDB);
+            Assert.assertEquals(newRoleName, roleDB.getRoleName());
+            Assert.assertEquals(newRoleDesc, roleDB.getRoleDesc());
+
+            // 4. 移除
+            roleService.deleteRole(roleNew.getId());
+
+            // 3.2 通过角色ID查找角色
+            // 得到新增后的ID
+            Long newRoleId = roleNew.getId();
+            roleDB = roleService.loadRole(newRoleId);
+            Assert.assertNull(roleDB);
+        } catch (DuplicateNameException e) {
+            LOGGER.error(MessageUtil.getMessage("duplicate_name_exception",
+                    newRoleName));
+        }
     }
 
     /**
