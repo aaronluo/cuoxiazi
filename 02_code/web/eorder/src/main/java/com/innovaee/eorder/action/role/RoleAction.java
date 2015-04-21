@@ -369,21 +369,13 @@ public class RoleAction extends BaseAction {
             // 加载用户角色信息
             Set<Function> functionSet = role.getFunctions();
             for (Function function : functionSet) {
-                // if (Constants.ROOT_FUNCTION != function.getFunctionParent())
-                // {
                 myFunctions.add(function);
-                // }
-
             }
 
             List<Function> leftFunctionList = roleService
                     .findLeftFunctionsByRoleId(Long.parseLong(id));
             for (Function function : leftFunctionList) {
-                // if (Constants.ROOT_FUNCTION != function.getFunctionParent())
-                // {
                 leftFunctions.add(function);
-                // }
-
             }
 
         }

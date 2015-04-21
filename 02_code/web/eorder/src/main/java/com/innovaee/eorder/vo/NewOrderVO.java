@@ -177,6 +177,11 @@ public class NewOrderVO extends BaseVO {
                 ToStringStyle.DEFAULT_STYLE);
     }
 
+    /**
+     * 判断是否为空
+     * 
+     * @return
+     */
     public boolean isEmpty() {
 
         if (orderSeq != null && !this.orderSeq.isEmpty()) {

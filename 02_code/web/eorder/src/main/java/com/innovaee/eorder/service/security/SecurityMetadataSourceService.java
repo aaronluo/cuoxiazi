@@ -82,20 +82,6 @@ public class SecurityMetadataSourceService implements
     }
 
     /**
-     * 根据用户角色ID查找角色功能列表
-     * 
-     * @param roleId
-     *            功能ID
-     * @return 角色功能列表
-     */
-    // public List<RoleFunction> findRoleFunctionsByRoleId(Integer roleId) {
-    // if (LOGGER.isDebugEnabled()) {
-    // LOGGER.debug("根据用户角色ID查找角色功能列表");
-    // }
-    // return roleFunctionDao.findRoleFunctionsByRoleId(roleId);
-    // }
-
-    /**
      * 根据用户名称查找用户功能值对象列表
      * 
      * @param username
@@ -117,8 +103,6 @@ public class SecurityMetadataSourceService implements
                     userFunctionVo.setUser(user);
                     userFunctionVo.setRole(role);
                     userFunctionVo.setFunction(function);
-
-                    // Add one Item
                     userFunctions.add(userFunctionVo);
                 }
             }

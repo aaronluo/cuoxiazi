@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
             BeanUtils.copyProperties(user, userVO);
 
             // 设置用户等级名称
-            // userLevel = userLevelDao.get(user.getLevelId());
             if (null != user.getMemberShip()) {
                 userLevel = user.getMemberShip().getLevel();
             }

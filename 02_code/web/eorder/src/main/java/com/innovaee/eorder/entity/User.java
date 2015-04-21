@@ -68,8 +68,6 @@ public class User extends BaseEntity {
      *            密码
      * @param cellphone
      *            手机号码
-     * @param levelId
-     *            等级ID
      * @param userStatus
      *            用户状态
      */

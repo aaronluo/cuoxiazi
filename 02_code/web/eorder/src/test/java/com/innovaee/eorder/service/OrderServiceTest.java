@@ -48,13 +48,13 @@ public class OrderServiceTest extends BaseSpringTestCase {
         orderCriteria.setOrderSeq(partOrderSeq);
         assertEquals(10, orderService.getOrderCount(orderCriteria));
 
-        long serventId = 1l;
+        long serventId = 1L;
         orderCriteria.setServentId(serventId);
         assertEquals(2, orderService.getOrderCount(orderCriteria));
         orderCriteria.setOrderSeq(null);
         assertEquals(4, orderService.getOrderCount(orderCriteria));
 
-        long memberId = 1l;
+        long memberId = 1L;
         orderCriteria.setMemberId(memberId);
         assertEquals(2, orderService.getOrderCount(orderCriteria));
 
@@ -79,23 +79,7 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
     @Test
     public void orderCountTestTwo() {
-        // 测试无任何查询条件的订单总数
-        // assertEquals(orderService.getOrderCount(null), 12);
-        // 订单序号查询
-        // String partOrderSeq = "20150328";
         NewOrderVO orderCriteria = new NewOrderVO();
-        // orderCriteria.setOrderSeq(partOrderSeq);
-        // assertEquals(10, orderService.getOrderCount(orderCriteria));
-
-        // long serventId = 1l;
-        // orderCriteria.setServentId(serventId);
-        // assertEquals(2, orderService.getOrderCount(orderCriteria));
-        // orderCriteria.setOrderSeq(null);
-        // assertEquals(4, orderService.getOrderCount(orderCriteria));
-        //
-        // long memberId = 1l;
-        // orderCriteria.setMemberId(memberId);
-        // assertEquals(2, orderService.getOrderCount(orderCriteria));
 
         Float minTotalPrice = 410.00f;
         Float maxTotalPrice = 410.00f;
@@ -104,16 +88,6 @@ public class OrderServiceTest extends BaseSpringTestCase {
         orderCriteria.setTotalPriceMax(maxTotalPrice);
 
         assertEquals(3, orderService.getOrderCount(orderCriteria));
-        // orderCriteria.setTotalPriceMax(minTotalPrice);
-        // assertEquals(2, orderService.getOrderCount(orderCriteria));
-        //
-        // orderCriteria = new NewOrderVO();
-        //
-        // orderCriteria.setStatus(Constants.ORDER_PAID);
-        // assertEquals(0, orderService.getOrderCount(orderCriteria));
-        //
-        // orderCriteria.setStatus(Constants.ORDER_NEW);
-        // assertEquals(10, orderService.getOrderCount(orderCriteria));
     }
 
     /**
@@ -128,16 +102,7 @@ public class OrderServiceTest extends BaseSpringTestCase {
         int curPage = 1;
         int pageSize = 5;
 
-        // List<Order> orders = orderService.queryOrders(null, curPage,
-        // pageSize);
-        //
-        // assertNotNull(orders);
-        // assertTrue(12L == orders.get(0).getId());
-        // assertEquals("2015032800010", orders.get(0).getOrderSeq());
-
         NewOrderVO orderCriteria = new NewOrderVO();
-
-        // orderCriteria.setMemberId(1L);
         orderCriteria.setCellphone("9998");
 
         List<Order> orders = orderService.queryOrders(orderCriteria, curPage,
@@ -145,8 +110,6 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         assertNotNull(orders);
         assertEquals(2, orders.size());
-        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
-        // .getLevel().getLevelName());
     }
 
     /**
@@ -169,8 +132,6 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         assertNotNull(orderItems);
         assertEquals(2, orderItems.size());
-        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
-        // .getLevel().getLevelName());
     }
 
     /**
@@ -193,8 +154,6 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         assertNotNull(orderItems);
         assertEquals(5, orderItems.size());
-        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
-        // .getLevel().getLevelName());
     }
 
     @Test
@@ -202,17 +161,7 @@ public class OrderServiceTest extends BaseSpringTestCase {
             PageIndexOutOfBoundExcpeiton {
         int curPage = 1;
         int pageSize = 5;
-
-        // List<Order> orders = orderService.queryOrders(null, curPage,
-        // pageSize);
-        //
-        // assertNotNull(orders);
-        // assertTrue(12L == orders.get(0).getId());
-        // assertEquals("2015032800010", orders.get(0).getOrderSeq());
-
         NewOrderVO orderCriteria = new NewOrderVO();
-
-        // orderCriteria.setMemberId(1L);
         orderCriteria.setCellphone("9955");
 
         List<Order> orders = orderService.queryOrders(orderCriteria, curPage,
@@ -220,8 +169,6 @@ public class OrderServiceTest extends BaseSpringTestCase {
 
         assertNotNull(orders);
         assertEquals(3, orders.size());
-        // assertEquals("钻石会员", orders.get(0).getMember().getMemberShip()
-        // .getLevel().getLevelName());
     }
 
     /**

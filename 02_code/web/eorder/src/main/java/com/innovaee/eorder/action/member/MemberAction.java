@@ -61,16 +61,6 @@ public class MemberAction extends BaseAction {
     private List<UserLevel> levels = new ArrayList<UserLevel>();
     /** 选中会员等级实体 **/
     private UserLevel level = new UserLevel();
-    /**新会员等级积分*/
-//    private int newScore;
-//
-//    public int getNewScore() {
-//        return newScore;
-//    }
-//
-//    public void setNewScore(int newScore) {
-//        this.newScore = newScore;
-//    }
 
     /**
      * 显示特定会员等级下的会员分页列表
@@ -84,7 +74,7 @@ public class MemberAction extends BaseAction {
         refreshMemberList();
         // 刷新菜单
         this.refreshPageData();
-        
+
         return SUCCESS;
     }
 
@@ -116,25 +106,28 @@ public class MemberAction extends BaseAction {
         try {
             level = memberService.getUserLevelById(level.getId());
             // 验证输入用户名是否为手机号
-           
             if (!StringUtil.isMobileNO(user.getCellphone())) {
                 logger.error(MessageUtil.getMessage("cellphone_invalid"));
                 this.setMessage(MessageUtil.getMessage("cellphone_invalid"));
-                
+
                 return ERROR;
             } else {
                 user.setCellphone(user.getCellphone().trim());
-                final User checkUser = userService.findUserByUserName(user.getCellphone());
+                final User checkUser = userService.findUserByUserName(user
+                        .getCellphone());
                 if (null != checkUser) {
-                    if(null == checkUser.getMemberShip()){
-                        memberService.addMemberShipToUser(level.getId(), checkUser.getId(), true);
+                    if (null == checkUser.getMemberShip()) {
+                        memberService.addMemberShipToUser(level.getId(),
+                                checkUser.getId(), true);
                         this.refreshMemberList();
-                        
+
                         return SUCCESS;
-                    }else{
-                        this.setMessage(MessageUtil.getMessage("member_already_exists", 
-                                checkUser.getMemberShip().getLevel().getLevelName()));
-                        return ERROR;          
+                    } else {
+                        this.setMessage(MessageUtil.getMessage(
+                                "member_already_exists", checkUser
+                                        .getMemberShip().getLevel()
+                                        .getLevelName()));
+                        return ERROR;
                     }
                 } else {
                     user.setUsername(user.getCellphone());
@@ -162,7 +155,7 @@ public class MemberAction extends BaseAction {
         }
 
         this.refreshMemberList();
-        
+
         this.setMessage(MessageUtil.getMessage("member_add_success"));
         return SUCCESS;
     }
@@ -173,12 +166,10 @@ public class MemberAction extends BaseAction {
     public String edit() {
         try {
             user = userService.loadUser(user.getId());
-//            level = memberService.getUserLevelById(level.getId());
             level = user.getMemberShip().getLevel();
             levels = memberService.getAllUserLevels();
         } catch (Exception exception) {
             logger.error(exception.getMessage());
-
             setMessage(exception.getMessage());
             return ERROR;
         } finally {
@@ -194,41 +185,45 @@ public class MemberAction extends BaseAction {
      * @return
      */
     public String update() {
-        try{
+        try {
             int newScore = user.getMemberShip().getCurrentScore();
             user = userService.findUserByCellphone(user.getCellphone());
-            
-            if(newScore < 0) {
+
+            if (newScore < 0) {
                 this.setMessage(MessageUtil.getMessage("member_bad_score"));
-                
+
                 return ERROR;
             }
-            
-            if(null != user) {             
-                if(newScore != user.getMemberShip().getCurrentScore() 
-                        || newScore != user.getMemberShip().getLevel().getLevelScore()) {
+
+            if (null != user) {
+                if (newScore != user.getMemberShip().getCurrentScore()
+                        || newScore != user.getMemberShip().getLevel()
+                                .getLevelScore()) {
                     memberService.updateUserMemberShip(user.getId(), newScore);
                 }
-                
             }
-            
-        }catch(Exception exception) {
+        } catch (Exception exception) {
             logger.error(exception.getMessage());
-            
+
             setMessage(exception.getMessage());
             return ERROR;
-        }finally{
+        } finally {
             levels = memberService.getAllUserLevels();
-            level = userService.findUserByCellphone(user.getCellphone()).getMemberShip().getLevel();
+            level = userService.findUserByCellphone(user.getCellphone())
+                    .getMemberShip().getLevel();
             this.refreshMemberList();
             this.refreshPageData();
         }
-        
-        
+
         setMessage(MessageUtil.getMessage("member_update_success"));
         return SUCCESS;
     }
 
+    /**
+     * 删除Action
+     * 
+     * @return
+     */
     public String remove() {
         try {
             user = userService.loadUser(user.getId());
@@ -240,16 +235,15 @@ public class MemberAction extends BaseAction {
 
             level = user.getMemberShip().getLevel();
             memberService.deleteMemberShipOfUser(user.getId());
-            
+
             this.setMessage(MessageUtil.getMessage("member_remove_success"));
         } catch (Exception exception) {
             logger.error(exception.getMessage());
-
             setMessage(exception.getMessage());
             return ERROR;
         } finally {
             levels = memberService.getAllUserLevels();
-            
+
             this.refreshMemberList();
             this.refreshPageData();
         }
@@ -313,16 +307,17 @@ public class MemberAction extends BaseAction {
             // 选择了一个会员等级
             try {
                 count = memberService.getUsersByUserLevelCount(level.getId());
-                
-                if(count == 0) {
-                    if(null == user || null == user.getId() || user.getId() == 0){
+
+                if (count == 0) {
+                    if (null == user || null == user.getId()
+                            || user.getId() == 0) {
                         this.setMessage(MessageUtil.getMessage("member_empty"));
                     }
-                    return ;
+                    return;
                 }
-                
-                pageTotal = memberService.getUsersByUserLevelPageCount(level.getId(),
-                        Constants.PAGE_SIZE);
+
+                pageTotal = memberService.getUsersByUserLevelPageCount(
+                        level.getId(), Constants.PAGE_SIZE);
 
                 if (pageInput != null) {
                     pageNow = pageInput;
@@ -334,24 +329,21 @@ public class MemberAction extends BaseAction {
                     pageNow = pageTotal;
                 }
 
-                users = memberService.getUsersbyUserLevel(level.getId(), pageNow,
-                        Constants.PAGE_SIZE);
-            }catch(PageIndexOutOfBoundExcpeiton exception) {
-//                if(StringUtil.isEmpty(user.getCellphone())){
-                    this.setMessage(MessageUtil.getMessage("member_empty"));
-//                }
-            }
-            catch (Exception exception) {
+                users = memberService.getUsersbyUserLevel(level.getId(),
+                        pageNow, Constants.PAGE_SIZE);
+            } catch (PageIndexOutOfBoundExcpeiton exception) {
+                this.setMessage(MessageUtil.getMessage("member_empty"));
+            } catch (Exception exception) {
                 logger.error(exception.getMessage());
                 this.setMessage(exception.getMessage());
             }
-        } else { 
-                this.setMessage(MessageUtil.getMessage("member_select_level"));
+        } else {
+            this.setMessage(MessageUtil.getMessage("member_select_level"));
         }
-        
+
         this.refreshPageData();
     }
-    
+
     /**
      * 刷新页面数据
      */

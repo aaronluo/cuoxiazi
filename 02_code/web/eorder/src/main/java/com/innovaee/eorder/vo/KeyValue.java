@@ -1,5 +1,5 @@
 /***********************************************
- * Filename        : UserVO.java 
+ * Filename        : KeyValue.java 
  * Copyright      : Copyright (c) 2014
  * Company        : Innovaee
  * Created        : 11/27/2014
@@ -15,10 +15,10 @@ package com.innovaee.eorder.vo;
  */
 public class KeyValue {
 
-    /** 用户名称 */
+    /** 键 */
     private Object key;
 
-    /** 角色名称 */
+    /** 值 */
     private Object value;
 
     public KeyValue() {
