@@ -30,14 +30,16 @@ public class DateConverter extends StrutsTypeConverter {
     @SuppressWarnings("rawtypes")
     @Override
     public Object convertValue(Map context, Object value, Class toType) {
-        if (toType == Date.class) { // 浏览器向服务器提交时，进行String to Date的转换
-            // Date date = null;
+        // 浏览器向服务器提交时，进行String to Date的转换
+        if (toType == Date.class) {
             String dateString = null;
             String[] params = (String[]) value;
-            dateString = params[0];// 获取日期的字符串
+            // 获取日期的字符串
+            dateString = params[0];
             for (DateFormat format : ACCEPT_DATE_FORMATS) {
                 try {
-                    return format.parse(dateString);// 遍历日期支持格式，进行转换
+                    // 遍历日期支持格式，进行转换
+                    return format.parse(dateString);
                 } catch (Exception e) {
                     continue;
                 }
@@ -45,7 +47,8 @@ public class DateConverter extends StrutsTypeConverter {
             return null;
         } else if (toType == String.class) { // 服务器向浏览器输出时，进行Date to String的类型转换
             Date date = (Date) value;
-            return new SimpleDateFormat("yyyy-MM-dd").format(date);// 输出的格式是yyyy-MM-dd
+            // 输出的格式是yyyy-MM-dd
+            return new SimpleDateFormat("yyyy-MM-dd").format(date);
         }
 
         return null;

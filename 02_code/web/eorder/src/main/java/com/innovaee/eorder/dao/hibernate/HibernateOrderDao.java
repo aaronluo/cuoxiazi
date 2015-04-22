@@ -112,13 +112,6 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                     criteria.add(Restrictions.eq("servent.id",
                             orderCriteria.getServentId()));
                 }
-                // 会员ID
-                // if (null != orderCriteria.getMemberId()
-                // && orderCriteria.getMemberId() > 0L) {
-                // criteria.createAlias("member", "member");
-                // criteria.add(Restrictions.eq("member.id",
-                // orderCriteria.getMemberId()));
-                // }
 
                 // 会员号
                 if (orderCriteria.getCellphone() != null
@@ -142,11 +135,11 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                 }
                 if (orderCriteria.getCreateAtMax() != null) {
                     // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期
-                    Date date = orderCriteria.getCreateAtMax();// 取时间
+                    Date date = orderCriteria.getCreateAtMax();
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(date);
-                    calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
-                    // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                    // 把日期往后增加一天.整数往后推,负数往前移动
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
                     criteria.add(Restrictions.lt("createDate",
                             calendar.getTime()));
                 }
@@ -230,13 +223,6 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                             criteria.add(Restrictions.eq("servent.id",
                                     orderCriteria.getServentId()));
                         }
-                        // 会员ID
-                        // if (null != orderCriteria.getMemberId()
-                        // && orderCriteria.getMemberId() > 0L) {
-                        // criteria.createAlias("member", "member");
-                        // criteria.add(Restrictions.eq("member.id",
-                        // orderCriteria.getMemberId()));
-                        // }
 
                         // 会员号
                         if (orderCriteria.getCellphone() != null
@@ -260,11 +246,11 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                         }
                         if (orderCriteria.getCreateAtMax() != null) {
                             // 如果输入了截止日，则把日期加一天，由于数据库存的是时间，前台输入的是日期，所以用后一天的0时进行小于比较
-                            Date date = orderCriteria.getCreateAtMax();// 取时间
+                            Date date = orderCriteria.getCreateAtMax();
                             Calendar calendar = new GregorianCalendar();
                             calendar.setTime(date);
-                            calendar.add(Calendar.DAY_OF_YEAR, 1);// 把日期往后增加一天.整数往后推,负数往前移动
-                            // date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+                            // 把日期往后增加一天.整数往后推,负数往前移动
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
                             criteria.add(Restrictions.lt("createDate",
                                     calendar.getTime()));
                         }
@@ -289,7 +275,6 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                     orderCriteria.getTotalPriceMax()));
                         }
 
-                        // criteria.createAlias("orderItems", "orderItems");
                         criteria.addOrder(org.hibernate.criterion.Order
                                 .desc("this.id"));
                         criteria.setProjection(
@@ -320,7 +305,6 @@ public class HibernateOrderDao extends HibernateBaseDao<Order> implements
                                                 "createDate"))
                                         .add(Property.forName("updateDate").as(
                                                 "updateDate")))
-                        // .add(Property.forName("orderItems").as("orderItems")))
                                 .setResultTransformer(
                                         new AliasToBeanResultTransformer(
                                                 Order.class));

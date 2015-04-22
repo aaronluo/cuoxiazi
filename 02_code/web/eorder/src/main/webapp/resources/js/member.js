@@ -8,8 +8,6 @@ function prePage() {
 	var pageNow = $("#pageNow").val();
 	pageNow = parseInt(pageNow) - 1;
 	$("#pageNow").val(pageNow);
-	// var categoryId = $("#categoryId").val();
-	// $("#categoryId").val(categoryId);
 
 	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
@@ -20,9 +18,6 @@ function nextPage() {
 	var pageNow = $("#pageNow").val();
 	pageNow = parseInt(pageNow) + 1;
 	$("#pageNow").val(pageNow);
-	// var categoryId = $("#categoryId").val();
-	// $("#categoryId").val(categoryId);
-
 	$("[name='pageForm']").attr("action", "list.action");
 	$("[name='pageForm']").attr("method", "post");
 	$("[name='pageForm']").submit();

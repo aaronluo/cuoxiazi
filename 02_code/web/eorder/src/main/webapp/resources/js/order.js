@@ -57,9 +57,6 @@ $(function() {
 	$('#cashierSelect').change(function() {
 		var cashierId = $(this).children('option:selected').val();
 		$("#order\\.cashierId").val(cashierId);
-
-		// var cashierId = $("#order\\.cashierId").val();
-		// alert("cashierId: " + cashierId);
 	});
 
 	var serventId = $("#order\\.serventId").val();
@@ -76,9 +73,6 @@ $(function() {
 	$('#serventSelect').change(function() {
 		var serventId = $(this).children('option:selected').val();
 		$("#order\\.serventId").val(serventId);
-
-		// var serventId = $("#order\\.serventId").val();
-		// alert("serventId: " + serventId);
 	});
 
 	var status = $("#order\\.status").val();
@@ -95,8 +89,6 @@ $(function() {
 	$('#statusSelect').change(function() {
 		var status = $(this).children('option:selected').val();
 		$("#order\\.status").val(status);
-		// var status = $("#order\\.status").val();
-		// alert("status: " + status);
 	});
 
 });

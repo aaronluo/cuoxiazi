@@ -67,8 +67,6 @@ public class HibernateDishDao extends HibernateBaseDao<Dish> implements DishDao 
 
         String paramName = "categoryId";
 
-        // String value = "xiyue";
-
         List list = this.getHibernateTemplate().findByNamedParam(queryString,
                 paramName, categoryId);
         return Integer.parseInt(list.get(0).toString());

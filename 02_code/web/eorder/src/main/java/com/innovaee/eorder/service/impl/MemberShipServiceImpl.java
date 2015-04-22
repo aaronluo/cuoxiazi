@@ -180,7 +180,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
     /**
      * 根据指定的ID获取会员等级
      * 
-     * @param userLevleId
+     * @param userLevelId
      *            会员等级ID
      * @return 会员等级实体
      * @throws UserLevelNotFoundException
@@ -214,10 +214,10 @@ public class MemberShipServiceImpl implements MemberShipServcie {
 
         int userLevelCount = userLevelDao.loadAll().size() - 1;
 
-        if (userLevelCount ==0) {
+        if (userLevelCount == 0) {
             return 0;
         }
-        
+
         return userLevelCount % pageSize == 0 ? userLevelCount / pageSize
                 : userLevelCount / pageSize + 1;
 
@@ -245,12 +245,14 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         }
 
         int startIndex = (curPage - 1) * pageSize;
-        Object[] param = {Constants.DEFAULT_USR_LEVEL};
-        userLevels = userLevelDao.getPage(startIndex, 
-                pageSize,
-                "FROM UserLevel AS level WHERE level.levelStatus=true "
-                        + "AND level.levelName <> ? ORDER BY level.levelScore DESC",
-                param);
+        Object[] param = { Constants.DEFAULT_USR_LEVEL };
+        userLevels = userLevelDao
+                .getPage(
+                        startIndex,
+                        pageSize,
+                        "FROM UserLevel AS level WHERE level.levelStatus=true "
+                                + "AND level.levelName <> ? ORDER BY level.levelScore DESC",
+                        param);
 
         return userLevels;
     }
@@ -365,8 +367,7 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             userLevel = userLevelDao
                     .getNextLevel(memberShip.getLevel().getId());
         } else {
-            userLevel = userLevelDao
-                    .getPreLevel(memberShip.getLevel().getId());
+            userLevel = userLevelDao.getPreLevel(memberShip.getLevel().getId());
         }
         // 不能升级/降级的时候抛出异常
         if (null == userLevel) {
@@ -419,14 +420,15 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             throw new PageIndexOutOfBoundExcpeiton(totalPage, curPage);
         }
 
-        List<User> users = userLevelDao.getUsers(userLevelId, curPage, pageSize);
-        
+        List<User> users = userLevelDao
+                .getUsers(userLevelId, curPage, pageSize);
+
         List<User> result = new ArrayList<User>();
-        
-        for(User user : users) {
+
+        for (User user : users) {
             result.add(userDao.get(user.getId()));
         }
-        
+
         return result;
     }
 
@@ -447,10 +449,10 @@ public class MemberShipServiceImpl implements MemberShipServcie {
             throws UserLevelNotFoundException, InvalidPageSizeException {
         int count = getUsersByUserLevelCount(userLevelId);
 
-        if (count ==0) {
+        if (count == 0) {
             return 0;
         }
-        
+
         return count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
     }
 
@@ -472,20 +474,21 @@ public class MemberShipServiceImpl implements MemberShipServcie {
 
         return userLevelDao.getUsers(userLevleId, 1, Integer.MAX_VALUE).size();
     }
+
     /**
      * 获取指定会员等级的下一级等级
      */
     public UserLevel getNexLevel(Long userLevelId)
             throws UserLevelNotFoundException {
         UserLevel level = this.userLevelDao.get(userLevelId);
-        
-        if(level == null){
-            throw new UserLevelNotFoundException(
-                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
-        } else{
+
+        if (level == null) {
+            throw new UserLevelNotFoundException(MessageUtil.getMessage(
+                    "user_level_id", "" + userLevelId));
+        } else {
             level = userLevelDao.getNextLevel(userLevelId);
         }
-        
+
         return level;
     }
 
@@ -495,14 +498,14 @@ public class MemberShipServiceImpl implements MemberShipServcie {
     public UserLevel getPreLevel(Long userLevelId)
             throws UserLevelNotFoundException {
         UserLevel level = this.userLevelDao.get(userLevelId);
-        
-        if(level == null){
-            throw new UserLevelNotFoundException(
-                    MessageUtil.getMessage("user_level_id", ""+userLevelId));
-        } else{
+
+        if (level == null) {
+            throw new UserLevelNotFoundException(MessageUtil.getMessage(
+                    "user_level_id", "" + userLevelId));
+        } else {
             level = userLevelDao.getPreLevel(userLevelId);
         }
-        
+
         return level;
     }
 
@@ -510,24 +513,26 @@ public class MemberShipServiceImpl implements MemberShipServcie {
         return userLevelDao.getNearestLevel(score);
     }
 
-    public void updateUserMemberShip(Long userId, int newScore) throws UserNotFoundException {
+    public void updateUserMemberShip(Long userId, int newScore)
+            throws UserNotFoundException {
         User user = userDao.get(userId);
-        
-        if(null == user) {
-            throw new UserNotFoundException(MessageUtil.getMessage("user_id", "" + userId));
-        } else{
+
+        if (null == user) {
+            throw new UserNotFoundException(MessageUtil.getMessage("user_id",
+                    "" + userId));
+        } else {
             MemberShip memberShip = user.getMemberShip();
             UserLevel newLevel = this.getNearestLevel(newScore);
-            
-            if(null != newLevel) {
+
+            if (null != newLevel) {
                 memberShip.setLevel(newLevel);
             }
-            
+
             memberShip.setCurrentScore(newScore);
-            
+
             memberShipDao.update(memberShip);
         }
-                
+
     }
 
     public UserLevelDao getUserLevelDao() {

@@ -64,9 +64,7 @@ public class RoleServiceImpl implements RoleService {
             for (Function tempFunction : functions) {
                 // 查找功能（权限）名称
                 function = functionDao.get(tempFunction.getId());
-                // if (0 != function.getFunctionParent()) {
                 functionNames.add(function.getFunctionName());
-                // }
             }
             roleVO.setFunctionName(functionNames.toString());
 
@@ -117,9 +115,9 @@ public class RoleServiceImpl implements RoleService {
             role.setCreateDate(createAt);
             newId = roleDao.save(role);
             if (0L != newId) {
-                
+
                 role.setId(newId);
-            } 
+            }
         } else {
             // 有重名菜品，抛出异常
             throw new DuplicateNameException(role.getRoleName());
@@ -163,19 +161,13 @@ public class RoleServiceImpl implements RoleService {
         if (null != role) {
             Set<Function> functionSet = role.getFunctions();
             for (Function function : functionSet) {
-                // 过滤Root类型的功能(functionParen为0)
-                // if (0 != function.getFunctionParent()) {
                 functions.add(function);
-                // }
             }
         }
 
         List<Function> allFunctions = functionDao.loadAll();
         for (Function functionDB : allFunctions) {
-            // 过滤Root类型的功能(functionParen为0)
-            // if (0 != functionDB.getFunctionParent()) {
             leftFunctions.add(functionDB);
-            // }
         }
 
         leftFunctions.removeAll(functions);
