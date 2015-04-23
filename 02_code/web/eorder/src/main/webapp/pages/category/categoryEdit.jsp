@@ -91,8 +91,6 @@
 						src='../resources/images${category.picPath}'></li>
 					<li><label>&nbsp;&nbsp;</label><input id="btnSave" name="btnUpdate"
 						type="button" class="btn" onclick="updateBack();"
-						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input id="btnSave" name="btnUpdate"
-						type="button" class="btn" onclick="updateBack();"
 						value="<s:text name='back_to_preview' />" />&nbsp;&nbsp;&nbsp;&nbsp;<input
 						name="" type="button" class="btn" style="width: 130px;"
 						onclick="update();" value="<s:text name='confirm_save' />" /></li>

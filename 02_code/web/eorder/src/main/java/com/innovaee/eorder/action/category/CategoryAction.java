@@ -66,6 +66,18 @@ public class CategoryAction extends BaseAction {
      * 
      * @return
      */
+    public String category() {
+        getCategoryList();
+        // 刷新系统菜单
+        refreshPageData();
+        return SUCCESS;
+    }
+
+    /**
+     * 进入菜单分类页面
+     * 
+     * @return
+     */
     public String list() {
         getCategoryList();
         // 刷新系统菜单

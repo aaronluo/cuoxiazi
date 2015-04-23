@@ -9,6 +9,12 @@
                 class="org.apache.struts2.views.tiles.TilesResult" />
         </result-types>
 
+        <action name="category" class="com.innovaee.eorder.action.category.CategoryAction"
+            method="category">
+            <result name="error" type="tiles">category</result>
+            <result type="tiles">category</result>
+        </action>
+
         <action name="list" class="com.innovaee.eorder.action.category.CategoryAction"
             method="list">
             <result name="error" type="tiles">category</result>

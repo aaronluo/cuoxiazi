@@ -15,9 +15,10 @@
         <action name="doLogin" class="com.innovaee.eorder.action.login.LoginAction"
             method="doLogin">
             <result name="success" type="redirectAction">
-                <param name="namespace">/user</param>
-                <param name="actionName">user</param>
+                <param name="namespace">/${nextNamespace}</param>
+                <param name="actionName">${nextAction}</param>
             </result>
+            <result name="error">/pages/main/login.jsp</result>
         </action>
 
         <action name="doLogout" class="com.innovaee.eorder.action.login.LoginAction"
