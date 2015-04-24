@@ -1,3 +1,18 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50525
+Source Host           : localhost:3306
+Source Database       : eorder
+
+Target Server Type    : MYSQL
+Target Server Version : 50525
+File Encoding         : 65001
+
+Date: 2015-04-24 16:21:53
+*/
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -130,12 +145,12 @@ CREATE TABLE `t_function` (
 -- ----------------------------
 -- Records of t_function
 -- ----------------------------
-INSERT INTO `t_function` VALUES ('1', '用户权限', 'Administration', 'icon01.png', '', '0', '010000', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('1', '权限管理', 'FunctionAdmin', 'icon01.png', '', '0', '010000', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('2', '权限管理', 'Function', null, '/function/function.action', '1', '010300', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('3', '角色管理', 'Role', null, '/role/role.action', '1', '010200', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('4', '用户管理', 'User', null, '/user/user.action', '1', '010100', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('5', '菜单菜品', 'DishAdmin', 'icon02.png', '/category/category.action', '0', '020000', '1', '2014-12-12 13:26:01', null);
-INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/list.action', '5', '020100', '1', '2014-12-12 13:26:01', null);
+INSERT INTO `t_function` VALUES ('6', '菜品分类管理', 'Category', null, '/category/category.action', '5', '020100', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('7', '菜品管理', 'Dish', null, '/dish/dish.action', '5', '020200', '1', '2014-12-12 13:26:01', null);
 INSERT INTO `t_function` VALUES ('8', '收银流水', 'CashAdmin', 'icon03.png', '/cash/cash.action', '0', '20150420231158', '1', '2015-04-20 23:11:58', null);
 INSERT INTO `t_function` VALUES ('9', '收银', 'Cash', null, '/cash/cash.action', '8', '20150420231221', '1', '2015-04-20 23:12:21', null);
@@ -227,7 +242,7 @@ CREATE TABLE `t_role` (
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_role_name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role
@@ -238,6 +253,7 @@ INSERT INTO `t_role` VALUES ('3', '收银流水管理员', '收银流水管理�
 INSERT INTO `t_role` VALUES ('4', '点餐员', '点餐员', '1', '2015-04-20 11:30:52', null);
 INSERT INTO `t_role` VALUES ('5', '收银员', '收银员', '1', '2015-04-20 11:31:08', null);
 INSERT INTO `t_role` VALUES ('6', '会员管理员', '会员管理员', '1', '2015-04-20 11:31:24', null);
+INSERT INTO `t_role` VALUES ('7', '流水查看', '流水查看员', '1', '2015-04-23 01:02:28', null);
 
 -- ----------------------------
 -- Table structure for `t_role_function`
@@ -250,7 +266,7 @@ CREATE TABLE `t_role_function` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_role_function
@@ -265,14 +281,16 @@ INSERT INTO `t_role_function` VALUES ('7', '2', '7', '2014-12-12 12:26:45', null
 INSERT INTO `t_role_function` VALUES ('8', '3', '8', null, null);
 INSERT INTO `t_role_function` VALUES ('9', '3', '9', null, null);
 INSERT INTO `t_role_function` VALUES ('10', '3', '10', null, null);
-INSERT INTO `t_role_function` VALUES ('11', '4', '9', null, null);
-INSERT INTO `t_role_function` VALUES ('12', '4', '10', null, null);
 INSERT INTO `t_role_function` VALUES ('13', '5', '9', null, null);
 INSERT INTO `t_role_function` VALUES ('14', '5', '8', null, null);
 INSERT INTO `t_role_function` VALUES ('15', '5', '10', null, null);
 INSERT INTO `t_role_function` VALUES ('16', '6', '11', null, null);
 INSERT INTO `t_role_function` VALUES ('17', '6', '12', null, null);
 INSERT INTO `t_role_function` VALUES ('18', '6', '13', null, null);
+INSERT INTO `t_role_function` VALUES ('19', '7', '8', null, null);
+INSERT INTO `t_role_function` VALUES ('20', '7', '10', null, null);
+INSERT INTO `t_role_function` VALUES ('21', '4', '8', null, null);
+INSERT INTO `t_role_function` VALUES ('22', '4', '10', null, null);
 
 -- ----------------------------
 -- Table structure for `t_user`
@@ -291,7 +309,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `index_username` (`username`),
   KEY `index_cellphone` (`cellphone`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of t_user
@@ -307,6 +325,11 @@ INSERT INTO `t_user` VALUES ('8', '收银员A', '78a654f440ee8d8a0b635f1d93b3380
 INSERT INTO `t_user` VALUES ('9', '收银员B', 'f9644cb34c3e9d5f18cbca4b69d9ceba', '13988887778', '0', '1', null, null, null);
 INSERT INTO `t_user` VALUES ('10', '收银员C', '5c614e7668e147dd9af7e6548afe175d', '13988887779', '0', '1', null, null, null);
 INSERT INTO `t_user` VALUES ('11', '13988887770', 'fa4c7e236ff8f888fb61be6bcb9421af', '13988887770', '0', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('12', '12345', '745966536bed050935a5adbe3dd378e1', '13988887733', '0', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('13', '1234', 'ba8595896ca2c2866f385fc10903bd29', '13988887712', '0', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('14', '1212', '91b1e9564884bd04a50eac1c70c86e59', '13988887721', '0', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('15', '12121', 'fadadb7b33a483d0bc01ea81e8b604cd', '13988887710', '0', '1', null, null, null);
+INSERT INTO `t_user` VALUES ('16', 'abcd', '3e8c66c245c9cf2769741a3bb2264776', '13945674567', '0', '1', null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_user_level`
@@ -343,7 +366,7 @@ CREATE TABLE `t_user_role` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_role
@@ -362,3 +385,12 @@ INSERT INTO `t_user_role` VALUES ('13', '8', '5', null, null);
 INSERT INTO `t_user_role` VALUES ('14', '9', '5', null, null);
 INSERT INTO `t_user_role` VALUES ('15', '10', '5', null, null);
 INSERT INTO `t_user_role` VALUES ('16', '11', '1', null, null);
+INSERT INTO `t_user_role` VALUES ('17', '12', '1', null, null);
+INSERT INTO `t_user_role` VALUES ('18', '13', '2', null, null);
+INSERT INTO `t_user_role` VALUES ('19', '13', '6', null, null);
+INSERT INTO `t_user_role` VALUES ('20', '13', '5', null, null);
+INSERT INTO `t_user_role` VALUES ('21', '13', '4', null, null);
+INSERT INTO `t_user_role` VALUES ('22', '13', '3', null, null);
+INSERT INTO `t_user_role` VALUES ('24', '14', '4', null, null);
+INSERT INTO `t_user_role` VALUES ('25', '15', '4', null, null);
+INSERT INTO `t_user_role` VALUES ('26', '16', '4', null, null);
