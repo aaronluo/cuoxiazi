@@ -30,7 +30,7 @@
 									<s:else>
 										<td><div class="divgreen">
 												<s:property value="key" />
-											</div</td>
+											</div></td>
 									</s:else>
 									</td>
 								</s:if>
