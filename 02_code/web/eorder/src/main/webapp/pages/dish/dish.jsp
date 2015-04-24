@@ -82,6 +82,7 @@
 								<form name="pageForm" id="pageForm">
 									<s:hidden id="pageNow" name="pageNow" />
 									<s:hidden id="pageTotal" name="pageTotal" />
+									<s:hidden id="categoryId" name="categoryId" />
 									<ul class="paginList" style="margin-right: -12px">
 										<li class="paginItem"><s:if test="pageNow == 1">
 												<span class="pagepre01">&nbsp;&nbsp;</span>
