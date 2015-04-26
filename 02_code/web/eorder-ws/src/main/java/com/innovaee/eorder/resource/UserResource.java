@@ -117,6 +117,8 @@ public class UserResource {
                 orderVO.setId(order.getId());
                 orderVO.setTotalPrice(order.getTotalPrice());
                 orderVO.setCreateAt(order.getCreateDate());
+                orderVO.setOrderSeq(order.getOrderSeq());
+                
                 orderVOs.add(orderVO);
             }
             

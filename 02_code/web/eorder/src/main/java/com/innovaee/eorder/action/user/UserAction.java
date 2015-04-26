@@ -20,7 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.innovaee.eorder.action.BaseAction;
 import com.innovaee.eorder.entity.Role;
 import com.innovaee.eorder.entity.User;
-import com.innovaee.eorder.entity.UserLevel;
+//import com.innovaee.eorder.entity.UserLevel;
 import com.innovaee.eorder.service.RoleService;
 import com.innovaee.eorder.service.UserLevelService;
 import com.innovaee.eorder.service.UserService;
@@ -291,7 +291,6 @@ public class UserAction extends BaseAction {
             return INPUT;
         }
 
-        user.setLevelId(Constants.DEFAULT_LEVEL);
         user.setUserStatus(true);
 
         Set<Role> myRoleSet = new HashSet<Role>();
@@ -426,19 +425,15 @@ public class UserAction extends BaseAction {
         }
 
         UserVO uservo = null;
-        UserLevel userLevel = null;
         for (User user : users) {
             uservo = new UserVO();
             BeanUtils.copyProperties(user, uservo);
-            userLevel = userLevelService.loadUserLevel(user.getLevelId());
-
             Set<Role> roles = user.getRoles();
             List<String> roleNameList = new ArrayList<String>();
             for (Role role : roles) {
                 roleNameList.add(role.getRoleName());
             }
             uservo.setRoleName(roleNameList.toString());
-            uservo.setLevelName(userLevel.getLevelName());
             uservos.add(uservo);
         }
     }

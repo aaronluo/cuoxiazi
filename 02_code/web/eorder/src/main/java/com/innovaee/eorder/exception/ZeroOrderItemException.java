@@ -8,7 +8,7 @@
 package com.innovaee.eorder.exception;
 
 import com.innovaee.eorder.exception.BaseException;
-import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.support.MessageUtil;
 
 /**
  * @Title: ZeroOrderItemException
@@ -31,7 +31,7 @@ public class ZeroOrderItemException extends BaseException {
         
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey);
     }

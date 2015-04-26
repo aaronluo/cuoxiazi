@@ -128,12 +128,12 @@ html {
 }
 
 .rightinfo {
-	width: 80%;
+	width: 100%;
 }
 
 .twoinput {
 	width: 35px;
-	height: 33px;
+	height: 30px;
 	line-height: 33px;
 	border-top: solid 1px #a7b5bc;
 	border-left: solid 1px #a7b5bc;
@@ -141,4 +141,200 @@ html {
 	border-bottom: solid 1px #ced9df;
 	background: url(../images/inputbg.gif) repeat-x;
 	text-indent: 10px;
+}
+
+.tablePanel {
+	width: 70%;
+	float: left;
+}
+
+.msgPanel {
+	width: 20%;
+	margin-right: 55px;
+	float: right;
+	height: 120px;
+	color: red;
+	font-weight: bold;
+	font-size: 15px
+}
+
+.orderItemTablePanel {
+	width: 340px;
+	float: left;
+}
+
+.orderItemTablePanel table {
+	border: solid 1px #cbcbcb;
+	width: 100%;
+	clear: both;
+}
+
+.orderItemTablePanel table th {
+	background: url(../images/th.gif) repeat-x;
+	height: 34px;
+	line-height: 34px;
+	border-bottom: solid 1px #b6cad2;
+	text-indent: 11px;
+	text-align: left;
+}
+
+.orderItemTablePanel table td {
+	line-height: 35px;
+	text-indent: 11px;
+	border-right: dotted 1px #c7c7c7;
+}
+
+.orderItemPanel {
+	width: 60%;
+	margin-right: 55px;
+	float: right;
+	height: 120px;
+	font-weight: bold;
+	font-size: 15px
+}
+
+.popwindow {
+	width: 400px;
+	background-color: #ee9154;
+	position: absolute;
+	padding: 2px;
+	margin: 5px;
+	display: none;
+}
+
+.popcontent {
+	height: 120px;
+	background-color: #FFF;
+	font-size: 14px;
+	/*overflow: auto;*/
+}
+
+.poptitle {
+	padding: 2px;
+	/*color: #0CF;*/
+	font-size: 14px;
+}
+
+.poptitle img {
+	float: right;
+}
+
+.pop_print_window {
+	width: 550px;
+	background-color: #ee9154;
+	position: absolute;
+	padding: 2px;
+	margin: 5px;
+	display: none;
+	/*overflow: scroll;*/
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.pop_print_content {
+	/* width: 420px; */
+	background-color: #FFF;
+	font-size: 14px;
+	/*overflow: auto;*/
+}
+
+.pop_print_title {
+	padding: 2px;
+	/*color: #0CF;*/
+	font-size: 14px;
+}
+
+.pop_print_title img {
+	float: right;
+}
+
+.divgreen {
+	padding: 5px;
+	margin: 5px;
+	width: 64px;
+	height: 64px;
+	line-height: 64px; /* 和height一致，使文字垂直居中*/
+	overflow: hidden;
+	background-color: #0F0;
+	text-align: center; /* 使文字水平居中*/
+	overflow: hidden;
+	font-size: 26px;
+}
+
+.divred {
+	padding: 5px;
+	margin: 5px;
+	width: 64px;
+	height: 64px;
+	line-height: 64px;
+	overflow: hidden;
+	background-color: #F00;
+	text-align: center;
+	overflow: hidden;
+	font-size: 26px;
+}
+
+.print_page_title {
+	background: url(../images/tbg.png) repeat-x;
+	height: 36px;
+	line-height: 36px;
+	border-bottom: solid 1px #d3dbde;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+	/*	text-indent: 24px;*/
+}
+
+.labelvalue {
+	width: 160px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../images/inputbg.gif) repeat-x;
+	text-indent: 2px;
+}
+
+/*seachform*/
+.print_label {
+	height: 42px;
+	padding-left: 40px;
+}
+
+.print_label li {
+	float: left;
+	/*margin-right: 15px;
+	background-color: #00ff00;*/
+}
+
+.print_label li label {
+	/*background-color: #804000;
+	padding-right: 10px;*/
+	width: 50px;
+	/*background-color: blue;*/
+	line-height: 32px;
+	float: left;
+	margin-right: 2px;
+	text-align: right;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+.print_tablelist {
+	border: solid 1px #cbcbcb;
+	width: 100%;
+	clear: both;
+}
+
+.print_tablelist th {
+	background: url(../images/th.gif) repeat-x;
+	height: 34px;
+	line-height: 34px;
+	border-bottom: solid 1px #b6cad2;
+	text-indent: 11px;
+	text-align: left;
+}
+
+.print_tablelist td {
+	line-height: 35px;
+	text-indent: 11px;
+	border-right: dotted 1px #c7c7c7;
 }

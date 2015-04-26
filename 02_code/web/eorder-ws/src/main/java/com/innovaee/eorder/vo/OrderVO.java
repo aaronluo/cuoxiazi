@@ -26,6 +26,8 @@ public class OrderVO extends BaseVO {
     /** 订单时间 */
     private Date createAt;
 
+    /** 订单流水号 */
+    private String orderSeq;
     /**
      * 默认构造函数
      */
@@ -45,6 +47,14 @@ public class OrderVO extends BaseVO {
         super();
         this.totalPrice = totalPrice;
         this.createAt = createAt;
+    }
+
+    public String getOrderSeq() {
+        return orderSeq;
+    }
+
+    public void setOrderSeq(String orderSeq) {
+        this.orderSeq = orderSeq;
     }
 
     public float getTotalPrice() {

@@ -129,8 +129,8 @@ public class OrderResource {
             callResult.setResult(Constants.FALSE);
             callResult.setMessage(exception.getMessage());
         }
-        // |
-        // |
+
+        
         return callResult;
     }
 

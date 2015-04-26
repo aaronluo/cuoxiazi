@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @Title: Dish
  * @Description: 菜品实体
@@ -33,7 +36,7 @@ public class Dish extends BaseEntity {
     private String picPath;
 
     /** 菜品价格 */
-    private float price;
+    private Float price;
 
     /** 在售状态 */
     private boolean onSell;
@@ -60,7 +63,7 @@ public class Dish extends BaseEntity {
      * @param price
      *            菜品价格
      */
-    public Dish(String name, String picPath, float price) {
+    public Dish(String name, String picPath, Float price) {
         super();
         this.name = name;
         this.picPath = picPath;
@@ -89,11 +92,11 @@ public class Dish extends BaseEntity {
 
     @Basic
     @Column(name = "DISH_PRICE")
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -125,5 +128,10 @@ public class Dish extends BaseEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.SIMPLE_STYLE);
     }
 }

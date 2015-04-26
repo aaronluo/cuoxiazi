@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.exception;
 
-import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.support.MessageUtil;
 
 /**
  * @Title: UserNotFoundException

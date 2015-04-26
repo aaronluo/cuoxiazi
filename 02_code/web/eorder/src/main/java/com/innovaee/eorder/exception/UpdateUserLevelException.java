@@ -7,7 +7,7 @@
 
 package com.innovaee.eorder.exception;
 
-import com.innovaee.eorder.utils.MessageUtil;
+import com.innovaee.eorder.support.MessageUtil;
 
 /**
  * @Title: UpdateUserLevelException
@@ -30,7 +30,7 @@ public class UpdateUserLevelException extends BaseException {
         this.operationOnUserlevel = operationOnUserlevel;
     }
     
-    
+    @Override
     public String getMessage() {
         return MessageUtil.getMessage(exceptionKey, operationOnUserlevel);
     }
