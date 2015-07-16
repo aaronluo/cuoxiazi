@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="layout" template="/pages/main/layout.jsp">
+        <put-attribute name="title" value="/pages/main/title.jsp" />
+        <put-attribute name="header" value="/pages/main/header.jsp" />
+        <put-attribute name="menu" value="/pages/main/menu.jsp" />
+        <put-attribute name="body" value="/pages/main/body.jsp" />
+        <put-attribute name="footer" value="/pages/main/footer.jsp" />
+    </definition>
+
+    <definition name="layoutbody" template="/pages/main/layoutbody.jsp">
+        <put-attribute name="title" value="/pages/main/title.jsp" />
+        <put-attribute name="body" value="/pages/main/body.jsp" />
+    </definition>
+
+    <definition name="user" extends="layout">
+        <put-attribute name="body" value="/pages/user/user.jsp" />
+    </definition>
+
+    <definition name="role" extends="layout">
+        <put-attribute name="body" value="/pages/role/role.jsp" />
+    </definition>
+
+    <definition name="function" extends="layout">
+        <put-attribute name="body" value="/pages/function/function.jsp" />
+    </definition>
+
+    <definition name="dish" extends="layout">
+        <put-attribute name="body" value="/pages/dish/dish.jsp" />
+    </definition>
+    <definition name="category" extends="layout">
+        <put-attribute name="body" value="/pages/category/category.jsp" />
+    </definition>
+
+    <definition name="categoryEdit" extends="layout">
+        <put-attribute name="body" value="/pages/category/categoryEdit.jsp" />
+    </definition>
+    <definition name="dishEdit" extends="layout">
+        <put-attribute name="body" value="/pages/dish/dishEdit.jsp" />
+    </definition>
+
+    <definition name="functionEdit" extends="layout">
+        <put-attribute name="body" value="/pages/function/functionEdit.jsp" />
+    </definition>
+
+    <definition name="roleEdit" extends="layout">
+        <put-attribute name="body" value="/pages/role/roleEdit.jsp" />
+    </definition>
+
+    <definition name="userEdit" extends="layout">
+        <put-attribute name="body" value="/pages/user/userEdit.jsp" />
+    </definition>
+
+    <definition name="order" extends="layout">
+        <put-attribute name="body" value="/pages/order/order.jsp" />
+    </definition>
+
+    <definition name="cash" extends="layout">
+        <put-attribute name="body" value="/pages/cash/cash.jsp" />
+    </definition>
+
+    <definition name="cashEdit" extends="layout">
+        <put-attribute name="body" value="/pages/cash/cashEdit.jsp" />
+    </definition>
+
+    <definition name="upload" extends="layoutbody">
+        <put-attribute name="body" value="/pages/upload/upload.jsp" />
+    </definition>
+
+    <definition name="print" extends="layoutbody">
+        <put-attribute name="body" value="/pages/cash/cashPrint.jsp" />
+    </definition>
+
+    <definition name="listLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/level.jsp" />
+    </definition>
+
+    <definition name="addLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/levelEdit.jsp" />
+    </definition>
+
+    <definition name="editLevel" extends="layout">
+        <put-attribute name="body" value="/pages/member/levelEdit.jsp" />
+    </definition>
+
+    <definition name="listMember" extends="layout">
+        <put-attribute name="body" value="/pages/member/member.jsp" />
+    </definition>
+
+    <definition name="editMember" extends="layout">
+        <put-attribute name="body" value="/pages/member/memberEdit.jsp" />
+    </definition>
+
+</tiles-definitions>
