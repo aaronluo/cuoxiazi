@@ -13,8 +13,7 @@
 
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
             + path;
 %>
 <link type="text/css" href="../resources/css/style.css" rel="stylesheet" />
@@ -50,9 +49,8 @@
 						class="loginpwd" onclick="JavaScript:this.value=''" /></li>
 					<li><input type="submit" class="loginbtn"
 						value="<s:text name='login' />" onclick="javascript:loginForm.submit();" /><label><input
-							name="" type="checkbox" value="" checked="checked" /> <s:text
-								name="remember_password" /></label><label><a href="#"><s:text
-									name="forget_password" /></a></label></li>
+							type="checkbox" checked="checked" name='_spring_security_remember_me' />
+							<s:text name="remember_password" /></label></li>
 					<li><div class="row" style="height: 120px">
 							<div class="eorder-form-login">
 								<s:actionmessage />

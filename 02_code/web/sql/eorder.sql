@@ -1,6 +1,18 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
+-- Table structure for `persistent_logins`
+-- ----------------------------
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `series` varchar(64) COLLATE utf8_bin NOT NULL,
+  `token` varchar(64) COLLATE utf8_bin NOT NULL,
+  `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`series`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
 -- Table structure for `t_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_category`;

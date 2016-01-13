@@ -18,7 +18,8 @@
             authentication-failure-url="/login/login.action?error=true"
             default-target-url="/login/doLogin.action" />
         <logout logout-success-url="/default.html" />
-        <remember-me />
+        <remember-me data-source-ref="dataSource"
+            token-validity-seconds="1209600" />
         <session-management invalid-session-url="/default.html">
             <concurrency-control max-sessions="1"
                 error-if-maximum-exceeded="true" />
